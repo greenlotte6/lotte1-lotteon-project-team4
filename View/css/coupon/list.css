@@ -27,6 +27,7 @@ body {
     background-color: #e45450;
 }
 
+
 .wrapper-suv {
     width: 1200px;
     height: auto;
@@ -51,33 +52,35 @@ body {
     margin-top: 85px;
 }
 .table-wrapper {
-    width: 100%;
+    width: 940px;
+    margin: 0 auto;
     padding: 20px 0;
 }
 table {
-    border-collapse: separate; 
+    border-collapse: collapse;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  table th,
+  table td {
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
     text-align: center;
-    border-spacing: 0; 
-}
-table th{
-    font-size: 12px;
-    font-weight: 700;
-    border-top: 2px solid black;
-    border-bottom: 1px solid black;
-    padding: 18px;
-}
+  }
+  
+  table th {
+    background-color: #f5f5f5;
+    color: #333;
+  }
+  
 
-table td {
-    border-bottom: 1px solid black;
-    padding: 18px;
-    font-size: 12px;
-    font-weight: 400;
-}
 .end {
     border: 1px solid #0070c0;
     display: inline-block;
     padding: 3px 6px;
     color: #0070c0;
+    box-sizing: border-box;
 }
 
 .end2 {
@@ -95,8 +98,9 @@ table td {
 }
 
 .pagination-wrapper {
-    width: 1200px;
-    margin: 20px auto 0 auto; /* 테이블과 간격 유지 */
+    width: 940px;
+    margin: 0 auto;
+    /*margin: 20px auto 0 auto; /* 테이블과 간격 유지 */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -104,6 +108,8 @@ table td {
 }
 
 .pagination {
+    width: 100%;
+    margin: 0 auto;
     display: flex;
     gap: 8px;
 }
@@ -220,3 +226,4 @@ table td {
     cursor: pointer;
     font-size: 15px;
 }
+
