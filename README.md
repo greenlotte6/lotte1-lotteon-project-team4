@@ -1,4 +1,4 @@
-# 🛍️ LOTTE ON 쇼핑몰 개벌 프로젝트 (lotte1-lotteon-project-team4)
+# 🛍️ LOTTE ON 쇼핑몰 개발 프로젝트 (lotte1-lotteon-project-team4)
 
 ## 📌 프로젝트 명
 **롯데e-커머스 LOTTE ON 온라인 쇼핑몰 개발**  
