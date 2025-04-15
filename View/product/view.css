@@ -6,17 +6,36 @@
     font-family: 'Noto Sans KR', sans-serif;
 }
 
+main {
+    margin-top: 200px;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .content {
     display: flex;
     max-width: 1200px;
     margin: 0 auto;
     font-family: 'Noto Sans KR', sans-serif;
+    padding-left: 0; /* 기존 270px 삭제 */
 }
 
 .sidebar {
+    position: sticky; /* 또는 absolute */
+    top: 273px;
     width: 250px;
-    padding: 20px;
+    background-color: #fff;
+    z-index: 900;
     border-right: 1px solid #ddd;
+    margin-right: 40px;
 }
 
 .best-items {
@@ -101,20 +120,339 @@
     padding-bottom: 10px;
 }
 
-
-
 .discount {
     color: red;
-    margin-left: 5px;
+    margin-right: 8px;
     font-size: 15px;
+    font-weight: bold;
 }
 
 .now {
     font-size: 16px;
 }
 
-.best{
+.best {
     font-size: 25px;
     font-weight: bold;
 }
 
+.product-detail-wrap {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    margin: 30px 0;
+}
+
+.product-image {
+    width: 400px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.product-info {
+    width: 100%;
+    max-width: 550px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.product-code {
+    color: #666;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.company-name {
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.company-line {
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    vertical-align: middle;
+}
+
+.product-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+}
+
+.product-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.company {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.link {
+    font-weight: normal;
+    color: #3366cc;
+    margin-left: 5px;
+    font-size: 18px;
+}
+
+.rating {
+    color: gold;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.delivery-arrive {
+    font-size: 18px;
+}
+
+.price-box {
+    border-bottom: 1px solid #ddd;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+.badge {
+    background-color: #ff4d4d;
+    color: #fff;
+    font-size: 16px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 20px;
+}
+
+.final-price {
+    font-size: 22px;
+    font-weight: 500;
+    color: #000;
+}
+
+.delivery-info {
+    font-size: 13px;
+    border-bottom: 1px solid #ddd;
+}
+
+.delivery-info .free {
+    color: #3366cc;
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+.only {
+    font-size: 16px;
+    color: #777;
+}
+
+.option-box {
+    margin-bottom: 20px;
+}
+
+.quantity-box {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: #f4f5f7;
+    font-size: 16px;
+}
+
+.qty-btn {
+    width: 32px;
+    height: 36px;
+    border: none;
+    background-color: #f4f5f7;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.qty-input {
+    width: 50px;
+    height: 36px;
+    border: none;
+    text-align: center;
+    font-size: 16px;
+    background-color: #fff;
+
+    /* 숫자 화살표 제거 */
+    -moz-appearance: textfield;
+}
+
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.option-box .tip {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.option-box select {
+    width: 200px;
+    padding: 8px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 18px;
+    border: 3px solid #ccc;
+}
+
+.selected-option {
+    align-items: center;
+    font-size: 18px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.sel-top {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.sel-bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+.selected-option input {
+    width: 50px;
+    padding: 4px;
+    text-align: center;
+}
+
+.total-price {
+    color: #000;
+    font-size: 18px;
+}
+
+.total-box {
+    padding: 10px;
+    font-size: 16px;
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: flex-end;
+}
+
+.total-box strong {
+    font-weight: bold;
+    color: #000;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.button-group .cart {
+    flex: 1;
+    background-color: #ccc;
+    color: #333;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.button-group .buy {
+    flex: 1;
+    background-color: #3366cc;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.banner img {
+    width: 100%;
+    height: auto;
+    border: 1px solid #eee;
+}
+
+/* 상세정보 */
+.product-detail {
+    clear: both;
+    margin-top: 50px;
+    padding: 20px;
+    border-top: 2px solid #000;
+}
+
+.detail-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.detail-content img {
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.product-info-notice {
+    margin: 50px auto;
+    max-width: 1000px;
+    padding: 20px;
+    border-top: 2px solid #000;
+}
+
+.info-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.info-table th,
+.info-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.info-table th {
+    background-color: #f7f7f7;
+    font-weight: bold;
+    text-align: left;
+    width: 20%;
+}
+
+.info-desc {
+    font-size: 13px;
+    color: #555;
+    margin-top: 15px;
+}
