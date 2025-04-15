@@ -7,7 +7,7 @@
 }
 
 main {
-    margin-top: 200px;
+    margin-top: 275px;
 }
 
 header {
@@ -25,13 +25,13 @@ header {
     max-width: 1200px;
     margin: 0 auto;
     font-family: 'Noto Sans KR', sans-serif;
-    padding-left: 0; /* 기존 270px 삭제 */
+    padding-left: 0;
 }
 
 .sidebar {
-    position: sticky; /* 또는 absolute */
+    position: sticky;
     top: 273px;
-    width: 250px;
+    width: 289px;
     background-color: #fff;
     z-index: 900;
     border-right: 1px solid #ddd;
@@ -214,7 +214,6 @@ header {
 .rating {
     color: gold;
     font-weight: bold;
-    margin-bottom: 10px;
     font-size: 18px;
 }
 
@@ -265,7 +264,7 @@ header {
 }
 
 .option-box {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .quantity-box {
@@ -296,7 +295,6 @@ header {
     font-size: 16px;
     background-color: #fff;
 
-    /* 숫자 화살표 제거 */
     -moz-appearance: textfield;
 }
 
@@ -310,7 +308,7 @@ header {
     font-size: 18px;
     font-weight: 500;
     margin-top: 8px;
-    margin-bottom: 8px;
+    padding-bottom: 8px;
     border-bottom: 1px solid #ddd;
 }
 
@@ -346,16 +344,21 @@ header {
     text-align: center;
 }
 
+.total-name {
+    font-size: 18px;
+    margin-right: 8px;
+}
+
 .total-price {
     color: #000;
     font-size: 18px;
+    font-weight: bold;
 }
 
 .total-box {
     padding: 10px;
     font-size: 16px;
     display: flex;
-    margin-bottom: 15px;
     justify-content: flex-end;
 }
 
@@ -372,6 +375,7 @@ header {
 
 .button-group .cart {
     flex: 1;
+    font-size: 16px;
     background-color: #ccc;
     color: #333;
     padding: 10px;
@@ -382,6 +386,7 @@ header {
 
 .button-group .buy {
     flex: 1;
+    font-size: 16px;
     background-color: #3366cc;
     color: white;
     padding: 10px;
@@ -407,7 +412,7 @@ header {
 .detail-title {
     font-size: 20px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .detail-content img {
@@ -419,16 +424,31 @@ header {
 }
 
 .product-info-notice {
-    margin: 50px auto;
     max-width: 1000px;
     padding: 20px;
     border-top: 2px solid #000;
 }
 
+.info-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.info-subtitle {
+    font-size: 13px;
+    color: #777;
+    margin-left: 20px;
+    white-space: nowrap;
+    margin-bottom: 15px;
+}
+
 .info-title {
     font-size: 20px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .info-table {
@@ -453,6 +473,109 @@ header {
 
 .info-desc {
     font-size: 13px;
-    color: #555;
+    color: black;
     margin-top: 15px;
+    background-color: #bbb;
+    padding: 5px;
+}
+
+.product-review {
+    margin-top: 10px;
+    padding: 10px 20px;
+}
+
+.review-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.review-item {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+
+.review-meta {
+    margin-bottom: 10px;
+}
+
+.star {
+    font-size: 18px;
+    color: gold;
+    margin-bottom: 5px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-title-text {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.review-footer {
+    font-size: 14px;
+    color: #666;
+    white-space: nowrap;
+}
+
+.review-body {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.review-image img {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+}
+
+.review-image img:hover {
+    transform: scale(1.05);
+}
+
+.review-content-box {
+    flex: 1;
+}
+
+.review-content {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.review-writer,
+.review-date {
+    font-size: 16px;
+
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 30px;
+}
+
+.page-btn {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.page-btn.active {
+    background-color: #333;
+    color: white;
+    border-color: #333;
 }
