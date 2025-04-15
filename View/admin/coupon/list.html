@@ -9,79 +9,8 @@
     <link rel="stylesheet" href="/css/coupon/list.css">
     <link rel="stylesheet" href="/css/common/_admin_aside.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <title>쿠폰관리</title>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-  const modal = document.querySelector(".modal-overlay");
-  const closeBtn = document.querySelector(".close-btn");
-  const closeIcon = document.querySelector(".modal-close");
-
-  // 쿠폰번호(td) 클릭 시 모달 열기
-  document.querySelectorAll(".coupon-number").forEach(function (el) {
-    el.addEventListener("click", function () {
-      modal.style.display = "flex";
-
-      // ✅ 여기에 쿠폰번호를 가져와서 출력하거나 ajax로 정보 가져오는 코드 추가 가능
-      const couponNumber = el.dataset.coupon;
-      console.log("클릭된 쿠폰번호:", couponNumber);
-    });
-  });
-
-  // 모달 닫기 (닫기 버튼 또는 X)
-  function closeModal() {
-    modal.style.display = "none";
-  }
-
-  closeBtn.addEventListener("click", closeModal);
-  closeIcon.addEventListener("click", closeModal);
-
-  // 바깥 클릭 시 모달 닫기
-  modal.addEventListener("click", function (e) {
-    if (e.target === modal) {
-      closeModal();
-    }
-  });
-
-  // 쿠폰 등록 모달 관련 코드 추가
-  const registerModal = document.querySelector("#registerModal");
-  const openRegisterModalBtn = document.querySelector("#openModalBtn");
-  const registerCloseBtn = document.querySelector("#registerCloseBtn");
-  const registerCloseBtn2 = document.querySelector("#registerCloseBtn2");
-
-  // 쿠폰 등록 모달 열기
-  openRegisterModalBtn.addEventListener("click", function () {
-    registerModal.style.display = "flex";
-  });
-
-  // 쿠폰 등록 모달 닫기
-  registerCloseBtn.addEventListener("click", function () {
-    registerModal.style.display = "none";
-  });
-
-  registerCloseBtn2.addEventListener("click", function () {
-    registerModal.style.display = "none";
-  });
-
-  // 날짜 선택 / 발급일로부터 선택 토글
-  const calendarInputs = document.querySelector("#calendarInputs");
-  const daysInput = document.querySelector("#daysInput");
-  const periodRadios = document.querySelectorAll('input[name="periodType"]');
-
-  periodRadios.forEach(function (radio) {
-    radio.addEventListener("change", function () {
-      if (radio.value === "calendar") {
-        calendarInputs.style.display = "block";
-        daysInput.style.display = "none";
-      } else if (radio.value === "days") {
-        calendarInputs.style.display = "none";
-        daysInput.style.display = "block";
-      }
-    });
-  });
-});
-
-      </script>
-    
+    <script src="/js/admin-coupon.js"></script>
+    <title>쿠폰관리</title>    
 </head>
 <body>
     <header>
@@ -179,14 +108,26 @@
       
       <div class="main">
           <div class="setting">
-              <h1>관리자메인</h1>
+              <h1 style="font-size: 20px;">쿠폰목록</h1>
               <ul>
-                  <li><a href="#">HOME &nbsp;>&nbsp;</a></li>
-                  
+                  <li><a href="#" style="font-size: 14px;">HOME &nbsp;>&nbsp;</a></li>
+                  <li><a href="#" style="font-size: 14px;">쿠폰관리 &nbsp;>&nbsp;</a></li>
                   <li><a href="#"><span>쿠폰목록 &nbsp;</span></a></li>
               </ul>
           </div>
           <div class="line"></div>
+          <div class="zz" style="margin-top: 10px;">
+            <select name="name" id="couponnum" style="padding: 3px 9px;">
+              <option value="쿠폰번호">쿠폰번호</option>
+              <option value="쿠폰명">쿠폰명</option>  
+              <option value="발급자">발급자</option>
+              
+              <input type="text" placeholder="검색어 입력" style="padding: 3xp 12px;">
+              <button>검색</button>
+            </select>
+            
+            
+          </div>
           <div class="table-wrapper">
 
             <table>
@@ -299,8 +240,8 @@
                     <a href="#">5</a>
                     <a href="#">다음</a>
                 </div>
-                 <div class="action-button">
-                    <button id="openModalBtn">쿠폰 등록</button>
+                <div class="action-button">
+                    <button id="openModalBtn">쿠폰등록</button>
                 </div>
             </div>
         </div>
@@ -356,8 +297,8 @@
           </div>
         </div>
       </div>
-      <!-- 쿠폰 등록 모달 -->
-<div class="modal-overlay" id="registerModal" style="display: none;">
+      <!-- 쿠폰 등록 모달 --> 
+  <div class="modal-overlay" id="registerModal" style="display: none;">
     <div class="modal">
       <div class="modal-header">
         <span class="modal-title">쿠폰 등록</span>
@@ -434,6 +375,12 @@
       </div>
     </div>
   </div>
-  
+  <footer>
+    <div class="footer">
+        <p>
+          Copyright © LOTTESHOPPING Co., LTD. All rights reserved. LotteON ADMINISTRATOR Version 5.4.1.2
+        </p>
+    </div>
+  </footer>
 </body>
 </html>
