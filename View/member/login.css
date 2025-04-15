@@ -1,16 +1,12 @@
 .main_banner {
     float: left;
-    width: 420px;
-    height: 260px;
     margin: 0 auto;
-    background-color: #fff9e0;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 14px;
     color: #333;
-    margin-left: 50px;
-    margin-bottom: 20px;
+    margin: 21px 70px;
 }
 
 /* 전체 영역 스타일 */
@@ -132,18 +128,73 @@ form a {
   }
 
 /* 3. 소셜 로그인 버튼 */
-.login a img {
-    height: auto;
-    margin-right: 0;
-}
+
+.google-login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 340px;
+    height: 35px;
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .naver-login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 340px;
+    height: 35px;
+    background-color: #03C75A;
+    color: white;
+    padding: 4px 8px;
+    border: 1px solid #03C75A;
+    border-radius: 4px;
+  }
+  .kakao-login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 340px;
+    height: 35px;
+    background-color: #FEE500; 
+    padding: 4px 8px;
+    border: 1px solid #FEE500;
+    border-radius: 4px;
+  }
+  
+  .google-login-btn:hover {
+    background-color: #ddd;
+  }
+
+  .naver-login-btn:hover {
+    background-color: #02b152;
+  }
+  .kakao-login-btn:hover {
+    background-color: #e4d000;
+  }
+  
+  .login-btn img {
+    width: 24px;
+    height: 24px;
+  }
 
 .sns-login{
     margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.sns-login a img {
-    height: 35px;
-    margin-right: 5px;
+.expression{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
 }
 
 /* 4. 하단 협력기관 로고 */
