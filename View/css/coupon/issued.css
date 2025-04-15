@@ -51,12 +51,6 @@ body {
     margin-top: 60px;
     margin-left: 35px;
 }
-
-.zz{
-    width: 940px;
-    margin: 0 auto;
-    left: 0;
-}
 .table-wrapper {
     width: 940px;
     margin: 0 auto;
@@ -72,16 +66,14 @@ table th {
 
     border-top: 1px solid black;
     margin-top: 50px;
+    border-bottom: 1px solid black;
 }
-            
-
 
 table td {
     border-bottom: 1px solid #ddd;
     padding: 8px;
     text-align: center;
-}  
-
+}
 .end {
     border: 1px solid #0070c0;
     display: inline-block;
@@ -96,52 +88,14 @@ table td {
     padding: 3px 6px;
     display: inline-block;
     color: #ffffff;
-}
-.issuing {
-    color: #00b050;
-}
-.ended {
-    color: #808080;
+} 
+
+.notused {
+    color: red
 }
 
-.pagination-wrapper {
-    width: 940px;
-    margin: 0 auto;
-    /*margin: 20px auto 0 auto; /* 테이블과 간격 유지 */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px; /* 좌우 여백 */
-}
-
-.pagination {
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    gap: 8px;
-}
-
-.pagination a {
-    color: #000;
-    padding: 6px 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 13px;
-}
-
-.action-button {
-    margin-right: 0px; /* ← 오른쪽에서 살짝 안쪽으로 */
-}
-
-.action-button button {
-    padding: 8px 16px;
-    font-size: 13px;
-    background-color: #8eb4e3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 480px;
+.use{
+    color: green;
 }
 /* 전체 스타일 */
 * {
@@ -184,24 +138,24 @@ footer {
     padding-top: 6px;
 }
 .modal-overlay {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
 }
 
-.modal {
+.modal-content {
     background: white;
     border-radius: 8px;
-    width: 900px;        /* ← 더 넓게 */
+    width: 900px;
     max-width: 95%;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     overflow: hidden;
 }
 
@@ -211,49 +165,37 @@ footer {
     padding: 16px 24px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-weight: bold;
     font-size: 18px;
 }
-.modal-header span {
-    display: inline-block;
-}
 
-.modal-header .modal-close {
-    font-size: 14px;
-    color: #999;
-    cursor: pointer;
-    text-align: right;
-    margin-left: 10px;
-}
-
-.modal-close {
+.modal-close-button {
     cursor: pointer;
     font-size: 20px;
+    background: none;
+    border: none;
+    color: white;
 }
 
-.modal-content {
+.modal-body {
     padding: 35px 40px;
 }
-
-.modal-content table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 15px; /* 좀 더 큼 */
-}
-
-.modal-content th,
-.modal-content td {
-    border: 1px solid #ccc;
-    padding: 16px 20px;
+.modal-body table th, .modal-body table td {
+    padding: 8px 12px;
     text-align: left;
     vertical-align: top;
-}
-.modal-title{
-    font-weight: 700;
-    font-size: 20px;
+    border: 1px solid #ddd;
 }
 
-.modal-content th {
+.modal-body table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+
+.modal-body th {
     background-color: #f4f4f4;
     font-weight: bold;
     width: 25%;
@@ -264,7 +206,7 @@ footer {
     padding: 20px;
 }
 
-.close-btn {
+.modal-footer button {
     background: #009e4f;
     color: white;
     padding: 12px 28px;
@@ -274,16 +216,31 @@ footer {
     font-size: 15px;
 }
 
-.action-button {
-    width: 940px;
-    margin-left: 250px;
+.status-notused {
+    color: #e74c3c;
+    font-weight: bold;
 }
 
+.status-used {
+    color: #3498db;
+    font-weight: bold;
+}
 .pagination-wrapper {
-    width: 940px;
-    margin: 50px 0 0 300px;
+    text-align: center; /* 페이지 버튼들을 중앙 정렬 */
+    margin-top: 20px; /* 버튼과 테이블 사이에 여백 추가 */
 }
 
-#openModalBtn {
-    width: 100px;
+.pagination {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    gap: 8px;
 }
+
+.pagination a {
+    margin: 0 5px; /* 각 페이지 링크 사이에 여백 추가 */
+    padding: 5px 10px; /* 버튼 크기 조정 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: #333; /* 글자 색상 */
+}
+
