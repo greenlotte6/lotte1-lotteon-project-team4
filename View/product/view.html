@@ -56,11 +56,25 @@
             /*
             function showNextItem() {
                 currentIndex = (currentIndex + 1) % rankitem.length;
-                ranklist.style.transform = `translateY(-${currentIndex * 100}%)`;
+                ranklist.style.transform = translateY(-${currentIndex * 100}%);
             }
 
             setInterval(showNextItem, 3000);
             */
+
+            const minusBtn = document.querySelector(".minus");
+        const plusBtn = document.querySelector(".plus");
+        const input = document.querySelector(".qty-input");
+
+        minusBtn.addEventListener("click", () => {
+            let value = parseInt(input.value);
+            if (value > 1) input.value = value - 1;
+        });
+
+        plusBtn.addEventListener("click", () => {
+            let value = parseInt(input.value);
+            input.value = value + 1;
+        });
         });
     </script>
 </head>
@@ -278,11 +292,156 @@
                     <div class="breadcrumb">HOME > 패션 · 의류 · 뷰티 > 남성의류</div>
                     <h2 class="product-title">상품보기</h2>
 
+                    <div class="product-detail-wrap">
+                        <div class="product-image">
+                            <img src="/images/product/market_item1.jpg" alt="상품 이미지">
+                        </div>
 
+                        <div class="product-info">
+                            <div class="first-product">
+                                <div class="company-line">
+                                    <p class="product-code">상품번호 : 10010118412</p>
+                                    <p class="company-name">(주) 상호명</p>
+                                </div>
+                                <div class="product-header">
+                                    <h2 class="product-name">상품명</h2>
+                                    <div class="rating">★★★★★
+                                        <span class="link">상품평보기</span>
+                                    </div>
+                                </div>
 
+                                <div class="price-box">
+                                    <div>
+                                        <span class="original-price">30,000원</span>
+                                        <span class="discount">10%</span>
+                                        <span class="badge">쿠폰받기</span>
+                                    </div>
+                                    <div class="final-price">27,000원</div>
+                                </div>
 
+                                <div class="delivery-info">
+                                    <span class="free">무료배송</span>
+                                    <span class="delivery-arrive">모레 (금) 7/8 도착예정</span><br>
+                                    <p class="only">본 상품은 국내배송만 가능합니다.</p>
+                                </div>
+
+                                <div class="option-box">
+                                    <p class="tip">원산지 – 상세설명 참고</p>
+                                    <select class="option">
+                                        <option>선택하세요</option>
+                                        <option>옵션 1</option>
+                                        <option>옵션 2</option>
+                                    </select>
+
+                                    <div class="selected-option">
+                                        <span class="sel-top">선택된 상품명</span>
+                                        <div class="sel-bottom">
+                                            <div class="quantity-box">
+                                                <button type="button" class="qty-btn minus">-</button>
+                                                <input type="number" class="qty-input" value="2" min="1">
+                                                <button type="button" class="qty-btn plus">+</button>
+                                            </div>
+                                            <span class="total-price">54,000원</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="total-box">
+                                    <span class="total-name">총 상품금액</span>
+                                    <span class="total-price">54,000원</span>
+                                </div>
+
+                                <div class="button-group">
+                                    <button class="cart">장바구니</button>
+                                    <button class="buy">구매하기</button>
+                                </div>
+
+                                <div class="banner">
+                                    <img src="https://dummyimage.com/550x64" alt="배너">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-detail">
+                        <h3 class="detail-title">상세정보</h3>
+                        <div class="detail-content">
+                            <img src="/images/product/market_detail_sample.jpg" alt="상세정보 이미지">
+                        </div>
+                    </div>
+
+                    <div class="product-info-notice">
+                        <h3 class="info-title">상품정보 제공고시</h3>
+                        <span>[전자상거래에 관한 상품정보 제공에 관한 고시] 항목에 의거 등록된 정보입니다.</span>
+                        <table class="info-table">
+                            <tr>
+                                <th>상품번호</th>
+                                <td>10010118412</td>
+                                <th>상품상태</th>
+                                <td>새상품</td>
+                            </tr>
+                            <tr>
+                                <th>부가세면세여부</th>
+                                <td>과세상품</td>
+                                <th>영수증발행</th>
+                                <td>발행가능 - 신용카드전표, 온라인현금영수증</td>
+                            </tr>
+                            <tr>
+                                <th>사업자구분</th>
+                                <td>통신판매업자</td>
+                                <th>브랜드</th>
+                                <td>블루포스</td>
+                            </tr>
+                            <tr>
+                                <th>원산지</th>
+                                <td colspan="3">국내생산</td>
+                            </tr>
+                            <tr>
+                                <th>제조사/수입국</th>
+                                <td>상세정보 직접입력</td>
+                                <th>제조국</th>
+                                <td>상세정보 직접입력</td>
+                            </tr>
+                            <tr>
+                                <th>취급시 주의사항</th>
+                                <td>상세정보 직접입력</td>
+                                <th>제조연월</th>
+                                <td>상세정보 직접입력</td>
+                            </tr>
+                            <tr>
+                                <th>품질보증기준</th>
+                                <td colspan="3">상세정보 직접입력</td>
+                            </tr>
+                            <tr>
+                                <th>A/S 책임자</th>
+                                <td colspan="3">상세정보 직접입력</td>
+                            </tr>
+                            <tr>
+                                <th>전화번호</th>
+                                <td colspan="3">상세정보 직접입력</td>
+                            </tr>
+                        </table>
+                        <p class="info-desc">
+                            ※ 상품정보고시 내용은 판매자가 직접 등록한 것으로 해당 정보에 대한 책임은 판매자에게 있습니다.
+                        </p>
+                        <div class="notice-text">
+                            <p>
+                              소비자가 전자상거래 등에서 소비자 보호에 관한 <strong>법률 제17조 제1항 또는 제3항</strong>에 따라 청약철회를 하고, 
+                              <strong>동 법 제18조 제1항</strong>에 따라 청약철회한 물품을 판매자에게 반환하였음에도 불구하고 
+                              결제 대금의 환급이 <strong>3영업일</strong>을 넘게 지연된 경우, 소비자는 전자상거래 등에서 소비자 보호에 관한 
+                              <strong>법률 제18조 제2항</strong> 및 <strong>동법 시행령 제21조 제2항</strong>에 따라 지연일수에 대하여 
+                              시행령으로 정하는 이율을 곱하여 산정한 <strong>지연이자(“지연배상금”)</strong>를 신청할 수 있습니다.
+                            </p>
+                          
+                            <p>
+                              아울러, <strong>교환·반품 보증</strong> 및 <strong>결제 대금의 환급 신청</strong>은 
+                              <strong>[나의 쇼핑정보]</strong>에서 하실 수 있으며, 자세한 문의는 
+                              <strong>개별 판매자</strong>에게 연락하여 주시기 바랍니다.
+                            </p>
+                          </div>
+                          
+                    </div>
                     
-
 
                 </section>
             </article>
