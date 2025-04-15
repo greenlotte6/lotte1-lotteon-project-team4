@@ -1,0 +1,64 @@
+/* 전체 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Gothic A1", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+}
+a {
+    text-decoration: none;
+}
+ul,
+li {
+    list-style: none;
+}
+body {
+    overflow-x: scroll;
+    min-width: 1200px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+/* main */
+.container {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.title {
+    display: flex;
+    width: 100%;
+    padding: 5px 0 5px 10px;
+    margin-bottom: 20px;
+    color: #fff;
+    background-color: #e45450;
+}
+
+.X {
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+    margin-left: 700px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+td {
+    height: 50px;
+    font-size: 15px;
+    border-top: 1px solid #b7b7b7;
+    border-bottom: 1px solid #b7b7b7;
+    box-sizing: border-box;
+}
