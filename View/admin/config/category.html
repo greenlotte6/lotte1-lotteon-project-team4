@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/common/_admin_header.css">
+    <link rel="stylesheet" href="/css/common/_admin_footer.css">
+    <link rel="stylesheet" href="/css/admin/config/category.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>admin basic</title>
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const fas = document.getElementsByClassName('fas')[0];
+        const inul = document.nextElementSibling;
+
+        fas.addEventListener('click', () => {
+            inul.classList.toggle('active');
+        });
+        
+        /* 카테고리 */
+        const parentCategory = document.querySelector('.parent');
+        const middleContainers = document.querySelectorAll('.middle-container');
+        const childContainers = document.querySelectorAll('.child-container');
+
+        parentCategory.addEventListener('click', () => {
+            middleContainers.forEach(container => {
+            container.querySelector('.child-container').style.display = 'none';
+            });
+            childContainers.forEach(container => {
+            container.style.display = 'none';
+            });
+        });
+
+        middleContainers.forEach(container => {
+            const middle = container.querySelector('.middle');
+            const childContainer = container.querySelector('.child-container');
+
+            middle.addEventListener('click', (event) => {
+            event.stopPropagation(); // 부모 요소의 클릭 이벤트 전파 방지
+            childContainer.style.display = childContainer.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+    });
+</script>
+<body>
+    <header>
+        <div class="wrapper">
+            <div class="wrapper-suv">
+                <div class="user-nav">
+                    <ul>
+                        <li><a href="#">홈</a></li>
+                        <li><a href="#">로그아웃</a></li>
+                        <li><a href="#">고객센터</a></li>
+                    </ul>
+                </div>
+                <div class="logo">
+                    <a href="#"><img src="/images/logo/logo_white.png" alt="LotteON-logo"></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="main-wrapper">
+            <aside>
+                <div class="aside">
+                    <ul class="out-ul">
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-cogs"></i><a href="#" class="hover">환경설정</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 기본설정</a></li>
+                                    <li><a href="#">- 배너관리</a></li>
+                                    <li><a href="#">- 약관관리</a></li>
+                                    <li><a href="#">- 카테고리</a></li>
+                                    <li><a href="#">- 버전관리</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-store"></i> <a href="#" class="hover">상점관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 상점목록</a></li>
+                                    <li><a href="#">- 매출현황</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-users"></i> <a href="#" class="hover">회원관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 회원목록</a></li>
+                                    <li><a href="#">- 포인트관리</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-box"></i> <a href="#" class="hover">상품관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 상품목록</a></li>
+                                    <li><a href="#">- 상품등록</a></li>
+                                    <li><a href="#">- 카테고리</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-receipt"></i> <a href="#" class="hover">주문관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 주문현황</a></li>
+                                    <li><a href="#">- 배송현황</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-ticket-alt"></i> <a href="#" class="hover">쿠폰관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 쿠폰목록</a></li>
+                                    <li><a href="#">- 쿠폰발급현황</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-headset"></i> <a href="#" class="hover">고객센터</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 공지사항</a></li>
+                                    <li><a href="#">- 자주묻는질문</a></li>
+                                    <li><a href="#">- 문의하기</a></li>
+                                    <li><a href="#">- 채용하기</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </aside>
+            
+            <div class="main">
+                <div class="setting">
+                    <h1>카테고리</h1>
+                    <ul>
+                        <li><a href="#">HOME &nbsp;>&nbsp;</a></li>
+                        <li><a href="#">환경설정 &nbsp;</a></li>
+                        <li><a href="#"><span>카테고리 &nbsp;</span></a></li>
+                    </ul>
+                </div>
+                <div class="line"></div>
+                <div class="container">
+                    <div class="cate">
+                        <h2>카테고리 관리</h2>
+                        <div class="cate-text p-div">
+                            <p>쇼핑몰 메인, 상품 페이지 사이드 카테고리 메뉴입니다.</p>
+                        </div>
+                        <div class="category">
+                            <div class="parent">▼ 뷰티
+                                <button>삭제</button>
+                            </div>
+                            <div class="middle-container">
+                              <div class="middle">▼ 럭셔리 스킨케어
+                                <button>삭제</button>
+                              </div>
+                              <div class="child-container">
+                                <div class="child">클렌징
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">스킨/토너
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">로션/에멀젼
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">에센스/세럼
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">크림
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">오일
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">미스트
+                                    <button>삭제</button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="middle-container">
+                              <div class="middle">▼ 스킨케어
+                                <button>삭제</button>
+                              </div>
+                              <div class="child-container">
+                                <div class="child">클렌징
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">스킨/토너
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">로션/에멀젼
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">에센스/세럼
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">크림
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">오일
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">미스트
+                                    <button>삭제</button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="middle-container">
+                              <div class="middle">▼ 메이크업
+                                <button>삭제</button>
+                              </div>
+                              <div class="child-container">
+                                <div class="child">베이스메이크업
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">립메이크업
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">아이메이크업
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">블러셔
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">하이라이터
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">쉐딩/컨투어링
+                                    <button>삭제</button>
+                                </div>
+                                <div class="child">메이크업세트
+                                    <button>삭제</button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="parent">▼ 메이크업
+                                <button>삭제</button>
+                            </div>
+                            <div class="middle-container">
+                                <div class="middle">▼ 럭셔리 스킨케어
+                                  <button>삭제</button>
+                                </div>
+                                <div class="child-container">
+                                  <div class="child">클렌징
+                                      <button>삭제</button>
+                                  </div>
+                                  <div class="child">스킨/토너
+                                      <button>삭제</button>
+                                  </div>
+                                  <div class="child">로션/에멀젼
+                                      <button>삭제</button>
+                                  </div>
+                                  <div class="child">에센스/세럼
+                                      <button>삭제</button>
+                                  </div>
+                                  <div class="child">크림
+                                      <button>삭제</button>
+                                  </div>
+                                  <div class="child">오일
+                                      <button>삭제</button>
+                                  </div>
+                                  <div class="child">미스트
+                                      <button>삭제</button>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                    </div>
+                    <p>미완성</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer">
+            <p>
+                Copyright © LOTTESHOPPING Co., LTD. All rights reserved. LotteON ADMINISTRATOR Version 5.4.1.2
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
