@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>포인트내역</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fb;
+    }
+
+    .container {
+      width: 850px;
+      background-color: #e9f0f8;
+      border: 1px solid #c6d3e0;
+      padding: 15px;
+      margin: 20px auto;
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .query-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+
+    .query-row select,
+    .query-row input {
+      padding: 4px 6px;
+      font-size: 14px;
+    }
+
+    .btn {
+      padding: 5px 12px;
+      background-color: #f0f0f0;
+      border: 1px solid #999;
+      cursor: pointer;
+    }
+
+    .highlight {
+      background-color: red;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 18px;
+      margin-right: 6px;
+    }
+
+    .note {
+      font-size: 14px;
+      line-height: 1.7;
+      white-space: pre-line;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="title">포인트내역</div>
+  
+  <div class="query-row">
+    <div class="highlight">3</div>
+    <span>기간별조회</span>
+
+    <!-- 기간 옵션 -->
+    <select>
+      <option>1주일</option>
+      <option>15일</option>
+      <option>1개월</option>
+    </select>
+
+    <!-- 최근 5개월 조회 -->
+    <select>
+      <option>1개월 전</option>
+      <option>2개월 전</option>
+      <option>3개월 전</option>
+      <option>4개월 전</option>
+      <option>5개월 전</option>
+    </select>
+
+    <!-- 사용자 지정 기간 -->
+    <input type="date" />
+    <span>~</span>
+    <input type="date" />
+
+    <button class="btn">조회</button>
+  </div>
+
+  <div class="note">
+    - 1주일, 15일, 1개월 단위 조회<br>
+    - 현재 월에서 최신 5개월까지만 조회<br>
+    - 시작 년월일 ~ 종료 년월일 단위 조회 (단 최대 1년치만 조회 가능)
+  </div>
+</div>
+
+</body>
+</html>
