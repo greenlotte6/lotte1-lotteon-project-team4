@@ -92,7 +92,7 @@ form a {
     font-size: 20px;
 }
 
-.login>.login-item:not(:last-child)::after {
+.login>.options-item:not(:last-child)::after {
     content: "";
     display: inline-block;
     width: 1px;
@@ -101,7 +101,7 @@ form a {
     border-left: 1px solid black;
 }
 
-.login>.login-item>a {
+.login>.options-item>a {
     text-align: center;
     color: black;
     display: inline-block;
@@ -193,8 +193,8 @@ form a {
 
 .expression{
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: 20px;
-    font-weight: 900;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 /* 4. 하단 협력기관 로고 */
