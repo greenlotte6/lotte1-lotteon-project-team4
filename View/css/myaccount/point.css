@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+
+  .container {
+    width: auto;
+    border: 1px solid #c6d3e0;
+    background-color: #e9f0f8;
+    padding: 10px;
+  }
+
+  .title {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .query-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .query-row input,
+  .query-row select {
+    padding: 4px 6px;
+    font-size: 14px;
+  }
+
+  .query-row .range {
+    display: flex;
+    gap: 3px;
+  }
+
+  .query-row .label {
+    margin: 0 4px;
+  }
+
+  .btn {
+    padding: 5px 12px;
+    background-color: #f0f0f0;
+    border: 1px solid #999;
+    cursor: pointer;
+  }

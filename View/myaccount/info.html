@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>포인트내역</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 800px;
+      border: 1px solid #c6d3e0;
+      background-color: #e9f0f8;
+      padding: 10px;
+    }
+
+    .title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .query-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .query-row input,
+    .query-row select {
+      padding: 4px 6px;
+      font-size: 14px;
+    }
+
+    .query-row .range {
+      display: flex;
+      gap: 3px;
+    }
+
+    .query-row .label {
+      margin: 0 4px;
+    }
+
+    .btn {
+      padding: 5px 12px;
+      background-color: #f0f0f0;
+      border: 1px solid #999;
+      cursor: pointer;
+    }
+
+   
+  </style>
+</head>
+<body>
+<div class="title">포인트내역</div>
+<div class="container">
+  <div class="query-row">
+    <span>기간별조회</span>
+    <select>
+      <option>1주일</option>
+    </select>
+    <select>
+      <option>5일</option>
+    </select>
+    <select>
+      <option>1개월</option>
+    </select>
+
+    <select>
+      <option>10월</option>
+    </select>
+    <select>
+      <option>1월</option>
+    </select>
+    <select>
+      <option>2월</option>
+    </select>
+    <select>
+      <option>2월</option>
+    </select>
+
+    <input type="text" placeholder="년-월-일 ~ 년-월-일" />
+    <button class="btn">조회</button>
+  </div>
+</div>
+
+</body>
+</html>
