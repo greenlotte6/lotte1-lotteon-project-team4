@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        main{
+            width: 1000px;
+            margin: 0 auto;
+        }
+        .main_container{
+            width: 950px;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+        .a-list{
+            margin-bottom: 10px;
+        }
+        .order-list {
+          border-top: 2px solid #333;
+        }
+    
+        .order-header, .order-row {
+          display: flex;
+          border-bottom: 1px solid #ccc;
+          padding: 10px 0;
+          align-items: center;
+        }
+    
+        .order-header {
+          font-weight: bold;
+          background-color: rgb(167, 164, 164);
+          color: white;
+        }
+    
+        .order-date_1 {
+          width: 25%;
+          text-align: center;
+        }
+    
+        .order-info_1 {
+            margin: 0 auto;
+            width: 30%;
+            margin-left: 100px;
+        }
+        .order-info_num_1{
+          width: 45%;
+          display: flex;
+          align-items: center;
+          
+        }
+    
+        .order-img_1 {
+          width: 60px;
+          height: 60px;
+          background: #aaa;
+          margin-right: 15px;
+        }
+    
+        .order-text_1 {
+          font-size: 14px;
+          margin-left: 20px;
+        }
+    
+        .order-status_1 {
+          width: 25%;
+          text-align: center;
+        }
+
+        .order-statuss_1{
+          width: 8%;
+          text-align: left;
+
+        }
+        .order-statust_1{
+            width: 9%;
+            text-align: right;
+        }
+    
+    
+        .order-actions_1 {
+          width: 25%;
+          text-align: center;
+        }
+        .order_aec1_1 {
+          width: 25%;
+          text-align: center;
+        }
+        .message-log {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4A90E2;
+            color: white;
+            padding: 10px 10px;
+        }
+
+        .message-title {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            color: white;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 20px;
+        }
+        .oder{
+            width:1000px;
+            margin : 8px 10px;
+            color:#fff;
+
+        }
+        .table-container {
+            width: 100%;
+            border-collapse: collapse;
+            
+        }
+        .table-container th,
+        .table-container td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        .table-container th {
+            background-color: #f2f2f2;
+            text-align: center;
+            width: 150px;
+        }
+        .table-container td {
+            background-color: #fff;
+        }
+        .table-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+            /* 버튼부분 */ 
+          .M-button{
+            margin-left: 350px;
+            margin-top: 20px;
+        }
+        .moon:hover {
+            background: #0056b3;
+            color: white;
+            }
+        .moon{
+            width: 150px;
+            height: 40px;
+            margin : 3px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="message-log">
+            <div class="message-title">반품하기</div>
+            <div class="close-btn">X</div>
+          </div>
+        </div>
+        <div class="main_container">
+              <div class="porduct-title">
+                  <div class="a-list">주문정보</div>
+              </div>    
+              <div class="order-list">
+                <div class="order-header">
+                  <div class="order-date_1">날짜</div>
+                  <div class="order-info_1">상품정보</div>
+                  <div class="order-status_1">결제금액</div>
+                  <div class="order-actions_1">상태</div>
+                </div>
+                <div class="order-row">
+                  <div class="order-date_1">2022-12-13</div>
+                  <div class="order-info_num_1">
+                    <div class="order-img_1"></div>
+                    <div class="order-text_1">
+                      주문번호 : 1012211341<br/>
+                      (주) 상호명<br/>
+                      상품명<br/>
+                      수량 : 1개<br/>
+                      <strong>34,000원</strong>
+                    </div>
+                  </div>
+                  <div class="order-statuss_1">
+                    판매가 <br>
+                    할인 <br><br>
+                    결제금액 
+                  </div>
+                  <div class="order-statust_1">
+                    37,000원<br>
+                    -3,000원<br><br>
+                    34,000원
+                  </div>
+                  <div class="order_aec1_1">
+                    배송완료
+                  </div>
+               </div>   
+            </div>
+            <div>
+              <p>반품정보 입력</p>
+              <table class="table-container">
+                <tr>
+                  <th>반품유형</th>
+                  <td>
+                    <a><input type="radio" name="check"/>단순 변심</a>
+                    <a><input type="radio" name="check"/>파손 및 불량</a>
+                    <a><input type="radio" name="check"/>주문 실수</a>
+                    <a><input type="radio" name="check"/>기타</a>
+                  </td>
+                </tr>
+                <tr>
+                  <th>사유입력</th>
+                  <td><input type="text"/></td>
+                </tr>
+                <tr>
+                  <th>사진첨부(선택)</th>
+                  <td><input type="text"/></td>
+                </tr>
+            </table>
+                </table>
+            </div>
+            <div class="M-button">
+              <button class="moon">반품신청</button>
+              <button class="moon">취소</button>
+          </div>
+      </div>      
+                 
+    </main>
+    
+</body>
+</html>

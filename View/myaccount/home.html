@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>home</title>
 
     <link rel="stylesheet" href="/css/common/_header.css" />
     <link rel="stylesheet" href="/css/common/_footer.css" />
@@ -233,6 +233,76 @@
         display: flex;
         align-items: center;
         }
+
+        h2 {
+      font-size: 18px;
+      margin-top: 30px;
+      border-bottom: 2px solid #333;
+      padding-bottom: 8px;
+    }
+
+    .inquiry-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    .inquiry-table th,
+    .inquiry-table td {
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    .inquiry-table th {
+      background-color: #f1f1f1;
+    }
+
+    .status-pending {
+      color: #888;
+    }
+
+    .status-done {
+      color: #0a8c3a;
+      font-weight: bold;
+    }
+
+    .settings {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      border-top: 1px solid #ccc;
+      padding-top: 20px;
+    }
+
+    .setting-box {
+      width: 32%;
+      margin-bottom: 15px;
+    }
+
+    .setting-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .setting-content {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .setting-content a {
+      color: #007bff;
+      text-decoration: none;
+      margin-left: 5px;
+    }
+
+    .setting-content small {
+      display: block;
+      color: #888;
+      margin-top: 3px;
+    }
       </style>
      
 </head>
@@ -436,144 +506,210 @@
           <li>나의설정</li>
         </ul>
       </div>
-      <div class="content">
-        <div class="banner">810 × 86 배너 광고</div>
-        <div class="porduct-title">
-            <div class="a-list">최근주문내역</div>
-            <div class="more"><a href="#">더보기 ></a></div>
-        </div>    
-        <div class="order-list">
-          <div class="order-header">
-            <div class="order-date">날짜</div>
-            <div class="order-info">상품정보</div>
-            <div class="order-status">상태</div>
-            <div class="order-actions">확인 / 신청</div>
-          </div>
-          <div class="order-row">
-            <div class="order-date">2022-12-13</div>
-            <div class="order-info_num">
-              <div class="order-img"></div>
-              <div class="order-text">
-                주문번호 : 1012211341<br/>
-                (주) 상품명<br/>
-                수량 : 1개<br/>
-                <strong>34,000원</strong>
+          <div class="content">
+            <div class="banner">810 × 86 배너 광고</div>
+            <div class="porduct-title">
+                <div class="a-list">최근주문내역</div>
+                <div class="more"><a href="#">더보기 ></a></div>
+            </div>    
+            <div class="order-list">
+              <div class="order-header">
+                <div class="order-date">날짜</div>
+                <div class="order-info">상품정보</div>
+                <div class="order-status">상태</div>
+                <div class="order-actions">확인 / 신청</div>
+              </div>
+              <div class="order-row">
+                <div class="order-date">2022-12-13</div>
+                <div class="order-info_num">
+                  <div class="order-img"></div>
+                  <div class="order-text">
+                    주문번호 : 1012211341<br/>
+                    (주) 상품명<br/>
+                    수량 : 1개<br/>
+                    <strong>34,000원</strong>
+                  </div>
+                </div>
+                <div class="order-status">배송완료</div>
+                <div class="order-actions">
+                  <button class="btn" onclick="openModal('buy.html')">구매확정</button>
+                  <button class="btn" onclick="openModal('review.html')">상품보기</button>
+                  <button class="btn" onclick="openModal('return.html')">반품신청</button>
+                  <button class="btn" onclick="openModal('exchange.html')">교환신청</button>
+                </div>
+              </div>
+              <div class="order-row">
+                <div class="order-date">2022-12-13</div>
+                <div class="order-info_num">
+                  <div class="order-img"></div>
+                  <div class="order-text">
+                    주문번호 : 1012211341<br />
+                    (주) 상품명<br />
+                    수량 : 1개<br />
+                    <strong>34,000원</strong>
+                  </div>
+                </div>
+                <div class="order-status">배송완료</div>
+                <div class="order-actions">
+                  <button class="btn">구매확정</button>
+                  <button class="btn">상품보기</button>
+                  <button class="btn">반품신청</button>
+                  <button class="btn">교환신청</button>
+                </div>
               </div>
             </div>
-            <div class="order-status">배송완료</div>
-            <div class="order-actions">
-              <button class="btn">구매확정</button>
-              <button class="btn">상품보기</button>
-              <button class="btn">반품신청</button>
-              <button class="btn">교환신청</button>
-            </div>
-          </div>
-          <div class="order-row">
-            <div class="order-date">2022-12-13</div>
-            <div class="order-info_num">
-              <div class="order-img"></div>
-              <div class="order-text">
-                주문번호 : 1012211341<br />
-                (주) 상품명<br />
-                수량 : 1개<br />
-                <strong>34,000원</strong>
-              </div>
-            </div>
-            <div class="order-status">배송완료</div>
-            <div class="order-actions">
-              <button class="btn">구매확정</button>
-              <button class="btn">상품보기</button>
-              <button class="btn">반품신청</button>
-              <button class="btn">교환신청</button>
-            </div>
-          </div>
-          <div class="banner">810 × 86 배너 광고</div>
-        
+              <div class="banner">810 × 86 배너 광고</div>
+            
 
-        <div class="section">
-            <div class="section-header">
-              <div class="left-title">
-                포인트적립내역
+            <div class="section">
+                <div class="section-header">
+                  <div class="left-title">
+                    포인트적립내역
+                  </div>
+                  <div class="see-more"> 더보기 &gt;</div>
+                </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>날짜</th>
+                      <th>구분</th>
+                      <th>주문번호</th>
+                      <th>적립금액</th>
+                      <th>비고</th>
+                      <th>유효기간</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>2022-12-13</td>
+                      <td>적립</td>
+                      <td>2022121001</td>
+                      <td>340</td>
+                      <td>상품 구매확정</td>
+                      <td>2024-12-10</td>
+                    </tr>
+                    <tr>
+                      <td>2022-12-13</td>
+                      <td>적립</td>
+                      <td>2022120601</td>
+                      <td>120</td>
+                      <td>상품 구매확정</td>
+                      <td>2024-12-06</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="see-more"> 더보기 &gt;</div>
-            </div>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>날짜</th>
-                  <th>구분</th>
-                  <th>주문번호</th>
-                  <th>적립금액</th>
-                  <th>비고</th>
-                  <th>유효기간</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>2022-12-13</td>
-                  <td>적립</td>
-                  <td>2022121001</td>
-                  <td>340</td>
-                  <td>상품 구매확정</td>
-                  <td>2024-12-10</td>
-                </tr>
-                <tr>
-                  <td>2022-12-13</td>
-                  <td>적립</td>
-                  <td>2022120601</td>
-                  <td>120</td>
-                  <td>상품 구매확정</td>
-                  <td>2024-12-06</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          
-         
-          <div class="section">
-            <div class="section-header">
-              <div class="left-title">
-                상품평
+              
+            
+              <div class="section">
+                <div class="section-header">
+                  <div class="left-title">
+                    상품평
+                  </div>
+                  <div class="see-more">더보기 &gt;</div>
+                </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>번호</th>
+                      <th>상품명</th>
+                      <th>내용</th>
+                      <th>평점</th>
+                      <th>작성일</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>상품번호 / 상품명</td>
+                      <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                      <td class="rating">★★★★☆</td>
+                      <td>2022-12-10</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>상품번호 / 상품명</td>
+                      <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                      <td class="rating">★★★★☆</td>
+                      <td>2022-12-07</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>상품번호 / 상품명</td>
+                      <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                      <td class="rating">★★★★☆</td>
+                      <td>2022-12-06</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="see-more">더보기 &gt;</div>
-            </div>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>번호</th>
-                  <th>상품명</th>
-                  <th>내용</th>
-                  <th>평점</th>
-                  <th>작성일</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>상품번호 / 상품명</td>
-                  <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                  <td class="rating">★★★★☆</td>
-                  <td>2022-12-10</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>상품번호 / 상품명</td>
-                  <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                  <td class="rating">★★★★☆</td>
-                  <td>2022-12-07</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>상품번호 / 상품명</td>
-                  <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                  <td class="rating">★★★★☆</td>
-                  <td>2022-12-06</td>
-                </tr>
-              </tbody>
-            </table>
+                <h2>1. 문의내역 <span style="float:right; font-size: 14px;"><a href="#">2. 보기 ></a></span></h2>
+                  <table class="inquiry-table">
+                    <thead>
+                      <tr>
+                        <th>번호</th>
+                        <th>문의채널</th>
+                        <th>문의유형</th>
+                        <th>제목</th>
+                        <th>작성일</th>
+                        <th>상태</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>고객센터</td>
+                        <td>주문 / 결제</td>
+                        <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요 ?</td>
+                        <td>2022-12-12</td>
+                        <td class="status-pending">검토중</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>고객센터</td>
+                        <td>주문 / 결제</td>
+                        <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요 ?</td>
+                        <td>2022-12-12</td>
+                        <td class="status-done">답변완료</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>판매자</td>
+                        <td>배송</td>
+                        <td>배송기간이 보통 얼마나 걸리나요 ?</td>
+                        <td>2022-12-12</td>
+                        <td class="status-done">답변완료</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                <h2>3. 나의 설정</h2>
+                  <div class="settings">
+                    <div class="setting-box">
+                      <div class="setting-title">기본배송지설정 <a href="#">변경</a></div>
+                      <div class="setting-content">
+                        부산역식사 산건구민 연동 120<br>한빛빌딩 10층
+                      </div>
+                    </div>
+
+                    <div class="setting-box">
+                      <div class="setting-title">Email 설정 <a href="#">변경</a></div>
+                      <div class="setting-content">
+                        abc123@naver.com
+                        <small>(최종수정일: 2021-12-10)</small>
+                      </div>
+                    </div>
+
+                    <div class="setting-box">
+                      <div class="setting-title">휴대폰 설정 <a href="#">변경</a></div>
+                      <div class="setting-content">
+                        010 - 1234 - 1001
+                        <small>(최종수정일: 2021-12-10)</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
           </div>
-        
-      </div>
         </div>
       </div>
     </div>
