@@ -14,7 +14,7 @@
 }
 
 .sidebar {
-    width: 289px;
+    width: 310px;
     padding: 20px;
     border-right: 1px solid #ddd;
 }
@@ -31,6 +31,7 @@
 .best-main {
     padding: 10px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .best-sub {
@@ -40,14 +41,43 @@
     padding: 6px 0;
 }
 
+.best-image {
+    width: 150px;
+}
+
+.discount {
+    color: #C00000;
+    font-size: 15px;
+}
+
+.best {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.now {
+    font-size: 16px;
+}
+
+
 .best-price {
     text-decoration: line-through;
 }
 
-.old {
-    text-decoration: line-through;
+.price-wrap {
     font-size: 15px;
+}
+
+.price-wrap .best-price {
+    text-decoration: line-through;
     color: #999;
+    margin-right: 5px;
+}
+
+.price-wrap .discount {
+    color: #C00000;
+    font-weight: bold;
 }
 
 .sort-options {
@@ -99,7 +129,7 @@
 
 .cart-table {
     margin-top: 20px;
-    border-top: 2px solid black ;
+    border-top: 2px solid black;
 }
 
 .cart-table table {
@@ -130,7 +160,7 @@
     border: 1px solid #ccc;
 }
 
-.pro_name{
+.pro_name {
     display: flex;
     flex-direction: column;
     gap: 5px
@@ -154,7 +184,7 @@
 .select-delete {
     margin-top: 10px;
     padding: 8px 12px;
-    background:#F2F2F2;
+    background: #F2F2F2;
     border: none;
     cursor: pointer;
 }
