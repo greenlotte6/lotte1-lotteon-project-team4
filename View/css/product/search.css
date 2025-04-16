@@ -14,7 +14,7 @@
 }
 
 .sidebar {
-    width: 289px;
+    width: 313px;
     padding: 20px;
     border-right: 1px solid #ddd;
 }
@@ -31,6 +31,7 @@
 .best-main {
     padding: 10px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .best-sub {
@@ -44,10 +45,19 @@
     text-decoration: line-through;
 }
 
-.old {
-    text-decoration: line-through;
+.price-wrap {
     font-size: 15px;
+}
+
+.price-wrap .best-price {
+    text-decoration: line-through;
     color: #999;
+    margin-right: 5px;
+}
+
+.price-wrap .discount {
+    color: #C00000;
+    font-weight: bold;
 }
 
 /* 검색 상단 영역 */
@@ -72,6 +82,7 @@
     font-weight: bold;
     margin-left: 16px;
 }
+
 .count-text {
     color: #d0021b;
     font-size: 20px;
@@ -160,6 +171,11 @@
     padding: 30px;
 }
 
+.best-image {
+    width: 150px;
+}
+
+
 .breadcrumb {
     font-size: 16px;
     margin-bottom: 10px;
@@ -246,11 +262,12 @@
 }
 
 .discount {
-    color: red;
+    color: #C00000;
     font-weight: bold;
     margin-left: 5px;
     font-size: 15px;
 }
+
 
 .now {
     font-size: 16px;
@@ -263,7 +280,7 @@
     vertical-align: middle;
 }
 
-.best{
+.best {
     font-size: 25px;
     font-weight: bold;
 }

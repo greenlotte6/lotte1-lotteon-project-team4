@@ -6,16 +6,8 @@
     font-family: 'Noto Sans KR', sans-serif;
 }
 
-main {
-    margin-top: 275px;
-}
-
 header {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
-    z-index: 1000;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -31,7 +23,7 @@ header {
 .sidebar {
     position: sticky;
     top: 273px;
-    width: 289px;
+    width: 310px;
     background-color: #fff;
     z-index: 900;
     border-right: 1px solid #ddd;
@@ -50,6 +42,7 @@ header {
 .best-main {
     padding: 10px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .best-sub {
@@ -63,11 +56,25 @@ header {
     text-decoration: line-through;
 }
 
-.old {
-    text-decoration: line-through;
+.price-wrap {
     font-size: 15px;
-    color: #999;
 }
+
+.price-wrap .best-price {
+    text-decoration: line-through;
+    color: #999;
+    margin-right: 5px;
+}
+
+.price-wrap .discount {
+    color: #C00000;
+    font-weight: bold;
+}
+
+.best-image {
+    width: 150px;
+}
+
 
 
 
@@ -120,7 +127,7 @@ header {
 }
 
 .discount {
-    color: red;
+    color: #C00000;
     margin-right: 8px;
     font-size: 15px;
     font-weight: bold;

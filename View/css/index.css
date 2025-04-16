@@ -17,11 +17,12 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap:50px
+    gap: 50px;
+    width: 1090px;
 }
 
 .sidebar {
-    width: 290px;
+    width: 310px;
     padding: 20px;
     border-right: 1px solid #ddd;
 }
@@ -46,6 +47,7 @@
 .best-main {
     padding: 10px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .best-sub {
@@ -59,15 +61,29 @@
     text-decoration: line-through;
 }
 
-.old {
-    text-decoration: line-through;
+.best-image {
+    width: 150px;
+}
+
+.price-wrap {
     font-size: 15px;
+}
+
+.price-wrap .best-price {
+    text-decoration: line-through;
     color: #999;
+    margin-right: 5px;
+}
+
+.price-wrap .discount {
+    color: #C00000;
+    font-weight: bold;
 }
 
 .best {
     font-size: 25px;
     font-weight: bold;
+    text-align: center;
 }
 
 .original {
@@ -85,27 +101,7 @@
     font-size: 16px;
 }
 
-.product-section {
-    margin-top: 40px;
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
-}
 
-.section-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    padding-left: 5px;
-}
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 220px);
-    grid-template-rows: repeat(2, auto);
-    gap: 20px;
-    margin-top: 30px;
-}
 
 .product-card {
     padding: 10px;
@@ -183,7 +179,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .swiper-button-next,
