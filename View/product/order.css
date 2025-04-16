@@ -1,0 +1,393 @@
+/* 공통 레이아웃 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.content {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.sidebar {
+    width: 289px;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.best-items {
+    margin-top: 20px;
+}
+
+.best-title {
+    font-size: 18px;
+    font-weight: bold
+}
+
+.best-main {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.best-sub {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+}
+
+.best-price {
+    text-decoration: line-through;
+}
+
+.old {
+    text-decoration: line-through;
+    font-size: 15px;
+    color: #999;
+}
+
+.sort-options {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    font-size: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 11px;
+}
+
+.sort-options>.options-item:not(:last-child)::after {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    margin-bottom: 20px;
+    height: 11px;
+    margin: 0 15px;
+    border-left: 1px solid black;
+}
+
+.sort-options>.options-item>a {
+    text-align: center;
+    color: black;
+    display: inline-block;
+    position: relative;
+    font-size: 15px;
+}
+
+.main-content {
+    flex: 1;
+    padding: 30px;
+}
+
+.breadcrumb {
+    font-size: 16px;
+
+    color: #666;
+    float: right;
+}
+
+.product-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: -3px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+.cart-table {
+    margin-top: 20px;
+    border-top: 2px solid black;
+}
+
+.cart-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.cart-table th,
+.cart-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    font-size: 13px;
+}
+
+.cart-table .product-name {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-align: left;
+}
+
+.cart-table .product-name img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+}
+
+.pro_name {
+    display: flex;
+    flex-direction: column;
+    gap: 5px
+}
+
+.cart-table .product-name .p-title {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.cart-table .product-name .p-desc {
+    font-size: 13px;
+    color: #666;
+}
+
+.cart-table .total-price {
+    font-weight: bold;
+    color: #CC3434;
+}
+
+.order-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+
+/* 주문 왼쪽 전체 영역 */
+.order-left {
+    width: calc(100% - 270px);
+    padding-right: 30px;
+}
+
+/* 각 블록 간 간격 */
+.delivery-info,
+.point-coupon,
+.payment-method {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 소제목 (배송정보, 포인트, 결제방법) */
+.order-left h4 {
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+.form-line {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.delivery-info .form-line {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.delivery-info .form-line label {
+    width: 80px;
+    font-size: 14px;
+    margin-right: 10px;
+    line-height: 30px;
+}
+
+.delivery-info .form-line input,
+.delivery-info .form-line textarea {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.delivery-info .form-line button {
+    padding: 8px 12px;
+    background: #eee;
+    border: 1px solid #aaa;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+
+/* 공통 폼 요소 스타일 */
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.form-group input,
+.point-coupon select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-group-point input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* 주소 검색 영역 */
+.address-btn-wrap {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.address-btn-wrap button {
+    padding: 8px 12px;
+    background: #eee;
+    border: 1px solid #aaa;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.form-group textarea {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+
+input.address-input {
+    width: 400px;
+}
+
+
+textarea.etc-textarea {
+    width: 400px;
+}
+
+
+
+/* 포인트/쿠폰 영역 */
+.point-coupon .form-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.point-hint {
+    font-size: 12px;
+    color: #808080;
+    margin-bottom: 10px;
+}
+
+.point-coupon input[type="text"],
+.point-coupon select {
+    padding: 6px 8px;
+    font-size: 14px;
+    width: 150px;
+}
+
+.point-coupon button {
+    padding: 6px 10px;
+    font-size: 13px;
+    background: #eee;
+    border: 1px solid #aaa;
+    cursor: pointer;
+}
+
+.point-coupon label {
+    width: 70px;
+    font-weight: 500;
+}
+
+.point-coupon .bold {
+    font-weight: bold;
+}
+
+
+/* 결제 방법 */
+.payment-method .methods {
+    display: grid;
+    grid-template-columns: 180px auto;
+    column-gap: 10px;
+    row-gap: 8px;
+}
+
+.payment-method label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.pay-icon {
+    width: 58px;
+    height: auto;
+    vertical-align: middle;
+}
+
+
+
+.cart-summary {
+    width: 250px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    float: right;
+    margin-top: 13px;
+}
+
+.cart-summary h4 {
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #999;
+    padding-bottom: 8px;
+}
+
+.cart-summary ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cart-summary li {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+
+}
+
+.cart-summary .total {
+    font-weight: bold;
+    color: #CC3434;
+}
+
+.order-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #CC3434;
+    color: white;
+    font-size: 16px;
+    border: none;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
