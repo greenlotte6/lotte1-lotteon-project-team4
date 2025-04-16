@@ -139,44 +139,12 @@ aside {
 }
 
 select {
-    width: 150px;
+    width: 100px;
     height: 30px;
+    margin-bottom: 10px;
     color: #333;
     border: 1px solid #b7b7b7;
     box-sizing: border-box;
-}
-
-.search input {
-    width: 150px;
-    height: 30px;
-    padding-left: 5px;
-    border: 1px solid #b7b7b7;
-    box-sizing: border-box;
-}
-
-.status {
-    margin: 20px 0 10px 0;
-    display: flex;
-    float: right;
-}
-
-.status p {
-    margin-right: 10px;
-}
-
-.green {
-    color: rgb(0, 200, 0);
-    font-size: 13px;
-}
-
-.red {
-    color: red;
-    font-size: 13px;
-}
-
-.blue {
-    color: blue;
-    font-size: 13px;
 }
 
 table {
@@ -197,12 +165,12 @@ th {
     font-weight: 600;
 }
 
-th:nth-of-type(4) {
-    width: 70px;
+th:nth-of-type(2) {
+    width: 150px;
 }
 
-th:nth-of-type(6) {
-    width: 150px;
+th:nth-of-type(4) {
+    width: 70px;
 }
 
 th, td {
@@ -211,45 +179,16 @@ th, td {
     font-size: 13px;
 }
 
-.search > button {
-    width: 60px;
-    height: 30px;
-    padding-top: 3px;
+table th > button {
     border: none;
-    color: #fff;
-    font-size: 13px;
+    background-color: #fff;
     cursor: pointer;
-    background-color: #333;
-    box-sizing: border-box;
-}
-
-.click {
-    display: flex;
-    justify-content: space-between;
-    margin: 40px 0 10px 0;
-}
-
-.button {
-    width: 100px;
-    height: 40px;
-    font-size: 14px;
-    cursor: pointer;
-    color: #fff;
-    border: none;
-    box-sizing: border-box;
-}
-
-.select-delete {
-    background-color: #333;
-}
-
-.banner-register {
-    background-color: #d3514a;
+    text-decoration: underline;
 }
 
 .page {
     text-align: center;
-    margin: -10px 0 30px 0;
+    margin: 50px 0 30px 0;
 }
 
 .page > button {

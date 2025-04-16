@@ -135,10 +135,10 @@ aside {
 }
 
 .search {
-    margin-top: 20px;
+    margin:20px 0 10px 0;
 }
 
-select {
+.search > select {
     width: 150px;
     height: 30px;
     color: #333;
@@ -174,8 +174,8 @@ select {
     font-size: 13px;
 }
 
-.blue {
-    color: blue;
+.grey {
+    color: rgb(133, 133, 133);
     font-size: 13px;
 }
 
@@ -197,18 +197,26 @@ th {
     font-weight: 600;
 }
 
-th:nth-of-type(4) {
-    width: 70px;
-}
-
-th:nth-of-type(6) {
-    width: 150px;
-}
-
 th, td {
     padding: 17px 0;
     text-align: center;
     font-size: 13px;
+}
+
+table td div:nth-of-type(1) {
+    margin-bottom: 5px;
+}
+
+th:nth-of-type(6) {
+    width: 90px;
+}
+
+th:nth-of-type(8) {
+    width: 150px;
+}
+
+th:nth-of-type(9) {
+    width: 100px;
 }
 
 .search > button {
@@ -220,6 +228,14 @@ th, td {
     font-size: 13px;
     cursor: pointer;
     background-color: #333;
+    box-sizing: border-box;
+}
+
+table select {
+    width: 70px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
     box-sizing: border-box;
 }
 
@@ -241,10 +257,6 @@ th, td {
 
 .select-delete {
     background-color: #333;
-}
-
-.banner-register {
-    background-color: #d3514a;
 }
 
 .page {
