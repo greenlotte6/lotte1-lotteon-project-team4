@@ -30,6 +30,22 @@
       padding: 6px 10px;
     }
 
+    .pagination{
+        margin-top: 180px;
+        margin-left: 300px;
+        
+     }   
+
+    .pagination button {
+        margin: 0 5px;
+        padding: 6px 12px;
+        border: 1px solid #aaa;
+        background-color: #fff;
+        cursor: pointer;
+        border:none;
+        font-size: 15px;
+    }
+
    
     </style>
 </head>
@@ -223,57 +239,66 @@
     </div>
   
     <div class="main_container">
-      <div class="sidebar">
-        <ul>
-          <li>전체주문내역</li>
-          <li>포인트내역</li>
-          <li>쿠폰</li>
-          <li>나의리뷰</li>
-          <li>문의하기</li>
-          <li>나의설정</li>
-        </ul>
-      </div>
+        <div class="sidebar">
+            <ul>
+            <li>전체주문내역</li>
+            <li>포인트내역</li>
+            <li>쿠폰</li>
+            <li>나의리뷰</li>
+            <li>문의하기</li>
+            <li>나의설정</li>
+            </ul>
+        </div>
           <div class="content">
             <div class="banner">810 × 86 배너 광고</div>
             <h2>문의하기</h2>
-          <table class="inquiry-table">
-            <thead>
-              <tr>
-                <th>번호</th>
-                <th>문의채널</th>
-                <th>문의유형</th>
-                <th>제목</th>
-                <th>작성일</th>
-                <th>상태</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>고객센터</td>
-                <td>주문 / 결제</td>
-                <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요 ?</td>
-                <td>2022-12-12</td>
-                <td class="status-pending">검토중</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>고객센터</td>
-                <td>주문 / 결제</td>
-                <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요 ?</td>
-                <td>2022-12-12</td>
-                <td class="status-done">답변완료</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>판매자<br>게시판</td>
-                <td>배송</td>
-                <td>배송기간이 보통 얼마나 걸리나요 ?</td>
-                <td>2022-12-12</td>
-                <td class="status-done">답변완료</td>
-              </tr>
-            </tbody>
-          </table>
+                <table class="inquiry-table">
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>문의채널</th>
+                        <th>문의유형</th>
+                        <th>제목</th>
+                        <th>작성일</th>
+                        <th>상태</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>고객센터</td>
+                        <td>주문 / 결제</td>
+                        <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요 ?</td>
+                        <td>2022-12-12</td>
+                        <td class="status-pending">검토중</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>고객센터</td>
+                        <td>주문 / 결제</td>
+                        <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요 ?</td>
+                        <td>2022-12-12</td>
+                        <td class="status-done">답변완료</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>판매자<br>게시판</td>
+                        <td>배송</td>
+                        <td>배송기간이 보통 얼마나 걸리나요 ?</td>
+                        <td>2022-12-12</td>
+                        <td class="status-done">답변완료</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <button>&lt; 이전</button>
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>4</button>
+                    <button>5</button>
+                    <button>다음 &gt;</button>
+                </div>
             </div>
           </div>
         </div>

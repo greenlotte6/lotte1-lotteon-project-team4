@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>최근 5개월 버튼</title>
+</head>
+<body>
+  <div id="monthButtons"></div>
+
+  <br>
+  <input type="date" id="startDate"> ~
+  <input type="date" id="endDate">
+  <button onclick="query()">조회</button>
+
+  <script>
+    function formatDate(date) {
+      return date.toISOString().split('T')[0];
+    }
+
+    function createMonthButtons() {
+      const container = document.getElementById('monthButtons');
+      container.innerHTML = '';
+
+      const now = new Date();
+      for (let i = 0; i < 5; i++) {
+        const tempDate = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        const month = tempDate.getMonth() + 1;
+        const year = tempDate.getFullYear();
+
+        const btn = document.createElement('button');
+        btn.textContent = `${month}월`;
+        btn.onclick = () => setMonthRange(year, month);
+        container.appendChild(btn);
+      }
+    }
+
+    function setMonthRange(year, month) {
+      const startDate = new Date(year, month - 1, 1);
+      const endDate = new Date(year, month, 0); // 말일
+
+      document.getElementById('startDate').value = formatDate(startDate);
+      document.getElementById('endDate').value = formatDate(endDate);
+    }
+
+    function query() {
+      const start = document.getElementById('startDate').value;
+      const end = document.getElementById('endDate').value;
+      alert(`조회 기간: ${start} ~ ${end}`);
+    }
+
+    // 페이지 로딩 시 버튼 생성
+    createMonthButtons();
+  </script>
+</body>
+</html>

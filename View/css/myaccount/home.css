@@ -125,6 +125,7 @@ body {
 
 }
 
+
 .btn {
   display: block;
   margin: 5px 0;
@@ -323,4 +324,6 @@ cursor: pointer;
 
 .click-bar{
   text-decoration: underline;
+  cursor: pointer;
+  
 }

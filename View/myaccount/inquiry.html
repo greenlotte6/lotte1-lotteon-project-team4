@@ -7,7 +7,6 @@
     <style>
         main{
             width: 800px;
-            height: 600px;
             margin: 0 auto;
             background-color: #fff;
         }
@@ -148,6 +147,7 @@
         }
         .M-button{
             margin-left: 200px;
+            padding-bottom: 30px;
         }
         .moon:hover {
             background: #0056b3;
@@ -161,6 +161,22 @@
   
         .input-text{
             border: 3px solid gray;
+        }
+
+        textarea {
+            width: 98%;
+            height: 120px;
+            resize: none;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+            box-sizing: border-box;
+        }
+
+        textarea::placeholder {
+            color: #999;
+            font-size: 14px;
         }
     
    
@@ -194,7 +210,7 @@
                     </tr>
                     <tr>
                       <th>내용</th>
-                      <td><input type="text_1"/></td>
+                      <td><textarea text></textarea></td>
                     </tr> 
                 </table>
                 <p>* 위 정보는 전자상거래 법 제 20조 제 2항 및 동법시행령 제 25조 제 2항에 의거하여<br>소비자보호에 의거 공개합니다.</p>
