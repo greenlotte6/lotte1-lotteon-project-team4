@@ -1,0 +1,156 @@
+/* 전체 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Gothic A1", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+}
+a {
+    text-decoration: none;
+}
+ul,
+li {
+    list-style: none;
+}
+body {
+    overflow-x: scroll;
+    min-width: 1200px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+/* main */
+.container {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.title {
+    display: flex;
+    width: 100%;
+    margin-bottom: 30px;
+    color: #fff;
+    background-color: #e45450;
+}
+
+h2 {
+    margin: 5px 0 5px 10px;
+}
+
+.X {
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+    margin-left: 690px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+table {
+    width: 90%;
+    margin: 0 auto;
+    border-top: 2px solid #b7b7b7;
+    border-bottom: 2px solid #b7b7b7;
+    border-collapse: collapse;
+}
+
+tr {
+    height: 50px;
+    border-top: 1px solid #b7b7b7;
+    border-bottom: 1px solid #e0e0e0;
+    box-sizing: border-box;
+}
+
+td {
+    width: 50px;
+    font-size: 14px;
+    text-align: center;
+}
+
+td:nth-of-type(1) {
+    background-color: #f3f3f3;
+}
+
+td:nth-of-type(2) {
+    text-align: left;
+    padding-left: 15px;
+}
+
+input {
+    width: 250px;
+    height: 30px;
+    padding-left: 10px;
+    font-size: 14px;
+    color: #696969;
+    border: 1px solid #b7b7b7;
+    box-sizing: border-box;
+}
+
+input[type="radio"] {
+    accent-color: #e45450;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin-right: 3px;
+}
+
+.gender-select {
+    display: flex;
+    align-items: center;
+    margin-top: 14px;
+}
+
+.gender-select input:last-of-type {
+    margin-left: 13px;
+}
+
+select {
+    width: 180px;
+    height: 25px;
+    padding-left: 7px;
+    color: #696969;
+    border: 1px solid #b7b7b7;
+    box-sizing: border-box;
+}
+
+.input {
+    padding: 0;
+    border: none;
+}
+
+.button {
+    width: 90%;
+    margin: 30px auto 0 auto;
+    text-align: center;
+}
+
+.register {
+    width: 100px;
+    height: 35px;
+    font-size: 15px;
+    padding-bottom: 2px;
+    border: none;
+    color: #fff;
+    background-color: #d3514a;
+    cursor: pointer;
+}
+
+.green {
+    color: green;
+}
+
+.addr-button {
+    width: 110px;
+    height: 30px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 10px;
+    border: 1px solid #e0e0e0;
+    box-sizing: border-box;
+}
