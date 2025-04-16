@@ -55,13 +55,15 @@ h2 {
 table {
     width: 90%;
     margin: 0 auto;
+    border-top: 2px solid #b7b7b7;
+    border-bottom: 2px solid #b7b7b7;
     border-collapse: collapse;
 }
 
 tr {
     height: 50px;
     border-top: 1px solid #b7b7b7;
-    border-bottom: 1px solid #b7b7b7;
+    border-bottom: 1px solid #e0e0e0;
     box-sizing: border-box;
 }
 
@@ -82,8 +84,9 @@ td:nth-of-type(2) {
 
 input {
     width: 250px;
-    height: 25px;
+    height: 30px;
     padding-left: 10px;
+    font-size: 14px;
     color: #696969;
     border: 1px solid #b7b7b7;
     box-sizing: border-box;

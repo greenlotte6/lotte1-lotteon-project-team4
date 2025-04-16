@@ -160,6 +160,10 @@ table {
     box-sizing: border-box;
 }
 
+table td div:nth-of-type(1) {
+    margin-bottom: 5px;
+}
+
 th, td {
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
