@@ -87,7 +87,6 @@
 .breadcrumb {
     font-size: 16px;
     margin-bottom: 10px;
-    color: #666;
     float: right;
 }
 
@@ -130,14 +129,13 @@
 
 .product-table td:nth-child(3),
 .product-table th:nth-child(3) {
-    width: 19%;
+    width: 20%;
 }
 
 .product-table td:nth-child(4),
 .product-table th:nth-child(4) {
     width: 25%;
 }
-
 
 
 .product-img {
