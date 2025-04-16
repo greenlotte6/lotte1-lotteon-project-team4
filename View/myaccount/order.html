@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>나의 설정</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 10px;
+      vertical-align: middle;
+    }
+
+    .label {
+      width: 120px;
+      font-weight: bold;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    select {
+      padding: 6px;
+      width: auto;
+      min-width: 120px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 6px 10px;
+      cursor: pointer;
+      border: 1px solid #888;
+      background-color: #fff;
+    }
+
+    .btn-red {
+      background-color: #b80000;
+      color: white;
+      border: none;
+    }
+
+    .btn-blue {
+      background-color: #3b6db3;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    .email-box,
+    .phone-box {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .email-box input[type="text"] {
+      width: 100px;
+    }
+
+    .phone-box input[type="text"] {
+      width: 60px;
+    }
+
+    .address-box {
+      display: flex;
+      gap: 5px;
+    }
+
+    .input-full {
+      width: 100%;
+    }
+
+    hr {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <h3>나의 설정</h3>
+
+  <table>
+    <tr>
+      <td class="label">사용자 ID</td>
+      <td>chh****</td>
+    </tr>
+    <tr>
+      <td class="label">비밀번호</td>
+      <td><button>비밀번호수정</button></td>
+    </tr>
+    <tr>
+      <td class="label">이름</td>
+      <td>김 *학</td>
+    </tr>
+    <tr>
+      <td class="label">생년 월일</td>
+      <td>1983년 05월 03일</td>
+    </tr>
+    <tr>
+      <td class="label">Email</td>
+      <td>
+        <div class="email-box">
+          <input type="text" value="chhak0503"> @ 
+          <input type="text" value="naver.com">
+          <select>
+            <option>직접입력 ▼</option>
+          </select>
+          <button>수정하기</button>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="label">휴대폰</td>
+      <td>
+        <div class="phone-box">
+          <input type="text" value="010"> -
+          <input type="text" value="1234"> -
+          <input type="text" value="5678">
+          <button>수정하기</button>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="label">주소</td>
+      <td>
+        <div class="address-box">
+          <input type="text" placeholder="우편번호">
+          <button>주소검색</button>
+        </div>
+        <br>
+        <input type="text" class="input-full" placeholder="기본주소검색">
+        <br><br>
+        <input type="text" class="input-full" placeholder="상세주소입력">
+      </td>
+    </tr>
+    <tr>
+      <td class="label">탈퇴</td>
+      <td><button class="btn-red">탈퇴하기</button></td>
+    </tr>
+  </table>
+
+  <button class="btn-blue">수정하기</button>
+
+  <hr>
+
+</body>
+</html>
