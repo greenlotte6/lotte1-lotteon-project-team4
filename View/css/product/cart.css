@@ -13,26 +13,6 @@
     font-family: 'Noto Sans KR', sans-serif;
 }
 
-.complete {
-    margin: 30px 0;
-    text-align: center;
-    font-family: 'Noto Sans KR', sans-serif;
-    display: flex;
-    flex-direction: column;
-}
-
-.complete .heading-title {
-    font-size: 26px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-.complete .heading-sub {
-    font-size: 15px;
-    color: #999;
-}
-
-
 .sidebar {
     width: 289px;
     padding: 20px;
@@ -106,8 +86,6 @@
 
 .breadcrumb {
     font-size: 16px;
-
-    color: #666;
     float: right;
 }
 
@@ -121,7 +99,7 @@
 
 .cart-table {
     margin-top: 20px;
-    border-top: 2px solid black;
+    border-top: 2px solid black ;
 }
 
 .cart-table table {
@@ -138,10 +116,6 @@
     font-size: 13px;
 }
 
-.cart-table tbody tr:last-child {
-    border-bottom: 2px solid #BFBFBF;
-}
-
 .cart-table .product-name {
     display: flex;
     align-items: center;
@@ -156,7 +130,7 @@
     border: 1px solid #ccc;
 }
 
-.pro_name {
+.pro_name{
     display: flex;
     flex-direction: column;
     gap: 5px
@@ -177,12 +151,27 @@
     color: #CC3434;
 }
 
+.select-delete {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background:#F2F2F2;
+    border: none;
+    cursor: pointer;
+}
 
 .cart-summary {
     width: 250px;
-    padding: 10px 15px;
+    border: 1px solid #ccc;
+    padding: 15px;
     float: right;
-    background-color: #F2F2F2;
+}
+
+.cart-summary h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #999;
+    padding-bottom: 8px;
 }
 
 .cart-summary ul {
@@ -202,55 +191,14 @@
     color: #CC3434;
 }
 
-/* 주문정보 & 배송정보 공통 박스 */
-.order-info-box,
-.delivery-info-box {
-    padding: 0 20px;
-    background-color: #fff;
-}
-
-/* 타이틀 스타일 */
-.order-info-box h3,
-.delivery-info-box h3 {
-    font-size: 16px;
-    font-weight: bold;
-    border-bottom: 2px solid black;
-    padding-bottom: 10px;
-}
-
-/* 테이블 기본 */
-.info-table {
+.order-btn {
     width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-    color: #333;
-}
-
-.info-table th {
-    width: 160px;
-    text-align: left;
-    background-color: #f8f8f8;
     padding: 10px;
-    border-bottom: 1px solid #ddd;
-    font-weight: 600;
-}
-
-.info-table td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-/* 결제금액 강조 */
-.order-total {
-    text-align: right;
+    background-color: #CC3434;
+    color: white;
+    font-size: 16px;
+    border: none;
     margin-top: 15px;
-    font-size: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
-
-.order-total strong {
-    color: #CC3434;
-    margin-left: 10px;
-    font-weight: bold;
-}
-
-
