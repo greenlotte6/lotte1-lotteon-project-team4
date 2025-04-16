@@ -7,7 +7,9 @@
     <style>
         main{
             width: 1000px;
+            height: 700px;
             margin: 0 auto;
+            background-color: #fff;
         }
         .main_container{
             width: 950px;
@@ -157,7 +159,6 @@
 
         .close-btn {
             color: white;
-            
             text-align: center;
             font-weight: bold;
             font-size: 14px;
@@ -176,7 +177,7 @@
     <main>
         <div class="message-log">
             <div class="message-title">반품하기</div>
-            <div class="close-btn">X</div>
+            <button class="close-btn" onclick="parent.document.getElementById('modalOverlay').style.display='none'">X</button>
           </div>
         </div>
         <div class="main_container">
@@ -241,8 +242,8 @@
                 </table>
             </div>
             <div class="M-button">
-              <button class="moon">반품신청</button>
-              <button class="moon">취소</button>
+              <button class="moon" onclick="parent.document.getElementById('modalOverlay').style.display='none'">반품신청</button>
+              <button class="moon" onclick="parent.document.getElementById('modalOverlay').style.display='none'">취소</button>
           </div>
       </div>            
     </main>
