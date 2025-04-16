@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/qna/list.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/css/common/_admin_footer.css">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>공지사항 수정</title>  
+    <script>
+        function updateSubCategory() {
+            const mainCategory = document.getElementById('qndnum').value;  // 1차유형
+            const subCategory = document.getElementById('qnanum2');  // 2차유형
+
+            let options = [];
+
+            if (mainCategory === '회원') {
+                options = ['가입', '아이디/비밀번호 찾기', '회원정보 수정', '회원탈퇴'];
+            } else if (mainCategory === '주문/결제') {
+                options = ['주문확인', '결제방법', '결제오류', '영수증/세금계산서 발급'];
+            } else if (mainCategory === '배송') {
+                options = ['배송조회', '배송기간', '배송지 변경', '해외배송'];
+            } else if (mainCategory === '취소/교환/반품') {
+                options = ['주문취소', '반품신청', '교환절차', '환불소요기간'];
+            } else if (mainCategory === '쿠폰/포인트') {
+                options = ['쿠폰확인', '쿠폰사용', '포인트적립', '포인트사용'];
+            } else if (mainCategory === '이벤트') {
+                options = ['이벤트 참여', '당첨확인', '경품수령', '이벤트문의'];
+            }
+
+            // 기존 옵션 삭제
+            subCategory.innerHTML = '';
+
+            // 기본 옵션 추가
+            const defaultOption = document.createElement('option');
+            defaultOption.text = '2차 선택';
+            subCategory.appendChild(defaultOption);
+
+            // 선택된 1차유형에 맞는 2차유형 옵션 추가
+            options.forEach(function(option) {
+                const newOption = document.createElement('option');
+                newOption.value = option;
+                newOption.text = option;
+                subCategory.appendChild(newOption);
+            });
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="wrapper">
+            <div class="wrapper-suv">
+                <div class="user-nav">
+                    <ul>
+                        <li><a href="#">홈</a></li>
+                        <li><a href="#">로그아웃</a></li>
+                        <li><a href="#">고객센터</a></li>
+                    </ul>
+                </div>
+                <div class="logo">
+                    <a href="#"><img src="/images/logo/logo_white.png" alt="LotteON-logo"></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="main-wrapper">
+            <aside>
+                <div class="aside">
+                    <ul class="out-ul">
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-cogs"></i><a href="#" class="hover">환경설정</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 기본설정</a></li>
+                                    <li><a href="#">- 배너관리</a></li>
+                                    <li><a href="#">- 약관관리</a></li>
+                                    <li><a href="#">- 카테고리</a></li>
+                                    <li><a href="#">- 버전관리</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-store"></i> <a href="#" class="hover">상점관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 상점목록</a></li>
+                                    <li><a href="#">- 매출현황</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-users"></i> <a href="#" class="hover">회원관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 회원목록</a></li>
+                                    <li><a href="#">- 포인트관리</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-box"></i> <a href="#" class="hover">상품관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 상품목록</a></li>
+                                    <li><a href="#">- 상품등록</a></li>
+                                    <li><a href="#">- 카테고리</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-receipt"></i> <a href="#" class="hover">주문관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 주문현황</a></li>
+                                    <li><a href="#">- 배송현황</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-ticket-alt"></i> <a href="#" class="hover">쿠폰관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 쿠폰목록</a></li>
+                                    <li><a href="#">- 쿠폰발급현황</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-headset"></i> <a href="#" class="hover">고객센터</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 공지사항</a></li>
+                                    <li><a href="#">- 자주묻는질문</a></li>
+                                    <li><a href="#">- 문의하기</a></li>
+                                    <li><a href="#">- 채용하기</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </aside>
+            
+            <div class="main">
+                <div class="setting">
+                    <h1>자주하는질문 목록</h1>
+                    <ul>
+                        <li><a href="#">HOME &nbsp;>&nbsp;</a></li>
+                        <li><a href="#">고객센터 &nbsp;>&nbsp;</a></li>
+                        <li><a href="#"><span>자주묻는질문 &nbsp;</span></a></li>
+                    </ul>
+                </div>
+                <div class="line"></div>
+                <div class="container">
+                    <form class="category-form">
+                        <div class="select-wrapper">
+                            <label for="qndnum"></label>
+                            <select id="qndnum" name="name" onchange="updateSubCategory()" style="padding: 8px;">
+                                <option value="1차선택">1차 선택</option>
+                                <option value="회원">회원</option>
+                                <option value="주문/결제">주문/결제</option>
+                                <option value="배송">배송</option>
+                                <option value="취소/교환/반품">취소/교환/반품</option>
+                                <option value="쿠폰/포인트">쿠폰/포인트</option>
+                                <option value="이벤트">이벤트</option>
+                            </select>
+                    
+                            <label for="qnanum2"></label>
+                            <select id="qnanum2" name="name" style="padding: 8px; margin-left: 10px;">
+                                <option value="">2차 선택</option>
+                            </select>
+                        </div>
+                    </form>
+                    <table>
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>번호</th>
+                            <th>1차유형</th>
+                            <th>2차유형</th>
+                            <th>제목</th>
+                            <th>조회</th>
+                            <th>날짜</th>
+                            <th>관리</th>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>10</td>
+                            <td>회원</td>
+                            <td>가입</td>
+                            <td>
+                                <a href="#">개인회원과 법인회원에 차이가 있나요?</a>
+                            </td>
+                            <td>120</td>
+                            <td>00.00.00</td>
+                            <td>
+                                <a href="#">[삭제]</a><br>
+                                <a href="#">[수정]</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>9</td>
+                            <td>회원</td>
+                            <td>가입</td>
+                            <td>
+                                <a href="#">본인인증시 이미 가입되어 있는 정보라고 <br>
+                                나옵니다.</a>
+                            </td>
+                            <td>120</td>
+                            <td>00.00.00</td>
+                            <td>
+                                <a href="#">[삭제]</a> <br>
+                                <a href="#">[수정]</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="btn">
+                        <button>선택삭제</button>
+                        <button class="write-btn">작성하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer">
+            <p>
+            Copyright © LOTTESHOPPING Co., LTD. All rights reserved. LotteON ADMINISTRATOR Version 5.4.1.2
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
