@@ -1,0 +1,199 @@
+/* 공통 레이아웃 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap:50px
+}
+
+.sidebar {
+    width: 290px;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.product-title {
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 3px;
+    border-bottom: 2px solid #000;
+    padding-bottom: 10px;
+}
+
+.best-items {
+    margin-top: 20px;
+}
+
+.best-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.best-main {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.best-sub {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+}
+
+.best-price {
+    text-decoration: line-through;
+}
+
+.old {
+    text-decoration: line-through;
+    font-size: 15px;
+    color: #999;
+}
+
+.best {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.original {
+    text-decoration: line-through;
+    font-size: 18px;
+    color: #999;
+}
+
+.discount {
+    color: #C00000;
+    font-size: 15px;
+}
+
+.now {
+    font-size: 16px;
+}
+
+.product-section {
+    margin-top: 40px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-left: 5px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 220px);
+    grid-template-rows: repeat(2, auto);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.product-card {
+    padding: 10px;
+    background-color: #fff;
+    transition: box-shadow 0.3s;
+    text-align: center;
+}
+
+.product-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    width: 150px;
+    height: auto;
+    object-fit: cover;
+}
+
+.product-info {
+    padding-top: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.product-name {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.product-price {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 3px;
+}
+
+.product-price .original {
+    text-decoration: line-through;
+    margin-right: 5px;
+}
+
+.product-price .discount {
+    color: #C00000;
+    font-weight: bold;
+}
+
+.final-price {
+    font-weight: bold;
+    font-size: 17px;
+    margin-bottom: 3px;
+}
+
+.delivery {
+    font-size: 15px;
+    font-weight: bold;
+    color: #3366cc;
+}
+
+.swiper {
+    overflow: hidden;
+}
+
+.swiper-slide {
+    width: 260px;
+    flex-shrink: 0;
+}
+
+.product-slide-section {
+    position: relative;
+    max-width: 1125px;
+    height: 345px;
+}
+
+.slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    width: 30px;
+    height: 30px;
+    background-color: #eee;
+    border-radius: 50%;
+    background-image: url('/images/arrow.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}

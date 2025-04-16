@@ -11,7 +11,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="/css/common/_header.css">
     <link rel="stylesheet" href="/css/common/_footer.css">
-    <link rel="stylesheet" href="/product/view.css" />
+    <link rel="stylesheet" href="/css/product/view.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <title>롯데ON 상품보기</title>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -74,6 +74,16 @@
             plusBtn.addEventListener("click", () => {
                 let value = parseInt(input.value);
                 input.value = value + 1;
+            });
+
+            new Swiper('.product-swiper', {
+                slidesPerView: 4,       // 4개씩 보이게
+                spaceBetween: 20,       // 상품 간격
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev'
+                },
+                loop: false
             });
         });
     </script>
