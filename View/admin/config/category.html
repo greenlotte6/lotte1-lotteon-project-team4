@@ -23,29 +23,6 @@
             inul.classList.toggle('active');
         });
         
-        /* 카테고리 */
-        const parentCategory = document.querySelector('.parent');
-        const middleContainers = document.querySelectorAll('.middle-container');
-        const childContainers = document.querySelectorAll('.child-container');
-
-        parentCategory.addEventListener('click', () => {
-            middleContainers.forEach(container => {
-            container.querySelector('.child-container').style.display = 'none';
-            });
-            childContainers.forEach(container => {
-            container.style.display = 'none';
-            });
-        });
-
-        middleContainers.forEach(container => {
-            const middle = container.querySelector('.middle');
-            const childContainer = container.querySelector('.child-container');
-
-            middle.addEventListener('click', (event) => {
-            event.stopPropagation(); // 부모 요소의 클릭 이벤트 전파 방지
-            childContainer.style.display = childContainer.style.display === 'none' ? 'block' : 'none';
-            });
-        });
     });
 </script>
 <body>
@@ -160,127 +137,33 @@
                             <p>쇼핑몰 메인, 상품 페이지 사이드 카테고리 메뉴입니다.</p>
                         </div>
                         <div class="category">
-                            <div class="parent">▼ 뷰티
-                                <button>삭제</button>
-                            </div>
-                            <div class="middle-container">
-                              <div class="middle">▼ 럭셔리 스킨케어
-                                <button>삭제</button>
-                              </div>
-                              <div class="child-container">
-                                <div class="child">클렌징
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">스킨/토너
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">로션/에멀젼
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">에센스/세럼
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">크림
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">오일
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">미스트
-                                    <button>삭제</button>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="middle-container">
-                              <div class="middle">▼ 스킨케어
-                                <button>삭제</button>
-                              </div>
-                              <div class="child-container">
-                                <div class="child">클렌징
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">스킨/토너
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">로션/에멀젼
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">에센스/세럼
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">크림
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">오일
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">미스트
-                                    <button>삭제</button>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="middle-container">
-                              <div class="middle">▼ 메이크업
-                                <button>삭제</button>
-                              </div>
-                              <div class="child-container">
-                                <div class="child">베이스메이크업
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">립메이크업
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">아이메이크업
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">블러셔
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">하이라이터
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">쉐딩/컨투어링
-                                    <button>삭제</button>
-                                </div>
-                                <div class="child">메이크업세트
-                                    <button>삭제</button>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="parent">▼ 메이크업
-                                <button>삭제</button>
-                            </div>
-                            <div class="middle-container">
-                                <div class="middle">▼ 럭셔리 스킨케어
-                                  <button>삭제</button>
-                                </div>
-                                <div class="child-container">
-                                  <div class="child">클렌징
-                                      <button>삭제</button>
-                                  </div>
-                                  <div class="child">스킨/토너
-                                      <button>삭제</button>
-                                  </div>
-                                  <div class="child">로션/에멀젼
-                                      <button>삭제</button>
-                                  </div>
-                                  <div class="child">에센스/세럼
-                                      <button>삭제</button>
-                                  </div>
-                                  <div class="child">크림
-                                      <button>삭제</button>
-                                  </div>
-                                  <div class="child">오일
-                                      <button>삭제</button>
-                                  </div>
-                                  <div class="child">미스트
-                                      <button>삭제</button>
-                                  </div>
-                                </div>
-                              </div>
-                          </div>
+                            <ul class="acodion-menu">
+                                <li class="active">
+                                    <a href="#">▶ 뷰티</a><button>삭제</button>
+                                    <ul class="sub">
+                                        <li><a href="#">럭셔리 스킨케어</a><button>삭제</button></li>
+                                        <li><a href="#">클렌징</a><button>삭제</button></li>
+                                        <li><a href="#">스킨/토너</a><button>삭제</button></li>
+                                    </ul>
+                                </li>
+                                
+                                <li class="active">
+                                    <a href="#">▶ 메이크업</a><button>삭제</button>
+                                    <ul class="sub">
+                                        <li><a href="#">베이스 메이크업</a><button>삭제</button></li>
+                                        <li><a href="#">립 메이크업</a><button>삭제</button></li>
+                                        <li><a href="#">아이 메이크업</a><button>삭제</button></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <p>미완성</p>
+                    <div class="cate-info">
+                        <p>카테고리 메뉴 순서를 변경할 때 드래그 앤 드롭으로 1차, 2차 카테고리 메뉴 이동 후 수정하기 클릭</p>
+                    </div>
+                    <div>
+                        <button class="modify">수정하기</button>
+                    </div>
                 </div>
             </div>
         </div>
