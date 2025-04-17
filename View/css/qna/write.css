@@ -147,7 +147,7 @@ margin: 30px 0 0 20px;
 }
 
 .setting ul {
-margin-left: 500px;
+margin-left: 570px;
 margin-top: 13px;
 }
 
@@ -186,11 +186,6 @@ box-sizing: border-box;
     margin: 0 auto;
 }
 
-select {
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
 .table-wrapper {
     width: 940px;
     margin: 0 auto;
@@ -202,88 +197,57 @@ table {
     font-family: 'Inter', sans-serif;
 }
 
-table td {
+table th {
+
+    border-top: 1px solid black;
+    margin-top: 50px;
     border-bottom: 1px solid black;
 }
-/* 공통 인풋 박스 스타일 */
-.input-box {
-    width: 600px;
-    padding: 15px;
+            
+
+
+table td {
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+    font-weight: 400;
     font-size: 14px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+}  
+
+.tabel-td {
+    font-weight: 700;
+    font-size: 15px;
 }
 
-/* 내용 부분은 좀 더 높게 */
-.content-box {
-    height: 150px;
+.tabel-td2 {
+    font-weight: 700;
+    font-size: 15px;
 }
 
-button {
+.btn {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.btn button {
     width: 106px;
     height: 41px;
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
-button:nth-of-type(1){
+    margin-left: 10px;
+    background-color: #007bff;
+    color: white;
     border: none;
+    cursor: pointer;
+    font-weight: 700;
+    }
+button:nth-of-type(1){
     background-color: #bfbfbf;
-    color: #ffffff;
-    font-size: 14px;
 }
 
 button:nth-of-type(2){
-    border: none;
     background-color: #8eb4e3;
-    color: #ffffff;
-    font-size: 14px;
 }
 
-.but {
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* 버튼 간 간격 */
-    margin-top: 30px;
-}
-/* 전체 스타일 */
-* {
-    margin: 0;
-    padding: 0;
-    font-family: "Gothic A1", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 12px;
-}
-a {
-    text-decoration: none;
-}
-ul,
-li {
-    list-style: none;
-}
-body {
-    overflow-x: scroll;
-    min-width: 1200px;
+button:nth-of-type(3){
+    background-color: #8eb4e3;
 }
 
-/* footer */
-footer {
-    width: 100%;
-    height: 30px;
-    margin: 0 auto;
-    background-color: #db524d;
-}
 
-.footer {
-    width: 1200px;
-    margin: 0 auto;
-}
-
-.footer p {
-    text-align: center;
-    color: #fff;
-    font-size: 15px;
-    padding-top: 6px;
-}
