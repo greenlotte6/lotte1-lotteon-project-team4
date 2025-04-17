@@ -1,0 +1,142 @@
+/* 공통 레이아웃 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #111;
+}
+
+.notice-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.notice-path {
+    font-size: 15px;
+    padding-bottom: 7px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #808080;
+    color: #666;
+    margin-left: 80px;
+}
+
+.notice-path>span {
+    font-size: 15px;
+}
+
+.notice-path>strong {
+    font-size: 15px;
+}
+
+.cs-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.cs-sidebar {
+    width: 140px;
+    border-right: 1px solid #ddd;
+    padding-right: 20px;
+    margin-left: 100px;
+}
+
+.cs-sidebar h3 {
+    font-size: 21px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.cs-menu {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 25px;
+}
+
+.cs-menu li {
+    padding: 8px 0;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.cs-menu li.active {
+    font-weight: bold;
+    color: #C00000;
+    text-decoration: underline;
+}
+
+.cs-content {
+    width: 70%;
+}
+
+.cs-title {
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 5px;
+
+}
+
+.cs-desc {
+    font-size: 13px;
+    color: #808080;
+    margin-bottom: 15px;
+}
+
+.faq-box {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+}
+
+.faq-section-title {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.faq-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.faq-list li {
+    align-items: center;
+    line-height: 25px;
+    height: 40px;
+    padding: 6px 0;
+    font-size: 16px;
+    border-bottom: 1px solid #f2f2f2;
+    color: #111;
+}
+
+.q-icon {
+    color: #0080ff;
+    font-weight: bold;
+    font-size: 23px;
+    margin-right: 5px;
+}
+
+.faq-more {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.faq-more a, .toggle-btn {
+    font-size: 14px;
+    color: #333;
+    border: none;
+    background-color: white;
+}
+
+.faq-list.show-limit li:nth-child(n+4) {
+    display: none;
+}
