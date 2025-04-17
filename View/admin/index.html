@@ -9,19 +9,20 @@
     <link rel="stylesheet" href="/css/admin/index.css">
     <link rel="stylesheet" href="/css/common/_admin_header.css">
     <link rel="stylesheet" href="/css/common/_admin_footer.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <!-- js -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>admin main</title>
 </head>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const fas = document.getElementsByClassName('fas')[0];
-        const inul = document.nextElementSibling;
+        
+        $('.hover').click(function(e) {
+            $(this).parent().toggleClass('active');
+        })
+            
 
-        fas.addEventListener('click', () => {
-            inul.classList.toggle('active');
-        });
     });
 </script>
 <body>
@@ -192,23 +193,23 @@
                         </div>
                         <table>
                             <tr>
-                                <td>[안내] 해외 결제 사칭 문자 주의</td>
+                                <td><a href="#">[안내] 해외 결제 사칭 문자 주의</a></td>
                                 <td>22.10.31</td>
                             </tr>
                             <tr>
-                                <td>[안내] 로젠 택배 반품/교환 수거지</td>
+                                <td><a href="#">[안내] 로젠 택배 반품/교환 수거지</a></td>
                                 <td>22.10.31</td>
                             </tr>
                             <tr>
-                                <td>[안내] 위치 정보 이용 약관 개정 공지</td>
+                                <td><a href="#">[안내] 위치 정보 이용 약관 개정 공...</a></td>
                                 <td>22.10.31</td>
                             </tr>
                                 <tr>
-                                <td>[안내] 구매 회원 이용 약관 개정</td>
+                                <td><a href="#">[안내] 구매 회원 이용 약관 개정</a></td>
                                 <td>22.10.31</td>
                             </tr>
                                 <tr>
-                                <td>[안내] 씨티 은행 시스템 점검 에 따</td>
+                                <td><a href="#">[안내] 씨티 은행 시스템 점검 에 따...</a></td>
                                 <td>22.10.31</td>
                             </tr>
                         </table>
@@ -219,48 +220,42 @@
                         </div>
                         <table>
                             <tr>
-                                <td>[가입]</td>
-                                <td>가입문의내용</td>
+                                <td><a href="#">[가입] 가입문의내용</a></td>
                                 <td>chh**</td>
                                 <td>22.10.31</td>
                             </tr>
                         </table>
                         <table>
                             <tr>
-                                <td>[가입]</td>
-                                <td>가입문의내용</td>
+                                <td><a href="#">[가입] 가입문의내용</a></td>
                                 <td>chh**</td>
                                 <td>22.10.31</td>
                             </tr>
                         </table>
                         <table>
                             <tr>
-                                <td>[가입]</td>
-                                <td>가입문의내용</td>
+                                <td><a href="#">[가입] 가입문의내용</a></td>
                                 <td>chh**</td>
                                 <td>22.10.31</td>
                             </tr>
                         </table>
                         <table>
                             <tr>
-                                <td>[가입]</td>
-                                <td>가입문의내용</td>
+                                <td><a href="#">[가입] 가입문의내용</a></td>
                                 <td>chh**</td>
                                 <td>22.10.31</td>
                             </tr>
                         </table>
                         <table>
                             <tr>
-                                <td>[가입]</td>
-                                <td>가입문의내용</td>
+                                <td><a href="#">[가입] 가입문의내용</a></td>
                                 <td>chh**</td>
                                 <td>22.10.31</td>
                             </tr>
                         </table>
                         <table>
                             <tr>
-                                <td>[가입]</td>
-                                <td>가입문의내용</td>
+                                <td><a href="#">[가입] 가입문의내용</a></td>
                                 <td>chh**</td>
                                 <td>22.10.31</td>
                             </tr>

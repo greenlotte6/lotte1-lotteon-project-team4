@@ -6,23 +6,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/common/_admin_aside.css">
     <link rel="stylesheet" href="/css/common/_admin_header.css">
     <link rel="stylesheet" href="/css/common/_admin_footer.css">
     <link rel="stylesheet" href="/css/admin/config/basic.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <!-- js -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>admin basic</title>
 </head>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const fas = document.getElementsByClassName('fas')[0];
-        const inul = document.nextElementSibling;
+     document.addEventListener('DOMContentLoaded', function () {
+        
+        $('.hover').click(function(e) {
+            $(this).parent().toggleClass('active');
+        })
+            
 
-        fas.addEventListener('click', () => {
-            inul.classList.toggle('active');
-        });
     });
 </script>
 <body>

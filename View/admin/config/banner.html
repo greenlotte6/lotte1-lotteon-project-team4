@@ -7,19 +7,20 @@
     <link rel="stylesheet" href="/css/common/_admin_header.css">
     <link rel="stylesheet" href="/css/common/_admin_footer.css">
     <link rel="stylesheet" href="/css/admin/config/banner.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <!-- js -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>admin banner</title>
 </head>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const fas = document.getElementsByClassName('fas')[0];
-        const inul = document.nextElementSibling;
+        
+        $('.hover').click(function(e) {
+            $(this).parent().toggleClass('active');
+        })
+            
 
-        fas.addEventListener('click', () => {
-            inul.classList.toggle('active');
-        });
     });
 </script>
 <body>
