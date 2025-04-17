@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="/css/common/_header.css" />
     <link rel="stylesheet" href="/css/common/_footer.css" />
     <link rel="stylesheet" href="/css/myaccount/info.css" />       
-    
 </head>
 <body>
     <header>
@@ -190,7 +189,7 @@
     </header> 
     <main>
     <div class="top-title">
-        <div class="top-name">나의쇼핑정보</div>
+        <div class="top-name"><a href="/myaccount/home.html">나의쇼핑정보</a></div>
         <div class="top-info">
             <li>주문<br />2</li>
             <li>쿠폰<br />1</li>
@@ -202,12 +201,12 @@
     <div class="main_container">
       <div class="sidebar">
         <ul>
-          <li>전체주문내역</li>
-          <li>포인트내역</li>
-          <li>쿠폰</li>
-          <li>나의리뷰</li>
-          <li>문의하기</li>
-          <li>나의설정</li>
+            <li><a href="/myaccount/order.html">전체주문내역</a></li>
+            <li><a href="/myaccount/point.html">포인트내역</a></li>
+            <li><a href="/myaccount/coupon.html">쿠폰</a></li>
+            <li><a href="/myaccount/ireview.html">나의리뷰</a></li>
+            <li><a href="/myaccount/qna.html">문의하기</a></li>
+            <li><a href="/myaccount/info.html">나의설정</a></li>
         </ul>
       </div>
           <div class="content">
@@ -220,7 +219,7 @@
                 </tr>
                 <tr>
                   <td class="label">비밀번호</td>
-                  <td><button>비밀번호수정</button></td>
+                  <td><button class="btn-black">비밀번호수정</button></td>
                 </tr>
                 <tr>
                   <td class="label">이름</td>
@@ -228,7 +227,7 @@
                 </tr>
                 <tr>
                   <td class="label">생년 월일</td>
-                  <td>1983년 05월 03일</td>
+                  <td>1999년 01월 01일</td>
                 </tr>
                 <tr>
                   <td class="label">Email</td>
@@ -236,7 +235,7 @@
                     <form>
                       <input class="text-le" type="text" placeholder="아이디 입력" id="emailId"> @
                       <input class="text-le" type="text" id="emailaddr" placeholder="주소 입력" disabled>
-                      
+
                       <select id="domainSelect" onchange="updateDomain()">
                         <option value="">-- 메일 입력 --</option>
                         <option value="naver.com">naver.com</option>
@@ -244,7 +243,7 @@
                         <option value="kakao.com">kakao.com</option>
                         <option value="direct">직접 입력</option>
                       </select>
-                      <button>수정하기</button>
+                      <button class="btn-black">수정하기</button>
                     </form>
                     </div>
                   </td>
@@ -256,7 +255,7 @@
                       <input type="tel" placeholder="010"> -
                       <input type="tel" placeholder="1234"> -
                       <input type="tel" placeholder="5678">
-                      <button>수정하기</button>
+                      <button class="btn-black">수정하기</button>
                     </div>
                   </td>
                 </tr>
@@ -265,7 +264,7 @@
                   <td>
                     <div class="address-box">
                       <input class="text-le" type="text" placeholder="우편번호">
-                      <button>주소검색</button>
+                      <button class="btn-black">주소검색</button>
                     </div>
                     <input class="text-le" type="text" class="input-full" placeholder="기본주소검색" style="width: 350px;" >
                     <input class="text-le" type="text" class="input-full" placeholder="상세주소입력" style="width: 350px;" >
@@ -377,21 +376,7 @@
             </div>
         </div>
     </footer>
-    <script>
-      function updateDomain() {
-        const select = document.getElementById('domainSelect');
-        const domainInput = document.getElementById('emailaddr');
-  
-        if (select.value === "direct") {
-          domainInput.value = "";
-          domainInput.disabled = false;
-          domainInput.focus();
-        } else {
-          domainInput.value = select.value;
-          domainInput.disabled = true;
-        }
-      }
-    </script>
-   
+   <script src="/js/head.js"></script>
+   <script src="/js/email.js"></script>
   </body>
   </html>
