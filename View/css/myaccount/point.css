@@ -301,3 +301,12 @@ span{
   background-color: #ccc;
   margin: 0 10px;
 }
+
+.sidebar a {
+  color: inherit;     
+  text-decoration: none; 
+}
+
+.sidebar a:visited {
+  color: inherit;       
+}

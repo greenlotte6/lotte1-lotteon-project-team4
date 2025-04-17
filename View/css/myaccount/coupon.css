@@ -217,7 +217,7 @@ body {
     h2 {
   font-size: 18px;
   margin-top: 30px;
-  padding-bottom: 8px;
+  padding-bottom: 20px;
   }
   
   .inquiry-table {
@@ -334,7 +334,34 @@ body {
 
 td {
   padding: 6px 10px;
-  vertical-align: top;
 }
+
+.pagination{
+  margin-top: 180px;
+  margin-left: 300px;
+  
+}   
+
+.pagination button {
+  margin: 0 5px;
+  padding: 6px 12px;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  cursor: pointer;
+  border:none;
+  font-size: 15px;
+}
+
+.sidebar a {
+  color: inherit;     
+  text-decoration: none; 
+}
+
+.sidebar a:visited {
+  color: inherit;       
+}
+
+
+
 
   
