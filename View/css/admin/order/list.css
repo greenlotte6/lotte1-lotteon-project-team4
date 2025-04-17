@@ -70,6 +70,8 @@ aside {
     border-bottom: none;
 }
 
+
+
 .ul-list li:nth-of-type(1) a {
     margin-top: -3px;
 }
@@ -132,84 +134,135 @@ aside {
     margin: 0 auto;
 }
 
-h2 {
-    margin-top: 30px;
+.search {
+    margin:20px 0 10px 0;
 }
 
-.p-div {
-    width: 100%;
+.search > select {
+    width: 150px;
     height: 30px;
-    margin-top: -5px;
-    background-color: #e0e0e0;
+    color: #333;
+    border: 1px solid #b7b7b7;
+    box-sizing: border-box;
 }
 
-.container p {
-    padding: 8px 0 8px 10px;
+.search input {
+    width: 150px;
+    height: 30px;
+    padding-left: 5px;
+    border: 1px solid #b7b7b7;
+    box-sizing: border-box;
+}
+
+table {
+    width: 940px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border-top: 2px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    box-sizing: border-box;
+}
+
+tr {
+    border-top: 1px solid #e0e0e0;
+    box-sizing: border-box;
+}
+
+th {
     font-weight: 600;
+}
+
+th, td {
+    padding: 17px 0;
+    text-align: center;
     font-size: 13px;
 }
 
-.cate-info {
-    width: 940px;
-    padding-top: 3px;
-    margin: 30px 0 60px 0;
-    background-color: #ffe2b6;
-}
-
-
-
-
-
-/* 카테고리 */
-.category {
-    width: 350px;
-}
-
-a {
-    color: #333;
-}
-
-.category button {
-    width: 40px;
-    height: 25px;
-    color: #df342e;
-    cursor: pointer;
-    float: right;
-    border: 1px solid #db524d;
-    background-color: #fff;
-    box-sizing: border-box;
-}
-
-.category li {
-    width: 100%;
-    margin: 10px auto;
-}
-
-.category li a {
-    font-size: 15px;
-}
-
-.active {
-    padding: 10px;
-    border: 3px solid #e0e0e0;
-    box-sizing: border-box;
-}
-
-.sub {
-    margin-left: 20px;
-}
-
-.modify {
-    border: none;
-    width: 80px;
+.search > button {
+    width: 60px;
     height: 30px;
-    font-weight: 600;
+    padding-top: 3px;
+    border: none;
     color: #fff;
+    font-size: 13px;
     cursor: pointer;
-    float: right;
     background-color: #333;
     box-sizing: border-box;
-    margin-bottom: 30px;
 }
 
-/* js */
+th:nth-of-type(6), th:nth-of-type(7), th:nth-of-type(8), th:nth-of-type(9) {
+    width: 90px;
+}
+
+th:nth-of-type(4) {
+    width: 130px;
+}
+
+th:nth-of-type(5) {
+    width: 60px;
+}
+
+.delete, .modify {
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.delete:hover, .modify:hover {
+    text-decoration: underline;
+}
+
+.page {
+    text-align: center;
+    margin: 50px 0 30px 0;
+}
+
+.page > button {
+    margin: 0 1px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    cursor: pointer;
+    border: none;
+    box-sizing: border-box;
+}
+
+.page > button:hover {
+    text-decoration: underline;
+}
+
+.page-move {
+    padding: 0 10px;
+}
+
+img {
+    width: 50px;
+    height: auto;
+}
+
+table button {
+    width: 90px;
+    height: 30px;
+    cursor: pointer;
+    border: 1px solid #e0e0e0;
+    box-sizing: border-box;
+}
+
+table td:first-of-type button {
+    border: none;
+    background-color: #fff;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.green {
+    color: green;
+}
+
+.light-green {
+    color: rgb(0, 216, 0);
+}
+
+.red {
+    color: red;
+}
