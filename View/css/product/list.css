@@ -127,11 +127,6 @@
     text-align: left;
 }
 
-.product-table th {
-    background-color: #f9f9f9;
-    font-size: 15px;
-}
-
 .product-table td:nth-child(1),
 .product-table th:nth-child(1) {
     width: 15%;

@@ -101,13 +101,6 @@ form a {
     border-left: 1px solid black;
 }
 
-.login>.options-item>a {
-    text-align: center;
-    color: black;
-    display: inline-block;
-    position: relative;
-}
-
 .login-form {
     display: flex;
     flex-direction: column;

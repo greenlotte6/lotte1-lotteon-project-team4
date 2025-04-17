@@ -96,36 +96,6 @@
     width: 150px;
 }
 
-
-.sort-options {
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-    font-size: 20px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 11px;
-}
-
-.sort-options>.options-item:not(:last-child)::after {
-    content: "";
-    display: inline-block;
-    width: 1px;
-    margin-bottom: 20px;
-    height: 11px;
-    margin: 0 15px;
-    border-left: 1px solid black;
-}
-
-.sort-options>.options-item>a {
-    text-align: center;
-    color: black;
-    display: inline-block;
-    position: relative;
-    font-size: 15px;
-}
-
 .main-content {
     flex: 1;
     padding: 30px;
@@ -195,11 +165,6 @@
 .cart-table .product-name .p-desc {
     font-size: 13px;
     color: #666;
-}
-
-.cart-table .total-price {
-    font-weight: bold;
-    color: #CC3434;
 }
 
 .cart-summary {

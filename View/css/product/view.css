@@ -76,37 +76,6 @@ header {
 }
 
 
-
-
-.sort-options {
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-    font-size: 20px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 11px;
-}
-
-.sort-options>.options-item:not(:last-child)::after {
-    content: "";
-    display: inline-block;
-    width: 1px;
-    margin-bottom: 20px;
-    height: 11px;
-    margin: 0 15px;
-    border-left: 1px solid black;
-}
-
-.sort-options>.options-item>a {
-    text-align: center;
-    color: black;
-    display: inline-block;
-    position: relative;
-    font-size: 15px;
-}
-
 .main-content {
     flex: 1;
     padding: 30px;
@@ -140,6 +109,7 @@ header {
 .best {
     font-size: 25px;
     font-weight: bold;
+    text-align: center;
 }
 
 .product-detail-wrap {
@@ -202,12 +172,6 @@ header {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 3px;
-}
-
-.company {
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 5px;
 }
 
 .link {
@@ -366,11 +330,6 @@ header {
     font-size: 16px;
     display: flex;
     justify-content: flex-end;
-}
-
-.total-box strong {
-    font-weight: bold;
-    color: #000;
 }
 
 .button-group {
