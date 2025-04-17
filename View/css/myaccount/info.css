@@ -325,16 +325,100 @@ body {
     font-size: 13px;
   }
 
-  table {
-  width: 90%;
-  border-collapse: collapse;
-  font-size: 14px;
-  color: #333;
-}
 
-td {
-  padding: 6px 10px;
-  vertical-align: top;
-}
+table {
+    width: 90%;
+    border-collapse: collapse;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+  }
+
+  td {
+    padding: 10px;
+    vertical-align: middle;
+    
+  }
+
+  .label {
+    width: 120px;
+    height: 40px;
+    white-space: nowrap;
+    background-color: #e9e7e7;
+  }
+  .text-le{
+    padding: 6px;
+    width: 150px;
+    box-sizing: border-box;
+    border: 2px solid gray;
+
+  }
+  
+  input[type="password"],
+  select {
+    padding: 6px;
+    width: 150px;
+    box-sizing: border-box;
+    border: 2px solid gray;
+  }
+
+  button {
+    height: 35px;
+    padding: 6px 10px;
+    margin-left: 5px;
+    cursor: pointer;
+    background-color: rgb(211, 210, 210);
+  
+    
+  }
+
+  .btn-red {
+    width: 100px;
+    background-color: #b80000;
+    color: white;
+    border: none;
+  }
+
+  .btn-blue {
+    width: 250px;
+    height: 45px;
+    background-color: #3b6db3;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    margin : 50px 350px;
+  }
+
+  .email-box,
+  .phone-box {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+
+  .email-box input[type="text"] {
+    width: 100px;
+    border: 2px solid gray;
+  }
+
+  .phone-box input[type="tel"] {
+    width: 90px;
+    border: 2px solid gray;
+  }
+
+
+  input, select {
+    padding: 6px;
+    margin: 4px;
+    font-size: 14px;
+  }
+
+  .input-full {
+    width: 100%;
+  }
+
+  hr {
+    margin-top: 30px;
+  }
 
   

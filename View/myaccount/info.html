@@ -7,91 +7,8 @@
 
     <link rel="stylesheet" href="/css/common/_header.css" />
     <link rel="stylesheet" href="/css/common/_footer.css" />
-    <link rel="stylesheet" href="/css/myaccount/coupon.css" />       
-    <style>
-     table {
-      width: 90%;
-      border-collapse: collapse;
-      border-top: 2px solid gray;
-      border-bottom: 2px solid gray;
-    }
-
-    td {
-      padding: 10px;
-      vertical-align: middle;
-      
-    }
-
-    .label {
-      width: 120px;
-      white-space: nowrap;
-      background-color: #e9e7e7;
-    }
-
-    input[type="text"],
-    input[type="password"],
-    select {
-      padding: 6px;
-      width: 150px;
-      box-sizing: border-box;
-      border: 2px solid gray;
-    }
-
-    button {
-      padding: 6px 10px;
-      cursor: pointer;
-      border:none;
-      background-color: rgb(211, 210, 210);
-      border-radius: 6px;
-    }
-
-    .btn-red {
-      background-color: #b80000;
-      color: white;
-      border: none;
-    }
-
-    .btn-blue {
-      width: 280px;
-      background-color: #3b6db3;
-      color: white;
-      border: none;
-      padding: 10px;
-      font-size: 16px;
-      margin : 50px 300px;
-    }
-
-    .email-box,
-    .phone-box {
-      display: flex;
-      gap: 5px;
-      align-items: center;
-    }
-
-    .email-box input[type="text"] {
-      width: 100px;
-      border: 2px solid gray;
-    }
-
-    .phone-box input[type="text"] {
-      width: 90px;
-      border: 2px solid gray;
-    }
-
-    .address-box {
-      display: flex;
-      gap: 5px;
-    }
-
-    .input-full {
-      width: 100%;
-    }
-
-    hr {
-      margin-top: 30px;
-    }
-   
-    </style>
+    <link rel="stylesheet" href="/css/myaccount/info.css" />       
+    
 </head>
 <body>
     <header>
@@ -316,13 +233,19 @@
                 <tr>
                   <td class="label">Email</td>
                   <td>
-                    <div class="email-box">
-                      <input type="text" value="chhak0503"> @
-                      <input type="text" value="naver.com">
-                      <select>
-                        <option>직접입력</option>
+                    <form>
+                      <input class="text-le" type="text" placeholder="아이디 입력" id="emailId"> @
+                      <input class="text-le" type="text" id="emailaddr" placeholder="주소 입력" disabled>
+                      
+                      <select id="domainSelect" onchange="updateDomain()">
+                        <option value="">-- 메일 입력 --</option>
+                        <option value="naver.com">naver.com</option>
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="kakao.com">kakao.com</option>
+                        <option value="direct">직접 입력</option>
                       </select>
                       <button>수정하기</button>
+                    </form>
                     </div>
                   </td>
                 </tr>
@@ -330,9 +253,9 @@
                   <td class="label">휴대폰</td>
                   <td>
                     <div class="phone-box">
-                      <input type="text" value="010"> -
-                      <input type="text" value="1234"> -
-                      <input type="text" value="5678">
+                      <input type="tel" placeholder="010"> -
+                      <input type="tel" placeholder="1234"> -
+                      <input type="tel" placeholder="5678">
                       <button>수정하기</button>
                     </div>
                   </td>
@@ -341,17 +264,15 @@
                   <td class="label">주소</td>
                   <td>
                     <div class="address-box">
-                      <input type="text" placeholder="우편번호">
+                      <input class="text-le" type="text" placeholder="우편번호">
                       <button>주소검색</button>
                     </div>
-                    <br>
-                    <input type="text" class="input-full" placeholder="기본주소검색" style="width: 350px;" >
-                    <br><br>
-                    <input type="text" class="input-full" placeholder="상세주소입력" style="width: 350px;" >
+                    <input class="text-le" type="text" class="input-full" placeholder="기본주소검색" style="width: 350px;" >
+                    <input class="text-le" type="text" class="input-full" placeholder="상세주소입력" style="width: 350px;" >
                   </td>
                 </tr>
                 <tr>
-                  <td class="label">탈퇴</td>
+                  <td class="label">회원탈퇴</td>
                   <td><button class="btn-red">탈퇴하기</button></td>
                 </tr>
               </table>
@@ -456,7 +377,21 @@
             </div>
         </div>
     </footer>
-
+    <script>
+      function updateDomain() {
+        const select = document.getElementById('domainSelect');
+        const domainInput = document.getElementById('emailaddr');
+  
+        if (select.value === "direct") {
+          domainInput.value = "";
+          domainInput.disabled = false;
+          domainInput.focus();
+        } else {
+          domainInput.value = select.value;
+          domainInput.disabled = true;
+        }
+      }
+    </script>
    
   </body>
   </html>
