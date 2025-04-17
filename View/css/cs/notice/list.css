@@ -22,7 +22,7 @@ a {
     padding-bottom: 5px;
     margin-bottom: 10px;
     border-bottom: 2px solid #808080;
-    color: #666;
+    color: black;
     margin-left: 80px;
 }
 
@@ -94,6 +94,10 @@ a {
     font-size: 14px;
     margin-bottom: 20px;
     border-top: 2px solid #808080;
+}
+
+.cs-table td:nth-child(2) {
+    text-align: center;
 }
 
 .cs-table th,
