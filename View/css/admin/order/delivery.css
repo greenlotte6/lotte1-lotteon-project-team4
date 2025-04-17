@@ -42,7 +42,7 @@ body {
 
 aside {
     width: 200px;
-    height: 345px;
+    height: auto;
     margin: 80px 0 0 50px;
     border: 1px solid #b7b7b7;
     box-sizing: border-box;
@@ -55,9 +55,7 @@ aside {
 }
 
 .aside li {
-    display: flex;
-    margin-left: 12px;
-    gap: 10px;
+    text-align: center;
 }
 
 .ul-list {
@@ -265,4 +263,30 @@ table td:first-of-type button {
 
 .red {
     color: red;
+}
+
+/* 추가 */
+
+.in-ul {
+    display: none;
+}
+
+.ul-list > li.active > ul {
+    display: block;
+}
+
+.in-ul li {
+    margin: 5px 0;
+}
+
+.in-ul li:first-of-type {
+    margin-top: 10px;
+}
+
+.in-ul li a {
+    font-size: 14px;
+}
+
+.in-ul li a:hover {
+    text-decoration: underline;
 }
