@@ -254,19 +254,12 @@ font-weight: bold;
 }
 
 
-
-
-.container-bar {
+.date-such {
   width: auto;
   background-color: #e9f0f8;
   border: 1px solid #c6d3e0;
-  padding: 15px;
+  padding: 10px;
   margin: 20px auto;
-}
-    .title {
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 10px;
 }
 
 .query-row {
@@ -275,6 +268,7 @@ font-weight: bold;
   gap: 6px;
   flex-wrap: wrap;
   margin-bottom: 15px;
+  padding-top: 10px;
 }
 
 .query-row select,
@@ -282,18 +276,28 @@ font-weight: bold;
   padding: 4px 6px;
   font-size: 14px;
 }
-
-.btn {
-  padding: 5px 12px;
-  background-color: #f0f0f0;
-  border: 1px solid #999;
+.button-group button {
+  width: 55px;        
+  padding: 6px 0;
+  font-size: 14px;
+  background-color: white;
+  border: 1px solid #aaa;
   cursor: pointer;
+  text-align: center;
 }
 
+.button-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+span{
+  font-size: 15px;
+}
 
-.note {
-  font-size: 14px;
-  line-height: 1.7;
-  white-space: pre-line;
-  color: #333;
+.border-line {
+  width: 1px;
+  height: 30px;
+  background-color: #ccc;
+  margin: 0 10px;
 }

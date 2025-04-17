@@ -7,10 +7,8 @@
 
     <link rel="stylesheet" href="/css/common/_header.css" />
     <link rel="stylesheet" href="/css/common/_footer.css" />
-         
     <link rel="stylesheet" href="/css/myaccount/point.css" />       
-    
-    </style>
+   
 </head>
 <body>
     <header>
@@ -214,28 +212,25 @@
       </div>
           <div class="content">
             <div class="banner">810 × 86 배너 광고</div>
-            <div class="title">포인트내역</div>
-                <div class="container-bar">
-                    <div class="query-row">
-                        <span>기간별조회</span>
-                        <select>
-                        <option>1주일</option>
-                        <option>15일</option>
-                        <option>1개월</option>
-                        </select>
-                        <select>
-                        <option>1개월 전</option>
-                        <option>2개월 전</option>
-                        <option>3개월 전</option>
-                        <option>4개월 전</option>
-                        <option>5개월 전</option>
-                        </select>
-                        <input type="date" />
-                        <span>~</span>
-                        <input type="date" />
-                        <button class="btn">조회</button>
-                    </div>
+            <h3>포인트내역</h3>
+            <div class="date-such">
+                <div class="query-row">
+                  <span>기간별조회</span>
+                  <div class="button-group" id="fixedButtons">
+                    <button onclick="setFixedRange(7)">7일</button>
+                    <button onclick="setFixedRange(15)">15일</button>
+                    <button onclick="setFixedRange(30)">1개월</button>
+                    <div class="border-line"></div> 
+                  </div>
+                  <div class="button-group" id="monthButtons"></div> 
+                  <div class="border-line"></div> 
+                  <div class="date-check">
+                    <input type="date" id="startDate"> ~
+                    <input type="date" id="endDate">
+                    <button onclick="query()" style="width: 55px; height: 35px; margin-left: 5px;">조회</button>
+                  </div>
                 </div>
+              </div>
             <div class="section">
                 <table class="table">
                   <thead>
@@ -265,6 +260,14 @@
                       <td>상품 구매확정</td>
                       <td>2024-12-06</td>
                     </tr>
+                    <tr>
+                        <td>2022-12-13</td>
+                        <td>적립</td>
+                        <td>2022120601</td>
+                        <td>120</td>
+                        <td>상품 구매확정</td>
+                        <td>2024-12-06</td>
+                      </tr>
                   </tbody>
                 </table>
               </div>
@@ -370,7 +373,6 @@
             </div>
         </div>
     </footer>
-
-   
+    <script src="/js/date.js"></script>
   </body>
   </html>
