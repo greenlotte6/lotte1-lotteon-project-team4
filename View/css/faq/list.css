@@ -147,7 +147,7 @@ margin: 30px 0 0 20px;
 }
 
 .setting ul {
-margin-left: 580px;
+margin-left: 500px;
 margin-top: 13px;
 }
 
@@ -241,29 +241,14 @@ button:nth-of-type(2){
     margin-top: 20px;
 }
 
-
-.pag {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px; /* 필요 시 여백 조절 */
-    gap: 10px; /* 페이지 번호 사이 간격 */
-    margin-bottom: 40px;
+.write-btn {
+    margin-left: auto;
 }
-
-
 
 select{
     margin-top: 20px;
     margin-bottom: 10px;
 
-}
-
-.ing {
-    color: #000000;
-}
-
-.clear {
-    color: #0070c0;
 }
 
 
