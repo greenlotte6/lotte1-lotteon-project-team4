@@ -88,27 +88,29 @@ margin-bottom: 20px;
 
 /* main */
 .main-wrapper {
-    display: flex;
-    width: 1200px;
-    margin: 0 auto;
+display: flex;
+width: 1200px;
+margin: 0 auto;
 }
 
 aside {
-    width: 200px;
-    height: auto;
-    margin: 80px 0 0 50px;
-    border: 1px solid #b7b7b7;
-    box-sizing: border-box;
+width: 200px;
+height: 345px;
+margin: 80px 0 0 50px;
+border: 1px solid #b7b7b7;
+box-sizing: border-box;
 }
 
 .aside a {
-    font-size: 17px;
-    font-weight: 600;
-    color: #333;
+font-size: 17px;
+font-weight: 600;
+color: #333;
 }
 
 .aside li {
-    text-align: center;
+display: flex;
+margin-left: 12px;
+gap: 10px;
 }
 
 .ul-list {
@@ -145,7 +147,7 @@ margin: 30px 0 0 20px;
 }
 
 .setting ul {
-margin-left: 500px;
+margin-left: 550px;
 margin-top: 13px;
 }
 
@@ -183,12 +185,6 @@ box-sizing: border-box;
     width: 940px;
     margin: 0 auto;
 }
-
-select {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    padding: 10px;
-}
 .table-wrapper {
     width: 940px;
     margin: 0 auto;
@@ -200,50 +196,40 @@ table {
     font-family: 'Inter', sans-serif;
 }
 
-table td {
-    border-bottom: 1px solid #d9d9d9;
-}
-/* 공통 인풋 박스 스타일 */
-.input-box {
-    width: 600px;
-    padding: 15px;
-    font-size: 14px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+table th {
 
-/* 내용 부분은 좀 더 높게 */
-.content-box {
-    height: 150px;
+    border-top: 1px solid black;
+    margin-top: 50px;
+    border-bottom: 1px solid black;
 }
+            
+
+
+table td {
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+}  
 
 button {
     width: 106px;
     height: 41px;
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    border: none;
+    margin-left: 10px;
 }
 
 button:nth-of-type(1){
-    border: none;
     background-color: #bfbfbf;
     color: #ffffff;
-    font-size: 14px;
 }
 
 button:nth-of-type(2){
-    border: none;
-    background-color: #8eb4e3;
+    background-color:#8eb4e3;
     color: #ffffff;
-    font-size: 14px;
 }
 
-.but {
-    display: flex;
-    justify-content: right;
-    gap: 10px; /* 버튼 간 간격 */
-    margin-top: 30px;
+.btn{
+    text-align: right;
+    margin-top: 20px;
 }
 /* 전체 스타일 */
 * {
@@ -285,26 +271,7 @@ footer {
     font-size: 15px;
     padding-top: 6px;
 }
-.in-ul {
-    display: none;
-}
 
-.ul-list > li.active > ul {
-    display: block;
-}
 
-.in-ul li {
-    margin: 5px 0;
-}
 
-.in-ul li:first-of-type {
-    margin-top: 10px;
-}
 
-.in-ul li a {
-    font-size: 14px;
-}
-
-.in-ul li a:hover {
-    text-decoration: underline;
-}

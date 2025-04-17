@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/cs/recruit/list.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>채용등록</title>
+
+</head>
+<body>
+    <header>
+        <div class="wrapper">
+            <div class="wrapper-suv">
+                <div class="user-nav">
+                    <ul>
+                        <li><a href="#">홈</a></li>
+                        <li><a href="#">로그아웃</a></li>
+                        <li><a href="#">고객센터</a></li>
+                    </ul>
+                </div>
+                <div class="logo">
+                    <a href="#"><img src="/images/logo/logo_white.png" alt="LotteON-logo"></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main><div class="main-wrapper">
+        <aside>
+        <div class="aside">
+            <ul class="out-ul">
+                <div class="ul-list">
+                    <li>
+                        <i class="fas fa-cogs"></i><a href="#" class="hover">환경설정</a>
+                        <ul class="in-ul">
+                            <li><a href="#">- 기본설정</a></li>
+                            <li><a href="#">- 배너관리</a></li>
+                            <li><a href="#">- 약관관리</a></li>
+                            <li><a href="#">- 카테고리</a></li>
+                            <li><a href="#">- 버전관리</a></li>
+                        </ul>
+                    </li>
+                </div>
+                <div class="ul-list">
+                    <li>
+                        <i class="fas fa-store"></i> <a href="#" class="hover">상점관리</a>
+                        <ul class="in-ul">
+                            <li><a href="#">- 상점목록</a></li>
+                            <li><a href="#">- 매출현황</a></li>
+                        </ul>
+                    </li>
+                </div>
+                <div class="ul-list">
+                    <li>
+                        <i class="fas fa-users"></i> <a href="#" class="hover">회원관리</a>
+                        <ul class="in-ul">
+                            <li><a href="#">- 회원목록</a></li>
+                            <li><a href="#">- 포인트관리</a></li>
+                        </ul>
+                    </li>
+                </div>
+                <div class="ul-list">
+                    <li>
+                        <i class="fas fa-box"></i> <a href="#" class="hover">상품관리</a>
+                        <ul class="in-ul">
+                            <li><a href="#">- 상품목록</a></li>
+                            <li><a href="#">- 상품등록</a></li>
+                            <li><a href="#">- 카테고리</a></li>
+                        </ul>
+                    </li>
+                </div>
+                <div class="ul-list">
+                    <li>
+                        <i class="fas fa-receipt"></i> <a href="#" class="hover">주문관리</a>
+                        <ul class="in-ul">
+                            <li><a href="#">- 주문현황</a></li>
+                            <li><a href="#">- 배송현황</a></li>
+                        </ul>
+                    </li>
+                </div>
+                <div class="ul-list">
+                    <li>
+                        <i class="fas fa-ticket-alt"></i> <a href="#" class="hover">쿠폰관리</a>
+                        <ul class="in-ul">
+                            <li><a href="#">- 쿠폰목록</a></li>
+                            <li><a href="#">- 쿠폰발급현황</a></li>
+                        </ul>
+                    </li>
+                </div>
+                <div class="ul-list">
+                    <li>
+                        <i class="fas fa-headset"></i> <a href="#" class="hover">고객센터</a>
+                        <ul class="in-ul">
+                            <li><a href="#">- 공지사항</a></li>
+                            <li><a href="#">- 자주묻는질문</a></li>
+                            <li><a href="#">- 문의하기</a></li>
+                            <li><a href="#">- 채용하기</a></li>
+                        </ul>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </aside>
+    
+    <div class="main">
+        <div class="setting">
+            <h1>채용하기 목록</h1>
+            <ul>
+                <li><a href="#">HOME &nbsp;>&nbsp;</a></li>
+                <li><a href="#">고객센터 &nbsp;>&nbsp;</a></li>
+                <li><a href="#"><span>채용하기 &nbsp;</span></a></li>
+            </ul>
+        </div>
+        <div class="line"></div>
+        <div class="container">
+            <div class="search">
+                <select name="" id="">
+                    <option value="">채용번호</option>
+                    <option value="">채용부서</option>
+                    <option value="">채용형태</option>
+                    <option value="">제목</option>
+                </select>
+                <input type="text" placeholder="검색어입력">
+                <button>검색</button>
+            </div>
+
+        <div>
+            <table>
+                <tr>
+                    <th><input type="checkbox"></th>
+                    <th>번호</th>
+                    <th>채용부서</th>
+                    <th>경력사항</th>
+                    <th>채용형태</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>상태</th>
+                    <th>모집기간</th>
+                    <th>작성일</th>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>120</td>
+                    <td>광고산업</td>
+                    <td>경력 4~15년</td>
+                    <td>정규직</td>
+                    <td>광고 플랫폼 기획</td>
+                    <td>관리자</td>
+                    <td>
+                    <span style="color: #00b050;">모집중</span> 
+                    </td>
+                    <td>0000-00-00 <br>~0000-00-00</td>
+                    <td>0000-00-00 <br> 00.00.00</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>119</td>
+                    <td>IT</td>
+                    <td>경력 2~15년</td>
+                    <td>정규직</td>
+                    <td>IT 인재 상시영입(경력)</td>
+                    <td>관리자</td>
+                    <td>
+                        <span style="color: #00b050;">모집중</span> 
+                    </td>
+                    <td>0000-00-00 <br>~0000-00-00</td>
+                    <td>0000-00-00 <br> 00.00.00</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>118</td>
+                    <td>운영</td>
+                    <td>무관</td>
+                    <td>계약직</td>
+                    <td>딘기아르바이트</td>
+                    <td>관리자</td>
+                    <td>
+                        <span style="color: #808080;">마감</span>
+                        
+                    </td>
+                    <td>0000-00-00 <br>~0000-00-00</td>
+                    <td>0000-00-00 <br> 00.00.00</td>
+                </tr>
+                
+            </table>
+            <div class="notice-bottom">
+                <button class="btn">선택삭제</button>
+            
+                <div class="pagination">
+                    <a href="#">이전</a>
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">다음</a>
+                </div>
+                <button class="btn2 open-modal-btn" style="font-size: 13px;">채용등록</button>
+            </div>
+        </div>
+    </div>
+        
+</div>
+</div>
+</main>
+    <footer>
+        <div class="footer">
+            <p>
+            Copyright © LOTTESHOPPING Co., LTD. All rights reserved. LotteON ADMINISTRATOR Version 5.4.1.2
+            </p>
+        </div>
+    </footer>
+<!-- 채용 등록 모달 -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+    <div class="modal-header">
+    <span>채용등록</span>
+    <button class="close-btn" id="closeModal">X</button>
+    </div>
+    <div class="form-group">
+    <label>제목</label>
+    <input type="text" />
+    </div>
+    <div class="form-group">
+        <label>채용부서</label>
+        <select>
+            <option>채용부서 선택</option>
+            <option>IT</option>
+            <option>운영</option>
+            <option>영업</option>
+            <option>마케팅</option>
+            <option>인사</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label>경력사항</label>
+        <select>
+            <option>경력사항 선택</option>
+            <option>신입</option>
+            <option>1~3년</option>
+            <option>3~5년</option>
+            <option>5~10년</option>
+            <option>10년 이상</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label>채용형태</label>
+        <select>
+            <option>채용형태 선택</option>
+            <option>정규직</option>
+            <option>계약직</option>
+            <option>인턴</option>
+            <option>아르바이트</option>
+            <option>프리랜서</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+    <label>모집기간</label>
+    <input type="date" /> ~ <input type="date" />
+    </div>
+    <div class="form-group">
+    <label>비고</label>
+    <textarea></textarea>
+    </div>
+    <div class="form-buttons">
+    <button class="cancel-btn" id="cancelBtn">취소</button>
+    <button class="submit-btn">등록</button>
+    </div>
+</div>
+</div>
+
+<!-- 모달 관련 스크립트 -->
+<script>
+    const openBtn = document.querySelector('.open-modal-btn');
+const modal = document.getElementById('modalOverlay');
+const closeBtn = document.getElementById('closeModal');
+const cancelBtn = document.getElementById('cancelBtn');
+
+openBtn.onclick = () => modal.style.display = 'block';
+closeBtn.onclick = () => modal.style.display = 'none';
+cancelBtn.onclick = () => modal.style.display = 'none';
+
+window.onclick = (e) => {
+    if (e.target === modal) {
+    modal.style.display = 'none';
+    }
+    };
+</script>
+
+</body>
+</html>
