@@ -81,35 +81,6 @@
     font-weight: bold;
 }
 
-.sort-options {
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-    font-size: 20px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 11px;
-}
-
-.sort-options>.options-item:not(:last-child)::after {
-    content: "";
-    display: inline-block;
-    width: 1px;
-    margin-bottom: 20px;
-    height: 11px;
-    margin: 0 15px;
-    border-left: 1px solid black;
-}
-
-.sort-options>.options-item>a {
-    text-align: center;
-    color: black;
-    display: inline-block;
-    position: relative;
-    font-size: 15px;
-}
-
 .main-content {
     flex: 1;
     padding: 30px;
@@ -252,18 +223,6 @@
 }
 
 
-/* 공통 폼 요소 스타일 */
-.form-group {
-    margin-bottom: 10px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
-    font-size: 14px;
-}
-
 .form-group input,
 .point-coupon select {
     padding: 8px;
@@ -272,34 +231,6 @@
     box-sizing: border-box;
 }
 
-.form-group-point input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    box-sizing: border-box;
-}
-
-/* 주소 검색 영역 */
-.address-btn-wrap {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 8px;
-}
-
-.address-btn-wrap button {
-    padding: 8px 12px;
-    background: #eee;
-    border: 1px solid #aaa;
-    font-size: 13px;
-    cursor: pointer;
-}
-
-.form-group textarea {
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    resize: vertical;
-}
 
 input.address-input {
     width: 400px;

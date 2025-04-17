@@ -23,7 +23,7 @@
 
 .sidebar {
     width: 310px;
-    padding: 20px;
+    padding: 0 20px 20px 20px;
     border-right: 1px solid #ddd;
 }
 
@@ -186,10 +186,27 @@
 .swiper-button-prev {
     width: 30px;
     height: 30px;
-    background-color: #eee;
     border-radius: 50%;
-    background-image: url('/images/arrow.svg');
+    background-image: url('/images/next.png');
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
+}
+
+.main-banner-section {
+    max-width: 1200px;
+    margin: 40px auto;
+    position: relative;
+}
+
+.main-banner-swiper .swiper-slide {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.main-banner-swiper .swiper-slide img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
 }

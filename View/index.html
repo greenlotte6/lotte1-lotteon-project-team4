@@ -99,6 +99,24 @@
                     prevEl: '.sale-prev',
                 }
             });
+
+            new Swiper('.main-banner-swiper', {
+                slidesPerView: 3,
+                spaceBetween: 60,
+                loop: true,
+                navigation: {
+                    nextEl: '.main-next',
+                    prevEl: '.main-prev'
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true
+                },
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false
+                }
+            });
         });
     </script>
 </head>
@@ -284,6 +302,26 @@
         </header>
 
         <main>
+            <div class="main-banner-section">
+                <div class="swiper main-banner-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="/images/banner/main_slider (1).webp" alt="배너1"></div>
+                        <div class="swiper-slide"><img src="/images/banner/main_slider (2).webp" alt="배너2"></div>
+                        <div class="swiper-slide"><img src="/images/banner/main_slider (3).webp" alt="배너3"></div>
+                        <div class="swiper-slide"><img src="/images/banner/main_slider (4).webp" alt="배너4"></div>
+                        <div class="swiper-slide"><img src="/images/banner/main_slider (5).webp" alt="배너5"></div>
+                        <div class="swiper-slide"><img src="/images/banner/main_slider (6).webp" alt="배너6"></div>
+                        <div class="swiper-slide"><img src="/images/banner/main_slider (7).webp" alt="배너7"></div>
+                        <div class="swiper-slide"><img src="/images/banner/main_slider (8).webp" alt="배너8"></div>
+                        <div class="swiper-slide"><img src="/images/banner/main_slider (9).webp" alt="배너9"></div>
+                    </div>
+
+                    <!-- 네비게이션 & 페이지네이션 -->
+                    <div class="swiper-button-next main-next"></div>
+                    <div class="swiper-button-prev main-prev"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
             <article class="content">
                 <aside class="sidebar">
                     <div class="best-items">
