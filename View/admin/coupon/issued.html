@@ -7,94 +7,84 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/coupon/issued.css">
-    <link rel="stylesheet" href="/css/common/_admin_aside.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>쿠폰발급현황</title>    
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const issueNumbers = document.querySelectorAll(".table-wrapper table td:first-child"); // 발급번호가 포함된 셀 선택
-    issueNumbers.forEach(number => {
-        number.addEventListener("click", function () {
-            openCouponModal(this.textContent.trim()); // 클릭한 발급번호를 전달
-        });
-        number.style.cursor = "pointer"; // 마우스 포인터 변경
+       document.addEventListener('DOMContentLoaded', function () {
+
+// .hover 클릭 시 부모에 active 클래스 토글
+$('.hover').click(function (e) {
+    $(this).parent().toggleClass('active');
+});
+
+const couponData = {
+    "10120012134": {
+        couponNumber: "10121211341",
+        issueNumber: "10120012134",
+        issuer: "(주)다있어",
+        usageStatus: "미사용",
+        recipient: "oopow12",
+        couponType: "개별상품 할인",
+        couponName: "10월 한달 감사 쿠폰 이벤트",
+        benefit: "2,000 원 할인",
+        usagePeriod: "0000-00-00 ~ 0000-00-00",
+        notes: "상품 중복 할인 쿠폰\n- 상품 1개에 대해 사용 가능\n- 판매자 즉시할인/상품할인 쿠폰과 중복 사용 가능",
+        usageLocation: "(주)다있어"
+    },
+    // 다른 쿠폰 데이터...
+};
+
+const issueNumbers = document.querySelectorAll('.coupon-table td:nth-child(2) a');
+const modal = document.getElementById('couponModal');
+const modalContent = modal.querySelector('.modal-content');
+
+issueNumbers.forEach(link => {
+    link.addEventListener('click', function (e) {
+        e.preventDefault();  // 기본 링크 동작 막기
+        const issueNumber = this.textContent.trim();
+        const data = couponData[issueNumber];
+
+        if (data) {
+            modalContent.innerHTML = `
+                <span class="close">&times;</span>
+                <h2>쿠폰 상세정보</h2>
+                <p><strong>쿠폰번호:</strong> ${data.couponNumber}</p>
+                <p><strong>발급번호:</strong> ${data.issueNumber}</p>
+                <p><strong>발급사:</strong> ${data.issuer}</p>
+                <p><strong>사용상태:</strong> ${data.usageStatus}</p>
+                <p><strong>수령인:</strong> ${data.recipient}</p>
+                <p><strong>쿠폰유형:</strong> ${data.couponType}</p>
+                <p><strong>쿠폰명:</strong> ${data.couponName}</p>
+                <p><strong>혜택:</strong> ${data.benefit}</p>
+                <p><strong>사용기간:</strong> ${data.usagePeriod}</p>
+                <p><strong>유의사항:</strong> ${data.notes.replace(/\n/g, "<br>")}</p>
+                <p><strong>사용처:</strong> ${data.usageLocation}</p>
+            `;
+            modal.style.display = 'block';
+
+            // 모달 닫기 버튼 클릭 시
+            modal.querySelector('.close').onclick = function () {
+                modal.style.display = 'none';
+            };
+        } else {
+            alert('쿠폰 데이터를 찾을 수 없습니다.');
+        }
     });
 });
 
-function openCouponModal(issueNumber) {
-    // 발급번호에 따른 쿠폰 정보 객체
-    const couponData = {
-        "10120012134": {
-            couponNumber: "10121211341",
-            issueNumber: "10120012134",
-            issuer: "(주)다있어",
-            usageStatus: "미사용",
-            recipient: "akwe121",
-            couponType: "개별상품 할인",
-            couponName: "10월 한달 감사 쿠폰 이벤트",
-            benefit: "2,000 원 할인",
-            usagePeriod: "0000-00-00 ~ 0000-00-00",
-            notes: "상품 중복 할인 쿠폰\n- 상품 1개에 대해 사용 가능\n- 판매자 즉시할인/상품할인 쿠폰과 중복 사용 가능",
-            usageLocation: "(주)다있어"
-        },
-        "10120012133": {
-            couponNumber: "10121211342",
-            issueNumber: "10120012133",
-            issuer: "(주)다있어",
-            usageStatus: "미사용",
-            recipient: "oopow12",
-            couponType: "개별상품 할인",
-            couponName: "10월 한달 감사 쿠폰",
-            benefit: "3,000 원 할인",
-            usagePeriod: "0000-00-00 ~ 0000-00-00",
-            notes: "상품 중복 할인 쿠폰\n- 상품 2개에 대해 사용 가능\n- 판매자 즉시할인/상품할인 쿠폰과 중복 사용 가능",
-            usageLocation: "(주)다있어"
-        },
-        "10120012132": {
-            couponNumber: "10121211343",
-            issueNumber: "10120012132",
-            issuer: "(주)다있어",
-            usageStatus: "사용",
-            recipient: "nappqw7",
-            couponType: "배송비 무료",
-            couponName: "배송비 무료 쿠폰",
-            benefit: "배송비 5,000 원 무료",
-            usagePeriod: "0000-00-00 ~ 0000-00-00",
-            notes: "배송비 무료 쿠폰\n- 배송비 무료로 사용 가능\n- 특정 상품 제외",
-            usageLocation: "(주)다있어"
-        }
-        // 여기에 더 많은 발급번호 추가 가능
-    };
-
-    // 클릭된 발급번호에 해당하는 쿠폰 데이터 가져오기
-    const data = couponData[issueNumber];
-    if (data) {
-        // 모달에 해당 쿠폰 정보 채우기
-        document.getElementById("modalCouponNumber").textContent = data.couponNumber;
-        document.getElementById("modalIssueNumber").textContent = data.issueNumber;
-        document.getElementById("modalIssuer").textContent = data.issuer;
-        document.getElementById("modalUsageStatus").textContent = data.usageStatus;
-        document.getElementById("modalUsageStatus").className = data.usageStatus === "미사용" ? "status-notused" : "status-used";
-        document.getElementById("modalRecipient").textContent = data.recipient;
-        document.getElementById("modalCouponType").textContent = data.couponType;
-        document.getElementById("modalCouponName").textContent = data.couponName;
-        document.getElementById("modalBenefit").textContent = data.benefit;
-        document.getElementById("modalUsagePeriod").textContent = data.usagePeriod;
-
-        // 유의사항에 사용처 포함시키기
-        document.getElementById("modalNotes").innerHTML = 
-            data.notes.replace(/\n/g, '<br>') + "<br><br>사용처 - " + data.usageLocation;
-
-        // 모달 보이기
-        document.getElementById("couponModal").style.display = "flex";
+// 모달 외부 클릭 시 닫기
+window.onclick = function (event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
     }
-}
+};
 
-function closeCouponModal() {
-    document.getElementById("couponModal").style.display = "none";
-}
-
+});
     </script>
+    
 </head>
 <body>
     <header>
@@ -192,28 +182,24 @@ function closeCouponModal() {
     
     <div class="main">
         <div class="setting">
-            <h1>쿠폰발급현황</h1>
+            <h1>공지사항 목록</h1>
             <ul>
                 <li><a href="#">HOME &nbsp;>&nbsp;</a></li>
-                <li><a href="#">쿠폰관리 &nbsp;>&nbsp;</a></li>
-                <li><a href="#"><span>쿠폰발급현황 &nbsp;</span></a></li>
+                <li><a href="#">고객센터 &nbsp;>&nbsp;</a></li>
+                <li><a href="#"><span>공지사항 &nbsp;</span></a></li>
             </ul>
         </div>
         <div class="line"></div>
-
-
-
-
-
-        
-        <select name="name" id="couponnum">
-            <option value="쿠폰번호">쿠폰번호</option>
-            <option value="쿠폰명">쿠폰명</option>
-            <option value="발급자">발급자</option>
-
-            <input type="text" placeholder="검색어입력">
-            <button>검색</button>
-        </select>
+        <div class="container">
+                    <div class="search">
+                        <select name="" id="" style="margin-right: 5px;">
+                            <option value="">발급번호</option>
+                            <option value="">쿠폰번호</option>
+                            <option value="">사용자</option>
+                        </select>
+                        <input type="text" placeholder="검색어입력">
+                        <button>검색</button>
+                    </div>
         
         <div class="table-wrapper ">
             <table>
@@ -362,6 +348,7 @@ function closeCouponModal() {
 
         </div>
             </div>
+            
             <footer>
                 <div class="footer">
                     <p>

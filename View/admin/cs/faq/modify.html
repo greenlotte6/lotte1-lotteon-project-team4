@@ -8,29 +8,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/faq/modify.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>공지사항 작성</title>  
 
     <script>
-        // 수정 여부 설정 (true면 수정 모드, false면 작성 모드)
         const isEdit = true;
-
-        // 수정할 데이터 (수정 모드일 때만 사용)
+    
         const existingData = {
             mainCategory: '회원',
             subCategory: '가입',
             title: '개인회원과 법인회원에차이가 있나요?',
             content: '개인회원은 본인인증,법인회원은 사업자등록번호....'
         };
-
-        // 2차 옵션 설정
+    
         function updateSubCategory() {
             const mainCategory = document.getElementById('qndnum').value;
             const subCategory = document.getElementById('qnanum2');
-
             let options = [];
-
+    
             if (mainCategory === '회원') {
                 options = ['가입', '아이디/비밀번호 찾기', '회원정보 수정', '회원탈퇴'];
             } else if (mainCategory === '주문/결제') {
@@ -44,15 +43,13 @@
             } else if (mainCategory === '이벤트') {
                 options = ['이벤트 참여', '당첨확인', '경품수령', '이벤트문의'];
             }
-
-            // 기존 옵션 제거
+    
             subCategory.innerHTML = '';
             const defaultOption = document.createElement('option');
             defaultOption.value = '';
             defaultOption.textContent = '2차 선택';
             subCategory.appendChild(defaultOption);
-
-            // 새로운 옵션 추가
+    
             options.forEach(option => {
                 const opt = document.createElement('option');
                 opt.value = option;
@@ -60,36 +57,44 @@
                 subCategory.appendChild(opt);
             });
         }
-
-        // 페이지 로드시 기존 데이터 넣기 (수정모드인 경우)
+    
+        function handleCancel() {
+            if (confirm('취소하시겠습니까?')) {
+                location.href = '/admin/qna/list';
+            }
+        }
+    
         document.addEventListener('DOMContentLoaded', () => {
+            // jQuery 이벤트 바인딩
+            $('.hover').click(function () {
+                $(this).parent().toggleClass('active');
+            });
+    
+            // 수정 모드일 경우 데이터 넣기
             if (isEdit) {
                 document.getElementById('qndnum').value = existingData.mainCategory;
-                updateSubCategory();  // 먼저 2차 옵션을 채우고
+                updateSubCategory();
                 document.getElementById('qnanum2').value = existingData.subCategory;
                 document.getElementById('titleInput').value = existingData.title;
                 document.getElementById('contentInput').value = existingData.content;
             }
-        });
-
-        // 등록 버튼 처리 (예: console.log로 테스트)
-        document.getElementById('qnaForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const data = {
-                mainCategory: document.getElementById('qndnum').value,
-                subCategory: document.getElementById('qnanum2').value,
-                title: document.getElementById('titleInput').value,
-                content: document.getElementById('contentInput').value
-            };
-            console.log('제출된 데이터:', data);
-            alert('등록 완료!');
-        });
-
-        function handleCancel() {
-            if (confirm('취소하시겠습니까?')) {
-                location.href = '/admin/qna/list'; // 예시 경로
+    
+            // 폼 제출 이벤트
+            const form = document.getElementById('qnaForm');
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const data = {
+                        mainCategory: document.getElementById('qndnum').value,
+                        subCategory: document.getElementById('qnanum2').value,
+                        title: document.getElementById('titleInput').value,
+                        content: document.getElementById('contentInput').value
+                    };
+                    console.log('제출된 데이터:', data);
+                    alert('등록 완료!');
+                });
             }
-        }
+        });
     </script>
 </head>
 <body>

@@ -1,4 +1,57 @@
-/* 전체 스타일 */
+    /* 전체 스타일 */
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: "Gothic A1", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 12px;
+    }
+    a {
+        text-decoration: none;
+    }
+    ul,
+    li {
+        list-style: none;
+    }
+    body {
+        overflow-x: scroll;
+        min-width: 1200px;
+    }
+
+    /* header */
+    .wrapper {
+        width: 100%;
+        height: 120px;
+        margin: 0 auto;
+        background-color: #e45450;
+    }
+
+    .wrapper-suv {
+        width: 1200px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .user-nav ul {
+        display: flex;
+        float: right;
+        margin-top: 10px;
+        gap: 15px;
+    }
+
+    .user-nav li a {
+        font-size: 15px;
+        color: #fff;
+        text-decoration: underline;
+    }
+
+    .logo img{
+        width: 20%;
+        margin-top: 60px;
+        margin-left: 35px;
+    }
+    /* 전체 스타일 */
 * {
     margin: 0;
     padding: 0;
@@ -19,271 +72,445 @@ body {
     min-width: 1200px;
 }
 
-/* header */
-.wrapper {
-    width: 100%;
-    height: 120px;
-    margin: 0 auto;
-    background-color: #e45450;
+.setting h1 {
+    color: #333;
+    font-size: 25px;
+    font-weight: 800;
+    margin-bottom: 20px;
 }
 
-.wrapper-suv {
-    width: 1200px;
-    height: auto;
-    margin: 0 auto;
+.main h2 {
+    color: #333;
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 20px;
 }
 
-.user-nav ul {
+/* main */
+.main-wrapper {
     display: flex;
-    float: right;
-    margin-top: 10px;
-    gap: 15px;
-}
-
-.user-nav li a {
-    font-size: 15px;
-    color: #fff;
-    text-decoration: underline;
-}
-
-.logo img{
-    width: 20%;
-    margin-top: 60px;
-    margin-left: 35px;
-}
-
-.zz{
-    width: 940px;
+    width: 1200px;
     margin: 0 auto;
-    left: 0;
-}
-.table-wrapper {
-    width: 940px;
-    margin: 0 auto;
-    padding: 20px 0;
-}
-table {
-    border-collapse: collapse;
-    width: 100%;
-    font-family: 'Inter', sans-serif;
 }
 
-table th {
-
-    border-top: 1px solid black;
-    margin-top: 50px;
-}
-            
-
-
-table td {
-    border-bottom: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}  
-
-.end {
-    border: 1px solid #0070c0;
-    display: inline-block;
-    padding: 3px 6px;
-    color: #0070c0;
+aside {
+    width: 200px;
+    height: auto;
+    margin: 80px 0 0 50px;
+    border: 1px solid #b7b7b7;
     box-sizing: border-box;
 }
 
-.end2 {
-    border: 1px solid #ffffff;
-    background-color: #808080;
-    padding: 3px 6px;
-    display: inline-block;
-    color: #ffffff;
-}
-.issuing {
-    color: #00b050;
-}
-.ended {
-    color: #808080;
+.aside a {
+    font-size: 17px;
+    font-weight: 600;
+    color: #333;
 }
 
-.pagination-wrapper {
+.aside li {
+    text-align: center;
+}
+.ul-list {
+    margin-top: 10px;
+    padding: 10px 0 10px 0;
+    border-bottom: 1px solid #b7b7b7;
+}
+
+.ul-list:last-child {
+    border-bottom: none;
+}
+
+
+
+.ul-list li:nth-of-type(1) a {
+    margin-top: -3px;
+}
+
+.fas {
+    margin: 0 5px 0 20px;
+}
+
+.main {
+    border: 1px solid #b7b7b7;
+    border-bottom: none;
+    width: 100%;
+    height: auto;
+    margin-top: 80px;
+}
+
+.setting {
+    display: flex;
+    margin: 30px 0 0 20px;
+}
+
+.setting ul {
+    margin-left: 610px;
+    margin-top: 13px;
+}
+
+.setting li {
+    display: inline;
+}
+
+.setting a {
+    color: #333;
+    font-size: 15px;
+}
+
+.setting span {
+    color: #333;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.line {
     width: 940px;
     margin: 0 auto;
-    /*margin: 20px auto 0 auto; /* 테이블과 간격 유지 */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px; /* 좌우 여백 */
+    margin-top: -10px;
+    border-bottom: 3px solid #b7b7b7;
+    box-sizing: border-box;
 }
 
-.pagination {
-    width: 100%;
+.in-ul {
+    display: none;
+}
+
+.in-ul.active {
+    display: block;
+}
+
+.container {
+    width: 940px;
     margin: 0 auto;
-    display: flex;
-    gap: 8px;
+}
+.search {
+    margin:20px 0 10px 0;
 }
 
-.pagination a {
-    color: #000;
-    padding: 6px 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 13px;
-}
-
-.action-button {
-    margin-right: 0px; /* ← 오른쪽에서 살짝 안쪽으로 */
-}
-
-.action-button button {
-    padding: 8px 16px;
-    font-size: 13px;
-    background-color: #8eb4e3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 480px;
-}
-/* 전체 스타일 */
-* {
-    margin: 0;
-    padding: 0;
-    font-family: "Gothic A1", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 12px;
-}
-a {
-    text-decoration: none;
-}
-ul,
-li {
-    list-style: none;
-}
-body {
-    overflow-x: scroll;
-    min-width: 1200px;
-}
-
-/* footer */
-footer {
-    width: 100%;
+.search > select {
+    width: 150px;
     height: 30px;
-    margin: 0 auto;
-    background-color: #db524d;
+    color: #333;
+    border: 1px solid #b7b7b7;
+    box-sizing: border-box;
 }
 
-.footer {
-    width: 1200px;
-    margin: 0 auto;
+.search input {
+    width: 150px;
+    height: 30px;
+    padding-left: 5px;
+    border: 1px solid #b7b7b7;
+    box-sizing: border-box;
 }
-
-.footer p {
-    text-align: center;
+.search > button {
+    width: 60px;
+    height: 30px;
+    margin-left: 1px;
+    padding-top: 3px;
+    border: none;
     color: #fff;
-    font-size: 15px;
-    padding-top: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    background-color: #333;
+    box-sizing: border-box;
 }
+    .table-wrapper {
+        width: 940px;
+        margin: 0 auto;
+        padding: 20px 0;
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        font-family: 'Inter', sans-serif;
+    }
+
+    table th {
+
+        border-top: 1px solid black;
+        margin-top: 50px;
+        border-bottom: 1px solid black;
+        padding: 10px;
+    }
+                
+
+
+    table td {
+        border-bottom: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }  
+
+button {
+    width: 106px;
+    height: 41px;
+    background-color: #8eb4e3;
+    border: none;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 15px;
+    margin-left: 20px;
+    margin-top: 15px;
+
+}
+
+.btn-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+
+
+
+    .pagination {
+        text-align: center;
+        flex-grow: 1;
+    }
+
+    .pagination a {
+        margin: 0 5px;
+        text-decoration: none;
+        color: #333;
+    }
+
+    footer {
+        width: 100%;
+        height: 30px;
+        margin: 0 auto;
+        background-color: #db524d;
+    }
+
+    .footer {
+        width: 1200px;
+        margin: 0 auto;
+    }
+
+    .footer p {
+        text-align: center;
+        color: #fff;
+        font-size: 15px;
+        padding-top: 6px;
+    }
+
+    /* 모달 오버레이 */
 .modal-overlay {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
+    z-index: 1000;
 }
 
+/* 모달 */
 .modal {
+    width: 700px;
     background: white;
-    border-radius: 8px;
-    width: 900px;        /* ← 더 넓게 */
-    max-width: 95%;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    border-radius: 3px;
     overflow: hidden;
+    margin: auto;  /* 중앙 정렬을 위해 추가 */
+    max-width: 100%;  /* 화면 크기에 맞춰 모달 크기 조절 */
+    box-sizing: border-box; /* 여백을 포함하여 크기 계산 */
 }
 
-.modal-header {
-    background: #333;
+
+    .modal-header {
+    background: #3b3b3b;
     color: white;
-    padding: 16px 24px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
     display: flex;
     justify-content: space-between;
-    font-weight: bold;
+    align-items: center;
+    }
+
+    .modal-header span {
+    color: red;
+    margin-right: 5px;
+    }
+
+    .modal-header button {
+    background: none;
+    border: none;
+    color: white;
     font-size: 18px;
-}
-.modal-header span {
-    display: inline-block;
-}
-
-.modal-header .modal-close {
-    font-size: 14px;
-    color: #999;
     cursor: pointer;
-    text-align: right;
-    margin-left: 10px;
-}
+    }
 
-.modal-close {
-    cursor: pointer;
-    font-size: 20px;
-}
-
-.modal-content {
-    padding: 35px 40px;
-}
-
-.modal-content table {
+    .info-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 15px; /* 좀 더 큼 */
-}
+    }
 
-.modal-content th,
-.modal-content td {
-    border: 1px solid #ccc;
-    padding: 16px 20px;
-    text-align: left;
+    .info-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
     vertical-align: top;
-}
-.modal-title{
-    font-weight: 700;
-    font-size: 20px;
-}
+    }
 
-.modal-content th {
-    background-color: #f4f4f4;
+    .info-table td.label {
+    background-color: #f5f5f5;
     font-weight: bold;
-    width: 25%;
-}
+    width: 150px;
+    white-space: nowrap;
+    }
 
-.modal-footer {
+    .info-table td[colspan] {
+    white-space: pre-line;
+    }
+
+    .modal-footer {
     text-align: center;
-    padding: 20px;
-}
+    padding: 20px 0;
+    }
 
-.close-btn {
-    background: #009e4f;
+    .modal-footer button {
+    background: #009944;
     color: white;
-    padding: 12px 28px;
     border: none;
-    border-radius: 4px;
+    padding: 10px 30px;
+    font-size: 14px;
+    font-weight: bold;
     cursor: pointer;
-    font-size: 15px;
-}
+    border-radius: 2px;
+    }
+    .modal-overlay register-modal {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+  
+      .modal {
+        width: 700px;
+        background: white;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+  
+      .modal-header {
+        background: #3b3b3b;
+        color: white;
+        padding: 10px 15px;
+        font-size: 16px;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-.action-button {
-    width: 940px;
-    margin-left: 250px;
-}
+    .modal-header span {
+    color: red;
+    margin-right: 5px;
+    }
 
-.pagination-wrapper {
-    width: 940px;
-    margin: 50px 0 0 300px;
-}
+    .modal-header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    }
 
-#openModalBtn {
-    width: 100px;
-}
+    .modal-table {
+    width: 100%;
+    border-collapse: collapse;
+    }
+
+    .modal-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
+    vertical-align: top;
+    }
+
+    .label {
+    background: #f5f5f5;
+    font-weight: bold;
+    width: 150px;
+    white-space: nowrap;
+    }
+
+    .text, select, textarea {
+    width: 100%;
+    padding: 5px;
+    font-size: 14px;
+    }
+
+    textarea {
+    resize: vertical;
+    height: 100px;
+    }
+
+    .benefits label {
+    margin-right: 15px;
+    white-space: nowrap;
+    }
+
+    .date-inputs {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-top: 5px;
+    }
+
+    .modal-footer {
+    text-align: center;
+    padding: 20px 0;
+    }
+
+    .modal-footer button {
+    padding: 10px 30px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 2px;
+    border: none;
+    }
+
+    .cancel-btn {
+    background: #ccc;
+    color: #333;
+    margin-right: 10px;
+    }
+
+    .submit-btn {
+    background: #009944;
+    color: white;
+    }
+    .in-ul {
+        display: none;
+    }
+    
+    .ul-list > li.active > ul {
+        display: block;
+    }
+    
+    .in-ul li {
+        margin: 5px 0;
+    }
+    
+    .in-ul li:first-of-type {
+        margin-top: 10px;
+    }
+    
+    .in-ul li a {
+        font-size: 14px;
+    }
+    
+    .in-ul li a:hover {
+        text-decoration: underline;
+    }
