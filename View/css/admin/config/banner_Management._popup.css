@@ -122,3 +122,7 @@ select {
     background-color: #d3514a;
     cursor: pointer;
 }
+
+input[type="datetime-local"] {
+    width:190px;
+}
