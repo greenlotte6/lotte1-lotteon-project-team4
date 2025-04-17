@@ -13,14 +13,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>admin banner</title>
 </head>
+<script src="/js/modal.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         
         $('.hover').click(function(e) {
             $(this).parent().toggleClass('active');
         })
-            
-
+    
     });
 </script>
 <body>
@@ -764,7 +764,12 @@
                     </div>
                     <div class="click">
                         <button class="select-delete button">선택삭제</button>
-                        <button class="banner-register button">배너등록</button>
+                        <button onclick="openModal('/popup/admin/banner_Management.html')" class="banner-register button btn">배너등록</button>
+                    </div>
+                    <div class="modal-overlay" id="modalOverlay">
+                        <div class="modal">
+                          <iframe id="modalFrame"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
