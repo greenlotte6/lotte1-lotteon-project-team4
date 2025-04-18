@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <title>롯데ON 주문하기</title>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="/js/product-order.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const bar = document.querySelector('.bar');
@@ -72,7 +73,6 @@
                 updateSummary();
             });
 
-            // 개별 체크박스 상태에 따라 전체 선택 체크 여부 제어
             const updateSelectAllState = () => {
                 const checkboxes = document.querySelectorAll(".item-check");
                 const checked = document.querySelectorAll(".item-check:checked");
