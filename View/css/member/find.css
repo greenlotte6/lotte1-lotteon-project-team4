@@ -1,0 +1,149 @@
+.find-wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  text-align: center;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.find-wrapper h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.tab-menu {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #333;
+  margin-bottom: 30px;
+}
+
+.tab-menu .tab {
+  flex: 1;
+  padding: 12px 0;
+  border: none;
+  background: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+}
+
+.tab-menu .tab.active {
+  border-bottom: 3px solid #000;
+  color: #000;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+}
+
+.submit-btn {
+  margin: 40px 0 20px;
+}
+
+.submit-btn button {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  background-color: #d7282f;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.note {
+  font-size: 12px;
+  color: #666;
+  text-align: left;
+  margin-top: 10px;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+
+.tab-content {
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.tab-content.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.id-tab {
+  max-width: 420px;
+  margin: 0 auto;
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: left;
+}
+
+.pw-tab {
+  max-width: 420px;
+  margin: 0 auto;
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  width: 94%;
+  padding: 13px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  border-radius: 2px;
+}
+
+.submit-btn {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.submit-btn button {
+  background-color: #e60023;
+  color: white;
+  border: none;
+  padding: 14px 0;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 2px;
+  cursor: pointer;
+}

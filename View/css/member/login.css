@@ -1,206 +1,200 @@
 .main_banner {
-    float: left;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 14px;
-    color: #333;
-    margin: 21px 70px;
+  float: left;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+  margin: 21px 70px;
 }
 
-/* 전체 영역 스타일 */
 .content {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 30px 0;
-    font-family: 'Noto Sans KR', sans-serif;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px 0;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .login-form {
-    float: left;
+  float: left;
 }
 
 .form-hd {
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .form-hd h2 {
-    font-size: 24px;
-    font-weight: 700;
+  font-size: 24px;
+  font-weight: 700;
 }
 
-/* 1. 아이디/비밀번호 입력 박스 */
 form input[type="text"],
 form input[type="password"] {
-    width: 250px;
-    height: 30px;
-    margin: 5px 0;
-    padding-left: 10px;
-    border: 1px solid #ccc;
-    display: block;
+  width: 250px;
+  height: 30px;
+  margin: 5px 0;
+  padding-left: 10px;
+  border: 1px solid #ccc;
+  display: block;
 }
 
-/* 2. 로그인 버튼 */
 .loginbtn {
-    width: 100px;
-    height: 80px;
-    background-color: #3366cc;
-    color: #fff;
-    font-size: 16px;
-    border: none;
-    margin-left: 0;
+  width: 100px;
+  height: 80px;
+  background-color: #3366cc;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  margin-left: 0;
 }
 
-
-/* 로그인 폼과 배너 영역 정렬 */
 form {
-    display: flex;
-    justify-content: start;
-    align-items: flex-start;
-    gap: 10px;
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  gap: 10px;
 }
 
-/* 아이디/비번/체크박스/링크를 묶을 박스 */
+
 form>div {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-/* 체크박스 및 하단 텍스트 링크 */
 form input[type="checkbox"] {
-    vertical-align: middle;
-    margin-right: 4px;
+  vertical-align: middle;
+  margin-right: 4px;
 }
 
 form a {
-    font-size: 13px;
-    margin: 2px 0;
-    color: #333;
-    text-decoration: none;
+  font-size: 13px;
+  margin: 2px 0;
+  color: #333;
+  text-decoration: none;
 }
 
 .login {
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-    font-size: 20px;
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  font-size: 20px;
 }
 
 .login>.options-item:not(:last-child)::after {
-    content: "";
-    display: inline-block;
-    width: 1px;
-    height: 11px;
-    margin: 0 15px;
-    border-left: 1px solid black;
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 11px;
+  margin: 0 15px;
+  border-left: 1px solid black;
 }
 
 .login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* 세로 간격 */
-  }
-  
-  .form-row {
-    display: flex;
-    gap: 10px; 
-    display: flex;
-    align-items: center;
-  }
-  
-  .input-section {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 
-/* 3. 소셜 로그인 버튼 */
+.form-row {
+  display: flex;
+  gap: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 
 .google-login-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 340px;
-    height: 35px;
-    padding: 4px 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
-  .naver-login-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 340px;
-    height: 35px;
-    background-color: #03C75A;
-    color: white;
-    padding: 4px 8px;
-    border: 1px solid #03C75A;
-    border-radius: 4px;
-  }
-  .kakao-login-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 340px;
-    height: 35px;
-    background-color: #FEE500; 
-    padding: 4px 8px;
-    border: 1px solid #FEE500;
-    border-radius: 4px;
-  }
-  
-  .google-login-btn:hover {
-    background-color: #ddd;
-  }
-
-  .naver-login-btn:hover {
-    background-color: #02b152;
-  }
-  .kakao-login-btn:hover {
-    background-color: #e4d000;
-  }
-  
-  .login-btn img {
-    width: 24px;
-    height: 24px;
-  }
-
-.sns-login{
-    margin-top: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 340px;
+  height: 35px;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.expression{
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
+.naver-login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 340px;
+  height: 35px;
+  background-color: #03C75A;
+  color: white;
+  padding: 4px 8px;
+  border: 1px solid #03C75A;
+  border-radius: 4px;
 }
 
-/* 4. 하단 협력기관 로고 */
+.kakao-login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 340px;
+  height: 35px;
+  background-color: #FEE500;
+  padding: 4px 8px;
+  border: 1px solid #FEE500;
+  border-radius: 4px;
+}
+
+.google-login-btn:hover {
+  background-color: #ddd;
+}
+
+.naver-login-btn:hover {
+  background-color: #02b152;
+}
+
+.kakao-login-btn:hover {
+  background-color: #e4d000;
+}
+
+.login-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+.sns-login {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.expression {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+
 .connection {
-    display: flex;
-    justify-content: space-between;
-    width: 1200px;
-    margin: 60px auto 0;
-    border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  width: 1200px;
+  margin: 60px auto 0;
+  border-top: 1px solid #ccc;
 }
 
 .connection img {
-    width: 186px;
-    height: 50px;
-    margin-top: 30px;
+  width: 186px;
+  height: 50px;
+  margin-top: 30px;
 }
