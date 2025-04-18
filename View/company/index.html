@@ -27,16 +27,16 @@ body {
 }
 
 /* header */
-header {
-    width: 100%;
-    height: auto;
-}
-
 .wrapper {
     width: 1200px;
     height: auto;
     margin: 0 auto;
 }
+header {
+    width: 100%;
+    height: auto;
+}
+
 
 .banner {
     width: 100%;
@@ -63,13 +63,14 @@ header {
 
 .user-nav ul a {
     color: #8d8d8d;
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .top-header {
     display: flex;
     width: 70%;
     height: 100px;
-    border: 1px solid red;
     padding-top: 40px;
 }
 
@@ -87,9 +88,8 @@ header {
 
 .top_menu{
     width: 50%;
-    border: 1px solid blue;
     margin: 0 auto;
-    padding-top: 40px;
+    padding-top: 50px;
     
 }
 .main-pick {
@@ -97,6 +97,9 @@ header {
     height: 500px;
     background-color: aqua;
     display: flex;
+    background-image:url(/images/bar-img.png);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .main-pick p{
     position: absolute;
@@ -114,14 +117,16 @@ header {
 }
 
 .main-story_2 p {
-    margin-left: 200px;
+    margin-left: 130px;
+    padding: 30px 0;
 }
 
 .photo{
     width: 900px;
     height: 500px;
-    border: 1px solid red;
-    margin: 0 auto;
+    
+    margin-left: 10px;
+    
 }
 
 
@@ -168,12 +173,8 @@ header {
             <div class="main-story_2">
                 <p style="font-size: 30px; font-weight: 600;">쇼핑을 새롭게, 세상을 이롭게 만들어나가요</p>
                 <div class="photo">
-                    <div class="photo_1">
-
-                    </div>
-                    <div class="photo_2">
-
-                    </div>
+                    <img src="/images/main-img.png" alt="LotteON 로고">
+                
                 </div>
             </div>
             <div></div>
