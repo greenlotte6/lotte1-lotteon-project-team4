@@ -28,6 +28,8 @@ h2 {
 .container {
     width: 800px;
     margin: 0 auto;
+    background-color: #fff;
+    padding-bottom: 25px;
 }
 
 .title {

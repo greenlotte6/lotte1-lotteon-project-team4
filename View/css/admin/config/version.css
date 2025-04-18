@@ -169,6 +169,10 @@ th {
     font-weight: 600;
 }
 
+th:nth-of-type(6) {
+    width: 100px;
+}
+
 button {
     font-size: 13px;
     border: none;
@@ -221,4 +225,34 @@ button {
 
 .in-ul li a:hover {
     text-decoration: underline;
+}
+
+/* 모달 */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.modal {
+    margin: 0 auto;
+    width: 100%;
+    border-radius: 10px;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    margin: 10% auto;
+    border: none;
+    overflow: hidden;
+}
+
+.btn {
+    width: 100px;
+    padding: 10px 20px;
+    cursor: pointer;
 }
