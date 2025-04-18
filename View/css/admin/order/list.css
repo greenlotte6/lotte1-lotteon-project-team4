@@ -190,7 +190,7 @@ th, td {
 }
 
 th:nth-of-type(2) {
-    width: 90px;
+    width: 110px;
 }
 
 th:nth-of-type(6), th:nth-of-type(7), th:nth-of-type(8) {
