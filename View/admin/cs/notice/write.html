@@ -6,11 +6,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/notice/write.css">
+    <link rel="stylesheet" href="/View/css/notice/write.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>공지사항 작성</title>  
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            $('.hover').click(function(e) {
+                $(this).parent().toggleClass('active');
+            })
+                
+    
+        });
+    </script>
 </head>
 <body>
     <header>

@@ -1,18 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/css/faq/list.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="/css/common/_admin_footer.css">
+    <link rel="stylesheet" href="/View/css/common/_admin_footer.css">
     <!-- Font Awesome CDN -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>공지사항 수정</title>  
+    <title>공지사항 수정</title>
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            $('.hover').click(function (e) {
+                $(this).parent().toggleClass('active');
+            })
+
+
+        });
         function updateSubCategory() {
             const mainCategory = document.getElementById('qndnum').value;  // 1차유형
             const subCategory = document.getElementById('qnanum2');  // 2차유형
@@ -42,7 +55,7 @@
             subCategory.appendChild(defaultOption);
 
             // 선택된 1차유형에 맞는 2차유형 옵션 추가
-            options.forEach(function(option) {
+            options.forEach(function (option) {
                 const newOption = document.createElement('option');
                 newOption.value = option;
                 newOption.text = option;
@@ -51,6 +64,7 @@
         }
     </script>
 </head>
+
 <body>
     <header>
         <div class="wrapper">
@@ -145,7 +159,7 @@
                     </ul>
                 </div>
             </aside>
-            
+
             <div class="main">
                 <div class="setting">
                     <h1>자주하는질문 목록</h1>
@@ -169,7 +183,7 @@
                                 <option value="쿠폰/포인트">쿠폰/포인트</option>
                                 <option value="이벤트">이벤트</option>
                             </select>
-                    
+
                             <label for="qnanum2"></label>
                             <select id="qnanum2" name="name" style="padding: 8px; margin-left: 10px;">
                                 <option value="">2차 선택</option>
@@ -193,13 +207,13 @@
                             <td>회원</td>
                             <td>가입</td>
                             <td>
-                                <a href="#">개인회원과 법인회원에 차이가 있나요?</a>
+                                <a href="/View#">개인회원과 법인회원에 차이가 있나요?</a>
                             </td>
                             <td>120</td>
                             <td>00.00.00</td>
                             <td>
-                                <a href="#">[삭제]</a><br>
-                                <a href="#">[수정]</a>
+                                <a href="/View#">[삭제]</a><br>
+                                <a href="/View#">[수정]</a>
                             </td>
                         </tr>
                         <tr>
@@ -208,14 +222,14 @@
                             <td>회원</td>
                             <td>가입</td>
                             <td>
-                                <a href="#">본인인증시 이미 가입되어 있는 정보라고 <br>
-                                나옵니다.</a>
+                                <a href="/View#">본인인증시 이미 가입되어 있는 정보라고 <br>
+                                    나옵니다.</a>
                             </td>
                             <td>120</td>
                             <td>00.00.00</td>
                             <td>
-                                <a href="#">[삭제]</a> <br>
-                                <a href="#">[수정]</a>
+                                <a href="/View#">[삭제]</a> <br>
+                                <a href="/View#">[수정]</a>
                             </td>
                         </tr>
                     </table>
@@ -230,9 +244,10 @@
     <footer>
         <div class="footer">
             <p>
-            Copyright © LOTTESHOPPING Co., LTD. All rights reserved. LotteON ADMINISTRATOR Version 5.4.1.2
+                Copyright © LOTTESHOPPING Co., LTD. All rights reserved. LotteON ADMINISTRATOR Version 5.4.1.2
             </p>
         </div>
     </footer>
 </body>
+
 </html>

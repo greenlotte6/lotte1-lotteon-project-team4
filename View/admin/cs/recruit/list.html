@@ -6,11 +6,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/cs/recruit/list.css">
+    <link rel="stylesheet" href="/View/css/cs/recruit/list.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>채용등록</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        
+        $('.hover').click(function(e) {
+            $(this).parent().toggleClass('active');
+        })
+            
+
+    });
+    </script>
 
 </head>
 <body>
@@ -19,6 +30,7 @@
             <div class="wrapper-suv">
                 <div class="user-nav">
                     <ul>
+<<<<<<< HEAD
                         <li><a href="#">홈</a></li>
                         <li><a href="#">로그아웃</a></li>
                         <li><a href="#">고객센터</a></li>
@@ -26,12 +38,22 @@
                 </div>
                 <div class="logo">
                     <a href="#"><img src="/images/logo/logo_white.png" alt="LotteON-logo"></a>
+=======
+                        <li><a href="/View/admin/index.html">홈</a></li>
+                        <li><a href="/View/admin/index.html">로그아웃</a></li>
+                        <li><a href="/View/admin/cs/notice/list.html">고객센터</a></li>
+                    </ul>
+                </div>
+                <div class="logo">
+                    <a href="/View/index.html"><img src="/View/images/logo/logo_white.png" alt="LotteON-logo"></a>
+>>>>>>> main
                 </div>
             </div>
         </div>
     </header>
     <main><div class="main-wrapper">
         <aside>
+<<<<<<< HEAD
         <div class="aside">
             <ul class="out-ul">
                 <div class="ul-list">
@@ -106,14 +128,96 @@
             </ul>
         </div>
     </aside>
+=======
+            <div class="aside">
+                <ul class="out-ul">
+                    <div class="ul-list">
+                        <li>
+                            <i class="fas fa-cogs"></i><a href="/View#" class="hover">환경설정</a>
+                            <ul class="in-ul">
+                                <li><a href="/View/admin/config/basic.html">- 기본설정</a></li>
+                                <li><a href="/View/admin/config/banner.html">- 배너관리</a></li>
+                                <li><a href="/View/admin/config/policy.html">- 약관관리</a></li>
+                                <li><a href="/View/admin/config/category.html">- 카테고리</a></li>
+                                <li><a href="/View/admin/config/version.html">- 버전관리</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                    <div class="ul-list">
+                        <li>
+                            <i class="fas fa-store"></i><a href="/View#" class="hover">상점관리</a>
+                            <ul class="in-ul">
+                                <li><a href="/View/admin/shop/list.html">- 상점목록</a></li>
+                                <li><a href="/View/admin/shop/sales.html">- 매출현황</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                    <div class="ul-list">
+                        <li>
+                            <i class="fas fa-users"></i><a href="/View#" class="hover">회원관리</a>
+                            <ul class="in-ul">
+                                <li><a href="/View/admin/member/list.html">- 회원목록</a></li>
+                                <li><a href="/View/admin/member/point.html">- 포인트관리</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                    <div class="ul-list">
+                        <li>
+                            <i class="fas fa-box"></i><a href="/View#" class="hover">상품관리</a>
+                            <ul class="in-ul">
+                                <li><a href="/View/admin/product/list.html">- 상품목록</a></li>
+                                <li><a href="/View/admin/product/register.html">- 상품등록</a></li>
+                                <!--<li><a href="/View#">- 카테고리</a></li>-->
+                            </ul>
+                        </li>
+                    </div>
+                    <div class="ul-list">
+                        <li>
+                            <i class="fas fa-receipt"></i><a href="/View#" class="hover">주문관리</a>
+                            <ul class="in-ul">
+                                <li><a href="/View/admin/order/list.html">- 주문현황</a></li>
+                                <li><a href="/View/admin/order/delivery.html">- 배송현황</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                    <div class="ul-list">
+                        <li>
+                            <i class="fas fa-ticket-alt"></i><a href="/View#" class="hover">쿠폰관리</a>
+                            <ul class="in-ul">
+                                <li><a href="/View/admin/coupon/list.html">- 쿠폰목록</a></li>
+                                <li><a href="/View/admin/coupon/issued.html">- 쿠폰발급현황</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                    <div class="ul-list">
+                        <li>
+                            <i class="fas fa-headset"></i><a href="/View#" class="hover">고객센터</a>
+                            <ul class="in-ul">
+                                <li><a href="/View/admin/cs/notice/list.html">- 공지사항</a></li>
+                                <li><a href="/View/admin/cs/faq/list.html">- 자주묻는질문</a></li>
+                                <li><a href="/View/admin/cs/qna/list.html">- 문의하기</a></li>
+                                <li><a href="/View/admin/cs/recruit/list.html">- 채용하기</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+        </aside>
+>>>>>>> main
     
     <div class="main">
         <div class="setting">
             <h1>채용하기 목록</h1>
             <ul>
+<<<<<<< HEAD
                 <li><a href="#">HOME &nbsp;>&nbsp;</a></li>
                 <li><a href="#">고객센터 &nbsp;>&nbsp;</a></li>
                 <li><a href="#"><span>채용하기 &nbsp;</span></a></li>
+=======
+                <li><a href="/View/admin/index.html">HOME &nbsp;>&nbsp;</a></li>
+                <li><a href="/View/admin/cs/notice/list.html">고객센터 &nbsp;>&nbsp;</a></li>
+                <li><a href="/View/admin/cs/recruit/list.html"><span>채용하기 &nbsp;</span></a></li>
+>>>>>>> main
             </ul>
         </div>
         <div class="line"></div>
@@ -192,13 +296,13 @@
                 <button class="btn">선택삭제</button>
             
                 <div class="pagination">
-                    <a href="#">이전</a>
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">다음</a>
+                    <a href="/View#">이전</a>
+                    <a href="/View#">1</a>
+                    <a href="/View#">2</a>
+                    <a href="/View#">3</a>
+                    <a href="/View#">4</a>
+                    <a href="/View#">5</a>
+                    <a href="/View#">다음</a>
                 </div>
                 <button class="btn2 open-modal-btn" style="font-size: 13px;">채용등록</button>
             </div>
