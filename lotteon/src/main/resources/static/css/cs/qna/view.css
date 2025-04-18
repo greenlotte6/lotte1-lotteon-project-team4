@@ -1,0 +1,154 @@
+/* 공통 레이아웃 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #111;
+}
+
+.notice-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.notice-path {
+    font-size: 15px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #808080;
+    color: black;
+    margin-left: 80px;
+}
+
+.notice-path>span {
+    font-size: 15px;
+}
+
+.notice-path>strong {
+    font-size: 15px;
+}
+
+.cs-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.cs-sidebar {
+    width: 145px;
+    border-right: 1px solid #ddd;
+    padding-right: 20px;
+    margin-left: 100px;
+}
+
+.cs-sidebar h3 {
+    font-size: 21px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.cs-menu {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 25px;
+}
+
+.cs-menu li {
+    padding: 8px 0;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.cs-menu li.active {
+    font-weight: bold;
+    color: #C00000;
+    text-decoration: underline;
+}
+
+.cs-content {
+    width: 80%;
+}
+
+.cs-title {
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 5px;
+
+}
+
+.cs-desc {
+    font-size: 13px;
+    color: #808080;
+    margin-bottom: 15px;
+}
+
+.qna-view {
+    border-top: 2px solid #111;
+    margin-bottom: 20px;
+}
+
+.qna-question,
+.qna-answer {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.qna-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.qna-title {
+    font-weight: bold;
+    color: #111;
+    font-size: 18px;
+}
+
+.qna-user {
+    font-size: 13px;
+}
+
+.qna-date {
+    font-size: 15px;
+}
+
+.qna-question-content,
+.qna-answer-content {
+    padding-left: 10px;
+}
+
+.qna-answer-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.list-button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.list-button button {
+    background-color: #bfbfbf;
+    color: #fff;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.list-buttonn button:hover {
+    background-color: #636262;
+}

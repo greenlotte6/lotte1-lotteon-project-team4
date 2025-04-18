@@ -1,0 +1,238 @@
+/* 전체 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Gothic A1", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+}
+a {
+    text-decoration: none;
+}
+ul,
+li {
+    list-style: none;
+}
+body {
+    overflow-x: scroll;
+    min-width: 1200px;
+}
+
+.setting h1 {
+    color: #333;
+    font-size: 25px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.main h2 {
+    color: #333;
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+/* main */
+.main-wrapper {
+    display: flex;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+aside {
+    width: 200px;
+    height: auto;
+    margin: 80px 0 0 50px;
+    border: 1px solid #b7b7b7;
+    box-sizing: border-box;
+}
+
+.aside a {
+    font-size: 17px;
+    font-weight: 600;
+    color: #333;
+}
+
+.aside li {
+    text-align: center;
+}
+
+.ul-list {
+    padding: 10px 0 10px 0;
+    border-bottom: 1px solid #b7b7b7;
+}
+
+.ul-list:last-child {
+    border-bottom: none;
+}
+
+
+
+.ul-list li:nth-of-type(1) a {
+    margin-top: -3px;
+}
+
+.fas {
+    margin: 0 5px 0 0;
+}
+
+.main {
+    border: 1px solid #b7b7b7;
+    border-bottom: none;
+    width: 100%;
+    height: auto;
+    margin-top: 80px;
+}
+
+.setting {
+    display: flex;
+    margin: 30px 0 0 20px;
+}
+
+.setting ul {
+    margin-left: 670px;
+    margin-top: 13px;
+}
+
+.setting li {
+    display: inline;
+}
+
+.setting a {
+    color: #333;
+    font-size: 15px;
+}
+
+.setting span {
+    color: #333;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.line {
+    width: 940px;
+    margin: 0 auto;
+    margin-top: -10px;
+    border-bottom: 3px solid #b7b7b7;
+    box-sizing: border-box;
+}
+
+.status {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.chart {
+    width: 940px;
+    height: 300px;
+    margin: 0 auto;
+    margin-top: 30px;
+    border: 1px solid #333;
+    box-sizing: border-box;
+}
+
+table {
+    border-collapse: collapse;
+    height: auto;
+    border: 1px solid #b7b7b7;
+    border-top: 1px solid #333;
+    box-sizing: border-box;
+}
+
+td {
+    padding: 10px 0 10px 0;
+}
+
+td a {
+    color: #333;
+    font-size: 15px;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+th {
+    padding: 5px 0 5px 0;
+}
+
+.operation {
+    width: 940px;
+    height: auto;
+    margin: 50px auto;
+}
+
+.operation table {
+    text-align: center;
+    width: 940px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.name {
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 30px;
+    color: #333;
+}
+
+.count {
+    font-size: 16px;
+    font-weight: bold;
+    color: #e45450;
+}
+
+
+.highlight {
+    color: #e45450;
+    font-weight: bold;
+}
+
+.notice table {
+    width: 450px;
+    border: none;
+}
+
+.notice {
+    width: 940px;
+    margin: 0 auto 100px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.inqu table {
+    border: none;
+}
+
+.h2 {
+    height: 35px;
+    border-bottom: 2px solid #b7b7b7;
+    margin-bottom: 10px;
+}
+
+/* 추가 */
+
+.in-ul {
+    display: none;
+}
+
+.ul-list > li.active > ul {
+    display: block;
+}
+
+.in-ul li {
+    margin: 5px 0;
+}
+
+.in-ul li:first-of-type {
+    margin-top: 10px;
+}
+
+.in-ul li a {
+    font-size: 14px;
+}
+
+.in-ul li a:hover {
+    text-decoration: underline;
+}

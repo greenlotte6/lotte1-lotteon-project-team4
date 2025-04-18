@@ -1,0 +1,307 @@
+/* 전체 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Gothic A1", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+}
+a {
+    text-decoration: none;
+}
+ul,
+li {
+    list-style: none;
+}
+body {
+    overflow-x: scroll;
+    min-width: 1200px;
+}
+
+.setting h1 {
+    color: #333;
+    font-size: 25px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.main h2 {
+    color: #333;
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+/* main */
+.main-wrapper {
+    display: flex;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+aside {
+    width: 200px;
+    height: auto;
+    margin: 80px 0 0 50px;
+    border: 1px solid #b7b7b7;
+    box-sizing: border-box;
+}
+
+.aside a {
+    font-size: 17px;
+    font-weight: 600;
+    color: #333;
+}
+
+.aside li {
+    text-align: center;
+}
+
+.ul-list {
+    margin-top: 10px;
+    padding: 10px 0 10px 0;
+    border-bottom: 1px solid #b7b7b7;
+}
+
+.ul-list:last-child {
+    border-bottom: none;
+}
+
+
+
+.ul-list li:nth-of-type(1) a {
+    margin-top: -3px;
+}
+
+.fas {
+    margin: 0 5px 0 0;
+}
+
+.main {
+    border: 1px solid #b7b7b7;
+    border-bottom: none;
+    width: 100%;
+    height: auto;
+    margin-top: 80px;
+}
+
+.setting {
+    display: flex;
+    margin: 30px 0 0 20px;
+}
+
+.setting ul {
+    margin-left: 600px;
+    margin-top: 13px;
+}
+
+.setting li {
+    display: inline;
+}
+
+.setting a {
+    color: #333;
+    font-size: 15px;
+}
+
+.setting span {
+    color: #333;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.line {
+    width: 940px;
+    margin: 0 auto;
+    margin-top: -10px;
+    border-bottom: 3px solid #b7b7b7;
+    box-sizing: border-box;
+}
+
+.in-ul {
+    display: none;
+}
+
+.in-ul.active {
+    display: block;
+}
+
+.container {
+    width: 940px;
+    margin: 0 auto;
+}
+
+.search {
+    margin:20px 0 10px 0;
+}
+
+.search > select {
+    width: 150px;
+    height: 30px;
+    color: #333;
+    border: 1px solid #b7b7b7;
+    box-sizing: border-box;
+}
+
+.search input {
+    width: 150px;
+    height: 30px;
+    padding-left: 5px;
+    border: 1px solid #b7b7b7;
+    box-sizing: border-box;
+}
+
+.status {
+    margin: 20px 0 10px 0;
+    display: flex;
+    float: right;
+}
+
+.status p {
+    margin-right: 10px;
+}
+
+.green {
+    color: rgb(0, 200, 0);
+    font-size: 13px;
+}
+
+.red {
+    color: red;
+    font-size: 13px;
+}
+
+.grey {
+    color: rgb(133, 133, 133);
+    font-size: 13px;
+}
+
+table {
+    width: 940px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border-top: 2px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    box-sizing: border-box;
+}
+
+tr {
+    border-top: 1px solid #e0e0e0;
+    box-sizing: border-box;
+}
+
+th {
+    font-weight: 600;
+}
+
+th, td {
+    padding: 17px 0;
+    text-align: center;
+    font-size: 13px;
+}
+
+table td div:nth-of-type(1) {
+    margin-bottom: 5px;
+}
+
+th:nth-of-type(6) {
+    width: 90px;
+}
+
+th:nth-of-type(8) {
+    width: 150px;
+}
+
+th:nth-of-type(9) {
+    width: 100px;
+}
+
+.search > button {
+    width: 60px;
+    height: 30px;
+    padding-top: 3px;
+    border: none;
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    background-color: #333;
+    box-sizing: border-box;
+}
+
+table select {
+    width: 70px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    box-sizing: border-box;
+}
+
+.click {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 0 10px 0;
+}
+
+.button {
+    width: 100px;
+    height: 40px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    box-sizing: border-box;
+}
+
+.select-delete {
+    background-color: #333;
+}
+
+.page {
+    text-align: center;
+    margin: -10px 0 30px 0;
+}
+
+.page > button {
+    margin: 0 1px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    cursor: pointer;
+    border: none;
+    box-sizing: border-box;
+}
+
+.page > button:hover {
+    text-decoration: underline;
+}
+
+.page-move {
+    padding: 0 10px;
+}
+
+/* 추가 */
+
+.in-ul {
+    display: none;
+}
+
+.ul-list > li.active > ul {
+    display: block;
+}
+
+.in-ul li {
+    margin: 5px 0;
+}
+
+.in-ul li:first-of-type {
+    margin-top: 10px;
+}
+
+.in-ul li a {
+    font-size: 14px;
+}
+
+.in-ul li a:hover {
+    text-decoration: underline;
+}

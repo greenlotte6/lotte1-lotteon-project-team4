@@ -1,0 +1,312 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f5f5f5;
+}
+
+.main_container {
+  width: 1200px;
+  margin: 0 auto;
+  background: white;
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #efefef;
+  padding: 20px 60px;
+  box-sizing: border-box;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.content {
+  width: 1000px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.top-info {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  font-weight: bold;
+  max-width: 400px;
+}
+
+.top-info > li{
+    width: 50px;
+    text-align: center;
+    border-right: 1px solid black;
+    padding: 5px;
+
+}
+.top-info > li:nth-child(4){
+ border: none;
+}
+
+.banner {
+  background: #ccc;
+  height: 86px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.order-list {
+  border-top: 2px solid #333;
+}
+
+.order-header, .order-row {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+  align-items: center;
+}
+
+.order-header {
+  font-weight: bold;
+  background-color: rgb(167, 164, 164);
+  color: white;
+}
+
+.order-date {
+  width: 150px;
+  text-align: center;
+}
+
+.order-info {
+  width: 580px;
+  text-align: center;
+  align-items: center;
+}
+.order-info_num{
+  width: 550px;
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+}
+
+.order-img {
+  width: 140px;
+  height: 140px;
+  background: #aaa;
+  margin-right: 15px;
+}
+
+.order-text {
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+.order-text a{
+  font-size: 15px;
+}
+
+.order-status {
+  width: 100px;
+  text-align: center;
+  margin-right: 30px;
+}
+
+.order-actions {
+  width: 100px;
+  text-align: center;
+
+}
+
+.btn {
+  display: block;
+  margin: 5px 0;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.btn:hover {
+  background: #0056b3;
+  color: white;
+}
+
+.more {
+  text-align: right;
+  margin-bottom: 10px;
+  margin-left: 25px;
+}
+
+
+.top-title{
+    width: 1200px;
+    background: #ddd;
+    margin:0 auto;
+    display: flex;
+}
+#main {
+    width: 1200px;
+    height: auto;
+}
+
+
+.top-name{
+    width: 950px;
+    margin-top: 18px;
+    margin-left: 60px;
+    font-size: larger;
+    font-weight: 500;
+}
+
+
+.section {
+margin-bottom: 40px;
+}
+
+.section-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+font-weight: bold;
+margin-bottom: 10px;
+}
+
+
+.table {
+width: 100%;
+border-collapse: collapse;
+}
+
+.table th, .table td {
+border: 1px solid #ddd;
+padding: 10px;
+text-align: center;
+font-size: 14px;
+}
+
+.table th {
+background-color: #f9f9f9;
+}
+
+
+.see-more {
+font-size: 13px;
+color: #333;
+cursor: pointer;
+margin-top: 25px;
+}
+
+.left-title {
+display: flex;
+align-items: center;
+}
+
+  h2 {
+font-size: 18px;
+margin-top: 30px;
+padding-bottom: 8px;
+}
+
+.inquiry-table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 10px;
+}
+
+.inquiry-table th,
+.inquiry-table td {
+border-bottom: 1px solid #ddd;
+text-align: center;
+padding: 10px;
+font-size: 14px;
+}
+
+.inquiry-table th {
+background-color: #f1f1f1;
+}
+
+.status-pending {
+color: #888;
+}
+
+.status-done {
+color: #0a8c3a;
+font-weight: bold;
+}
+
+
+.setting-container {
+      display: flex;
+      justify-content: space-between;
+      background-color: #eaf0f8;
+      padding: 20px;
+      border-radius: 8px;
+      font-family: Arial, sans-serif;
+      margin-top: 20px;
+}
+
+
+.date-such {
+  width: auto;
+  background-color: #e9f0f8;
+  border: 1px solid #c6d3e0;
+  padding: 10px;
+  margin: 20px auto;
+}
+
+.query-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+  padding-top: 10px;
+}
+
+.query-row select,
+.query-row input {
+  padding: 4px 6px;
+  font-size: 14px;
+}
+.button-group button {
+  width: 55px;        
+  padding: 6px 0;
+  font-size: 14px;
+  background-color: white;
+  border: 1px solid #aaa;
+  cursor: pointer;
+  text-align: center;
+}
+
+.button-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+span{
+  font-size: 15px;
+}
+
+.border-line {
+  width: 1px;
+  height: 30px;
+  background-color: #ccc;
+  margin: 0 10px;
+}
+
+.sidebar a {
+  color: inherit;     
+  text-decoration: none; 
+}
+
+.sidebar a:visited {
+  color: inherit;       
+}

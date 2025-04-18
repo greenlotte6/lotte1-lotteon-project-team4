@@ -1,0 +1,92 @@
+.find-wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  text-align: center;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.find-wrapper h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  text-align: start;
+}
+
+.find-subtitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  text-align: start;
+}
+
+.find-desc {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 30px;
+  text-align: start;
+}
+
+.result-box {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 20px;
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.result-box .membership {
+  font-weight: bold;
+  font-size: 16px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.result-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.result-table th {
+  width: 80px;
+  text-align: left;
+  padding: 8px 0;
+  font-weight: 500;
+  color: #555;
+  font-size: 15px;
+}
+
+.result-table td {
+  padding: 8px 0;
+  color: #111;
+  font-size: 15px;
+}
+
+.result-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.reset-btn,
+.login-btn {
+  padding: 12px 20px;
+  font-size: 15px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  width: 180px;
+}
+
+.reset-btn {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+}
+
+.login-btn {
+  background-color: #e60023;
+  color: #fff;
+}

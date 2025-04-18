@@ -1,0 +1,166 @@
+/* 공통 레이아웃 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #111;
+}
+
+.notice-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.notice-path {
+    font-size: 15px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #808080;
+    color: black;
+    margin-left: 80px;
+}
+
+.notice-path>span {
+    font-size: 15px;
+}
+
+.notice-path>strong {
+    font-size: 15px;
+}
+
+.cs-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.cs-sidebar {
+    width: 145px;
+    border-right: 1px solid #ddd;
+    padding-right: 20px;
+    margin-left: 100px;
+}
+
+.cs-sidebar h3 {
+    font-size: 21px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.cs-menu {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 25px;
+}
+
+.cs-menu li {
+    padding: 8px 0;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.cs-menu li.active {
+    font-weight: bold;
+    color: #C00000;
+    text-decoration: underline;
+}
+
+.cs-content {
+    width: 80%;
+}
+
+.cs-title {
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.cs-desc {
+    font-size: 13px;
+    color: #808080;
+    margin-bottom: 15px;
+}
+
+.qna-write-table {
+    width: 100%;
+    border-top: 2px solid #000;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.qna-write-table th {
+    width: 120px;
+    padding: 12px 10px;
+    text-align: left;
+    background-color: #fafafa;
+    vertical-align: top;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    font-weight: bold;
+    vertical-align:middle;
+}
+
+.qna-write-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.qna-write-table select {
+    width: 150px;
+    padding: 8px;
+    font-size: 14px;
+    border: 3px solid #ccc;
+    border-radius: 3px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.qna-write-table input[type="text"],
+.qna-write-table textarea {
+    width: 500px;
+    padding: 8px;
+    font-size: 14px;
+    border: 3px solid #ccc;
+    border-radius: 3px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+}
+
+.qna-write-table textarea {
+    width: 500px;
+    resize: none;
+}
+
+.qna-write-button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.qna-write-button button {
+    padding: 8px 20px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.qna-write-button button:first-child {
+    background-color: #ccc;
+    color: white;
+}
+
+.qna-write-button button:last-child {
+    background-color: #658de1;
+    color: white;
+}

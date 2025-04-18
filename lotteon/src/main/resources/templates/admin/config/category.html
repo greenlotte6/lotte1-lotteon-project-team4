@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/common/_admin_header.css">
+    <link rel="stylesheet" href="/css/common/_admin_footer.css">
+    <link rel="stylesheet" href="/css/admin/config/category.css">
+    <!-- js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>admin basic</title>
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        $('.click').click(function(e) {
+            $(this).parent().toggleClass('active');
+            
+        });
+
+        $('.sub').sortable({
+            placeholder: "ui-state-highlight"  // 드래그 중 위치 표시용 클래스
+        });
+        
+        $('.hover').click(function(e) {
+            $(this).parent().toggleClass('active');
+        });
+        /*
+
+            // 텍스트 변경 (▶ -> ▼)
+            if ($(this).text().includes('▶')) {
+                $(this).text($(this).text().replace('▶', '▼'));
+            } else {
+                $(this).text($(this).text().replace('▼', '▶'));
+            }
+                
+        */
+
+    });
+</script>
+<body>
+    <header>
+        <div class="wrapper">
+            <div class="wrapper-suv">
+                <div class="user-nav">
+                    <ul>
+                        <li><a href="#">홈</a></li>
+                        <li><a href="#">로그아웃</a></li>
+                        <li><a href="#">고객센터</a></li>
+                    </ul>
+                </div>
+                <div class="logo">
+                    <a href="#"><img src="/images/logo/logo_white.png" alt="LotteON-logo"></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="main-wrapper">
+            <aside>
+                <div class="aside">
+                    <ul class="out-ul">
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-cogs"></i><a href="#" class="hover">환경설정</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 기본설정</a></li>
+                                    <li><a href="#">- 배너관리</a></li>
+                                    <li><a href="#">- 약관관리</a></li>
+                                    <li><a href="#">- 카테고리</a></li>
+                                    <li><a href="#">- 버전관리</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-store"></i> <a href="#" class="hover">상점관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 상점목록</a></li>
+                                    <li><a href="#">- 매출현황</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-users"></i> <a href="#" class="hover">회원관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 회원목록</a></li>
+                                    <li><a href="#">- 포인트관리</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-box"></i> <a href="#" class="hover">상품관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 상품목록</a></li>
+                                    <li><a href="#">- 상품등록</a></li>
+                                    <li><a href="#">- 카테고리</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-receipt"></i> <a href="#" class="hover">주문관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 주문현황</a></li>
+                                    <li><a href="#">- 배송현황</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-ticket-alt"></i> <a href="#" class="hover">쿠폰관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 쿠폰목록</a></li>
+                                    <li><a href="#">- 쿠폰발급현황</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-headset"></i> <a href="#" class="hover">고객센터</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 공지사항</a></li>
+                                    <li><a href="#">- 자주묻는질문</a></li>
+                                    <li><a href="#">- 문의하기</a></li>
+                                    <li><a href="#">- 채용하기</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </aside>
+            
+            <div class="main">
+                <div class="setting">
+                    <h1>카테고리</h1>
+                    <ul>
+                        <li><a href="#">HOME &nbsp;>&nbsp;</a></li>
+                        <li><a href="#">환경설정 &nbsp;</a></li>
+                        <li><a href="#"><span>카테고리 &nbsp;</span></a></li>
+                    </ul>
+                </div>
+                <div class="line"></div>
+                <div class="container">
+                    <div class="cate">
+                        <h2>카테고리 관리</h2>
+                        <div class="cate-text p-div">
+                            <p>쇼핑몰 메인, 상품 페이지 사이드 카테고리 메뉴입니다.</p>
+                        </div>
+                        <div class="category">
+                            <ul class="acodion-menu">
+                                <li>
+                                    <a href="#" class="click">▼ 뷰티</a><button>삭제</button>
+                                    <ul class="sub">
+                                        <li><a href="#">럭셔리 스킨케어</a><button>삭제</button></li>
+                                        <li><a href="#">클렌징</a><button>삭제</button></li>
+                                        <li><a href="#">스킨/토너</a><button>삭제</button></li>
+                                    </ul>
+                                </li>
+                                
+                                <li>
+                                    <a href="#" class="click">▼ 메이크업</a><button>삭제</button>
+                                    <ul class="sub">
+                                        <li><a href="#">베이스 메이크업</a><button>삭제</button></li>
+                                        <li><a href="#">립 메이크업</a><button>삭제</button></li>
+                                        <li><a href="#">아이 메이크업</a><button>삭제</button></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="cate-info">
+                        <p>카테고리 메뉴 순서를 변경할 때 드래그 앤 드롭으로 1차, 2차 카테고리 메뉴 이동 후 수정하기 클릭</p>
+                    </div>
+                    <div>
+                        <button class="modify">수정하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer">
+            <p>
+                Copyright © LOTTESHOPPING Co., LTD. All rights reserved. LotteON ADMINISTRATOR Version 5.4.1.2
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

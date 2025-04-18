@@ -1,0 +1,546 @@
+/* 공통 레이아웃 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+header {
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.content {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Noto Sans KR', sans-serif;
+    padding-left: 0;
+}
+
+.sidebar {
+    position: sticky;
+    top: 273px;
+    width: 310px;
+    background-color: #fff;
+    z-index: 900;
+    border-right: 1px solid #ddd;
+    margin-right: 40px;
+}
+
+.best-items {
+    margin-top: 20px;
+}
+
+.best-title {
+    font-size: 18px;
+    font-weight: bold
+}
+
+.best-main {
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.best-sub {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+}
+
+.best-price {
+    text-decoration: line-through;
+}
+
+.price-wrap {
+    font-size: 15px;
+}
+
+.price-wrap .best-price {
+    text-decoration: line-through;
+    color: #999;
+    margin-right: 5px;
+}
+
+.price-wrap .discount {
+    color: #C00000;
+    font-weight: bold;
+}
+
+.best-image {
+    width: 150px;
+}
+
+
+.main-content {
+    flex: 1;
+    padding: 30px;
+}
+
+.breadcrumb {
+    font-size: 14px;
+    margin-bottom: 10px;
+    float: right;
+}
+
+.product-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: -3px;
+    border-bottom: 2px solid #000;
+    padding-bottom: 10px;
+}
+
+.discount {
+    color: #C00000;
+    margin-right: 8px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.now {
+    font-size: 16px;
+}
+
+.best {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.product-detail-wrap {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    margin: 30px 0;
+}
+
+.product-image {
+    width: 400px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.product-info {
+    width: 100%;
+    max-width: 550px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.product-code {
+    color: #666;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.company-name {
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.company-line {
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    vertical-align: middle;
+}
+
+.product-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+}
+
+.product-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.link {
+    font-weight: normal;
+    color: #3366cc;
+    margin-left: 5px;
+    font-size: 18px;
+}
+
+.rating {
+    color: gold;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.delivery-arrive {
+    font-size: 18px;
+}
+
+.price-box {
+    border-bottom: 1px solid #ddd;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+.badge {
+    background-color: #ff4d4d;
+    color: #fff;
+    font-size: 16px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 20px;
+}
+
+.final-price {
+    font-size: 22px;
+    font-weight: 500;
+    color: #000;
+}
+
+.delivery-info {
+    font-size: 13px;
+    border-bottom: 1px solid #ddd;
+}
+
+.delivery-info .free {
+    color: #3366cc;
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+.only {
+    font-size: 16px;
+    color: #777;
+}
+
+.option-box {
+    margin-bottom: 10px;
+}
+
+.quantity-box {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: #f4f5f7;
+    font-size: 16px;
+}
+
+.qty-btn {
+    width: 32px;
+    height: 36px;
+    border: none;
+    background-color: #f4f5f7;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.qty-input {
+    width: 50px;
+    height: 36px;
+    border: none;
+    text-align: center;
+    font-size: 16px;
+    background-color: #fff;
+
+    -moz-appearance: textfield;
+}
+
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.option-box .tip {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.option-box select {
+    width: 200px;
+    padding: 8px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 18px;
+    border: 3px solid #ccc;
+}
+
+.selected-option {
+    align-items: center;
+    font-size: 18px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.sel-top {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.sel-bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+.selected-option input {
+    width: 50px;
+    padding: 4px;
+    text-align: center;
+}
+
+.total-name {
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+.total-price {
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.total-box {
+    padding: 10px;
+    font-size: 16px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.button-group .cart {
+    flex: 1;
+    font-size: 16px;
+    background-color: #ccc;
+    color: #333;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.button-group .buy {
+    flex: 1;
+    font-size: 16px;
+    background-color: #3366cc;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.banner img {
+    width: 100%;
+    height: auto;
+    border: 1px solid #eee;
+}
+
+/* 상세정보 */
+.product-detail {
+    clear: both;
+    margin-top: 50px;
+    padding: 20px;
+    border-top: 2px solid #000;
+}
+
+.detail-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.detail-content img {
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.product-info-notice {
+    max-width: 1000px;
+    padding: 20px;
+    border-top: 2px solid #000;
+}
+
+.info-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.info-subtitle {
+    font-size: 13px;
+    color: #777;
+    margin-left: 20px;
+    white-space: nowrap;
+    margin-bottom: 15px;
+}
+
+.info-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.info-table th,
+.info-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.info-table th {
+    background-color: #f7f7f7;
+    font-weight: bold;
+    text-align: left;
+    width: 20%;
+}
+
+.info-desc {
+    font-size: 13px;
+    color: black;
+    margin-top: 15px;
+    background-color: #bbb;
+    padding: 5px;
+}
+
+.product-review {
+    margin-top: 10px;
+    padding: 10px 20px;
+}
+
+.review-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.review-item {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+
+.review-meta {
+    margin-bottom: 10px;
+}
+
+.star {
+    font-size: 18px;
+    color: gold;
+    margin-bottom: 5px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-title-text {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.review-footer {
+    font-size: 14px;
+    color: #666;
+    white-space: nowrap;
+}
+
+.review-body {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.review-image img {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+}
+
+.review-image img:hover {
+    transform: scale(1.05);
+}
+
+.review-content-box {
+    flex: 1;
+}
+
+.review-content {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.review-writer,
+.review-date {
+    font-size: 16px;
+
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 30px;
+}
+
+.page-btn {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.page-btn.active {
+    background-color: #333;
+    color: white;
+    border-color: #333;
+}
