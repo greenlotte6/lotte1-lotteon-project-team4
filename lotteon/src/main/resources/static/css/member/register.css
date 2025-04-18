@@ -1,0 +1,142 @@
+.content {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.form-hd {
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.form-hd h2 {
+    font-size: 24px;
+    font-weight: bold;
+    padding-left: 10px;
+    border-left: 4px solid #b62828;
+}
+
+.termsarea table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.termsarea th {
+    width: 20%;
+    text-align: left;
+    vertical-align: top;
+    padding: 12px;
+    font-weight: bold;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.termsarea td {
+    width: 80%;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.termsarea input.register {
+    height: 35px;
+    padding: 0 10px;
+    border: 3px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.ex {
+    font-size: 15px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.auth-btn {
+    background-color: #547fd6;
+    color: white;
+    border: none;
+    padding: 6px 18px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 2px;
+    margin-left: 10px;
+    height: 35px;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.auth-btn:hover {
+    background-color: #2a54a0;
+}
+.border-top{
+    border-top: 2px solid  #ccc; 
+}
+
+.border-bottom{
+    border-bottom: 2px solid  #ccc;
+}
+
+
+.termsarea td input.register + .auth-btn {
+    position: relative;
+    top: -1px;
+}
+
+.checkbox {
+    margin-right: 5px;
+
+}
+
+.termsarea td label {
+    font-size: 16px;
+}
+
+.gender-options {
+    display: flex;
+    align-items: center;
+    gap: 30px; 
+}
+
+.address-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.zipcode-btn {
+    width: 150px;
+    padding: 6px 10px;
+    font-size: 14px;
+    background-color: #d3d3d3;
+    border: none;
+    cursor: pointer;
+}
+
+.zip{
+    width: 350px;
+}
+
+.pagebtn {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.pagebtn .next button {
+    background-color: #b62828;
+    color: white;
+    border: none;
+    padding: 14px 60px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.pagebtn .next button:hover {
+    background-color: #992222;
+}

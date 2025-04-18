@@ -1,0 +1,272 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/common/_admin_header.css">
+    <link rel="stylesheet" href="/css/common/_admin_footer.css">
+    <link rel="stylesheet" href="/css/admin/product/list.css">
+    <!-- js -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>admin product list</title>
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        $('.hover').click(function(e) {
+            $(this).parent().toggleClass('active');
+        })
+            
+
+    });
+</script>
+<body>
+    <header>
+        <div class="wrapper">
+            <div class="wrapper-suv">
+                <div class="user-nav">
+                    <ul>
+                        <li><a href="#">홈</a></li>
+                        <li><a href="#">로그아웃</a></li>
+                        <li><a href="#">고객센터</a></li>
+                    </ul>
+                </div>
+                <div class="logo">
+                    <a href="#"><img src="/images/logo/logo_white.png" alt="LotteON-logo"></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="main-wrapper">
+            <aside>
+                <div class="aside">
+                    <ul class="out-ul">
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-cogs"></i><a href="#" class="hover">환경설정</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 기본설정</a></li>
+                                    <li><a href="#">- 배너관리</a></li>
+                                    <li><a href="#">- 약관관리</a></li>
+                                    <li><a href="#">- 카테고리</a></li>
+                                    <li><a href="#">- 버전관리</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-store"></i> <a href="#" class="hover">상점관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 상점목록</a></li>
+                                    <li><a href="#">- 매출현황</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-users"></i> <a href="#" class="hover">회원관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 회원목록</a></li>
+                                    <li><a href="#">- 포인트관리</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-box"></i> <a href="#" class="hover">상품관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 상품목록</a></li>
+                                    <li><a href="#">- 상품등록</a></li>
+                                    <li><a href="#">- 카테고리</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-receipt"></i> <a href="#" class="hover">주문관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 주문현황</a></li>
+                                    <li><a href="#">- 배송현황</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-ticket-alt"></i> <a href="#" class="hover">쿠폰관리</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 쿠폰목록</a></li>
+                                    <li><a href="#">- 쿠폰발급현황</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="ul-list">
+                            <li>
+                                <i class="fas fa-headset"></i> <a href="#" class="hover">고객센터</a>
+                                <ul class="in-ul">
+                                    <li><a href="#">- 공지사항</a></li>
+                                    <li><a href="#">- 자주묻는질문</a></li>
+                                    <li><a href="#">- 문의하기</a></li>
+                                    <li><a href="#">- 채용하기</a></li>
+                                </ul>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </aside>
+            
+            <div class="main">
+                <div class="setting">
+                    <h1>상품현황</h1>
+                    <ul>
+                        <li><a href="#">HOME&nbsp;>&nbsp;</a></li>
+                        <li><a href="#">상품관리&nbsp;>&nbsp;</a></li>
+                        <li><a href="#"><span>상품목록&nbsp;</span></a></li>
+                    </ul>
+                </div>
+                <div class="line"></div>
+                <div class="container">
+                    <div class="search">
+                        <select name="" id="">
+                            <option value="">상품명</option>
+                            <option value="">상품번호</option>
+                            <option value="">판매자</option>
+                            <option value="">제조사</option>
+                        </select>
+                        <input type="text" placeholder="검색어입력">
+                        <button>검색</button>
+                    </div>
+                    <div class="table-wrapper">
+                        <div class="table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox"></th>
+                                        <th>사진</th>
+                                        <th>상품코드</th>
+                                        <th>상품명</th>
+                                        <th>판매가격</th>
+                                        <th>할인율</th>
+                                        <th>포인트</th>
+                                        <th>재고</th>
+                                        <th>판매자</th>
+                                        <th>조회</th>
+                                        <th>관리</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td><img src="/images/bar.png" alt="상품 이미지 미리보기"></td>
+                                        <td>201603292</td>
+                                        <td>상품명 #1</td>
+                                        <td>32,000</td>
+                                        <td>10%</td>
+                                        <td>320</td>
+                                        <td>1,000</td>
+                                        <td>(주)다파라</td>
+                                        <td>120</td>
+                                        <td>
+                                            <div><button type="button" class="delete">[삭제]</button></div>
+                                            <div><button type="button" class="modify">[수정]</button></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td><img src="/images/bar.png" alt="상품 이미지 미리보기"></td>
+                                        <td>201603292</td>
+                                        <td>상품명 #1</td>
+                                        <td>32,000</td>
+                                        <td>10%</td>
+                                        <td>320</td>
+                                        <td>1,000</td>
+                                        <td>(주)다파라</td>
+                                        <td>120</td>
+                                        <td>
+                                            <div><button type="button" class="delete">[삭제]</button></div>
+                                            <div><button type="button" class="modify">[수정]</button></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td><img src="/images/bar.png" alt="상품 이미지 미리보기"></td>
+                                        <td>201603292</td>
+                                        <td>상품명 #1</td>
+                                        <td>32,000</td>
+                                        <td>10%</td>
+                                        <td>320</td>
+                                        <td>1,000</td>
+                                        <td>(주)다파라</td>
+                                        <td>120</td>
+                                        <td>
+                                            <div><button type="button" class="delete">[삭제]</button></div>
+                                            <div><button type="button" class="modify">[수정]</button></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td><img src="/images/bar.png" alt="상품 이미지 미리보기"></td>
+                                        <td>201603292</td>
+                                        <td>상품명 #1</td>
+                                        <td>32,000</td>
+                                        <td>10%</td>
+                                        <td>320</td>
+                                        <td>1,000</td>
+                                        <td>(주)다파라</td>
+                                        <td>120</td>
+                                        <td>
+                                            <div><button type="button" class="delete">[삭제]</button></div>
+                                            <div><button type="button" class="modify">[수정]</button></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td><img src="/images/bar.png" alt="상품 이미지 미리보기"></td>
+                                        <td>201603292</td>
+                                        <td>상품명 #1</td>
+                                        <td>32,000</td>
+                                        <td>10%</td>
+                                        <td>320</td>
+                                        <td>1,000</td>
+                                        <td>(주)다파라</td>
+                                        <td>120</td>
+                                        <td>
+                                            <div><button type="button" class="delete">[삭제]</button></div>
+                                            <div><button type="button" class="modify">[수정]</button></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="click">
+                            <button class="select-delete button">선택삭제</button>
+                            <button class="banner-register button">상품등록</button>
+                        </div>
+                        <div class="page">
+                            <button class="page-move">이전</button>
+                            <button>[1]</button>
+                            <button>[2]</button>
+                            <button>[3]</button>
+                            <button>[4]</button>
+                            <button>[5]</button>
+                            <button class="page-move">다음</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer">
+            <p>
+                Copyright © LOTTESHOPPING Co., LTD. All rights reserved. LotteON ADMINISTRATOR Version 5.4.1.2
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
+</body>
+</html>

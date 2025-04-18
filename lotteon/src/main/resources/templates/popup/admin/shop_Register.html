@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin/shop/shop_register_popup.css">
+    <title>admin shop register</title>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h2>상점등록</h2>
+            <button class="X close-btn" onclick="parent.document.getElementById('modalOverlay').style.display='none'">X</button>
+        </div>
+        <div class="content">
+            <div class="form">
+                <form action="#">
+                    <table>
+                        <tr>
+                            <td>아이디</td>
+                            <td><input type="text" name="id">영문, 숫자 4~12자</td>
+                        </tr>
+                        <tr>
+                            <td>비밀번호</td>
+                            <td><input type="text" name="pass">영문, 숫자, 특수문자 8~12자</td>
+                        </tr>
+                        <tr>
+                            <td>비밀번호 확인</td>
+                            <td><input type="text" name="pass2"></td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td>상호명</td>
+                            <td><input type="text" name="seller-name" placeholder="상호명 입력 예) (주)LotteON"></td>
+                        </tr>
+                        <tr>
+                            <td>대표</td>
+                            <td><input type="text" name="ceo" placeholder="이름 입력"></td>
+                        </tr>
+                        <tr>
+                            <td>사업자등록번호</td>
+                            <td><input type="text" name="biz-no" placeholder="사업자등록번호입력">- &nbsp;포함 12자리 입력</td>
+                        </tr>
+                        <tr>
+                            <td>통신판매업번호</td>
+                            <td><input type="text" name="commerce-number" placeholder="통신판매업번호 입력">- &nbsp;포함 12자리 입력</td>
+                        </tr>
+                        <tr>
+                            <td>전화번호</td>
+                            <td><input type="text" name="call" placeholder="전화번호 입력">- &nbsp;포함 12자리 입력</td>
+                        </tr>
+                        <tr>
+                            <td>팩스</td>
+                            <td><input type="text" name="fax" placeholder="팩스번호 입력">- &nbsp;포함 입력</td>
+                        </tr>
+                        <tr>
+                            <td>주소</td>
+                            <td class="addr-wrapper">
+                                <div><button type="button">우편번호 검색</button></div>
+                                <div><input type="text" name="addr1" placeholder="기본주소"></div>
+                                <div><input type="text" name="addr2" placeholder="상세주소"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="button">
+            <button class="register">등록하기</button>
+        </div>
+    </div>
+</body>
+</html>

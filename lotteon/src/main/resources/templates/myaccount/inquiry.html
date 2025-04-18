@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의하기</title>
+    <link rel="stylesheet" href="/css/myaccount/inquiry.css">
+</head>
+<body>
+    <main>
+        <div class="message-log">
+            <div class="message-title">문의하기</div>
+            <button class="close-btn" onclick="parent.document.getElementById('modalOverlay').style.display='none'">X</button>
+        </div>
+        <div class="main_container">
+                <table class="table-container">
+                    <tr>
+                      <th>문의종류</th>
+                      <td>
+                        <a><input type="radio" name="check"/>상품</a>
+                        <a><input type="radio" name="check"/>배송</a>
+                        <a><input type="radio" name="check"/>반품/취소</a>
+                        <a><input type="radio" name="check"/>교환</a>
+                        <a><input type="radio" name="check"/>기타</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Email</th>
+                      <td><input type="email"/></td>
+                    </tr>
+                    <tr>
+                      <th>제목</th>
+                      <td><input type="text"/></td>
+                    </tr>
+                    <tr>
+                      <th>내용</th>
+                      <td><textarea text></textarea></td>
+                    </tr> 
+                </table>
+                <p>* 위 정보는 전자상거래 법 제 20조 제 2항 및 동법시행령 제 25조 제 2항에 의거하여<br>소비자보호에 의거 공개합니다.</p>
+                <div class="M-button">
+                  <button class="moon" onclick="parent.document.getElementById('modalOverlay').style.display='none'">문의하기</button>
+                  <button class="moon" onclick="parent.document.getElementById('modalOverlay').style.display='none'">취소</button>
+                </div>
+        </div>        
+    </main>
+    <script src="/js/modal.js"></script>
+</body>
+</html>

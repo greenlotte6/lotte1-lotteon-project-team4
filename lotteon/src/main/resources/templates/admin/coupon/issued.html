@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/coupon/issued.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>쿠폰발급현황</title>    
+    <script>
+       document.addEventListener('DOMContentLoaded', function () {
+
+// .hover 클릭 시 부모에 active 클래스 토글
+$('.hover').click(function (e) {
+    $(this).parent().toggleClass('active');
+});
+
+const couponData = {
+    "10120012134": {
+        couponNumber: "10121211341",
+        issueNumber: "10120012134",
+        issuer: "(주)다있어",
+        usageStatus: "미사용",
+        recipient: "oopow12",
+        couponType: "개별상품 할인",
+        couponName: "10월 한달 감사 쿠폰 이벤트",
+        benefit: "2,000 원 할인",
+        usagePeriod: "0000-00-00 ~ 0000-00-00",
+        notes: "상품 중복 할인 쿠폰\n- 상품 1개에 대해 사용 가능\n- 판매자 즉시할인/상품할인 쿠폰과 중복 사용 가능",
+        usageLocation: "(주)다있어"
+    },
+    // 다른 쿠폰 데이터...
+};
+
+const issueNumbers = document.querySelectorAll('.coupon-table td:nth-child(2) a');
+const modal = document.getElementById('couponModal');
+const modalContent = modal.querySelector('.modal-content');
+
+issueNumbers.forEach(link => {
+    link.addEventListener('click', function (e) {
+        e.preventDefault();  // 기본 링크 동작 막기
+        const issueNumber = this.textContent.trim();
+        const data = couponData[issueNumber];
+
+        if (data) {
+            modalContent.innerHTML = `
+                <span class="close">&times;</span>
+                <h2>쿠폰 상세정보</h2>
+                <p><strong>쿠폰번호:</strong> ${data.couponNumber}</p>
+                <p><strong>발급번호:</strong> ${data.issueNumber}</p>
+                <p><strong>발급사:</strong> ${data.issuer}</p>
+                <p><strong>사용상태:</strong> ${data.usageStatus}</p>
+                <p><strong>수령인:</strong> ${data.recipient}</p>
+                <p><strong>쿠폰유형:</strong> ${data.couponType}</p>
+                <p><strong>쿠폰명:</strong> ${data.couponName}</p>
+                <p><strong>혜택:</strong> ${data.benefit}</p>
+                <p><strong>사용기간:</strong> ${data.usagePeriod}</p>
+                <p><strong>유의사항:</strong> ${data.notes.replace(/\n/g, "<br>")}</p>
+                <p><strong>사용처:</strong> ${data.usageLocation}</p>
+            `;
+            modal.style.display = 'block';
+
+            // 모달 닫기 버튼 클릭 시
+            modal.querySelector('.close').onclick = function () {
+                modal.style.display = 'none';
+            };
+        } else {
+            alert('쿠폰 데이터를 찾을 수 없습니다.');
+        }
+    });
+});
+
+// 모달 외부 클릭 시 닫기
+window.onclick = function (event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
+
+});
+    </script>
+    
+</head>
+<body>
+    <header>
+        <div class="wrapper">
+            <div class="wrapper-suv">
+                <div class="user-nav">
+                    <ul>
+                        <li><a href="#">홈</a></li>
+                        <li><a href="#">로그아웃</a></li>
+                        <li><a href="#">고객센터</a></li>
+                    </ul>
+                </div>
+                <div class="logo">
+                    <a href="#"><img src="/images/logo/logo_white.png" alt="LotteON-logo"></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main><div class="main-wrapper">
+        <aside>
+        <div class="aside">
+            <ul class="out-ul">
+                <div class="ul-list">
+                    <li>
+                        <i class="fas fa-cogs"></i><a href="#" class="hover">환경설정</a>
+                        <ul class="in-ul">
+                            <li><a href="#">- 기본설정</a></li>
+                            <li><a href="#">- 배너관리</a></li>
+                            <li><a href="#">- 약관관리</a></li>
+                            <li><a href="#">- 카테고리</a></li>
+                            <li><a href="#">- 버전관리</a></li>
+                        </ul>
+                    </li>
+                </div>
+                <div class="ul-list">
+                    <li>
+                        <i class="fas fa-store"></i> <a href="#" class="hover">상점관리</a>
+                        <ul class="in-ul">
+                            <li><a href="#">- 상점목록</a></li>
+                            <li><a href="#">- 매출현황</a></li>
+                        </ul>
+                    </li>
+                </div>
+                <div class="ul-list">
+                    <li>
+                        <i class="fas fa-users"></i> <a href="#" class="hover">회원관리</a>
+                        <ul class="in-ul">
+                            <li><a href="#">- 회원목록</a></li>
+                            <li><a href="#">- 포인트관리</a></li>
+                        </ul>
+                    </li>
+                </div>
+                <div class="ul-list">
+                    <li>
+                        <i class="fas fa-box"></i> <a href="#" class="hover">상품관리</a>
+                        <ul class="in-ul">
+                            <li><a href="#">- 상품목록</a></li>
+                            <li><a href="#">- 상품등록</a></li>
+                            <li><a href="#">- 카테고리</a></li>
+                        </ul>
+                    </li>
+                </div>
+                <div class="ul-list">
+                    <li>
+                        <i class="fas fa-receipt"></i> <a href="#" class="hover">주문관리</a>
+                        <ul class="in-ul">
+                            <li><a href="#">- 주문현황</a></li>
+                            <li><a href="#">- 배송현황</a></li>
+                        </ul>
+                    </li>
+                </div>
+                <div class="ul-list">
+                    <li>
+                        <i class="fas fa-ticket-alt"></i> <a href="#" class="hover">쿠폰관리</a>
+                        <ul class="in-ul">
+                            <li><a href="#">- 쿠폰목록</a></li>
+                            <li><a href="#">- 쿠폰발급현황</a></li>
+                        </ul>
+                    </li>
+                </div>
+                <div class="ul-list">
+                    <li>
+                        <i class="fas fa-headset"></i> <a href="#" class="hover">고객센터</a>
+                        <ul class="in-ul">
+                            <li><a href="#">- 공지사항</a></li>
+                            <li><a href="#">- 자주묻는질문</a></li>
+                            <li><a href="#">- 문의하기</a></li>
+                            <li><a href="#">- 채용하기</a></li>
+                        </ul>
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </aside>
+    
+    <div class="main">
+        <div class="setting">
+            <h1>공지사항 목록</h1>
+            <ul>
+                <li><a href="#">HOME &nbsp;>&nbsp;</a></li>
+                <li><a href="#">고객센터 &nbsp;>&nbsp;</a></li>
+                <li><a href="#"><span>공지사항 &nbsp;</span></a></li>
+            </ul>
+        </div>
+        <div class="line"></div>
+        <div class="container">
+                    <div class="search">
+                        <select name="" id="" style="margin-right: 5px;">
+                            <option value="">발급번호</option>
+                            <option value="">쿠폰번호</option>
+                            <option value="">사용자</option>
+                        </select>
+                        <input type="text" placeholder="검색어입력">
+                        <button>검색</button>
+                    </div>
+        
+        <div class="table-wrapper ">
+            <table>
+                <tr>
+                    <th>발급번호</th>
+                    <th>쿠폰번호</th>
+                    <th>쿠폰종류</th>
+                    <th>쿠폰명</th>
+                    <th>사용자</th>
+                    <th>상태</th>
+                    <th>사용일</th>
+                    <th>관리</th>
+                </tr>
+                <tr>
+                    <td>10120012134</td>
+                    <td>10121211341</td>
+                    <td>개별상품 할인</td>
+                    <td>10월 한달 감사 쿠폰</td>
+                    <td>akwe121</td>
+                    <td>
+                        <span class="notused">미사용</span>
+                    </td>
+                    <td>0000-00-00 <br> 00:00:00</td>
+                    <td>
+                        <span class="end">중단</span> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>10120012133</td>
+                    <td>10121211341</td>
+                    <td>개별상품 할인</td>
+                    <td>10월 한달 감사 쿠폰</td>
+                    <td>oopow12</td>
+                    <td>
+                        <span class="notused">미사용</span>
+                    </td>
+                    <td>0000-00-00 <br> 00:00:00</td>
+                    <td>
+                        <span class="end">중단</span> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>10120012132</td>
+                    <td>10121211341</td>
+                    <td>개별상품 할인</td>
+                    <td>10월 한달 감사 쿠폰</td>
+                    <td>nappqw7</td>
+                    <td>
+                        <span class="notused">미사용</span>
+                    </td>
+                    <td>0000-00-00 <br> 00:00:00</td>
+                    <td>
+                        <span class="end">중단</span> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>101200112131</td>
+                    <td>10121211343</td>
+                    <td>배송비 무료</td>
+                    <td>배송비 무료 쿠폰</td>
+                    <td>kqpoe332</td>
+                    <td>
+                        <span class="use">사용</span>
+                    </td>
+                    <td>0000-00-00 <br> 00:00:00</td>
+                    <td>
+                        <span class="end2">중단</span> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>10120012130</td>
+                    <td>10121211342</td>
+                    <td>주문상품 할인</td>
+                    <td>회원가입 축하 쿠폰</td>
+                    <td>kiwp12</td>
+                    <td>
+                        <span class="use">사용</span>
+                    </td>
+                    <td>0000-00-00 <br> 00:00:00</td>
+                    <td>
+                        <span class="end2">중단</span> 
+                    </td>
+                </tr>
+            </table>
+            <div class="pagination-wrapper">
+                <div class="pagination">
+                    <a href="#">이전</a>
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">다음</a>
+                </div>
+        </div>
+</main>
+<div id="couponModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>쿠폰 정보</h2>
+            <button type="button" class="modal-close-button" onclick="closeCouponModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <table>
+                <tr>
+                    <th>쿠폰 번호</th>
+                    <td id="modalCouponNumber"></td>
+                    <th>발급처</th>
+                    <td id="modalIssuer"></td>
+                </tr>
+                <tr>
+                    <th>발급 번호</th>
+                    <td id="modalIssueNumber"></td>
+                    <th>사용 여부</th>
+                    <td id="modalUsageStatus" class="status-notused"></td>
+                </tr>
+                <tr>
+                    <th>쿠폰 종류</th>
+                    <td id="modalCouponType"></td>
+                    <th>발급 대상</th>
+                    <td id="modalRecipient"></td>
+                </tr>
+                <tr>
+                    <th>쿠폰명</th>
+                    <td colspan="3" id="modalCouponName"></td>
+                </tr>
+                <tr>
+                    <th>혜택</th>
+                    <td colspan="3" id="modalBenefit"></td>
+                </tr>
+                <tr>
+                    <th>사용 기간</th>
+                    <td colspan="3" id="modalUsagePeriod"></td>
+                </tr>
+                <tr>
+                    <th>유의사항</th>
+                    <td id="modalNotes"></td>
+                </tr>
+            </table>            
+        </div>
+        <div class="modal-footer">
+            <button type="button" onclick="closeCouponModal()">닫기</button>
+        </div>
+    </div>
+</div>
+
+        </div>
+            </div>
+            
+            <footer>
+                <div class="footer">
+                    <p>
+                    Copyright © LOTTESHOPPING Co., LTD. All rights reserved. LotteON ADMINISTRATOR Version 5.4.1.2
+                    </p>
+                </div>
+            </footer>
+    </body>
+    </html>
+    

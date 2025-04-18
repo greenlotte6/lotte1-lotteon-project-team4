@@ -1,0 +1,31 @@
+logging:
+    file:
+        name: lotteon.log
+        path: /logs
+    level:
+        org:
+            hibernate:
+                type:
+                    descriptor:
+                        sql: trace
+        root: info
+mybatis:
+    mapper-locations: classpath:mappers/**/*.xml
+server:
+    port: 8080
+    servlet:
+        context-path: /
+spring:
+    servlet:
+        multipart:
+            location: uploads
+            max-file-size: 10MB
+
+    application:
+        name: lotteon
+        version: ${version}
+    devtools:
+        livereload:
+            enabled: true
+    thymeleaf:
+        prefix: classpath:/templates

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin/config/banner_Management._popup.css">
+    <title>admin banner popup</title>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h2>배너등록</h2>
+            <button class="X close-btn" onclick="parent.document.getElementById('modalOverlay').style.display='none'">X</button>
+        </div>
+        <div class="content">
+            <div class="form">
+                <form action="#">
+                    <table>
+                        <tr>
+                            <td>배너이름</td>
+                            <td><input type="text" placeholder="배너명 입력"></td>
+                        </tr>
+                        <tr>
+                            <td>배너크기</td>
+                            <td><input type="text" placeholder="배너 크기 입력"></td>
+                        </tr>
+                        <tr>
+                            <td>배경색</td>
+                            <td><input type="text" placeholder="배너 배경색 입력"></td>
+                        </tr>
+                        <tr>
+                            <td>배너링크</td>
+                            <td><input type="text" placeholder="배너 링크 입력"></td>
+                        </tr>
+                        <tr>
+                            <td>배너위치</td>
+                            <td>
+                                <select name="" id="">
+                                    <option value="" hidden>배너위치 선택</option>
+                                    <option value="" >MAIN1 : 메인 최상단</option>
+                                    <option value="">MAIN2 : 메인 슬라이더</option>
+                                    <option value="">PRODUCT1 : 상품보기</option>
+                                    <option value="">MEMBER1 : 로그인</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>노출날짜</td>
+                            <td><input type="datetime-local"> ~ <input type="datetime-local"></td>
+                        </tr>
+                        <tr>
+                            <td>배너파일</td>
+                            <td><input type="file" class="input">노출 위치에 맞는 크기 권장</td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="button">
+            <button class="register">등록하기</button>
+        </div>
+    </div>
+</body>
+</html>
