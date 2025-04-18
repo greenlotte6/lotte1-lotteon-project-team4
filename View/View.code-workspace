@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../farmstory"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "View"
+	}
+}
