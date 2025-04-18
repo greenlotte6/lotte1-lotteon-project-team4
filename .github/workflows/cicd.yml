@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app
-          path: ${{ env.JAR_FILE }}  # JAR 파일 경로가 정확한지 확인
+          path: ${{ env.JAR_FILE }}   # JAR 파일 경로가 정확한지 확인
 
   deploy:
     needs: build
