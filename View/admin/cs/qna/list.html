@@ -9,10 +9,20 @@
     <link rel="stylesheet" href="/css/qna/list.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="/css/common/_admin_footer.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>문의하기 목록</title>  
     <script>
+            document.addEventListener('DOMContentLoaded', function () {
+        
+        $('.hover').click(function(e) {
+            $(this).parent().toggleClass('active');
+        })
+            
+
+    });
         function updateSubCategory() {
             const mainCategory = document.getElementById('qndnum').value;  // 1차유형
             const subCategory = document.getElementById('qnanum2');  // 2차유형
