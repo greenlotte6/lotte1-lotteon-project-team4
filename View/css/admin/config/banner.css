@@ -280,18 +280,16 @@ button:hover {
 }
 
 .modal {
-    width: 800px;
-    height: 60%;
     margin: 0 auto;
+    width: 800px;
+    height: auto;
     border-radius: 10px;
-    background-color: #fff;
 }
-
 
 iframe {
     width: 800px;
     height: 100%;
-    margin: 0 auto;
+    margin: 10% auto;
     border: none;
     overflow: hidden;
 }

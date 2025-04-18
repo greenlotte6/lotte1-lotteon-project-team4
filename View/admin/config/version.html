@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>admin basic</title>
 </head>
+<script src="/js/modal.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         
@@ -152,7 +153,7 @@
                                     <td>0.0.1-SNAPSHOP</td>
                                     <td>chhak0503</td>
                                     <td>2024.10.13 17:12:00</td>
-                                    <td><button>[확인]</button></td>
+                                    <td><button onclick="openModal('/popup/admin/Check_Version.html')" class="btn">[확인]</button></td>
                                 </tr>
                                 <tr>
                                     <td><input type="checkbox"></td>
@@ -160,7 +161,7 @@
                                     <td>0.0.2-SNAPSHOP</td>
                                     <td>chhak0503</td>
                                     <td>2024.10.13 17:12:00</td>
-                                    <td><button>[확인]</button></td>
+                                    <td><button onclick="openModal('/popup/admin/Check_Version.html')" class="btn">[확인]</button></td>
                                 </tr>
                                 <tr>
                                     <td><input type="checkbox"></td>
@@ -168,7 +169,7 @@
                                     <td>0.0.3-SNAPSHOP</td>
                                     <td>chhak0503</td>
                                     <td>2024.10.13 17:12:00</td>
-                                    <td><button>[확인]</button></td>
+                                    <td><button onclick="openModal('/popup/admin/Check_Version.html')" class="btn">[확인]</button></td>
                                 </tr>
                                 <tr>
                                     <td><input type="checkbox"></td>
@@ -176,7 +177,7 @@
                                     <td>0.0.4-SNAPSHOP</td>
                                     <td>chhak0503</td>
                                     <td>2024.10.13 17:12:00</td>
-                                    <td><button>[확인]</button></td>
+                                    <td><button onclick="openModal('/popup/admin/Check_Version.html')" class="btn">[확인]</button></td>
                                 </tr>
                                 <tr>
                                     <td><input type="checkbox"></td>
@@ -191,7 +192,12 @@
                     </div>
                     <div class="click">
                         <button class="select-delete button">선택삭제</button>
-                        <button class="banner-register button">등록</button>
+                        <button onclick="openModal('/popup/admin/Register_Version.html')" class="banner-register button btn">등록</button>
+                    </div>
+                    <div class="modal-overlay" id="modalOverlay">
+                        <div class="modal">
+                          <iframe id="modalFrame"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>

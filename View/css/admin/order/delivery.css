@@ -290,3 +290,35 @@ table td:first-of-type button {
 .in-ul li a:hover {
     text-decoration: underline;
 }
+
+/* 모달 */
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.modal {
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    margin: 50px auto;
+    border: none;
+    overflow: hidden;
+}
+
+.btn {
+    width: 100px;
+    padding: 10px 20px;
+    cursor: pointer;
+}

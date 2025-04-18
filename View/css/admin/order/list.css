@@ -189,8 +189,16 @@ th, td {
     box-sizing: border-box;
 }
 
-th:nth-of-type(6), th:nth-of-type(7), th:nth-of-type(8), th:nth-of-type(9) {
+th:nth-of-type(2) {
+    width: 110px;
+}
+
+th:nth-of-type(6), th:nth-of-type(7), th:nth-of-type(8) {
     width: 90px;
+}
+
+th:nth-of-type(9) {
+    width: 110px;
 }
 
 th:nth-of-type(4) {
@@ -240,7 +248,7 @@ img {
 }
 
 table button {
-    width: 90px;
+    width: 100px;
     height: 30px;
     cursor: pointer;
     border: 1px solid #e0e0e0;
@@ -290,4 +298,35 @@ table td:first-of-type button {
 
 .in-ul li a:hover {
     text-decoration: underline;
+}
+
+/* 모달 */
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.modal {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    margin: 50px auto;
+    border: none;
+    overflow: hidden;
+}
+
+.btn {
+    width: 112px;
+    cursor: pointer;
 }

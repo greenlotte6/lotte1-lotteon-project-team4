@@ -33,6 +33,8 @@ h3 {
 .container {
     width: 800px;
     margin: 0 auto;
+    padding-bottom: 25px;
+    background-color: #fff;
 }
 
 .title {
