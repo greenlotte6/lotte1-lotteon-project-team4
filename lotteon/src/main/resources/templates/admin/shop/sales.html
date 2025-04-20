@@ -4,9 +4,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/common/_admin_header.css">
-    <link rel="stylesheet" href="/css/common/_admin_footer.css">
-    <link rel="stylesheet" href="/css/admin/shop/sales.css">
+    <link rel="stylesheet" th:href="@{/css/common/_admin_header.css}">
+    <link rel="stylesheet" th:href="@{/css/common/_admin_footer.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/shop/sales.css}">
     <!-- js -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Font Awesome CDN -->
@@ -15,239 +15,142 @@
 </head>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        
-        $('.hover').click(function(e) {
+
+        $('.hover').click(function (e) {
             $(this).parent().toggleClass('active');
         })
-            
+
 
     });
 </script>
+
 <body>
-    <header>
-        <div class="wrapper">
-            <div class="wrapper-suv">
-                <div class="user-nav">
-                    <ul>
-                        <li><a href="#">홈</a></li>
-                        <li><a href="#">로그아웃</a></li>
-                        <li><a href="#">고객센터</a></li>
-                    </ul>
-                </div>
-                <div class="logo">
-                    <a href="#"><img src="/images/logo/logo_white.png" alt="LotteON-logo"></a>
-                </div>
+<th:block th:include="/common/_admin_header"/>
+<th:block th:include="/common/_admin_aside"/>
+
+<div class="main">
+    <div class="setting">
+        <h1>매출현황</h1>
+        <ul>
+            <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
+            <li><a th:href="@{/admin/shop/list}">상점관리&nbsp;>&nbsp;</a></li>
+            <li><a th:href="@{/admin/shop/sales}"><span>매출현황&nbsp;</span></a></li>
+        </ul>
+    </div>
+    <div class="line"></div>
+    <div class="container">
+        <div class="search">
+            <select name="" id="">
+                <option value="">일별</option>
+                <option value="">주간</option>
+                <option value="">한달</option>
+            </select>
+        </div>
+        <div class="table-wrapper">
+            <div class="table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>상호명</th>
+                        <th>사업자등록번호</th>
+                        <th>
+                            주문건수
+                            <button>↑</button>
+                        </th>
+                        <th>결제완료</th>
+                        <th>배송중</th>
+                        <th>배송완료</th>
+                        <th>구매확정</th>
+                        <th>
+                            주문합계
+                            <button>↑</button>
+                        </th>
+                        <th>
+                            매출합계
+                            <button>↑</button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>5</td>
+                        <td>(주)다나와</td>
+                        <td>112-12-12345</td>
+                        <td>103</td>
+                        <td>90</td>
+                        <td>56</td>
+                        <td>52</td>
+                        <td>50</td>
+                        <td>12,870,600</td>
+                        <td>10,870,600</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>(주)멋남</td>
+                        <td>112-12-12345</td>
+                        <td>103</td>
+                        <td>90</td>
+                        <td>56</td>
+                        <td>52</td>
+                        <td>50</td>
+                        <td>12,870,600</td>
+                        <td>10,870,600</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>(주)컴퓨존</td>
+                        <td>112-12-12345</td>
+                        <td>103</td>
+                        <td>90</td>
+                        <td>56</td>
+                        <td>52</td>
+                        <td>50</td>
+                        <td>12,870,600</td>
+                        <td>10,870,600</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>(주)다나와</td>
+                        <td>112-12-12345</td>
+                        <td>103</td>
+                        <td>90</td>
+                        <td>56</td>
+                        <td>52</td>
+                        <td>50</td>
+                        <td>12,870,600</td>
+                        <td>10,870,600</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>(주)다나와</td>
+                        <td>112-12-12345</td>
+                        <td>103</td>
+                        <td>90</td>
+                        <td>56</td>
+                        <td>52</td>
+                        <td>50</td>
+                        <td>12,870,600</td>
+                        <td>10,870,600</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page">
+                <button class="page-move">이전</button>
+                <button>[1]</button>
+                <button>[2]</button>
+                <button>[3]</button>
+                <button>[4]</button>
+                <button>[5]</button>
+                <button class="page-move">다음</button>
             </div>
         </div>
-    </header>
-    <main>
-        <div class="main-wrapper">
-            <aside>
-                <div class="aside">
-                    <ul class="out-ul">
-                        <div class="ul-list">
-                            <li>
-                                <i class="fas fa-cogs"></i><a href="#" class="hover">환경설정</a>
-                                <ul class="in-ul">
-                                    <li><a href="#">- 기본설정</a></li>
-                                    <li><a href="#">- 배너관리</a></li>
-                                    <li><a href="#">- 약관관리</a></li>
-                                    <li><a href="#">- 카테고리</a></li>
-                                    <li><a href="#">- 버전관리</a></li>
-                                </ul>
-                            </li>
-                        </div>
-                        <div class="ul-list">
-                            <li>
-                                <i class="fas fa-store"></i> <a href="#" class="hover">상점관리</a>
-                                <ul class="in-ul">
-                                    <li><a href="#">- 상점목록</a></li>
-                                    <li><a href="#">- 매출현황</a></li>
-                                </ul>
-                            </li>
-                        </div>
-                        <div class="ul-list">
-                            <li>
-                                <i class="fas fa-users"></i> <a href="#" class="hover">회원관리</a>
-                                <ul class="in-ul">
-                                    <li><a href="#">- 회원목록</a></li>
-                                    <li><a href="#">- 포인트관리</a></li>
-                                </ul>
-                            </li>
-                        </div>
-                        <div class="ul-list">
-                            <li>
-                                <i class="fas fa-box"></i> <a href="#" class="hover">상품관리</a>
-                                <ul class="in-ul">
-                                    <li><a href="#">- 상품목록</a></li>
-                                    <li><a href="#">- 상품등록</a></li>
-                                    <li><a href="#">- 카테고리</a></li>
-                                </ul>
-                            </li>
-                        </div>
-                        <div class="ul-list">
-                            <li>
-                                <i class="fas fa-receipt"></i> <a href="#" class="hover">주문관리</a>
-                                <ul class="in-ul">
-                                    <li><a href="#">- 주문현황</a></li>
-                                    <li><a href="#">- 배송현황</a></li>
-                                </ul>
-                            </li>
-                        </div>
-                        <div class="ul-list">
-                            <li>
-                                <i class="fas fa-ticket-alt"></i> <a href="#" class="hover">쿠폰관리</a>
-                                <ul class="in-ul">
-                                    <li><a href="#">- 쿠폰목록</a></li>
-                                    <li><a href="#">- 쿠폰발급현황</a></li>
-                                </ul>
-                            </li>
-                        </div>
-                        <div class="ul-list">
-                            <li>
-                                <i class="fas fa-headset"></i> <a href="#" class="hover">고객센터</a>
-                                <ul class="in-ul">
-                                    <li><a href="#">- 공지사항</a></li>
-                                    <li><a href="#">- 자주묻는질문</a></li>
-                                    <li><a href="#">- 문의하기</a></li>
-                                    <li><a href="#">- 채용하기</a></li>
-                                </ul>
-                            </li>
-                        </div>
-                    </ul>
-                </div>
-            </aside>
-            
-            <div class="main">
-                <div class="setting">
-                    <h1>매출현황</h1>
-                    <ul>
-                        <li><a href="#">HOME&nbsp;>&nbsp;</a></li>
-                        <li><a href="#">상점관리&nbsp;>&nbsp;</a></li>
-                        <li><a href="#"><span>매출현황&nbsp;</span></a></li>
-                    </ul>
-                </div>
-                <div class="line"></div>
-                <div class="container">
-                    <div class="search">
-                        <select name="" id="">
-                            <option value="">일별</option>
-                            <option value="">주간</option>
-                            <option value="">한달</option>
-                        </select>
-                    </div>
-                    <div class="table-wrapper">
-                        <div class="table">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>번호</th>
-                                        <th>상호명</th>
-                                        <th>사업자등록번호</th>
-                                        <th>
-                                            주문건수
-                                            <button>↑</button>
-                                        </th>
-                                        <th>결제완료</th>
-                                        <th>배송중</th>
-                                        <th>배송완료</th>
-                                        <th>구매확정</th>
-                                        <th>
-                                            주문합계
-                                            <button>↑</button>
-                                        </th>
-                                        <th>
-                                            매출합계
-                                            <button>↑</button>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>(주)다나와</td>
-                                        <td>112-12-12345</td>
-                                        <td>103</td>
-                                        <td>90</td>
-                                        <td>56</td>
-                                        <td>52</td>
-                                        <td>50</td>
-                                        <td>12,870,600</td>
-                                        <td>10,870,600</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>(주)멋남</td>
-                                        <td>112-12-12345</td>
-                                        <td>103</td>
-                                        <td>90</td>
-                                        <td>56</td>
-                                        <td>52</td>
-                                        <td>50</td>
-                                        <td>12,870,600</td>
-                                        <td>10,870,600</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>(주)컴퓨존</td>
-                                        <td>112-12-12345</td>
-                                        <td>103</td>
-                                        <td>90</td>
-                                        <td>56</td>
-                                        <td>52</td>
-                                        <td>50</td>
-                                        <td>12,870,600</td>
-                                        <td>10,870,600</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>(주)다나와</td>
-                                        <td>112-12-12345</td>
-                                        <td>103</td>
-                                        <td>90</td>
-                                        <td>56</td>
-                                        <td>52</td>
-                                        <td>50</td>
-                                        <td>12,870,600</td>
-                                        <td>10,870,600</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>(주)다나와</td>
-                                        <td>112-12-12345</td>
-                                        <td>103</td>
-                                        <td>90</td>
-                                        <td>56</td>
-                                        <td>52</td>
-                                        <td>50</td>
-                                        <td>12,870,600</td>
-                                        <td>10,870,600</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="page">
-                            <button class="page-move">이전</button>
-                            <button>[1]</button>
-                            <button>[2]</button>
-                            <button>[3]</button>
-                            <button>[4]</button>
-                            <button>[5]</button>
-                            <button class="page-move">다음</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <div class="footer">
-            <p>
-                Copyright © LOTTESHOPPING Co., LTD. All rights reserved. LotteON ADMINISTRATOR Version 5.4.1.2
-            </p>
-        </div>
-    </footer>
+    </div>
+</div>
+</div>
+</main>
+<th:block th:include="/common/_admin_footer"/>
 </body>
-</html>
-</body>
+
 </html>

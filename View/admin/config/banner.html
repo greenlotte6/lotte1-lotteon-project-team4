@@ -4,9 +4,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/View/css/common/_admin_header.css">
-    <link rel="stylesheet" href="/View/css/common/_admin_footer.css">
-    <link rel="stylesheet" href="/View/css/admin/config/banner.css">
+    <link rel="stylesheet" href="/css/common/_admin_header.css">
+    <link rel="stylesheet" href="/css/common/_admin_footer.css">
+    <link rel="stylesheet" href="/css/admin/config/banner.css">
     <!-- js -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Font Awesome CDN -->
@@ -20,6 +20,37 @@
         $('.hover').click(function(e) {
             $(this).parent().toggleClass('active');
         })
+
+            const categoryButtons = document.querySelectorAll('.category-button');
+            const contentDivs = document.querySelectorAll('.content');
+
+            // 초기 상태: 첫 번째 카테고리 보여주기
+            showContent('main-top');
+
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const category = this.getAttribute('data-category');
+
+                    // 버튼 스타일 업데이트
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // 콘텐츠 보여주기
+                    showContent(category);
+                });
+            });
+
+            function showContent(category) {
+                contentDivs.forEach(div => {
+                    if (div.getAttribute('data-category') === category) {
+                        div.style.display = 'block';
+                    } else {
+                        div.style.display = 'none';
+                    }
+                });
+            }
+
+
     
     });
 </script>
@@ -29,13 +60,13 @@
             <div class="wrapper-suv">
                 <div class="user-nav">
                     <ul>
-                        <li><a href="#">홈</a></li>
-                        <li><a href="#">로그아웃</a></li>
-                        <li><a href="#">고객센터</a></li>
+                        <li><a href="/admin/index.html">홈</a></li>
+                        <li><a href="/admin/index.html">로그아웃</a></li>
+                        <li><a href="/admin/cs/notice/list.html">고객센터</a></li>
                     </ul>
                 </div>
                 <div class="logo">
-                    <a href="#"><img src="/images/logo/logo_white.png" alt="LotteON-logo"></a>
+                    <a href="/index.html"><img src="/images/logo/logo_white.png" alt="LotteON-logo"></a>
                 </div>
             </div>
         </div>
@@ -49,70 +80,68 @@
                             <li>
                                 <i class="fas fa-cogs"></i><a href="#" class="hover">환경설정</a>
                                 <ul class="in-ul">
-
-                                    <li><a href="#">- 기본설정</a></li>
-                                    <li><a href="#">- 배너관리</a></li>
-                                    <li><a href="#">- 약관관리</a></li>
-                                    <li><a href="#">- 카테고리</a></li>
-                                    <li><a href="#">- 버전관리</a></li>
-
+                                    <li><a href="/admin/config/basic.html">- 기본설정</a></li>
+                                    <li><a href="/admin/config/banner.html">- 배너관리</a></li>
+                                    <li><a href="/admin/config/policy.html">- 약관관리</a></li>
+                                    <li><a href="/admin/config/category.html">- 카테고리</a></li>
+                                    <li><a href="/admin/config/version.html">- 버전관리</a></li>
                                 </ul>
                             </li>
                         </div>
                         <div class="ul-list">
                             <li>
-                                <i class="fas fa-store"></i> <a href="#" class="hover">상점관리</a>
+                                <i class="fas fa-store"></i><a href="#" class="hover">상점관리</a>
                                 <ul class="in-ul">
-                                    <li><a href="#">- 상점목록</a></li>
-                                    <li><a href="#">- 매출현황</a></li>
+                                    <li><a href="/admin/shop/list.html">- 상점목록</a></li>
+                                    <li><a href="/admin/shop/sales.html">- 매출현황</a></li>
                                 </ul>
                             </li>
                         </div>
                         <div class="ul-list">
                             <li>
-                                <i class="fas fa-users"></i> <a href="#" class="hover">회원관리</a>
+                                <i class="fas fa-users"></i><a href="#" class="hover">회원관리</a>
                                 <ul class="in-ul">
-                                    <li><a href="#">- 회원목록</a></li>
-                                    <li><a href="#">- 포인트관리</a></li>
+                                    <li><a href="/admin/member/list.html">- 회원목록</a></li>
+                                    <li><a href="/admin/member/point.html">- 포인트관리</a></li>
                                 </ul>
                             </li>
                         </div>
                         <div class="ul-list">
                             <li>
-                                <i class="fas fa-box"></i> <a href="#" class="hover">상품관리</a>
+                                <i class="fas fa-box"></i><a href="#" class="hover">상품관리</a>
                                 <ul class="in-ul">
-                                    <li><a href="#">- 상품목록</a></li>
-                                    <li><a href="#">- 상품등록</a></li>
-                                    <li><a href="#">- 카테고리</a></li>
+                                    <li><a href="/admin/product/list.html">- 상품목록</a></li>
+                                    <li><a href="/admin/product/register.html">- 상품등록</a></li>
+                                    <!--<li><a href="#">- 카테고리</a></li>-->
                                 </ul>
                             </li>
                         </div>
                         <div class="ul-list">
                             <li>
-                                <i class="fas fa-receipt"></i> <a href="#" class="hover">주문관리</a>
+                                <i class="fas fa-receipt"></i><a href="#" class="hover">주문관리</a>
                                 <ul class="in-ul">
-                                    <li><a href="#">- 주문현황</a></li>
-                                    <li><a href="#">- 배송현황</a></li>
+                                    <li><a href="/admin/order/list.html">- 주문현황</a></li>
+                                    <li><a href="/admin/order/delivery.html">- 배송현황</a></li>
                                 </ul>
                             </li>
                         </div>
                         <div class="ul-list">
                             <li>
-                                <i class="fas fa-ticket-alt"></i> <a href="#" class="hover">쿠폰관리</a>
+                                <i class="fas fa-ticket-alt"></i><a href="#" class="hover">쿠폰관리</a>
                                 <ul class="in-ul">
-                                    <li><a href="#">- 쿠폰목록</a></li>
-                                    <li><a href="#">- 쿠폰발급현황</a></li>
+                                    <li><a href="/admin/coupon/list.html">- 쿠폰목록</a></li>
+                                    <li><a href="/admin/coupon/issued.html">- 쿠폰발급현황</a></li>
                                 </ul>
                             </li>
                         </div>
                         <div class="ul-list">
                             <li>
-                                <i class="fas fa-headset"></i> <a href="#" class="hover">고객센터</a>
+                                <i class="fas fa-headset"></i><a href="#" class="hover">고객센터</a>
                                 <ul class="in-ul">
-                                    <li><a href="#">- 공지사항</a></li>
-                                    <li><a href="#">- 자주묻는질문</a></li>
-                                    <li><a href="#">- 문의하기</a></li>
-                                    <li><a href="#">- 채용하기</a></li>
+                                    <li><a href="/admin/cs/notice/list.html">- 공지사항</a></li>
+                                    <li><a href="/admin/cs/faq/list.html">- 자주묻는질문</a></li>
+                                    <li><a href="/admin/cs/qna/list.html">- 문의하기</a></li>
+                                    <li><a href="/admin/cs/recruit/list.html">- 채용하기</a></li>
                                 </ul>
                             </li>
                         </div>
@@ -124,24 +153,24 @@
                 <div class="setting">
                     <h1>배너관리</h1>
                     <ul>
-                        <li><a href="#">HOME &nbsp;>&nbsp;</a></li>
-                        <li><a href="#">환경설정 &nbsp;>&nbsp;</a></li>
-                        <li><a href="#"><span>배너관리 &nbsp;</span></a></li>
+                        <li><a href="/admin/index.html">HOME &nbsp;>&nbsp;</a></li>
+                        <li><a href="/admin/config/basic.html">환경설정 &nbsp;>&nbsp;</a></li>
+                        <li><a href="/admin/config/banner.html"><span>배너관리 &nbsp;</span></a></li>
                     </ul>
                 </div>
                 <div class="line"></div>
 
                 <div class="container">
                     <div class="header">
-                        <button class="category-button active" data-category="main-top">메인 상단 배너</button>
+                        <button class="category-button" data-category="main-top">메인 상단 배너</button>
                         <button class="category-button" data-category="main-slider">메인 슬라이더 배너</button>
                         <button class="category-button" data-category="product-detail">상품 상세 보기 배너</button>
                         <button class="category-button" data-category="login">회원 로그인 배너</button>
                         <button class="category-button" data-category="mypage">마이 페이지 배너</button>
                     </div>
             
-                    <div class="content">
-                        <div class="top-banner">
+                    <div class="content-wrapper">
+                        <div class="content" data-category="main-top">
                             <h2 class="category-title">메인 상단 배너</h2>
                 
                             <table>
@@ -163,7 +192,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>1</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -183,7 +212,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>1</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -203,7 +232,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>1</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -223,7 +252,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>1</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -243,7 +272,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>1</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -265,8 +294,8 @@
                         </div>
                     </div>
 
-                    <div class="content">
-                        <div class="slider-banner">
+                    <div class="content-wrapper">
+                        <div class="content" data-category="main-slider">
                             <h2 class="category-title">메인슬라이더배너</h2>
                 
                             <table>
@@ -288,7 +317,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>2</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -308,7 +337,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>2</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -328,7 +357,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>2</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -348,7 +377,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>2</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -368,7 +397,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>2</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -390,8 +419,8 @@
                         </div>
                     </div>
 
-                    <div class="content">
-                        <div class="product-banner">
+                    <div class="content-wrapper">
+                        <div class="content" data-category="product-detail">
                             <h2 class="category-title">상품 상세보기 배너</h2>
                 
                             <table>
@@ -413,7 +442,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>3</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -433,7 +462,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>3</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -453,7 +482,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>3</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -473,7 +502,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>3</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -493,7 +522,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>3</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -515,8 +544,8 @@
                         </div>
                     </div>
                     
-                    <div class="content">
-                        <div class="login-banner">
+                    <div class="content-wrapper">
+                        <div class="content" data-category="login">
                             <h2 class="category-title">회원로그인 배너</h2>
             
                             <table>
@@ -538,7 +567,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>4</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -558,7 +587,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>4</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -578,7 +607,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>4</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -598,7 +627,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>4</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -618,7 +647,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>4</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -640,8 +669,8 @@
                         </div>
                     </div>
                     
-                    <div class="content">
-                        <div class="mypage-banner">
+                    <div class="content-wrapper">
+                        <div class="content" data-category="mypage">
                             <h2 class="category-title">마이페이지 배너</h2>
                 
                             <table>
@@ -663,7 +692,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>5</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -683,7 +712,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>5</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -703,7 +732,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>5</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -723,7 +752,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>5</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
@@ -743,7 +772,7 @@
                                     <tr>
                                         <td><input type="checkbox"></td>
                                         <td>5</td>
-                                        <td><img src="/View/images/bar.png" alt="이미지 미리보기"></td>
+                                        <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
                                         <td>
                                             배너 명: [배너 명]<br>
                                             크기: 1200 x 80<br>
