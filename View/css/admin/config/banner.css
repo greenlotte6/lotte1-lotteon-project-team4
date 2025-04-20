@@ -227,24 +227,6 @@ button:hover {
 }
 
 /* js */
-.slider-banner {
-    display: none;
-}
-
-.product-banner {
-    display: none;
-}
-
-.login-banner {
-    display: none;
-}
-
-.mypage-banner {
-    display: none;
-}
-
-/* 추가 */
-
 .in-ul {
     display: none;
 }
