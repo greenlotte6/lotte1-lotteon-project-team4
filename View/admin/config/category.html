@@ -20,29 +20,89 @@
 </head>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        $(document).ready(function() {
+    $('.click').click(function(e) {
+        $(this).parent().toggleClass('active');
+    });
 
-        $('.click').click(function(e) {
-            $(this).parent().toggleClass('active');
-            
-        });
+    $('.sub').sortable({
+        placeholder: "ui-state-highlight"
+    });
 
-        $('.sub').sortable({
-            placeholder: "ui-state-highlight"  // 드래그 중 위치 표시용 클래스
-        });
-        
-        $('.hover').click(function(e) {
-            $(this).parent().toggleClass('active');
-        });
-        /*
+    // 1차 카테고리 추가 버튼 클릭 시
+    $('.acodion-menu > li:last-child > a').click(function(e) {
+        e.preventDefault(); // 링크 이동 막기
+        let $li = $(this).parent();
+        $li.html('<input type="text" placeholder="새 카테고리명"><button class="add-category">추가</button><button class="delete">삭제</button>');
 
-            // 텍스트 변경 (▶ -> ▼)
-            if ($(this).text().includes('▶')) {
-                $(this).text($(this).text().replace('▶', '▼'));
+        // 새로운 1차 카테고리 추가 버튼 클릭 시
+        $li.find('.add-category').click(function() {
+            let newCategoryName = $(this).prev('input').val();
+            if (newCategoryName.trim() !== "") {
+                let newLi = `
+                    <li>
+                        <a href="#" class="click">▼ ${newCategoryName}</a><button class="delete">삭제</button>
+                        <ul class="sub">
+                            <li><a href="#">➕ 추가</a><button class="delete">삭제</button></li>
+                        </ul>
+                    </li>
+                `;
+                $li.before(newLi);
+                // 이벤트 리바인딩
+                bindCategoryEvents();
             } else {
-                $(this).text($(this).text().replace('▼', '▶'));
+                alert("카테고리명을 입력해주세요.");
             }
-                
-        */
+        });
+
+        // 삭제 버튼 이벤트 (동적으로 생성된 요소에 이벤트 바인딩)
+        $li.on('click', '.delete', function() {
+            $(this).parent().remove();
+        });
+    });
+
+    // 2차 카테고리 추가 버튼 클릭 시
+    $('.acodion-menu').on('click', '.sub > li:last-child > a', function(e) {
+        e.preventDefault(); // 링크 이동 막기
+        let $li = $(this).parent();
+        $li.html('<input type="text" placeholder="새 하위 카테고리명"><button class="add-subcategory">추가</button><button class="delete">삭제</button>');
+
+        // 새로운 2차 카테고리 추가 버튼 클릭 시
+        $li.find('.add-subcategory').click(function() {
+            let newSubcategoryName = $(this).prev('input').val();
+            if (newSubcategoryName.trim() !== "") {
+                let newLi = `<li><a href="#">${newSubcategoryName}</a><button class="delete">삭제</button></li>`;
+                $li.before(newLi);
+                // 이벤트 리바인딩 (sortable 때문에 필요)
+                $('.sub').sortable('refresh');
+            } else {
+                alert("하위 카테고리명을 입력해주세요.");
+            }
+        });
+
+        // 삭제 버튼 이벤트 (동적으로 생성된 요소에 이벤트 바인딩)
+        $li.on('click', '.delete', function() {
+            $(this).parent().remove();
+        });
+    });
+
+    // 동적으로 생성된 요소에 이벤트 바인딩하는 함수
+    function bindCategoryEvents() {
+        $('.click').off('click').on('click', function(e) {
+            $(this).parent().toggleClass('active');
+        });
+        $('.delete').off('click').on('click', function() {
+            $(this).parent().remove();
+        });
+        $('.sub').sortable('refresh');
+    }
+
+    // 초기 삭제 버튼 이벤트 바인딩
+    $('.delete').on('click', function() {
+        $(this).parent().remove();
+    });
+});
+
 
     });
 </script>
@@ -165,6 +225,7 @@
                                         <li><a href="#">럭셔리 스킨케어</a><button>삭제</button></li>
                                         <li><a href="#">클렌징</a><button>삭제</button></li>
                                         <li><a href="#">스킨/토너</a><button>삭제</button></li>
+                                        <li><a href="#">➕ 2차 카테고리 추가</a><button>삭제</button></li>
                                     </ul>
                                 </li>
                                 
@@ -174,6 +235,14 @@
                                         <li><a href="#">베이스 메이크업</a><button>삭제</button></li>
                                         <li><a href="#">립 메이크업</a><button>삭제</button></li>
                                         <li><a href="#">아이 메이크업</a><button>삭제</button></li>
+                                        <li><a href="#">➕ 2차 카테고리 추가</a><button>삭제</button></li>
+                                    </ul>
+                                </li>
+                                
+                                <li>
+                                    <a href="#" class="click">➕ 1차 카테고리 추가</a><button>삭제</button>
+                                    <ul class="sub">
+                                        <li><a href="#">➕ 2차 카테고리 추가</a><button>삭제</button></li>
                                     </ul>
                                 </li>
                             </ul>

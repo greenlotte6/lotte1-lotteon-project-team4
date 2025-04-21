@@ -17,12 +17,87 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>admin main</title>
 </head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
 
         $('.hover').click(function (e) {
             $(this).parent().toggleClass('active');
         })
+
+        const barChartCanvas = document.getElementById('myChart');
+        const barChartCtx = barChartCanvas.getContext('2d');
+
+        const barChart = new Chart(barChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['10-10', '10-11', '10-12', '10-13', '10-14'],
+                datasets: [{
+                    label: '주문',
+                    data: [12, 19, 3, 5, 2],
+                    backgroundColor: 'rgba(54, 162, 235, 0.8)', // 파란색
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }, {
+                    label: '결제',
+                    data: [5, 8, 1, 12, 7],
+                    backgroundColor: 'rgba(255, 99, 132, 0.8)', // 빨간색
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }, {
+                    label: '취소',
+                    data: [2, 3, 7, 2, 5],
+                    backgroundColor: 'rgba(75, 192, 192, 0.8)', // 초록색
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // 파이 차트를 위한 <canvas> 요소 추가 (HTML에)
+        // <canvas id="pieChart" width="300" height="300"></canvas>
+
+        const pieChartCanvas = document.getElementById('pieChart');
+        const pieChartCtx = pieChartCanvas.getContext('2d');
+
+        const pieChart = new Chart(pieChartCtx, {
+            type: 'pie',
+            data: {
+                labels: ['가전', '식품', '의류', '기타'],
+                datasets: [{
+                    data: [30, 20, 40, 10],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.8)', // 파란색
+                        'rgba(255, 99, 132, 0.8)', // 빨간색
+                        'rgba(75, 192, 192, 0.8)', // 초록색
+                        'rgba(255, 206, 86, 0.8)'  // 노란색
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true, // 비율 유지 활성화
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
 
 
     });
@@ -42,46 +117,15 @@
     </div>
     <div class="line"></div>
     <div class="status">
-        <div class="chart">
-            <h2>집계현황</h2>
-            <div>
-                <canvas id="myChart"></canvas>
-                <canvas id="myChart2"></canvas>
+        <div class="chart_wrapper">
+            <div class="chart">
+                <h2>집계현황</h2>
+                <canvas id="myChart" width="400" height="300"></canvas>
             </div>
-
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-            <script>
-                const ctx = document.getElementById('myChart');
-                const ctx2 = document.getElementById('myChart2');
-
-                new Chart(ctx, ctx2
-                {
-                    type: 'bar',
-                        data
-                :
-                    {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                            datasets
-                    :
-                        [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
-                            borderWidth: 1
-                        }]
-                    }
-                ,
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                }
-                )
-                ;
-            </script>
+            <div class="chart">
+                <h2>주요 매출</h2>
+                <canvas id="pieChart" width="300" height="300"></canvas>
+            </div>
         </div>
         <div class="operation">
             <h2>운영현황</h2>
