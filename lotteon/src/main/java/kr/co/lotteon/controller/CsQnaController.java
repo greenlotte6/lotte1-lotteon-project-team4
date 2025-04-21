@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-public class QnaController {
+public class CsQnaController {
 
     @GetMapping("/qna/coupun-list")
     public String coupunList() {
