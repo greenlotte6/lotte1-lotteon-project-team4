@@ -72,9 +72,9 @@
                     <tr th:each="user : ${users}">
                         <td><input type="checkbox"></td>
                         <td>[[${user.t_u_num}]]</td>
-                        <td>[[${user.uid}]]</td>
-                        <td>[[${user.uname}]]</td>
-                        <td>[[${user.gender}]]</td>
+                        <td th:text="${user.uid}"></td>
+                        <td th:text="${user.uname}"></td>
+                        <td th:text="${user.gender}"></td>
                         <td>
                             <select name="">
                                 <option value="">VVIP</option>
@@ -84,121 +84,18 @@
                                 <option value="">FAMILY</option>
                             </select>
                         </td>
-                        <td>[[${user.point}]]</td>
-                        <td>[[${user.email}]]</td>
-                        <td>[[${user.hp}]]</td>
-                        <td>[[${user.u_created_at}]]</td>
-                        <td class="green">[[${user.status}]]</td>
+                        <td th:text="${user.point}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.hp}"></td>
+                        <td th:text="${user.u_created_at}"></td>
+                        <td class="green" th:text="${user.status}"></td>
                         <td>
                             <div><a href="#" onclick="openModal('/popup@{/admin/shop_Register}')" class="btn">[수정]</a>
                             </div>
                             <div><a href="#">[중지]</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>4</td>
-                        <td>xxxsd1234</td>
-                        <td>정우성</td>
-                        <td>M</td>
-                        <td>
-                            <select name="" >
-                                <option value="">VVIP</option>
-                                <option value="">VIP</option>
-                                <option value="">GOLD</option>
-                                <option value="">SILVER</option>
-                                <option value="">FAMILY</option>
-                            </select>
-                        </td>
-                        <td>15,000</td>
-                        <td>xxxxx@sfsd.com</td>
-                        <td>010-1234-1234</td>
-                        <td>0000-00-00<br>00:00:00</td>
-                        <td class="red">중지</td>
-                        <td>
-                            <div><a href="#" onclick="openModal('/popup@{/admin/shop_Register}')" class="btn">[수정]</a>
-                            </div>
-                            <div><a href="#">[중지]</a></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>3</td>
-                        <td>xxxsd1234</td>
-                        <td>정우성</td>
-                        <td>M</td>
-                        <td>
-                            <select name="" >
-                                <option value="">VVIP</option>
-                                <option value="">VIP</option>
-                                <option value="">GOLD</option>
-                                <option value="">SILVER</option>
-                                <option value="">FAMILY</option>
-                            </select>
-                        </td>
-                        <td>15,000</td>
-                        <td>xxxxx@sfsd.com</td>
-                        <td>010-1234-1234</td>
-                        <td>0000-00-00<br>00:00:00</td>
-                        <td class="grey">휴면</td>
-                        <td>
-                            <div><a href="#" onclick="openModal('/popup@{/admin/shop_Register}')" class="btn">[수정]</a>
-                            </div>
-                            <div><a href="#">[중지]</a></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>2</td>
-                        <td>xxxsd1234</td>
-                        <td>정우성</td>
-                        <td>M</td>
-                        <td>
-                            <select name="" >
-                                <option value="">VVIP</option>
-                                <option value="">VIP</option>
-                                <option value="">GOLD</option>
-                                <option value="">SILVER</option>
-                                <option value="">FAMILY</option>
-                            </select>
-                        </td>
-                        <td>15,000</td>
-                        <td>xxxxx@sfsd.com</td>
-                        <td>010-1234-1234</td>
-                        <td>0000-00-00<br>00:00:00</td>
-                        <td class="grey">탈퇴</td>
-                        <td>
-                            <div><a href="#" onclick="openModal('/popup@{/admin/shop_Register}')" class="btn">[수정]</a>
-                            </div>
-                            <div><a href="#">[재개]</a></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>1</td>
-                        <td>xxxsd1234</td>
-                        <td>정우성</td>
-                        <td>M</td>
-                        <td>
-                            <select name="" >
-                                <option value="">VVIP</option>
-                                <option value="">VIP</option>
-                                <option value="">GOLD</option>
-                                <option value="">SILVER</option>
-                                <option value="">FAMILY</option>
-                            </select>
-                        </td>
-                        <td>15,000</td>
-                        <td>xxxxx@sfsd.com</td>
-                        <td>010-1234-1234</td>
-                        <td>0000-00-00<br>00:00:00</td>
-                        <td class="green">정상</td>
-                        <td>
-                            <div><a href="#" onclick="openModal('/popup@{/admin/shop_Register}')" class="btn">[수정]</a>
-                            </div>
-                            <div><a href="#">[비활성]</a></div>
-                        </td>
-                    </tr>
+                    
                     </tbody>
                 </table>
             </div>
