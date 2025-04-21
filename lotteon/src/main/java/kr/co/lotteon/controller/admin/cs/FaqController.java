@@ -1,4 +1,4 @@
-package kr.co.lotteon.controller.admin;
+package kr.co.lotteon.controller.admin.cs;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -138,22 +138,22 @@ a {
 .status {
     font-size: 13px;
     font-weight: bold;
-  }
-  
-  .status.checking {
+}
+
+.status.checking {
     color: #555;
-  }
-  
-  .status.complete {
+}
+
+.status.complete {
     color: #0072ff;
-  }
-  
-  .qna-button {
+}
+
+.qna-button {
     text-align: right;
     margin-top: 15px;
-  }
-  
-  .qna-button button {
+}
+
+.qna-button button {
     background-color: #8EB4E3;
     color: #fff;
     padding: 8px 18px;
@@ -161,8 +161,8 @@ a {
     border-radius: 3px;
     cursor: pointer;
     font-size: 14px;
-  }
-  
-  .qna-button button:hover {
+}
+
+.qna-button button:hover {
     background-color: #538bcf;
-  }
+}
