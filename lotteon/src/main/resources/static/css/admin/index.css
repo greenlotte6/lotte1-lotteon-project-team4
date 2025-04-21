@@ -123,13 +123,21 @@ aside {
     margin: 0 auto;
 }
 
-.chart {
+.chart_wrapper {
     width: 940px;
-    height: 300px;
+    display: flex; /* 플렉스 컨테이너로 설정 */
+    justify-content: space-around;
     margin: 0 auto;
-    margin-top: 30px;
-    border: 1px solid #333;
-    box-sizing: border-box;
+}
+
+.chart {
+    margin-top: 20px;
+    width: 50%;
+}
+
+.chart:nth-of-type(2) {
+    height: 350px;
+    margin-left: 70px;
 }
 
 table {

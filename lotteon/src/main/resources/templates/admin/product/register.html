@@ -23,6 +23,20 @@
             $(this).parent().toggleClass('active');
         })
 
+        $(document).ready(function() {
+            $('.modify button').click(function() {
+                let newRow = `
+                <tr>
+                    <td>옵션${$('.logo-view table tr').length + 1}</td>
+                    <td><input type="text" name="option${$('.logo-view table tr').length + 1}"></td>
+                    <td class="option">옵션${$('.logo-view table tr').length + 1} 항목</td>
+                    <td class="detail"><input type="text" name="option${$('.logo-view table tr').length + 1}-detail"></td>
+                </tr>
+            `;
+                $('.logo-view table').append(newRow);
+            });
+        });
+
 
     });
 </script>
