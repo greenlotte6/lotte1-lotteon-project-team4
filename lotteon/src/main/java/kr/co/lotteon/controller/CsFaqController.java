@@ -3,11 +3,10 @@ package kr.co.lotteon.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 @RequiredArgsConstructor
-public class FaqController {
+public class CsFaqController {
 
     @GetMapping("/faq/coupon-list")
     public String couponlist() {

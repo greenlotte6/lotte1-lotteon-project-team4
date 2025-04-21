@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-public class NoticeController {
+public class CsNoticeController {
 
     @GetMapping("/notice/all-list")
     public String alllist() {
