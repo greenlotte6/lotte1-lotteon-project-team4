@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>롯데ON 스토리</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.6;
+      background: #fff;
+      color: #333;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+    header img {
+      height: 40px;
+    }
+    nav a {
+      margin-left: 30px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    .main-banner {
+      background-image: url('/images/bar-img.png');
+      height: 450px;
+      align-items: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 60px;
+      background-repeat: no-repeat;
+      background-size: cover;       
+      background-position: center;  
+      margin: 0;
+      padding: 0;
+    }
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 20px;
+    }
+    .content {
+      max-width: 800px;
+      width: 100%;
+    }
+    .section-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 40px 0 20px;
+      text-align: center;
+    }
+    .intro-text {
+      font-size: 18px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .content-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 60px;
+      gap: 40px;
+    }
+
+    .image-placeholder {
+      flex: 1 1 45%;
+      height: 220px;
+      background-color: #f0f0f0;
+      border-radius: 16px;
+    }
+
+    .text-box {
+      flex: 1 1 45%;
+    }
+
+    .text-box h3 {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
+    .text-box p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    @media (max-width: 768px) {
+      .content-box {
+        flex-direction: column;
+      }
+
+      .image-placeholder,
+      .text-box {
+        flex: 1 1 100%;
+      }
+    }
+    .carousel-container {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .carousel-item {
+      flex: 0 0 50%;
+      box-sizing: border-box;
+      padding: 5px;
+    }
+    .carousel-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+    .carousel-buttons {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+    }
+    .carousel-buttons button {
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 40px 0 20px;
+      text-align: center;
+    }
+    .news-item {
+      max-width: 600px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+      padding: 16px 0;
+      margin: 0 auto;
+    }
+    .news-date {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 5px;
+    }
+    .news-title {
+      font-size: 16px;
+      color: #000;
+      font-weight: 500;
+    }
+    .arrow {
+      font-size: 18px;
+      color: #888;
+    }
+    .timeline {
+      border-left: 3px solid #ccc;
+      padding-left: 20px;
+      margin: 40px auto;
+      max-width: 800px;
+    }
+    .timeline-item {
+      margin-bottom: 30px;
+    }
+    .timeline-item h4 {
+      margin-bottom: 5px;
+      color: #e60012;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .card {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .icon-placeholder {
+      min-width: 50px;
+      min-height: 50px;
+      background-color: #f3f3f3;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 50px;
+      font-size: 24px;
+      color: #999;
+    }
+
+    .card-content h3 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .card-content p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .banner {
+      height: 120px;
+      background-color: #fbeee9;
+      padding-top: 10px;
+      padding-left: 50px;
+      border-radius: 5px;
+
+    }
+    .banner-line{
+        max-width: 500px;
+        text-align: left;
+    }
+
+    .banner strong {
+      color: #e60012;
+      font-size: 20px;
+    }
+
+    .banner button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #e60012;
+      color: white;
+      border: none;
+      border-radius: 2px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+
+    footer {
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  padding: 30px 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #444;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-nav a {
+  color: #d14171;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.footer-right {
+  text-align: right;
+}
+
+.email {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.sns-icons a {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  margin-left: 6px;
+}
+
+.sns-icons img {
+  width: 100%;
+  height: auto;
+  filter: grayscale(1);
+  transition: 0.3s ease;
+}
+
+.sns-icons img:hover {
+  filter: grayscale(0);
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="/images/logo/footer_logo.png" alt="롯데온 로고" />
+      <nav>
+        <a href="#">HOME</a>
+        <a href="#">기업문화</a>
+        <a href="#">소식과 이야기</a>
+        <a href="#">채용</a>
+        <a href="#">기술블로그</a>
+      </nav>
+    </header>
+  </div>
+
+  <div class="main-banner">
+    취향을, 브랜드를, 혜택을 발견하는 즐거움<br />지금 롯데온에서 만나요
+  </div>
+  <div class="main">
+    <div class="content">
+      <div class="intro-text">
+        소비 등 생활 사람들이 만든 플랫폼, 롯데온은 혁신적인 온라인 쇼핑의 판을 바꿉니다.
+      </div>
+      <div class="section-title">쇼핑을 새롭게, 세상을 이롭게 만들어 나가요.</div>
+      <h2>대기업 속의 스타트업, 롯데ON은 이렇게 일해요!</h2>
+        <div class="content-box">
+          <div class="image-placeholder"></div>
+          <div class="text-box">
+            <h3>스스로 책임지고 자율적으로 일해요</h3>
+            <p>
+              “어른답게” 서로를 어른으로 대하고 배려하는 것이 중요해요.<br />
+              스스로 판단하고 자율적으로 행동할 수 있기 때문에<br />
+              더 높은 효율을 만들어나가며 일을 할 수 있어요.
+            </p>
+          </div>
+        </div>
+        <div class="content-box">
+          <div class="text-box">
+            <h3>목표와 방향을 생각하며 나아가요.</h3>
+            <p>
+              “혁신적으로” 일의 목적을 충분히 생각하는 것으로부터<br />
+              우리의 아이디어는 시작되고, 높은 목표는 혁신적인 방향을<br />
+              만들어 낼 수 있다고 믿어요. 그 과정에서 우리가 더 잘할 수<br />
+              있는 것이 무엇인지 항상 고민해요.
+            </p>
+          </div>
+          <div class="image-placeholder"></div>
+        </div>
+        <div class="content-box">
+            <div class="image-placeholder"></div>
+            <div class="text-box">
+              <h3>스스로 책임지고 자율적으로 일해요</h3>
+              <p>
+                “어른답게” 서로를 어른으로 대하고 배려하는 것이 중요해요.<br />
+                스스로 판단하고 자율적으로 행동할 수 있기 때문에<br />
+                더 높은 효율을 만들어나가며 일을 할 수 있어요.
+              </p>
+            </div>
+          </div>
+        <h2>우리의 문화와 제도는 구성원들의<br>성장과 몰입을 위해 존재해요.</h2>
+          <div class="cards">
+            <div class="card">
+              <div class="icon-placeholder">👥</div>
+              <div class="card-content">
+                <h3>수평적인 문화</h3>
+                <p>수평적인 의사소통을 위해 님 호칭을 사용하며, 서로의 의견도, 연차도 존중하는 소통 문화를 만들어가요. 역할 중심의 Career Level, 모든 정보의 공유와 소통으로 수평적인 문화를 지속해나가요.</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="icon-placeholder">🏠</div>
+              <div class="card-content">
+                <h3>자율적인 근무환경</h3>
+                <p>원하는 자리에 앉는 스마트 오피스, 정해진 출퇴근 시간 없이 자율적으로 근무하는 유연근로제로 효율적인 업무를 위한 구성원의 자율을 존중해요.</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="icon-placeholder">🤝</div>
+              <div class="card-content">
+                <h3>함께 누리는 복지제도</h3>
+                <p>선택적 복리후생 제도를 통해 개인이 원하는 복리후생 항목을 선택하여 사용해요. 리프레시 안식휴가, 사랑스러운 아이를 위한 육아휴직 등 다양한 복지 제도로 구성원들의 행복한 일터와 가정을 책임져요.</p>
+              </div>
+            </div>
+  
+            <div class="card">
+              <div class="icon-placeholder">💡</div>
+              <div class="card-content">
+                <h3>이기고 성장하는 문화</h3>
+                <p>‘이달의 롯데ON 구성원’을 선정하는 M.O.M 포상제도 운영과 아이디어 제안 채널 ‘아이디어ON’을 통해 구성원의 이야기를 듣고 성과를 인정하여 Winning Culture를 만들어가요.</p>
+              </div>
+            </div>
+          </div>
+        <div class="banner">
+          <div class="banner-line">
+              <strong>롯데ON의 기업문화가 더 궁금하다면?</strong><br>
+              <button>더 알아보기 &gt;</button>
+          </div>    
+        </div>
+      <footer>
+        <div class="footer-inner">
+          <div class="footer-left">
+            <nav class="footer-nav">
+              <a href="#">HOME</a>
+              <a href="#">기업문화</a>
+              <a href="#">소식과 이야기</a>
+              <a href="#">채용</a>
+              <a href="#">기술블로그</a>
+            </nav>
+            <p class="copyright">© 2022 All rights Reserved</p>
+          </div>
+      
+          <div class="footer-right">
+            <p class="email">peoplevalue@lotte.net</p>
+            <div class="sns-icons">
+              <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+              <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+              <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google"></a>
+              <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/pinterest.svg" alt="Pinterest"></a>
+            </div>
+          </div>
+        </div>
+      </footer>
+</body>
+</html>

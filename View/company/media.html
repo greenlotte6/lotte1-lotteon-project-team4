@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>롯데ON 스토리</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.6;
+      background: #fff;
+      color: #333;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 50px 20px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+    header img {
+      height: 40px;
+    }
+    nav a {
+      margin-left: 30px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    .main-banner {
+      background: url("images/bar.png") no-repeat center center/cover;
+      height: 450px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 60px;
+    }
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 20px;
+    }
+    .content{
+      width: 1000px;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 40px;
+    }
+
+    .video-section {
+      display: flex;
+      align-items: flex-start;
+      border: 1px solid #eee;
+      padding: 16px;
+      width: 1000px;
+      margin-bottom: 30px;
+    }
+
+    .video-thumbnail {
+      width: 200px;
+      height: 120px;
+      background-color: #f2f2f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+      border: 1px solid #ccc;
+    }
+
+    .video-thumbnail img {
+      width: 50px;
+      height: 35px;
+    }
+
+    .video-info {
+      flex: 1;
+    }
+
+    .video-info h2 {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .video-info p {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .pagination {
+      text-align: center;
+      margin-top: 20px;
+      padding-bottom: 50px;
+    }
+
+    .pagination span, .pagination a {
+      display: inline-block;
+      margin: 0 5px;
+      padding: 6px 12px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+   
+
+    footer {
+      background-color: #fff;
+      border-top: 1px solid #ddd;
+      padding: 30px 0;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #444;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-nav a {
+      color: #d14171;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .footer-right {
+      text-align: right;
+    }
+
+    .email {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .sns-icons a {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      margin-left: 6px;
+    }
+
+    .sns-icons img {
+      width: 100%;
+      height: auto;
+      filter: grayscale(1);
+      transition: 0.3s ease;
+    }
+
+    .sns-icons img:hover {
+      filter: grayscale(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="/images/logo/footer_logo.png" alt="롯데온 로고" />
+      <nav>
+        <a href="#">HOME</a>
+        <a href="#">기업문화</a>
+        <a href="#">소식과 이야기</a>
+        <a href="#">채용</a>
+        <a href="#">기술블로그</a>
+      </nav>
+    </header>
+  </div>
+  <div class="main">
+    <div class="content">
+      <h1>미디어 세상 속 롯데&nbsp;&nbsp;ON&nbsp;&nbsp;을 소개합니다&nbsp;&nbsp;!</h1>
+      <div class="subtitle">더 다양한 LotteON 영상을 소개합니다.</div>
+    
+      <div class="video-section">
+        <div class="video-thumbnail">
+          <img src="https://img.icons8.com/ios-filled/50/youtube-play.png" alt="영상 플레이 아이콘">
+        </div>
+        <div class="video-info">
+          <h2># 영상제목 1</h2>
+          <p># 부제목 EP.201 | LotteON ㅇ ㅇ ㅇ 트렌드  월 ○○일 방송</p>
+        </div>
+      </div>
+      
+      <div class="video-section">
+        <div class="video-thumbnail">
+          <img src="https://img.icons8.com/ios-filled/50/youtube-play.png" alt="영상 플레이 아이콘">
+        </div>
+        <div class="video-info">
+          <h2># 영상제목 1</h2>
+          <p># 부제목 EP.201 | LotteON ㅇ ㅇ ㅇ 트렌드  월 ○○일 방송</p>
+        </div>
+      </div>
+    
+    
+      <div class="pagination">
+        <a href="#">이전</a>
+        <a href="#">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">다음</a>
+      </div>
+    
+      </div>
+    </div>
+      <footer>
+        <div class="footer-inner">
+          <div class="footer-left">
+            <nav class="footer-nav">
+              <a href="#">HOME</a>
+              <a href="#">기업문화</a>
+              <a href="#">소식과 이야기</a>
+              <a href="#">채용</a>
+              <a href="#">기술블로그</a>
+            </nav>
+            <p class="copyright">© 2022 All rights Reserved</p>
+          </div>
+      
+          <div class="footer-right">
+            <p class="email">peoplevalue@lotte.net</p>
+            <div class="sns-icons">
+              <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+              <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+              <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google"></a>
+              <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/pinterest.svg" alt="Pinterest"></a>
+            </div>
+          </div>
+        </div>
+      </footer>
+</body>
+</html>

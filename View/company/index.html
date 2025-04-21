@@ -1,190 +1,335 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회사소개</title>
-    <style>
-       /* 전체 스타일 */
-* {
-    margin: 0;
-    padding: 0;
-    font-family: "Gothic A1", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 12px;
-}
-a {
-    text-decoration: none;
-}
-ul,
-li {
-    list-style: none;
-}
-body {
-    overflow-x: scroll;
-    min-width: 1200px;
-}
+  <meta charset="UTF-8" />
+  <title>롯데ON 스토리</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.6;
+      background: #fff;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 50px 20px;
+    }
+    header {
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 20px 0;
+    }
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header img {
+      height: 40px;
+    }
+    nav a {
+      margin-left: 30px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    .main-banner {
+      background-image: url('/images/bar-img.png');
+      height: 450px;
+      align-items: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 60px;
+      background-repeat: no-repeat;
+      background-size: cover;       
+      background-position: center;  
+      margin: 0;
+      padding: 0;
+    }
+    main {
+      padding: 0 20px;
+    }
 
-/* header */
-.wrapper {
-    width: 1200px;
-    height: auto;
-    margin: 0 auto;
-}
-header {
-    width: 100%;
-    height: auto;
-}
-
-
-.banner {
-    width: 100%;
-    height: 80px;
-    margin: 0 auto;
-    background-color: #fff9e0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 14px;
-    color: #333;
-}
-
-.user-nav {
-    display: flex;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.user-nav ul {
-    display: flex;
-    gap: 15px;
-}
-
-.user-nav ul a {
-    color: #8d8d8d;
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.top-header {
-    display: flex;
-    width: 70%;
-    height: 100px;
-    padding-top: 40px;
-}
-
-.inner-top-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.logo img {
-    width: 185px;
-    height: 38px;
-}
-
-.top_menu{
-    width: 50%;
-    margin: 0 auto;
-    padding-top: 50px;
-    
-}
-.main-pick {
-    width: auto;
-    height: 500px;
-    background-color: aqua;
-    display: flex;
-    background-image:url(/View/images/bar-img.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-.main-pick p{
-    position: absolute;
-    color:#fff;
-    top: 550px;
-    font-size: 25px;
-    margin-left: 20px;
-
-}
-
-
-.main-story p {
-    font-size: 30px;
-    margin : 30px 50px;
-}
-
-.main-story_2 p {
-    margin-left: 130px;
-    padding: 30px 0;
-}
-
-.photo{
-    width: 900px;
-    height: 500px;
-    
-    margin-left: 10px;
-    
-}
-
-
-
-
-
-
-
-
-            
-            
-    </style>
+    .main-memo{
+      position: absolute;
+    }
+    .intro-text {
+      font-size: 18px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .section-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 40px 0 20px;
+      text-align: center;
+    }
+    .carousel-container {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .carousel-item {
+      flex: 0 0 50%;
+      padding: 5px;
+    }
+    .carousel-item img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .carousel-buttons {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+    }
+    .carousel-buttons button {
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 40px 0 20px;
+      text-align: center;
+    }
+    .news-item {
+      max-width: 600px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+      padding: 16px 0;
+      margin: 0 auto; 
+    }
+    .news-item a {
+      text-decoration:none;
+    }
+    .news-date {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 5px;
+    }
+    .news-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #000;
+    }
+    .arrow {
+      font-size: 18px;
+      color: #888;
+    }
+    .timeline {
+      border-left: 3px solid #ccc;
+      padding-left: 20px;
+      margin: 40px auto;
+      max-width: 800px;
+    }
+    .timeline-item {
+      margin-bottom: 30px;
+    }
+    .timeline-item h4 {
+      margin-bottom: 5px;
+      color: #e60012;
+    }
+    footer {
+      background-color: #fff;
+      border-top: 1px solid #ddd;
+      padding: 30px 0;
+    }
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .footer-nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-nav a {
+      color: #d14171;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .footer-right {
+      text-align: right;
+    }
+    .email {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .sns-icons a {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      margin-left: 6px;
+    }
+    .sns-icons img {
+      width: 100%;
+      height: auto;
+      filter: grayscale(1);
+      transition: 0.3s ease;
+    }
+    .sns-icons img:hover {
+      filter: grayscale(0);
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="wrapper">
-            <div class="user-nav">
-                <div class="top-header">
-                  <div class="logo">
-                    <a href="#"><img src="/View/images/logo/logo.png" alt="LotteON 로고"></a>
-                  </div> 
-                </div>
-                <div class="top_menu">
-                    <ul>
-                        <li><a href="#">HOME</a></li>
-                        <li><a href="#">기업문화</a></li>
-                        <li><a href="#">소식과 이야기</a></li>
-                        <li><a href="#">채용</a></li>
-                        <li><a href="#">기술블로그</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="main-pick">
-                <P>취향을, 브랜드를, 혜택을 발견하는 즐거움<br>
-                지금 롯데온에서 만나요</P>
-            </div>
-            <div class="main-story">
-                <p>쇼핑 좀 해본 사람들이 만든 플랫폼,<br>
-                롯데ON은 풍부한 오프라인 인프라, 온라인 쇼핑 노하우,<br>
-                IT기술로 세상에 없던 새로운 쇼핑 경험을 제공하고<br>
-                꼭 이용하고 싶은 온라인 쇼핑 플랫폼으로 발전하고 있어요.
-                </p>
-            </div>
-            <div class="main-story_2">
-                <p style="font-size: 30px; font-weight: 600;">쇼핑을 새롭게, 세상을 이롭게 만들어나가요</p>
-                <div class="photo">
-                    <img src="/View/images/main-img.png" alt="LotteON 로고">
-                
-                </div>
-            </div>
-            <div></div>
+
+  <header>
+    <div class="container">
+      <img src="/images/logo/footer_logo.png" alt="롯데온 로고" />
+      <nav>
+        <a href="#">HOME</a>
+        <a href="#">기업문화</a>
+        <a href="#">소식과 이야기</a>
+        <a href="#">채용</a>
+        <a href="#">미디어</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="main-banner">
+    <div class="main-memo">
+      취향을, 브랜드를, 혜택을 발견하는 즐거움<br />지금 롯데온에서 만나요
+    </div>  
+  </div>
+
+  <main>
+    <div class="container">
+      <div class="intro-text">
+        소비 등 생활 사람들이 만든 플랫폼, 롯데온은 혁신적인 온라인 쇼핑의 판을 바꿉니다.
+      </div>
+
+      <div class="section-title">쇼핑을 새롭게, 세상을 이롭게 만들어 나가요.</div>
+
+      <div class="carousel-container">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-item"><img src="/images/banner/main_slider (1).webp" alt="고객서비스"></div>
+          <div class="carousel-item"><img src="/images/banner/main_slider (2).webp" alt="하이테크"></div>
+          <div class="carousel-item"><img src="/images/banner/main_slider (3).webp" alt="하이테크"></div>
+          <div class="carousel-item"><img src="/images/banner/main_slider (3).webp" alt="하이테크"></div>
         </div>
-    </header> 
-    <main>
+        <div class="carousel-buttons">
+          <button onclick="moveSlide(-1)">&#8249;</button>
+          <button onclick="moveSlide(1)">&#8250;</button>
+        </div>
+      </div>
 
-    </main>
-    <footer>
+      <h2>롯데ON은 이렇게 성장해가고 있어요.</h2>
 
-    </footer>
+      <div class="news-item" >
+        <div>
+          <a href="#">
+          <div class="news-date">2024.07</div>
+          <div class="news-title">AI 기반 개인화 추천형 광고 솔루션 ‘스마트매출업’ 론칭!</div>
+          <div class="arrow">→</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="news-item" >
+        <div>
+          <a href="#">
+          <div class="news-date">2024.07</div>
+          <div class="news-title">롯데온에서 ‘롯데면세점 도쿄 긴자점’ 상품 한 번에 쇼핑!</div>
+          <div class="arrow">→</div>
+          </a>
+        </div>
+      </div>
+      <div class="news-item" >
+        <div>
+          <a href="#">
+          <div class="news-date">2024.07</div>
+          <div class="news-title">나만의 똑똑한 쇼핑 도우미 ‘쌀롯’ 재탄생!</div>
+          <div class="arrow">→</div>
+          </a>
+        </div>
+      </div>
+      <div class="news-item" >
+        <div>
+          <a href="#">
+          <div class="news-date">2024.07</div>
+          <div class="news-title">국내 최초의 온라인 종합쇼핑몰로서의 여정</div>
+          <div class="arrow">→</div>
+          </a>
+        </div>
+      </div>
+      <div class="section-title">국내 최초의 온라인 종합쇼핑몰로서의 여정</div>
+      <div class="timeline">
+        <img src="/images/history.png" alt="히스토리">
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-left">
+        <nav class="footer-nav">
+          <a href="#">HOME</a>
+          <a href="#">기업문화</a>
+          <a href="#">소식과 이야기</a>
+          <a href="#">채용</a>
+          <a href="#">기술블로그</a>
+        </nav>
+        <p class="copyright">© 2022 All rights Reserved</p>
+      </div>
+      <div class="footer-right">
+        <p class="email">peoplevalue@lotte.net</p>
+        <div class="sns-icons">
+          <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+          <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+          <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google"></a>
+          <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/pinterest.svg" alt="Pinterest"></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentIndex = 0;
+    const track = document.getElementById('carouselTrack');
+    const items = document.querySelectorAll('.carousel-item');
+    const itemsPerView = 2;
+    const maxIndex = Math.ceil(items.length / itemsPerView) - 1;
+
+    function moveSlide(direction) {
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = 0;
+      if (currentIndex > maxIndex) currentIndex = maxIndex;
+
+      const moveX = -(100 / itemsPerView) * currentIndex;
+      track.style.transform = `translateX(${moveX}%)`;
+    }
+  </script>
 </body>
 </html>
