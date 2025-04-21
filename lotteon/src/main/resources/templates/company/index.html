@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>롯데ON 스토리</title>
-    <link rel="stylesheet" href="/css/company/media.css" />
+    <link rel="stylesheet" href="/css/company/media.css"/>
 </head>
 <body>
 <div class="container">
     <header>
-        <img src="/images/logo/footer_logo.png" alt="롯데온 로고" />
+        <img src="/images/logo/footer_logo.png" alt="롯데온 로고"/>
         <nav>
             <a href="#">HOME</a>
             <a href="#">기업문화</a>
@@ -23,37 +23,36 @@
         <h1>미디어 세상 속 롯데&nbsp;&nbsp;ON&nbsp;&nbsp;을 소개합니다&nbsp;&nbsp;!</h1>
         <div class="subtitle">더 다양한 LotteON 영상을 소개합니다.</div>
 
-        <div class="video-section">
+        <div th:each="video : ${videoList}" class="video-section">
             <div class="video-thumbnail">
-                <img src="https://img.icons8.com/ios-filled/50/youtube-play.png" alt="영상 플레이 아이콘">
+                <!-- 유튜브 영상 삽입 -->
+                <iframe th:src="@{'https://www.youtube.com/embed/' + ${video.youtubeid}}"
+                        width="560" height="315" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
             </div>
             <div class="video-info">
-                <h2># 영상제목 1</h2>
-                <p># 부제목 EP.201 | LotteON ㅇ ㅇ ㅇ 트렌드  월 ○○일 방송</p>
-            </div>
-        </div>
-
-        <div class="video-section">
-            <div class="video-thumbnail">
-                <img src="https://img.icons8.com/ios-filled/50/youtube-play.png" alt="영상 플레이 아이콘">
-            </div>
-            <div class="video-info">
-                <h2># 영상제목 1</h2>
-                <p># 부제목 EP.201 | LotteON ㅇ ㅇ ㅇ 트렌드  월 ○○일 방송</p>
+                <h2 th:text="${video.youtubename}"># 영상제목</h2>
+                <p th:text="${video.youtubesubtitle}"># 부제목</p>
             </div>
         </div>
 
 
+        <!-- 페이지네이션 -->
         <div class="pagination">
-            <a href="#">이전</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">다음</a>
-        </div>
+            <!-- 이전 페이지 링크 -->
+            <a th:href="@{/mediaPage(page=${currentPage - 1})}" th:if="${currentPage > 1}">이전</a>
 
+            <!-- 페이지 번호 -->
+            <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+        <a th:href="@{/mediaPage(page=${i})}"
+           th:text="${i}"
+           th:classappend="${i == currentPage} ? 'active' : ''">1</a>
+    </span>
+
+            <!-- 다음 페이지 링크 -->
+            <a th:href="@{/mediaPage(page=${currentPage + 1})}" th:if="${currentPage < totalPages}">다음</a>
+        </div>
     </div>
 </div>
 <footer>
@@ -72,10 +71,14 @@
         <div class="footer-right">
             <p class="email">peoplevalue@lotte.net</p>
             <div class="sns-icons">
-                <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
-                <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
-                <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google"></a>
-                <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/pinterest.svg" alt="Pinterest"></a>
+                <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg"
+                                 alt="Facebook"></a>
+                <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg"
+                                 alt="Twitter"></a>
+                <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg"
+                                 alt="Google"></a>
+                <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/pinterest.svg"
+                                 alt="Pinterest"></a>
             </div>
         </div>
     </div>
