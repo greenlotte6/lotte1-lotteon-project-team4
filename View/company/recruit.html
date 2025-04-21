@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>롯데ON 스토리</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.6;
+      background: #fff;
+      color: #333;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 50px 20px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+    header img {
+      height: 40px;
+    }
+    nav a {
+      margin-left: 30px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    .main-banner {
+      background: url("images/bar.png") no-repeat center center/cover;
+      height: 450px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 60px;
+    }
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 20px;
+    }
+    .content{
+      width: 1000px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 18px;
+      color: #444;
+      margin-bottom: 40px;
+      line-height: 1.8;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border-bottom: 1px solid #ddd;
+      padding: 12px 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    th {
+      background-color: #f7f7f7;
+      font-weight: bold;
+    }
+
+    .status-active {
+      color: #11c263;
+      font-weight: bold;
+    }
+
+    .status-end {
+      color: #999;
+    }
+
+    .pagination {
+      text-align: center;
+      margin-top: 20px;
+      padding-bottom: 50px;
+    }
+
+    .pagination span, .pagination a {
+      display: inline-block;
+      margin: 0 5px;
+      padding: 6px 12px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .table-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    
+
+    footer {
+      background-color: #fff;
+      border-top: 1px solid #ddd;
+      padding: 30px 0;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #444;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-nav a {
+      color: #d14171;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .footer-right {
+      text-align: right;
+    }
+
+    .email {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .sns-icons a {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      margin-left: 6px;
+    }
+
+    .sns-icons img {
+      width: 100%;
+      height: auto;
+      filter: grayscale(1);
+      transition: 0.3s ease;
+    }
+
+    .sns-icons img:hover {
+      filter: grayscale(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="/images/logo/footer_logo.png" alt="롯데온 로고" />
+      <nav>
+        <a href="#">HOME</a>
+        <a href="#">기업문화</a>
+        <a href="#">소식과 이야기</a>
+        <a href="#">채용</a>
+        <a href="#">기술블로그</a>
+      </nav>
+    </header>
+  </div>
+  <div class="main">
+    <div class="content">
+      <h1>쇼핑을 새롭게 , 세상을 이롭게 이끌</h1>
+      <h1>쇼핑 좀 해본 인재를 모십니다!</h1>
+      <h2>
+        롯데 ON 은 안정성있고 혁신성있는 우리의 문화를 만들어가고 있어요. <br />
+        구성원 들은 수평적이고 자율적인 문화 속에서 선을 넘어 혁신적인 롯데 ON만의 서비스를 만들어요.<br />
+        롯데 ON과 함께 큰 흔적을 찍으며 성장하실 분들을 기다립니다.
+      </h2>
+    
+      <div class="table-title">
+        채용공고 리스트
+      </div>
+    
+      <table>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>채용부서</th>
+            <th>경력사항</th>
+            <th>채용형태</th>
+            <th>제목</th>
+            <th>상태</th>
+            <th>모집기간</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>4</td>
+            <td>광고사업팀</td>
+            <td>경력 4 ~ 15년</td>
+            <td>정규직</td>
+            <td>광고 플랫폼 기획</td>
+            <td class="status-active">모집중</td>
+            <td>0000-00-00 ~ 0000-00-00</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>IT</td>
+            <td>경력 2 ~ 15년</td>
+            <td>정규직</td>
+            <td>IT 인재 상시 영입(경력)</td>
+            <td class="status-active">모집중</td>
+            <td>0000-00-00 ~ 0000-00-00</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>문화</td>
+            <td>무관</td>
+            <td>계약직</td>
+            <td>단기 아르바이트 모집</td>
+            <td class="status-end">종료</td>
+            <td>0000-00-00 ~ 0000-00-00</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>경영</td>
+            <td>신입</td>
+            <td>계약직</td>
+            <td>경영지원 직원 채용 공고</td>
+            <td class="status-end">종료</td>
+            <td>0000-00-00 ~ 0000-00-00</td>
+          </tr>
+        </tbody>
+      </table>
+    
+      <div class="pagination">
+        <a href="#">이전</a>
+        <span class="current">1</span>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">다음</a>
+      </div>
+    
+      </div>
+    </div>
+      <footer>
+        <div class="footer-inner">
+          <div class="footer-left">
+            <nav class="footer-nav">
+              <a href="#">HOME</a>
+              <a href="#">기업문화</a>
+              <a href="#">소식과 이야기</a>
+              <a href="#">채용</a>
+              <a href="#">기술블로그</a>
+            </nav>
+            <p class="copyright">© 2022 All rights Reserved</p>
+          </div>
+      
+          <div class="footer-right">
+            <p class="email">peoplevalue@lotte.net</p>
+            <div class="sns-icons">
+              <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+              <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"></a>
+              <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" alt="Google"></a>
+              <a href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/pinterest.svg" alt="Pinterest"></a>
+            </div>
+          </div>
+        </div>
+      </footer>
+</body>
+</html>
