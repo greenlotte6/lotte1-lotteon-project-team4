@@ -11,4 +11,9 @@ public class MainController {
         return "/index";
     }
 
+    @GetMapping("/admin/index")
+    public String adminIndex() {
+        return "/admin/index";
+    }
+
 }

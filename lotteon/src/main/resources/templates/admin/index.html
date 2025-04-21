@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/admin/index.css">
-    <link rel="stylesheet" href="/css/common/_admin_header.css">
-    <link rel="stylesheet" href="/css/common/_admin_footer.css">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/admin/index.css}">
+    <link rel="stylesheet" th:href="@{/css/common/_admin_header.css}">
+    <link rel="stylesheet" th:href="@{/css/common/_admin_footer.css}">
     <!-- js -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Font Awesome CDN -->
@@ -17,260 +19,201 @@
 </head>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        
-        $('.hover').click(function(e) {
+
+        $('.hover').click(function (e) {
             $(this).parent().toggleClass('active');
         })
-            
+
 
     });
 </script>
+
 <body>
-    <header>
-        <div class="wrapper">
-            <div class="wrapper-suv">
-                <div class="user-nav">
-                    <ul>
-                        <li><a href="#">홈</a></li>
-                        <li><a href="#">로그아웃</a></li>
-                        <li><a href="#">고객센터</a></li>
-                    </ul>
-                </div>
-                <div class="logo">
-                    <a href="#"><img src="/images/logo/logo_white.png" alt="LotteON-logo"></a>
-                </div>
+<th:block th:include="/common/_admin_header.html"/>
+<th:block th:include="/common/_admin_aside.html"/>
+
+<div class="main">
+    <div class="setting">
+        <h1>관리자메인</h1>
+        <ul>
+            <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
+            <li><a th:href="@{/admin/index}"><span>관리자 메인 &nbsp;</span></a></li>
+        </ul>
+    </div>
+    <div class="line"></div>
+    <div class="status">
+        <div class="chart">
+            <h2>집계현황</h2>
+            <div>
+                <canvas id="myChart"></canvas>
+                <canvas id="myChart2"></canvas>
             </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+            <script>
+                const ctx = document.getElementById('myChart');
+                const ctx2 = document.getElementById('myChart2');
+
+                new Chart(ctx, ctx2
+                {
+                    type: 'bar',
+                        data
+                :
+                    {
+                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                            datasets
+                    :
+                        [{
+                            label: '# of Votes',
+                            data: [12, 19, 3, 5, 2, 3],
+                            borderWidth: 1
+                        }]
+                    }
+                ,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                }
+                )
+                ;
+            </script>
         </div>
-    </header>
-    <main>
-        <div class="main-wrapper">
-            <aside>
-                <div class="aside">
-                    <ul class="out-ul">
-                        <div class="ul-list">
-                            <li>
-                                <i class="fas fa-cogs"></i><a href="#" class="hover">환경설정</a>
-                                <ul class="in-ul">
-                                    <li><a href="#">- 기본설정</a></li>
-                                    <li><a href="#">- 배너관리</a></li>
-                                    <li><a href="#">- 약관관리</a></li>
-                                    <li><a href="#">- 카테고리</a></li>
-                                    <li><a href="#">- 버전관리</a></li>
-                                </ul>
-                            </li>
-                        </div>
-                        <div class="ul-list">
-                            <li>
-                                <i class="fas fa-store"></i> <a href="#" class="hover">상점관리</a>
-                                <ul class="in-ul">
-                                    <li><a href="#">- 상점목록</a></li>
-                                    <li><a href="#">- 매출현황</a></li>
-                                </ul>
-                            </li>
-                        </div>
-                        <div class="ul-list">
-                            <li>
-                                <i class="fas fa-users"></i> <a href="#" class="hover">회원관리</a>
-                                <ul class="in-ul">
-                                    <li><a href="#">- 회원목록</a></li>
-                                    <li><a href="#">- 포인트관리</a></li>
-                                </ul>
-                            </li>
-                        </div>
-                        <div class="ul-list">
-                            <li>
-                                <i class="fas fa-box"></i> <a href="#" class="hover">상품관리</a>
-                                <ul class="in-ul">
-                                    <li><a href="#">- 상품목록</a></li>
-                                    <li><a href="#">- 상품등록</a></li>
-                                    <li><a href="#">- 카테고리</a></li>
-                                </ul>
-                            </li>
-                        </div>
-                        <div class="ul-list">
-                            <li>
-                                <i class="fas fa-receipt"></i> <a href="#" class="hover">주문관리</a>
-                                <ul class="in-ul">
-                                    <li><a href="#">- 주문현황</a></li>
-                                    <li><a href="#">- 배송현황</a></li>
-                                </ul>
-                            </li>
-                        </div>
-                        <div class="ul-list">
-                            <li>
-                                <i class="fas fa-ticket-alt"></i> <a href="#" class="hover">쿠폰관리</a>
-                                <ul class="in-ul">
-                                    <li><a href="#">- 쿠폰목록</a></li>
-                                    <li><a href="#">- 쿠폰발급현황</a></li>
-                                </ul>
-                            </li>
-                        </div>
-                        <div class="ul-list">
-                            <li>
-                                <i class="fas fa-headset"></i> <a href="#" class="hover">고객센터</a>
-                                <ul class="in-ul">
-                                    <li><a href="#">- 공지사항</a></li>
-                                    <li><a href="#">- 자주묻는질문</a></li>
-                                    <li><a href="#">- 문의하기</a></li>
-                                    <li><a href="#">- 채용하기</a></li>
-                                </ul>
-                            </li>
-                        </div>
-                    </ul>
-                </div>
-            </aside>
-            
-            <div class="main">
-                <div class="setting">
-                    <h1>관리자메인</h1>
-                    <ul>
-                        <li><a href="#">HOME &nbsp;>&nbsp;</a></li>
-                        <li><a href="#"><span>관리자 메인 &nbsp;</span></a></li>
-                    </ul>
-                </div>
-                <div class="line"></div>
-                <div class="status">
-                    <div class="chart">
-                        <h2>집계현황</h2>
-                        <p>주요매출<br>
-                        차트 들어갈 자리</p>
-                    </div>
-                    <div class="operation">
-                        <h2>운영현황</h2>
-                        <table border="1">
-                            <tr>
-                                <td><span class="name">입금대기</span><br><span class="count">101</span></td>
-                                <td><span class="name">배송준비</span><br><span class="count">124</span></td>
-                                <td><span class="name">취소요청</span><br><span class="count">14</span></td>
-                                <td><span class="name">교환요청</span><br><span class="count">7</span></td>
-                                <td><span class="name">반품요청</span><br><span class="count">24</span></td>
-                            </tr>    
-                        </table>
-                        <table border="1">
-                            <thead class="division">
-                              <tr>
-                                <th><span class="name">구분</span></th>
-                                <th><span class="name">주문 건수</span></th>
-                                <th><span class="name">주문 금액</span></th>
-                                <th><span class="name">회원 가입</span></th>
-                                <th><span class="name">방문자 수</span></th>
-                                <th><span class="name">문의 게시물</span></th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>합계</td>
-                                <td class="highlight"><span class="count">131</span></td>
-                                <td class="highlight"><span class="count">3,700,000</span></td>
-                                <td class="highlight"><span class="count">232</span></td>
-                                <td class="highlight"><span class="count">2,500</span></td>
-                                <td class="highlight"><span class="count">25</span></td>
-                              </tr>
-                              <tr>
-                                <td>오늘</td>
-                                <td>60</td>
-                                <td>1,200,000</td>
-                                <td>102</td>
-                                <td>1,300</td>
-                                <td>13</td>
-                              </tr>
-                              <tr>
-                                <td>어제</td>
-                                <td>71</td>
-                                <td>2,500,000</td>
-                                <td>130</td>
-                                <td>1,200</td>
-                                <td>12</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                    </div>
-                </div>
-                <div class="notice">
-                    <div class="notice-in">
-                        <div class="h2">
-                            <h2>공지사항</h2>
-                        </div>
-                        <table>
-                            <tr>
-                                <td><a href="#">[안내] 해외 결제 사칭 문자 주의</a></td>
-                                <td>22.10.31</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">[안내] 로젠 택배 반품/교환 수거지</a></td>
-                                <td>22.10.31</td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">[안내] 위치 정보 이용 약관 개정 공...</a></td>
-                                <td>22.10.31</td>
-                            </tr>
-                                <tr>
-                                <td><a href="#">[안내] 구매 회원 이용 약관 개정</a></td>
-                                <td>22.10.31</td>
-                            </tr>
-                                <tr>
-                                <td><a href="#">[안내] 씨티 은행 시스템 점검 에 따...</a></td>
-                                <td>22.10.31</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="inqu">
-                        <div class="h2">
-                            <h2>고객문의</h2>
-                        </div>
-                        <table>
-                            <tr>
-                                <td><a href="#">[가입] 가입문의내용</a></td>
-                                <td>chh**</td>
-                                <td>22.10.31</td>
-                            </tr>
-                        </table>
-                        <table>
-                            <tr>
-                                <td><a href="#">[가입] 가입문의내용</a></td>
-                                <td>chh**</td>
-                                <td>22.10.31</td>
-                            </tr>
-                        </table>
-                        <table>
-                            <tr>
-                                <td><a href="#">[가입] 가입문의내용</a></td>
-                                <td>chh**</td>
-                                <td>22.10.31</td>
-                            </tr>
-                        </table>
-                        <table>
-                            <tr>
-                                <td><a href="#">[가입] 가입문의내용</a></td>
-                                <td>chh**</td>
-                                <td>22.10.31</td>
-                            </tr>
-                        </table>
-                        <table>
-                            <tr>
-                                <td><a href="#">[가입] 가입문의내용</a></td>
-                                <td>chh**</td>
-                                <td>22.10.31</td>
-                            </tr>
-                        </table>
-                        <table>
-                            <tr>
-                                <td><a href="#">[가입] 가입문의내용</a></td>
-                                <td>chh**</td>
-                                <td>22.10.31</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+        <div class="operation">
+            <h2>운영현황</h2>
+            <table border="1">
+                <tr>
+                    <td><span class="name">입금대기</span><br><span class="count">101</span></td>
+                    <td><span class="name">배송준비</span><br><span class="count">124</span></td>
+                    <td><span class="name">취소요청</span><br><span class="count">14</span></td>
+                    <td><span class="name">교환요청</span><br><span class="count">7</span></td>
+                    <td><span class="name">반품요청</span><br><span class="count">24</span></td>
+                </tr>
+            </table>
+            <table border="1">
+                <thead class="division">
+                <tr>
+                    <th><span class="name">구분</span></th>
+                    <th><span class="name">주문 건수</span></th>
+                    <th><span class="name">주문 금액</span></th>
+                    <th><span class="name">회원 가입</span></th>
+                    <th><span class="name">방문자 수</span></th>
+                    <th><span class="name">문의 게시물</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>합계</td>
+                    <td class="highlight"><span class="count">131</span></td>
+                    <td class="highlight"><span class="count">3,700,000</span></td>
+                    <td class="highlight"><span class="count">232</span></td>
+                    <td class="highlight"><span class="count">2,500</span></td>
+                    <td class="highlight"><span class="count">25</span></td>
+                </tr>
+                <tr>
+                    <td>오늘</td>
+                    <td>60</td>
+                    <td>1,200,000</td>
+                    <td>102</td>
+                    <td>1,300</td>
+                    <td>13</td>
+                </tr>
+                <tr>
+                    <td>어제</td>
+                    <td>71</td>
+                    <td>2,500,000</td>
+                    <td>130</td>
+                    <td>1,200</td>
+                    <td>12</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="notice">
+        <div class="notice-in">
+            <div class="h2">
+                <h2>공지사항</h2>
             </div>
+            <table>
+                <tr>
+                    <td><a href="#">[안내] 해외 결제 사칭 문자 주의</a></td>
+                    <td>22.10.31</td>
+                </tr>
+                <tr>
+                    <td><a href="#">[안내] 로젠 택배 반품/교환 수거지</a></td>
+                    <td>22.10.31</td>
+                </tr>
+                <tr>
+                    <td><a href="#">[안내] 위치 정보 이용 약관 개정 공...</a></td>
+                    <td>22.10.31</td>
+                </tr>
+                <tr>
+                    <td><a href="#">[안내] 구매 회원 이용 약관 개정</a></td>
+                    <td>22.10.31</td>
+                </tr>
+                <tr>
+                    <td><a href="#">[안내] 씨티 은행 시스템 점검 에 따...</a></td>
+                    <td>22.10.31</td>
+                </tr>
+            </table>
         </div>
-    </main>
-    <footer>
-        <div class="footer">
-            <p>
-                Copyright © LOTTESHOPPING Co., LTD. All rights reserved. LotteON ADMINISTRATOR Version 5.4.1.2
-            </p>
+        <div class="inqu">
+            <div class="h2">
+                <h2>고객문의</h2>
+            </div>
+            <table>
+                <tr>
+                    <td><a href="#">[가입] 가입문의내용</a></td>
+                    <td>chh**</td>
+                    <td>22.10.31</td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td><a href="#">[가입] 가입문의내용</a></td>
+                    <td>chh**</td>
+                    <td>22.10.31</td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td><a href="#">[가입] 가입문의내용</a></td>
+                    <td>chh**</td>
+                    <td>22.10.31</td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td><a href="#">[가입] 가입문의내용</a></td>
+                    <td>chh**</td>
+                    <td>22.10.31</td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td><a href="#">[가입] 가입문의내용</a></td>
+                    <td>chh**</td>
+                    <td>22.10.31</td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td><a href="#">[가입] 가입문의내용</a></td>
+                    <td>chh**</td>
+                    <td>22.10.31</td>
+                </tr>
+            </table>
         </div>
-    </footer>
+    </div>
+</div>
+</div>
+</main>
+<th:block th:include="/common/_admin_footer.html"/>
 </body>
+
 </html>
