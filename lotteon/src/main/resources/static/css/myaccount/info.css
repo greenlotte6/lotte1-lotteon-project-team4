@@ -178,28 +178,7 @@ body {
     font-weight: bold;
     margin-bottom: 10px;
   }
-  
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .table th, .table td {
-    height: 30px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-    font-size: 14px;
-    border-left: none;
-    border-right: none;
-  
-  }
-  
-  .table th {
-    background-color:gray;
-    color:#fff
-  }
+
   
   
   .see-more {

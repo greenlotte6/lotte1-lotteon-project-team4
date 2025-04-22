@@ -16,4 +16,6 @@ public class MemberController {
         return "/admin/member/point";
     }
 
+
+
 }
