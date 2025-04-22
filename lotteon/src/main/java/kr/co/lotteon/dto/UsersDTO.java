@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class UsersDTO {
 
     private String uid;
-    private int t_u_num;
+    private int no;
     private String uname;
     private String password;
     private String gender;
@@ -27,9 +27,9 @@ public class UsersDTO {
     private String addr1;
     private String addr2;
     private String role;
-    private String u_creates_at;
+    private LocalDateTime u_created_at;
     private String status;
-    private String u_last_login;
+    private LocalDateTime u_last_login;
     private String mgmt;
     private String other;
 

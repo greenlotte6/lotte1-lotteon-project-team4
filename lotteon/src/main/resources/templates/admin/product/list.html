@@ -3,7 +3,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/common/_admin_header.css}">
     <link rel="stylesheet" th:href="@{/css/common/_admin_footer.css}">
     <link rel="stylesheet" th:href="@{/css/admin/product/list.css}">
@@ -25,168 +26,170 @@
 </script>
 <body>
 <th:block th:include="/common/_admin_header"/>
-<th:block th:include="/common/_admin_aside"/>
+<main>
+    <div class="main-wrapper">
+        <th:block th:include="/common/_admin_aside"/>
 
-<div class="main">
-    <div class="setting">
-        <h1>상품현황</h1>
-        <ul>
-            <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/product/list}">상품관리&nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/product/list}"><span>상품목록&nbsp;</span></a></li>
-        </ul>
-    </div>
-    <div class="line"></div>
-    <div class="container">
-        <div class="search">
-            <select name="" id="">
-                <option value="">상품명</option>
-                <option value="">상품번호</option>
-                <option value="">판매자</option>
-                <option value="">제조사</option>
-            </select>
-            <input type="text" placeholder="검색어입력">
-            <button>검색</button>
+        <div class="main">
+            <div class="setting">
+                <h1>상품현황</h1>
+                <ul>
+                    <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/product/list}">상품관리&nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/product/list}"><span>상품목록&nbsp;</span></a></li>
+                </ul>
+            </div>
+            <div class="line"></div>
+            <div class="container">
+                <div class="search">
+                    <select name="" id="">
+                        <option value="">상품명</option>
+                        <option value="">상품번호</option>
+                        <option value="">판매자</option>
+                        <option value="">제조사</option>
+                    </select>
+                    <input type="text" placeholder="검색어입력">
+                    <button>검색</button>
+                </div>
+                <div class="table-wrapper">
+                    <div class="table">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>사진</th>
+                                <th>상품코드</th>
+                                <th>상품명</th>
+                                <th>판매가격</th>
+                                <th>할인율</th>
+                                <th>포인트</th>
+                                <th>재고</th>
+                                <th>판매자</th>
+                                <th>조회</th>
+                                <th>관리</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td><img th:src="@{/images/bar.png}" alt="상품 이미지 미리보기"></td>
+                                <td>201603292</td>
+                                <td>상품명 #1</td>
+                                <td>32,000</td>
+                                <td>10%</td>
+                                <td>320</td>
+                                <td>1,000</td>
+                                <td>(주)다파라</td>
+                                <td>120</td>
+                                <td>
+                                    <div>
+                                        <button type="button" class="delete">[삭제]</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="modify">[수정]</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td><img th:src="@{/images/bar.png}" alt="상품 이미지 미리보기"></td>
+                                <td>201603292</td>
+                                <td>상품명 #1</td>
+                                <td>32,000</td>
+                                <td>10%</td>
+                                <td>320</td>
+                                <td>1,000</td>
+                                <td>(주)다파라</td>
+                                <td>120</td>
+                                <td>
+                                    <div>
+                                        <button type="button" class="delete">[삭제]</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="modify">[수정]</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td><img th:src="@{/images/bar.png}" alt="상품 이미지 미리보기"></td>
+                                <td>201603292</td>
+                                <td>상품명 #1</td>
+                                <td>32,000</td>
+                                <td>10%</td>
+                                <td>320</td>
+                                <td>1,000</td>
+                                <td>(주)다파라</td>
+                                <td>120</td>
+                                <td>
+                                    <div>
+                                        <button type="button" class="delete">[삭제]</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="modify">[수정]</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td><img th:src="@{/images/bar.png}" alt="상품 이미지 미리보기"></td>
+                                <td>201603292</td>
+                                <td>상품명 #1</td>
+                                <td>32,000</td>
+                                <td>10%</td>
+                                <td>320</td>
+                                <td>1,000</td>
+                                <td>(주)다파라</td>
+                                <td>120</td>
+                                <td>
+                                    <div>
+                                        <button type="button" class="delete">[삭제]</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="modify">[수정]</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td><img th:src="@{/images/bar.png}" alt="상품 이미지 미리보기"></td>
+                                <td>201603292</td>
+                                <td>상품명 #1</td>
+                                <td>32,000</td>
+                                <td>10%</td>
+                                <td>320</td>
+                                <td>1,000</td>
+                                <td>(주)다파라</td>
+                                <td>120</td>
+                                <td>
+                                    <div>
+                                        <button type="button" class="delete">[삭제]</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="modify">[수정]</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="click">
+                        <button class="select-delete button">선택삭제</button>
+                        <button class="banner-register button">상품등록</button>
+                    </div>
+                    <div class="page">
+                        <button class="page-move">이전</button>
+                        <button>[1]</button>
+                        <button>[2]</button>
+                        <button>[3]</button>
+                        <button>[4]</button>
+                        <button>[5]</button>
+                        <button class="page-move">다음</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="table-wrapper">
-            <div class="table">
-                <table>
-                    <thead>
-                    <tr>
-                        <th><input type="checkbox"></th>
-                        <th>사진</th>
-                        <th>상품코드</th>
-                        <th>상품명</th>
-                        <th>판매가격</th>
-                        <th>할인율</th>
-                        <th>포인트</th>
-                        <th>재고</th>
-                        <th>판매자</th>
-                        <th>조회</th>
-                        <th>관리</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td><img th:src="@{/images/bar.png}" alt="상품 이미지 미리보기"></td>
-                        <td>201603292</td>
-                        <td>상품명 #1</td>
-                        <td>32,000</td>
-                        <td>10%</td>
-                        <td>320</td>
-                        <td>1,000</td>
-                        <td>(주)다파라</td>
-                        <td>120</td>
-                        <td>
-                            <div>
-                                <button type="button" class="delete">[삭제]</button>
-                            </div>
-                            <div>
-                                <button type="button" class="modify">[수정]</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td><img th:src="@{/images/bar.png}" alt="상품 이미지 미리보기"></td>
-                        <td>201603292</td>
-                        <td>상품명 #1</td>
-                        <td>32,000</td>
-                        <td>10%</td>
-                        <td>320</td>
-                        <td>1,000</td>
-                        <td>(주)다파라</td>
-                        <td>120</td>
-                        <td>
-                            <div>
-                                <button type="button" class="delete">[삭제]</button>
-                            </div>
-                            <div>
-                                <button type="button" class="modify">[수정]</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td><img th:src="@{/images/bar.png}" alt="상품 이미지 미리보기"></td>
-                        <td>201603292</td>
-                        <td>상품명 #1</td>
-                        <td>32,000</td>
-                        <td>10%</td>
-                        <td>320</td>
-                        <td>1,000</td>
-                        <td>(주)다파라</td>
-                        <td>120</td>
-                        <td>
-                            <div>
-                                <button type="button" class="delete">[삭제]</button>
-                            </div>
-                            <div>
-                                <button type="button" class="modify">[수정]</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td><img th:src="@{/images/bar.png}" alt="상품 이미지 미리보기"></td>
-                        <td>201603292</td>
-                        <td>상품명 #1</td>
-                        <td>32,000</td>
-                        <td>10%</td>
-                        <td>320</td>
-                        <td>1,000</td>
-                        <td>(주)다파라</td>
-                        <td>120</td>
-                        <td>
-                            <div>
-                                <button type="button" class="delete">[삭제]</button>
-                            </div>
-                            <div>
-                                <button type="button" class="modify">[수정]</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td><img th:src="@{/images/bar.png}" alt="상품 이미지 미리보기"></td>
-                        <td>201603292</td>
-                        <td>상품명 #1</td>
-                        <td>32,000</td>
-                        <td>10%</td>
-                        <td>320</td>
-                        <td>1,000</td>
-                        <td>(주)다파라</td>
-                        <td>120</td>
-                        <td>
-                            <div>
-                                <button type="button" class="delete">[삭제]</button>
-                            </div>
-                            <div>
-                                <button type="button" class="modify">[수정]</button>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="click">
-                <button class="select-delete button">선택삭제</button>
-                <button class="banner-register button">상품등록</button>
-            </div>
-            <div class="page">
-                <button class="page-move">이전</button>
-                <button>[1]</button>
-                <button>[2]</button>
-                <button>[3]</button>
-                <button>[4]</button>
-                <button>[5]</button>
-                <button class="page-move">다음</button>
-            </div>
-        </div>
     </div>
-</div>
-</div>
 </main>
 <th:block th:include="/common/_admin_footer"/>
 </body>

@@ -19,7 +19,7 @@ public class Users {
 
     @Id
     private String uid;
-    private int t_u_num;
+    private int no;
     private String uname;
     private String password;
     private String gender;
@@ -33,7 +33,7 @@ public class Users {
     private String role;
 
     @CreationTimestamp
-    private LocalDateTime u_creates_at;
+    private LocalDateTime u_created_at;
 
     private String status;
 

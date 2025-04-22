@@ -3,7 +3,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/common/_admin_header.css}">
     <link rel="stylesheet" th:href="@{/css/common/_admin_footer.css}">
     <link rel="stylesheet" th:href="@{/css/admin/shop/sales.css}">
@@ -26,129 +27,131 @@
 
 <body>
 <th:block th:include="/common/_admin_header"/>
-<th:block th:include="/common/_admin_aside"/>
+<main>
+    <div class="main-wrapper">
+        <th:block th:include="/common/_admin_aside"/>
 
-<div class="main">
-    <div class="setting">
-        <h1>매출현황</h1>
-        <ul>
-            <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/shop/list}">상점관리&nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/shop/sales}"><span>매출현황&nbsp;</span></a></li>
-        </ul>
-    </div>
-    <div class="line"></div>
-    <div class="container">
-        <div class="search">
-            <select name="" id="">
-                <option value="">일별</option>
-                <option value="">주간</option>
-                <option value="">한달</option>
-            </select>
-        </div>
-        <div class="table-wrapper">
-            <div class="table">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>상호명</th>
-                        <th>사업자등록번호</th>
-                        <th>
-                            주문건수
-                            <button>↑</button>
-                        </th>
-                        <th>결제완료</th>
-                        <th>배송중</th>
-                        <th>배송완료</th>
-                        <th>구매확정</th>
-                        <th>
-                            주문합계
-                            <button>↑</button>
-                        </th>
-                        <th>
-                            매출합계
-                            <button>↑</button>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>5</td>
-                        <td>(주)다나와</td>
-                        <td>112-12-12345</td>
-                        <td>103</td>
-                        <td>90</td>
-                        <td>56</td>
-                        <td>52</td>
-                        <td>50</td>
-                        <td>12,870,600</td>
-                        <td>10,870,600</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>(주)멋남</td>
-                        <td>112-12-12345</td>
-                        <td>103</td>
-                        <td>90</td>
-                        <td>56</td>
-                        <td>52</td>
-                        <td>50</td>
-                        <td>12,870,600</td>
-                        <td>10,870,600</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>(주)컴퓨존</td>
-                        <td>112-12-12345</td>
-                        <td>103</td>
-                        <td>90</td>
-                        <td>56</td>
-                        <td>52</td>
-                        <td>50</td>
-                        <td>12,870,600</td>
-                        <td>10,870,600</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>(주)다나와</td>
-                        <td>112-12-12345</td>
-                        <td>103</td>
-                        <td>90</td>
-                        <td>56</td>
-                        <td>52</td>
-                        <td>50</td>
-                        <td>12,870,600</td>
-                        <td>10,870,600</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>(주)다나와</td>
-                        <td>112-12-12345</td>
-                        <td>103</td>
-                        <td>90</td>
-                        <td>56</td>
-                        <td>52</td>
-                        <td>50</td>
-                        <td>12,870,600</td>
-                        <td>10,870,600</td>
-                    </tr>
-                    </tbody>
-                </table>
+        <div class="main">
+            <div class="setting">
+                <h1>매출현황</h1>
+                <ul>
+                    <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/shop/list}">상점관리&nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/shop/sales}"><span>매출현황&nbsp;</span></a></li>
+                </ul>
             </div>
-            <div class="page">
-                <button class="page-move">이전</button>
-                <button>[1]</button>
-                <button>[2]</button>
-                <button>[3]</button>
-                <button>[4]</button>
-                <button>[5]</button>
-                <button class="page-move">다음</button>
+            <div class="line"></div>
+            <div class="container">
+                <div class="search">
+                    <select name="" id="">
+                        <option value="">일별</option>
+                        <option value="">주간</option>
+                        <option value="">한달</option>
+                    </select>
+                </div>
+                <div class="table-wrapper">
+                    <div class="table">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>상호명</th>
+                                <th>사업자등록번호</th>
+                                <th>
+                                    주문건수
+                                    <button>↑</button>
+                                </th>
+                                <th>결제완료</th>
+                                <th>배송중</th>
+                                <th>배송완료</th>
+                                <th>구매확정</th>
+                                <th>
+                                    주문합계
+                                    <button>↑</button>
+                                </th>
+                                <th>
+                                    매출합계
+                                    <button>↑</button>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>5</td>
+                                <td>(주)다나와</td>
+                                <td>112-12-12345</td>
+                                <td>103</td>
+                                <td>90</td>
+                                <td>56</td>
+                                <td>52</td>
+                                <td>50</td>
+                                <td>12,870,600</td>
+                                <td>10,870,600</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>(주)멋남</td>
+                                <td>112-12-12345</td>
+                                <td>103</td>
+                                <td>90</td>
+                                <td>56</td>
+                                <td>52</td>
+                                <td>50</td>
+                                <td>12,870,600</td>
+                                <td>10,870,600</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>(주)컴퓨존</td>
+                                <td>112-12-12345</td>
+                                <td>103</td>
+                                <td>90</td>
+                                <td>56</td>
+                                <td>52</td>
+                                <td>50</td>
+                                <td>12,870,600</td>
+                                <td>10,870,600</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>(주)다나와</td>
+                                <td>112-12-12345</td>
+                                <td>103</td>
+                                <td>90</td>
+                                <td>56</td>
+                                <td>52</td>
+                                <td>50</td>
+                                <td>12,870,600</td>
+                                <td>10,870,600</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>(주)다나와</td>
+                                <td>112-12-12345</td>
+                                <td>103</td>
+                                <td>90</td>
+                                <td>56</td>
+                                <td>52</td>
+                                <td>50</td>
+                                <td>12,870,600</td>
+                                <td>10,870,600</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="page">
+                        <button class="page-move">이전</button>
+                        <button>[1]</button>
+                        <button>[2]</button>
+                        <button>[3]</button>
+                        <button>[4]</button>
+                        <button>[5]</button>
+                        <button class="page-move">다음</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-</div>
 </main>
 <th:block th:include="/common/_admin_footer"/>
 </body>

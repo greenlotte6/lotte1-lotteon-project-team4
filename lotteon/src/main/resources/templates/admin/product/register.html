@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/common/_admin_header.css}">
     <link rel="stylesheet" th:href="@{/css/common/_admin_footer.css}">
     <link rel="stylesheet" th:href="@{/css/admin/product/register.css}">
@@ -23,8 +24,8 @@
             $(this).parent().toggleClass('active');
         })
 
-        $(document).ready(function() {
-            $('.modify button').click(function() {
+        $(document).ready(function () {
+            $('.modify button').click(function () {
                 let newRow = `
                 <tr>
                     <td>옵션${$('.logo-view table tr').length + 1}</td>
@@ -43,179 +44,181 @@
 
 <body>
 <th:block th:include="/common/_admin_header"/>
-<th:block th:include="/common/_admin_aside"/>
+<main>
+    <div class="main-wrapper">
+        <th:block th:include="/common/_admin_aside"/>
 
-<div class="main">
-    <div class="setting">
-        <h1>상품등록</h1>
-        <ul>
-            <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/product/list}">상품관리&nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/product/register}"><span>상품등록&nbsp;</span></a></li>
-        </ul>
+        <div class="main">
+            <div class="setting">
+                <h1>상품등록</h1>
+                <ul>
+                    <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/product/list}">상품관리&nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/product/register}"><span>상품등록&nbsp;</span></a></li>
+                </ul>
+            </div>
+            <div class="line"></div>
+            <div class="info">
+                <div class="version">
+                    <h2>상품분류</h2>
+                    <div class="version-text p-div">
+                        <p>1차, 2차 카테고리 기본분류는 반드시 선택하셔야 합니다.</p>
+                    </div>
+                    <div class="version-view">
+                        <table>
+                            <tr>
+                                <td>1차 분류</td>
+                                <td>
+                                    <select name="">
+                                        <option value="">1차 분류 선택</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2차 분류</td>
+                                <td>
+                                    <select name="">
+                                        <option value="">2차 분류 선택</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="site">
+                    <h2>기본정보</h2>
+                    <div class="site-text p-div">
+                        <p>기본정보는 반드시 입력하셔야 합니다.</p>
+                    </div>
+                    <div class="site-view">
+                        <table>
+                            <tr>
+                                <td>상품명</td>
+                                <td><input type="text" name="name"></td>
+                            </tr>
+                            <tr>
+                                <td>기본설명</td>
+                                <td><input type="text" name="info"></td>
+                            </tr>
+                            <tr>
+                                <td>제조사</td>
+                                <td><input type="text" name="company"></td>
+                            </tr>
+                            <tr>
+                                <td>상품금액</td>
+                                <td><input type="text" name="price">원</td>
+                            </tr>
+                            <tr>
+                                <td>할인율</td>
+                                <td><input type="text" name="sale">%</td>
+                            </tr>
+                            <tr>
+                                <td>포인트</td>
+                                <td><input type="text" name="point">원</td>
+                            </tr>
+                            <tr>
+                                <td>재고수량</td>
+                                <td><input type="text" name="stock">개</td>
+                            </tr>
+                            <tr>
+                                <td>배송비</td>
+                                <td><input type="text" name="shipping-fee">원</td>
+                            </tr>
+                            <tr>
+                                <td>상품 이미지</td>
+                                <td>
+                                    <div><input type="file" name="img" class="file">크기 190*190, 상품 목록에 출력 될 이미지입니다.
+                                    </div>
+                                    <div><input type="file" name="img" class="file">크기 230*230, 상품 메인에 출력 될 이미지입니다.
+                                    </div>
+                                    <div><input type="file" name="img" class="file">크기 456*456, 상품 상세에 출력 될 이미지입니다.
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>상품 상세정보</td>
+                                <td><input type="file" name="detail" class="detail">크기 가로 940px, 높이 제약없음, 크기 최대 1MB
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="logo">
+                    <h2>상품 선택정보</h2>
+                    <div class="logo-text p-div">
+                        <p>
+                            상품별 선택 정보(옵션) 입력입니다.<br>
+                            예시) 옵션1 : 사이즈, 옵션1 항목 : XXL, XL, L, M, S (, 콤마로 구분)
+                        </p>
+                    </div>
+                    <div class="logo-view">
+                        <table>
+                            <tr>
+                                <td>옵션1</td>
+                                <td><input type="text" name="option1"></td>
+                                <td class="option">옵션1 항목</td>
+                                <td class="detail"><input type="text" name="option1-detail"></td>
+                            </tr>
+                            <tr>
+                                <td>옵션2</td>
+                                <td><input type="text" name="option2"></td>
+                                <td class="option">옵션2 항목</td>
+                                <td class="detail"><input type="text" name="option2-detail"></td>
+                            </tr>
+                            <tr>
+                                <td>옵션3</td>
+                                <td><input type="text" name="option3"></td>
+                                <td class="option">옵션3 항목</td>
+                                <td class="detail"><input type="text" name="option3-detail"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modify">
+                        <button>옵션 추가</button>
+                    </div>
+                </div>
+
+                <div class="company-info">
+                    <h2>상품정보 제공고시</h2>
+                    <div class="company-info-text p-div">
+                        <p>[전자상거래에 관한 상품 정보 제공에 관한 고시] 항목에 의거 등록하는 정보입니다.</p>
+                    </div>
+                    <div class="company-info-view">
+                        <table>
+                            <tr>
+                                <td>상품상태</td>
+                                <td><input type="text" name="" placeholder="예) 새상품"></td>
+                            </tr>
+                            <tr>
+                                <td>부가세 면세여부</td>
+                                <td><input type="text" name="" placeholder="예) 과세상품"></td>
+                            </tr>
+                            <tr>
+                                <td>영수증 발행</td>
+                                <td><input type="text" name="" placeholder="예) 신용카드전표, 온라인현금영수증 등"></td>
+                            </tr>
+                            <tr>
+                                <td>사업자구분</td>
+                                <td><input type="text" name="" placeholder="예) 사업자판매자"></td>
+                            </tr>
+                            <tr>
+                                <td>원산지</td>
+                                <td><input type="text" name="" placeholder="예) 국내산"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="register-info">
+                        <p>전자상거래등에서의 상품 등의 정보 제공에 관한 고시에 따라 총 35개 상품군에 대해 상품 특성 등을 양식에 따라 입력할 수 있습니다.</p>
+                    </div>
+                    <div class="modify register">
+                        <button>등록하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="line"></div>
-    <div class="info">
-        <div class="version">
-            <h2>상품분류</h2>
-            <div class="version-text p-div">
-                <p>1차, 2차 카테고리 기본분류는 반드시 선택하셔야 합니다.</p>
-            </div>
-            <div class="version-view">
-                <table>
-                    <tr>
-                        <td>1차 분류</td>
-                        <td>
-                            <select name="" >
-                                <option value="">1차 분류 선택</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2차 분류</td>
-                        <td>
-                            <select name="" >
-                                <option value="">2차 분류 선택</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <div class="site">
-            <h2>기본정보</h2>
-            <div class="site-text p-div">
-                <p>기본정보는 반드시 입력하셔야 합니다.</p>
-            </div>
-            <div class="site-view">
-                <table>
-                    <tr>
-                        <td>상품명</td>
-                        <td><input type="text" name="name"></td>
-                    </tr>
-                    <tr>
-                        <td>기본설명</td>
-                        <td><input type="text" name="info"></td>
-                    </tr>
-                    <tr>
-                        <td>제조사</td>
-                        <td><input type="text" name="company"></td>
-                    </tr>
-                    <tr>
-                        <td>상품금액</td>
-                        <td><input type="text" name="price">원</td>
-                    </tr>
-                    <tr>
-                        <td>할인율</td>
-                        <td><input type="text" name="sale">%</td>
-                    </tr>
-                    <tr>
-                        <td>포인트</td>
-                        <td><input type="text" name="point">원</td>
-                    </tr>
-                    <tr>
-                        <td>재고수량</td>
-                        <td><input type="text" name="stock">개</td>
-                    </tr>
-                    <tr>
-                        <td>배송비</td>
-                        <td><input type="text" name="shipping-fee">원</td>
-                    </tr>
-                    <tr>
-                        <td>상품 이미지</td>
-                        <td>
-                            <div><input type="file" name="img" class="file">크기 190*190, 상품 목록에 출력 될 이미지입니다.
-                            </div>
-                            <div><input type="file" name="img" class="file">크기 230*230, 상품 메인에 출력 될 이미지입니다.
-                            </div>
-                            <div><input type="file" name="img" class="file">크기 456*456, 상품 상세에 출력 될 이미지입니다.
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>상품 상세정보</td>
-                        <td><input type="file" name="detail" class="detail">크기 가로 940px, 높이 제약없음, 크기 최대 1MB
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <div class="logo">
-            <h2>상품 선택정보</h2>
-            <div class="logo-text p-div">
-                <p>
-                    상품별 선택 정보(옵션) 입력입니다.<br>
-                    예시) 옵션1 : 사이즈, 옵션1 항목 : XXL, XL, L, M, S (, 콤마로 구분)
-                </p>
-            </div>
-            <div class="logo-view">
-                <table>
-                    <tr>
-                        <td>옵션1</td>
-                        <td><input type="text" name="option1"></td>
-                        <td class="option">옵션1 항목</td>
-                        <td class="detail"><input type="text" name="option1-detail"></td>
-                    </tr>
-                    <tr>
-                        <td>옵션2</td>
-                        <td><input type="text" name="option2"></td>
-                        <td class="option">옵션2 항목</td>
-                        <td class="detail"><input type="text" name="option2-detail"></td>
-                    </tr>
-                    <tr>
-                        <td>옵션3</td>
-                        <td><input type="text" name="option3"></td>
-                        <td class="option">옵션3 항목</td>
-                        <td class="detail"><input type="text" name="option3-detail"></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="modify">
-                <button>옵션 추가</button>
-            </div>
-        </div>
-
-        <div class="company-info">
-            <h2>상품정보 제공고시</h2>
-            <div class="company-info-text p-div">
-                <p>[전자상거래에 관한 상품 정보 제공에 관한 고시] 항목에 의거 등록하는 정보입니다.</p>
-            </div>
-            <div class="company-info-view">
-                <table>
-                    <tr>
-                        <td>상품상태</td>
-                        <td><input type="text" name="" placeholder="예) 새상품"></td>
-                    </tr>
-                    <tr>
-                        <td>부가세 면세여부</td>
-                        <td><input type="text" name="" placeholder="예) 과세상품"></td>
-                    </tr>
-                    <tr>
-                        <td>영수증 발행</td>
-                        <td><input type="text" name="" placeholder="예) 신용카드전표, 온라인현금영수증 등"></td>
-                    </tr>
-                    <tr>
-                        <td>사업자구분</td>
-                        <td><input type="text" name="" placeholder="예) 사업자판매자"></td>
-                    </tr>
-                    <tr>
-                        <td>원산지</td>
-                        <td><input type="text" name="" placeholder="예) 국내산"></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="register-info">
-                <p>전자상거래등에서의 상품 등의 정보 제공에 관한 고시에 따라 총 35개 상품군에 대해 상품 특성 등을 양식에 따라 입력할 수 있습니다.</p>
-            </div>
-            <div class="modify register">
-                <button>등록하기</button>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
 </main>
 <th:block th:include="/common/_admin_footer"/>
 </body>

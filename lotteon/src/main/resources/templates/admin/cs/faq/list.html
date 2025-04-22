@@ -7,7 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/faq/list.css}">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <link rel="stylesheet" th:href="@{/css/common/_admin_footer.css}">
@@ -69,88 +70,90 @@
 
 <body>
 <th:block th:include="/common/_admin_header"/>
-<th:block th:include="/common/_admin_aside"/>
+<main>
+    <div class="main-wrapper">
+        <th:block th:include="/common/_admin_aside"/>
 
-<div class="main">
-    <div class="setting">
-        <h1>자주하는질문 목록</h1>
-        <ul>
-            <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/cs/notice/list}">고객센터 &nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/cs/faq/list}"><span>자주묻는질문 &nbsp;</span></a></li>
-        </ul>
-    </div>
-    <div class="line"></div>
-    <div class="container">
-        <form class="category-form">
-            <div class="select-wrapper">
-                <label for="qndnum"></label>
-                <select id="qndnum" name="name" onchange="updateSubCategory()" style="padding: 8px;">
-                    <option value="1차선택">1차 선택</option>
-                    <option value="회원">회원</option>
-                    <option value="주문/결제">주문/결제</option>
-                    <option value="배송">배송</option>
-                    <option value="취소/교환/반품">취소/교환/반품</option>
-                    <option value="쿠폰/포인트">쿠폰/포인트</option>
-                    <option value="이벤트">이벤트</option>
-                </select>
-
-                <label for="qnanum2"></label>
-                <select id="qnanum2" name="name" style="padding: 8px; margin-left: 10px;">
-                    <option value="">2차 선택</option>
-                </select>
+        <div class="main">
+            <div class="setting">
+                <h1>자주하는질문 목록</h1>
+                <ul>
+                    <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/cs/notice/list}">고객센터 &nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/cs/faq/list}"><span>자주묻는질문 &nbsp;</span></a></li>
+                </ul>
             </div>
-        </form>
-        <table>
-            <tr>
-                <th><input type="checkbox"></th>
-                <th>번호</th>
-                <th>1차유형</th>
-                <th>2차유형</th>
-                <th>제목</th>
-                <th>조회</th>
-                <th>날짜</th>
-                <th>관리</th>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>10</td>
-                <td>회원</td>
-                <td>가입</td>
-                <td>
-                    <a href="#">개인회원과 법인회원에 차이가 있나요?</a>
-                </td>
-                <td>120</td>
-                <td>00.00.00</td>
-                <td>
-                    <a href="#">[삭제]</a><br>
-                    <a href="#">[수정]</a>
-                </td>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>9</td>
-                <td>회원</td>
-                <td>가입</td>
-                <td>
-                    <a href="#">본인인증시 이미 가입되어 있는 정보라고 <br>
-                        나옵니다.</a>
-                </td>
-                <td>120</td>
-                <td>00.00.00</td>
-                <td>
-                    <a href="#">[삭제]</a> <br>
-                    <a href="#">[수정]</a>
-                </td>
-            </tr>
-        </table>
-        <div class="btn">
-            <button>선택삭제</button>
-            <button class="write-btn">작성하기</button>
+            <div class="line"></div>
+            <div class="container">
+                <form class="category-form">
+                    <div class="select-wrapper">
+                        <label for="qndnum"></label>
+                        <select id="qndnum" name="name" onchange="updateSubCategory()" style="padding: 8px;">
+                            <option value="1차선택">1차 선택</option>
+                            <option value="회원">회원</option>
+                            <option value="주문/결제">주문/결제</option>
+                            <option value="배송">배송</option>
+                            <option value="취소/교환/반품">취소/교환/반품</option>
+                            <option value="쿠폰/포인트">쿠폰/포인트</option>
+                            <option value="이벤트">이벤트</option>
+                        </select>
+
+                        <label for="qnanum2"></label>
+                        <select id="qnanum2" name="name" style="padding: 8px; margin-left: 10px;">
+                            <option value="">2차 선택</option>
+                        </select>
+                    </div>
+                </form>
+                <table>
+                    <tr>
+                        <th><input type="checkbox"></th>
+                        <th>번호</th>
+                        <th>1차유형</th>
+                        <th>2차유형</th>
+                        <th>제목</th>
+                        <th>조회</th>
+                        <th>날짜</th>
+                        <th>관리</th>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>10</td>
+                        <td>회원</td>
+                        <td>가입</td>
+                        <td>
+                            <a href="#">개인회원과 법인회원에 차이가 있나요?</a>
+                        </td>
+                        <td>120</td>
+                        <td>00.00.00</td>
+                        <td>
+                            <a href="#">[삭제]</a><br>
+                            <a href="#">[수정]</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>9</td>
+                        <td>회원</td>
+                        <td>가입</td>
+                        <td>
+                            <a href="#">본인인증시 이미 가입되어 있는 정보라고 <br>
+                                나옵니다.</a>
+                        </td>
+                        <td>120</td>
+                        <td>00.00.00</td>
+                        <td>
+                            <a href="#">[삭제]</a> <br>
+                            <a href="#">[수정]</a>
+                        </td>
+                    </tr>
+                </table>
+                <div class="btn">
+                    <button>선택삭제</button>
+                    <button class="write-btn">작성하기</button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
 </main>
 <th:block th:include="/common/_admin_footer"/>
 </body>

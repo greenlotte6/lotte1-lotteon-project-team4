@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/cs/recruit/list.css}">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <!-- Font Awesome CDN -->
@@ -26,108 +27,110 @@
 </head>
 <body>
 <th:block th:include="/common/_admin_header"/>
-<th:block th:include="/common/_admin_aside"/>
+<main>
+    <div class="main-wrapper">
+        <th:block th:include="/common/_admin_aside"/>
 
-<div class="main">
-    <div class="setting">
-        <h1>채용하기 목록</h1>
-        <ul>
-            <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/cs/notice/list}">고객센터 &nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/cs/recruit/list}"><span>채용하기 &nbsp;</span></a></li>
-        </ul>
-    </div>
-    <div class="line"></div>
-    <div class="container">
-        <div class="search">
-            <select name="" id="">
-                <option value="">채용번호</option>
-                <option value="">채용부서</option>
-                <option value="">채용형태</option>
-                <option value="">제목</option>
-            </select>
-            <input type="text" placeholder="검색어입력">
-            <button>검색</button>
-        </div>
-
-        <div>
-            <table>
-                <tr>
-                    <th><input type="checkbox"></th>
-                    <th>번호</th>
-                    <th>채용부서</th>
-                    <th>경력사항</th>
-                    <th>채용형태</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>상태</th>
-                    <th>모집기간</th>
-                    <th>작성일</th>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>120</td>
-                    <td>광고산업</td>
-                    <td>경력 4~15년</td>
-                    <td>정규직</td>
-                    <td>광고 플랫폼 기획</td>
-                    <td>관리자</td>
-                    <td>
-                        <span style="color: #00b050;">모집중</span>
-                    </td>
-                    <td>0000-00-00 <br>~0000-00-00</td>
-                    <td>0000-00-00 <br> 00.00.00</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>119</td>
-                    <td>IT</td>
-                    <td>경력 2~15년</td>
-                    <td>정규직</td>
-                    <td>IT 인재 상시영입(경력)</td>
-                    <td>관리자</td>
-                    <td>
-                        <span style="color: #00b050;">모집중</span>
-                    </td>
-                    <td>0000-00-00 <br>~0000-00-00</td>
-                    <td>0000-00-00 <br> 00.00.00</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>118</td>
-                    <td>운영</td>
-                    <td>무관</td>
-                    <td>계약직</td>
-                    <td>딘기아르바이트</td>
-                    <td>관리자</td>
-                    <td>
-                        <span style="color: #808080;">마감</span>
-
-                    </td>
-                    <td>0000-00-00 <br>~0000-00-00</td>
-                    <td>0000-00-00 <br> 00.00.00</td>
-                </tr>
-
-            </table>
-            <div class="notice-bottom">
-                <button class="btn">선택삭제</button>
-
-                <div class="pagination">
-                    <a href="#">이전</a>
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">다음</a>
-                </div>
-                <button class="btn2 open-modal-btn" style="font-size: 13px;">채용등록</button>
+        <div class="main">
+            <div class="setting">
+                <h1>채용하기 목록</h1>
+                <ul>
+                    <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/cs/notice/list}">고객센터 &nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/cs/recruit/list}"><span>채용하기 &nbsp;</span></a></li>
+                </ul>
             </div>
+            <div class="line"></div>
+            <div class="container">
+                <div class="search">
+                    <select name="" id="">
+                        <option value="">채용번호</option>
+                        <option value="">채용부서</option>
+                        <option value="">채용형태</option>
+                        <option value="">제목</option>
+                    </select>
+                    <input type="text" placeholder="검색어입력">
+                    <button>검색</button>
+                </div>
+
+                <div>
+                    <table>
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>번호</th>
+                            <th>채용부서</th>
+                            <th>경력사항</th>
+                            <th>채용형태</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>상태</th>
+                            <th>모집기간</th>
+                            <th>작성일</th>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>120</td>
+                            <td>광고산업</td>
+                            <td>경력 4~15년</td>
+                            <td>정규직</td>
+                            <td>광고 플랫폼 기획</td>
+                            <td>관리자</td>
+                            <td>
+                                <span style="color: #00b050;">모집중</span>
+                            </td>
+                            <td>0000-00-00 <br>~0000-00-00</td>
+                            <td>0000-00-00 <br> 00.00.00</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>119</td>
+                            <td>IT</td>
+                            <td>경력 2~15년</td>
+                            <td>정규직</td>
+                            <td>IT 인재 상시영입(경력)</td>
+                            <td>관리자</td>
+                            <td>
+                                <span style="color: #00b050;">모집중</span>
+                            </td>
+                            <td>0000-00-00 <br>~0000-00-00</td>
+                            <td>0000-00-00 <br> 00.00.00</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>118</td>
+                            <td>운영</td>
+                            <td>무관</td>
+                            <td>계약직</td>
+                            <td>딘기아르바이트</td>
+                            <td>관리자</td>
+                            <td>
+                                <span style="color: #808080;">마감</span>
+
+                            </td>
+                            <td>0000-00-00 <br>~0000-00-00</td>
+                            <td>0000-00-00 <br> 00.00.00</td>
+                        </tr>
+
+                    </table>
+                    <div class="notice-bottom">
+                        <button class="btn">선택삭제</button>
+
+                        <div class="pagination">
+                            <a href="#">이전</a>
+                            <a href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">다음</a>
+                        </div>
+                        <button class="btn2 open-modal-btn" style="font-size: 13px;">채용등록</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-
-</div>
-</div>
 </main>
 <th:block th:include="/common/_admin_footer"/>
 <!-- 채용 등록 모달 -->
