@@ -95,16 +95,14 @@ public class MyaccountController {
 
         return "/myaccount/inquiry :: modalContent";
     }
-
-}
+    
     @GetMapping("/myaccount/review")
-    public String review () {
-
+    public String review() {
         return "/myaccount/review";
     }
 
     @GetMapping("/myaccount/seller")
-    public String seller () {
+    public String seller() {
 
         return "/myaccount/seller";
     }
