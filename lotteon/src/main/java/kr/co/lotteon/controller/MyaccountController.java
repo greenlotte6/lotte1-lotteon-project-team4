@@ -12,17 +12,17 @@ public class MyaccountController {
         return "/myaccount/home";
     }
 
-    @GetMapping("/myaccount/buy")
-    public String buy() {
-
-        return "/myaccount/buy";
+    @GetMapping("/myaccount/buy-modal")
+    public String buyModal() {
+        return "/myaccount/buy :: modalContent";
     }
+
 
     @GetMapping("/myaccount/coupon")
     public String coupon() {
         return "/myaccount/coupon";
-
     }
+
 
     @GetMapping("/myaccount/exchange")
     public String exchange() {
@@ -41,6 +41,7 @@ public class MyaccountController {
 
         return "/myaccount/inquiry";
     }
+
 
     @GetMapping("/myaccount/ireview")
     public String ireview() {
@@ -64,7 +65,38 @@ public class MyaccountController {
         return "/myaccount/qna";
 
     }
-    //
+    
+    @GetMapping("/myaccount/review-modal")
+    public String reviewModal() {
+        return "/myaccount/review :: modalContent";
+    }
+
+
+    @GetMapping("/myaccount/exchange-modal")
+    public String exchangeModal() {
+
+        return "/myaccount/exchange :: modalContent";
+    }
+
+    @GetMapping("/myaccount/seller-modal")
+    public String sellerModal () {
+
+        return "/myaccount/seller :: modalContent";
+    }
+
+    @GetMapping("/myaccount/order-details-modal")
+    public String orderDetailsModal () {
+
+        return "/myaccount/order-details :: modalContent";
+    }
+
+    @GetMapping("/myaccount/inquiry-modal")
+    public String inquiryModal() {
+
+        return "/myaccount/inquiry :: modalContent";
+    }
+
+}
     @GetMapping("/myaccount/review")
     public String review () {
 

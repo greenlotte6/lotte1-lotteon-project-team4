@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>문의하기</title>
-    <link rel="stylesheet" href="/css/myaccount/inquiry.css">
-</head>
-<body>
+    <div th:fragment="modalContent">
+    <link rel="stylesheet" th:href="@{/css/myaccount/inquiry.css}" />
+
     <main>
         <div class="message-log">
             <div class="message-title">문의하기</div>
@@ -44,6 +38,5 @@
                 </div>
         </div>        
     </main>
+    </div>
     <script src="/js/modal.js"></script>
-</body>
-</html>
