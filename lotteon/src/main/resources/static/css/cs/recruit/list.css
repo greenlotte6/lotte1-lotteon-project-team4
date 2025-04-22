@@ -7,16 +7,13 @@
     font-style: normal;
     font-size: 12px;
 }
-
 a {
     text-decoration: none;
 }
-
 ul,
 li {
     list-style: none;
 }
-
 body {
     overflow-x: scroll;
     min-width: 1200px;
@@ -49,12 +46,11 @@ body {
     text-decoration: underline;
 }
 
-.logo img {
+.logo img{
     width: 20%;
     margin-top: 60px;
     margin-left: 35px;
 }
-
 /* 전체 스타일 */
 * {
     margin: 0;
@@ -64,16 +60,13 @@ body {
     font-style: normal;
     font-size: 12px;
 }
-
 a {
     text-decoration: none;
 }
-
 ul,
 li {
     list-style: none;
 }
-
 body {
     overflow-x: scroll;
     min-width: 1200px;
@@ -102,7 +95,7 @@ body {
 
 aside {
     width: 200px;
-    height: 345px;
+    height: auto;
     margin: 80px 0 0 50px;
     border: 1px solid #b7b7b7;
     box-sizing: border-box;
@@ -115,9 +108,7 @@ aside {
 }
 
 .aside li {
-    display: flex;
-    margin-left: 12px;
-    gap: 10px;
+    text-align: center;
 }
 
 .ul-list {
@@ -129,6 +120,7 @@ aside {
 .ul-list:last-child {
     border-bottom: none;
 }
+
 
 
 .ul-list li:nth-of-type(1) a {
@@ -192,9 +184,8 @@ aside {
     width: 940px;
     margin: 0 auto;
 }
-
 .search {
-    margin: 20px 0 10px 0;
+    margin:20px 0 10px 0;
 }
 
 .search > select {
@@ -204,7 +195,6 @@ aside {
     border: 1px solid #b7b7b7;
     box-sizing: border-box;
 }
-
 .search > button {
     width: 60px;
     height: 30px;
@@ -225,17 +215,15 @@ aside {
     box-sizing: border-box;
 }
 
-.notice {
+.notice{
     padding: 9px 15px;
     left: 0;
 }
-
 .table-wrapper {
     width: 940px;
     margin: 0 auto;
     padding: 20px 0;
 }
-
 table {
     border-collapse: collapse;
     width: 100%;
@@ -251,13 +239,14 @@ table th {
 }
 
 
+
 table td {
     border-bottom: 1px solid #ddd;
     padding: 8px;
     text-align: center;
 }
 
-.btn {
+.btn{
     width: 94px;
     height: 34px;
     background-color: #bfbfbf;
@@ -266,7 +255,7 @@ table td {
     margin-right: 10px;
 }
 
-.btn2 {
+.btn2{
     width: 95px;
     height: 36px;
     background-color: #8eb4e3;
@@ -275,7 +264,6 @@ table td {
     margin-left: auto;
 
 }
-
 .notice-bottom {
     display: flex;
     justify-content: space-between;
@@ -283,6 +271,7 @@ table td {
     margin-top: 16px;
     padding: 0 10px; /* 살짝 여백 */
 }
+
 
 
 .pagination {
@@ -326,10 +315,8 @@ footer {
 .modal-overlay {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
@@ -341,7 +328,7 @@ footer {
     margin: 100px auto;
     border-radius: 5px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     position: relative;
 }
 
@@ -414,4 +401,27 @@ footer {
 
 .submit-btn {
     background-color: #009944;
+}
+.in-ul {
+    display: none;
+}
+
+.ul-list > li.active > ul {
+    display: block;
+}
+
+.in-ul li {
+    margin: 5px 0;
+}
+
+.in-ul li:first-of-type {
+    margin-top: 10px;
+}
+
+.in-ul li a {
+    font-size: 14px;
+}
+
+.in-ul li a:hover {
+    text-decoration: underline;
 }

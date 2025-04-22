@@ -72,79 +72,79 @@ a {
 }
 
 .notice-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: 'Noto Sans KR', sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .notice-path {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 20px;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
 }
 
 .notice-detail {
-  flex: 1;
+    flex: 1;
 }
 
 .notice-title {
-  font-size: 18px;
-  font-weight: bold;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .notice-desc {
-  font-size: 13px;
-  color: #999;
-  margin: 5px 0 10px 0;
-  padding-bottom: 5px;
+    font-size: 13px;
+    color: #999;
+    margin: 5px 0 10px 0;
+    padding-bottom: 5px;
 }
 
 .notice-article {
-  background: #fff;
-  padding: 0 20px 20px 0;
+    background: #fff;
+    padding: 0 20px 20px 0;
 }
 
 .article-title {
-  font-size: 17px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  border-bottom: 1px solid #808080;
-  padding-bottom: 10px;
-  border-top: 2px solid #111;
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #808080;
+    padding-bottom: 10px;
+    border-top: 2px solid #111;
 }
 
 .article-content {
-  font-size: 14px;
-  line-height: 1.8;
-  color: #333;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #808080;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #333;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #808080;
 }
 
 .article-content a {
-  color: #1a73e8;
-  text-decoration: underline;
+    color: #1a73e8;
+    text-decoration: underline;
 }
 
 .notice-button {
-  text-align: center;
+    text-align: center;
 }
 
 .notice-button button {
-  padding: 8px 20px;
-  background: #bfbfbf;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  width: 106px;
+    padding: 8px 20px;
+    background: #bfbfbf;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 106px;
 }
 .q-icon {
-  color: #0080ff;
-  font-weight: bold;
-  font-size: 23px;
-  margin-right: 5px;
+    color: #0080ff;
+    font-weight: bold;
+    font-size: 23px;
+    margin-right: 5px;
 }
 
 

@@ -48,7 +48,7 @@ spring:
     jpa:
         database: mysql
         hibernate:
-            ddl-auto: none
+            ddl-auto: update
             naming:
                 physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         properties:
@@ -57,3 +57,8 @@ spring:
                 show_sql: true
     thymeleaf:
         prefix: classpath:/templates
+
+    security:
+        user:
+            name: admin
+            password: 1234

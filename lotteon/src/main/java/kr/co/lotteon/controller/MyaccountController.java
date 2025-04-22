@@ -24,12 +24,23 @@ public class MyaccountController {
     }
 
 
+    @GetMapping("/myaccount/exchange")
+    public String exchange() {
+
+        return "/myaccount/exchange";
+    }
+
     @GetMapping("/myaccount/info")
     public String info() {
 
         return "/myaccount/info";
     }
 
+    @GetMapping("/myaccount/inquiry")
+    public String inquiry() {
+
+        return "/myaccount/inquiry";
+    }
 
 
     @GetMapping("/myaccount/ireview")
@@ -54,16 +65,12 @@ public class MyaccountController {
         return "/myaccount/qna";
 
     }
-    //
+    
     @GetMapping("/myaccount/review-modal")
     public String reviewModal() {
         return "/myaccount/review :: modalContent";
     }
 
-    @GetMapping("/myaccount/return-modal")
-    public String returnModal() {
-        return "/myaccount/return :: modalContent";
-    }
 
     @GetMapping("/myaccount/exchange-modal")
     public String exchangeModal() {
@@ -87,6 +94,19 @@ public class MyaccountController {
     public String inquiryModal() {
 
         return "/myaccount/inquiry :: modalContent";
+    }
+
+}
+    @GetMapping("/myaccount/review")
+    public String review () {
+
+        return "/myaccount/review";
+    }
+
+    @GetMapping("/myaccount/seller")
+    public String seller () {
+
+        return "/myaccount/seller";
     }
 
 }
