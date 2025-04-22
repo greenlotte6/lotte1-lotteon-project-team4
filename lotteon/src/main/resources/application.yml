@@ -40,7 +40,7 @@ spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
         password: Qwerty123@
-        url: jdbc:mysql://43.200.171.152:3306/lotteon
+        url: jdbc:mysql://43.200.171.152:3306/LotteON
         username: lotteon
     devtools:
         livereload:
