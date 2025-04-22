@@ -22,6 +22,8 @@ public class UsersService {
     public List<UsersDTO> findAll() {
         List<Users> usersList = usersRepository.findAll();
 
+        log.info("users: {}", usersList);
+
         return usersList.stream()
                 .map(users -> modelMapper.map(users, UsersDTO.class))
                 .collect(Collectors.toList());

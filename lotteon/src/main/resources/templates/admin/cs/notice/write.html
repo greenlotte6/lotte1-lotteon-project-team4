@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/notice/write.css}">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <!-- Font Awesome CDN -->
@@ -25,56 +26,58 @@
 </head>
 <body>
 <th:block th:include="/common/_admin_header"/>
-<th:block th:include="/common/_admin_aside"/>
+<main>
+    <div class="main-wrapper">
+        <th:block th:include="/common/_admin_aside"/>
 
-<div class="main">
-    <div class="setting">
-        <h1>공지사항 작성</h1>
-        <ul>
-            <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/cs/notice/list}">고객센터 &nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/cs/notice/write}"><span>공지사항 &nbsp;</span></a></li>
-        </ul>
-    </div>
-    <div class="line"></div>
-    <div class="container">
-        <form action="#">
-            <table>
-                <tr>
-                    <td>유형</td>
-                    <td>
-                        <select name="name" id="writenum"
-                                style="padding: 15px; width: 150px; margin-top: 10px; margin-bottom: 10px;">
-                            <option value="유형선택">유형선택</option>
-                            <option value="전체">전체</option>
-                            <option value="고객서비스">고객서비스</option>
-                            <option value="안전거래">안전거래</option>
-                            <option value="위해상품">위해상품</option>
-                            <option value="이벤트당청">이벤트당청</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>제목</td>
-                    <td>
-                        <input type="text" placeholder="제목을 입력합니다." class="input-box">
-                    </td>
-                </tr>
-                <tr>
-                    <td>내용</td>
-                    <td>
-                        <input type="text" placeholder="내용을 입력합니다." class="input-box content-box">
-                    </td>
-                </tr>
-            </table>
-            <div class="but">
-                <button>취소하기</button>
-                <button>등록하기</button>
+        <div class="main">
+            <div class="setting">
+                <h1>공지사항 작성</h1>
+                <ul>
+                    <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/cs/notice/list}">고객센터 &nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/cs/notice/write}"><span>공지사항 &nbsp;</span></a></li>
+                </ul>
             </div>
-        </form>
+            <div class="line"></div>
+            <div class="container">
+                <form action="#">
+                    <table>
+                        <tr>
+                            <td>유형</td>
+                            <td>
+                                <select name="name" id="writenum"
+                                        style="padding: 15px; width: 150px; margin-top: 10px; margin-bottom: 10px;">
+                                    <option value="유형선택">유형선택</option>
+                                    <option value="전체">전체</option>
+                                    <option value="고객서비스">고객서비스</option>
+                                    <option value="안전거래">안전거래</option>
+                                    <option value="위해상품">위해상품</option>
+                                    <option value="이벤트당청">이벤트당청</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>제목</td>
+                            <td>
+                                <input type="text" placeholder="제목을 입력합니다." class="input-box">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>내용</td>
+                            <td>
+                                <input type="text" placeholder="내용을 입력합니다." class="input-box content-box">
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="but">
+                        <button>취소하기</button>
+                        <button>등록하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
-</div>
 </main>
 <th:block th:include="/common/_admin_footer"/>
 </body>

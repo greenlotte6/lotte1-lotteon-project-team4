@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/faq/view.css}">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <!-- Font Awesome CDN -->
@@ -28,44 +29,46 @@
 
 <body>
 <th:block th:include="/common/_admin_header"/>
-<th:block th:include="/common/_admin_aside"/>
+<main>
+    <div class="main-wrapper">
+        <th:block th:include="/common/_admin_aside"/>
 
-<div class="main">
-    <div class="setting">
-        <h1>자주하는질문 보기</h1>
-        <ul>
-            <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/cs/notice/list}">고객센터 &nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/cs/faq/view}"><span>자주하는질문 &nbsp;</span></a></li>
-        </ul>
-    </div>
-    <div class="line"></div>
-    <div class="container">
-        <table>
-            <tr>
-                <td style="font-weight: 700; font-size: 15px;">유형</td>
-                <td>회원-가입</td>
-            </tr>
-            <tr>
-                <td style="font-weight: 700; font-size: 15px;">제목</td>
-                <td>개인회원과 법인회원에 차이가 있나요?</td>
-            </tr>
-            <tr>
-                <td style="font-weight: 700; font-size: 15px;">내용</td>
-                <td>
-                    개인회원은 본인인증,법인회원은 사업자등록번호를 기준으로 사업자인증후 가입<br>
-                    가능합니다.
-                </td>
-            </tr>
-        </table>
-        <div class="btn">
-            <button>삭제</button>
-            <button>수정</button>
-            <button>목록</button>
+        <div class="main">
+            <div class="setting">
+                <h1>자주하는질문 보기</h1>
+                <ul>
+                    <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/cs/notice/list}">고객센터 &nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/cs/faq/view}"><span>자주하는질문 &nbsp;</span></a></li>
+                </ul>
+            </div>
+            <div class="line"></div>
+            <div class="container">
+                <table>
+                    <tr>
+                        <td style="font-weight: 700; font-size: 15px;">유형</td>
+                        <td>회원-가입</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; font-size: 15px;">제목</td>
+                        <td>개인회원과 법인회원에 차이가 있나요?</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; font-size: 15px;">내용</td>
+                        <td>
+                            개인회원은 본인인증,법인회원은 사업자등록번호를 기준으로 사업자인증후 가입<br>
+                            가능합니다.
+                        </td>
+                    </tr>
+                </table>
+                <div class="btn">
+                    <button>삭제</button>
+                    <button>수정</button>
+                    <button>목록</button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
 </main>
 <th:block th:include="/common/_admin_footer"/>
 </body>

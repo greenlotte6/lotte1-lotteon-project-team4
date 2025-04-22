@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/faq/modify.css}">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -61,7 +62,9 @@
 
         function handleCancel() {
             if (confirm('취소하시겠습니까?')) {
-                location.th:href = '@{/admin/qna/list';
+                location.th
+            :
+                href = '@{/admin/qna/list';
             }
         }
 
@@ -101,59 +104,61 @@
 
 <body>
 <th:block th:include="/common/_admin_header"/>
-<th:block th:include="/common/_admin_aside"/>
+<main>
+    <div class="main-wrapper">
+        <th:block th:include="/common/_admin_aside"/>
 
-<div class="main">
-    <div class="setting">
-        <h1>자주하는질문 수정</h1>
-        <ul>
-            <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/cs/notice/list}">고객센터 &nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/cs/faq/modify}"><span>자주하는질문 &nbsp;</span></a></li>
-        </ul>
-    </div>
-    <div class="line"></div>
-    <div class="container">
-        <form action="#">
-            <form id="qnaForm">
-                <table>
-                    <tr>
-                        <td>유형</td>
-                        <td>
-                            <select id="qndnum" name="mainCategory" onchange="updateSubCategory()">
-                                <option value="">1차 선택</option>
-                                <option value="회원">회원</option>
-                                <option value="주문/결제">주문/결제</option>
-                                <option value="배송">배송</option>
-                                <option value="취소/교환/반품">취소/교환/반품</option>
-                                <option value="쿠폰/포인트">쿠폰/포인트</option>
-                                <option value="이벤트">이벤트</option>
-                            </select>
+        <div class="main">
+            <div class="setting">
+                <h1>자주하는질문 수정</h1>
+                <ul>
+                    <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/cs/notice/list}">고객센터 &nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/cs/faq/modify}"><span>자주하는질문 &nbsp;</span></a></li>
+                </ul>
+            </div>
+            <div class="line"></div>
+            <div class="container">
+                <form action="#">
+                    <form id="qnaForm">
+                        <table>
+                            <tr>
+                                <td>유형</td>
+                                <td>
+                                    <select id="qndnum" name="mainCategory" onchange="updateSubCategory()">
+                                        <option value="">1차 선택</option>
+                                        <option value="회원">회원</option>
+                                        <option value="주문/결제">주문/결제</option>
+                                        <option value="배송">배송</option>
+                                        <option value="취소/교환/반품">취소/교환/반품</option>
+                                        <option value="쿠폰/포인트">쿠폰/포인트</option>
+                                        <option value="이벤트">이벤트</option>
+                                    </select>
 
-                            <select id="qnanum2" name="subCategory">
-                                <option value="">2차 선택</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>제목</td>
-                        <td><input type="text" class="input-box" id="titleInput" name="title"
-                                   placeholder="제목을 입력합니다."></td>
-                    </tr>
-                    <tr>
-                        <td>내용</td>
-                        <td><input class="input-box content-box" id="contentInput" name="content"
-                                   placeholder="내용을 입력합니다."></td>
-                    </tr>
-                </table>
-                <div class="but">
-                    <button type="button" onclick="handleCancel()">취소하기</button>
-                    <button type="submit">수정하기</button>
-                </div>
-            </form>
+                                    <select id="qnanum2" name="subCategory">
+                                        <option value="">2차 선택</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>제목</td>
+                                <td><input type="text" class="input-box" id="titleInput" name="title"
+                                           placeholder="제목을 입력합니다."></td>
+                            </tr>
+                            <tr>
+                                <td>내용</td>
+                                <td><input class="input-box content-box" id="contentInput" name="content"
+                                           placeholder="내용을 입력합니다."></td>
+                            </tr>
+                        </table>
+                        <div class="but">
+                            <button type="button" onclick="handleCancel()">취소하기</button>
+                            <button type="submit">수정하기</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
     </div>
-</div>
-</div>
 </main>
 <th:block th:include="/common/_admin_footer"/>
 </body>

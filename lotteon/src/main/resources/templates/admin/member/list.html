@@ -3,7 +3,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/common/_admin_header.css}">
     <link rel="stylesheet" th:href="@{/css/common/_admin_footer.css}">
     <link rel="stylesheet" th:href="@{/css/admin/member/list.css}">
@@ -26,101 +27,104 @@
 </script>
 <body>
 <th:block th:include="/common/_admin_header"/>
-<th:block th:include="/common/_admin_aside"/>
+<main>
+    <div class="main-wrapper">
+        <th:block th:include="/common/_admin_aside"/>
 
-<div class="main">
-    <div class="setting">
-        <h1>회원목록</h1>
-        <ul>
-            <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/member/list}">회원관리&nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/member/list}"><span>회원목록&nbsp;</span></a></li>
-        </ul>
-    </div>
-    <div class="line"></div>
-    <div class="container">
-        <div class="search">
-            <select name="">
-                <option value="">아이디</option>
-                <option value="">이름</option>
-                <option value="">이메일</option>
-                <option value="">휴대폰</option>
-            </select>
-            <input type="text" placeholder="검색어입력">
-            <button>검색</button>
-        </div>
-        <div class="table-wrapper">
-            <div class="table">
-                <table>
-                    <thead>
-                    <tr>
-                        <th><input type="checkbox"></th>
-                        <th>번호</th>
-                        <th>아이디</th>
-                        <th>이름</th>
-                        <th>성별</th>
-                        <th>등급</th>
-                        <th>포인트</th>
-                        <th>이메일</th>
-                        <th>휴대폰</th>
-                        <th>가입일</th>
-                        <th>상태</th>
-                        <th>관리</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="user : ${users}">
-                        <td><input type="checkbox"></td>
-                        <td>[[${user.t_u_num}]]</td>
-                        <td th:text="${user.uid}"></td>
-                        <td th:text="${user.uname}"></td>
-                        <td th:text="${user.gender}"></td>
-                        <td>
-                            <select name="">
-                                <option value="">VVIP</option>
-                                <option value="">VIP</option>
-                                <option value="">GOLD</option>
-                                <option value="">SILVER</option>
-                                <option value="">FAMILY</option>
-                            </select>
-                        </td>
-                        <td th:text="${user.point}"></td>
-                        <td th:text="${user.email}"></td>
-                        <td th:text="${user.hp}"></td>
-                        <td th:text="${user.u_created_at}"></td>
-                        <td class="green" th:text="${user.status}"></td>
-                        <td>
-                            <div><a href="#" onclick="openModal('/popup@{/admin/shop_Register}')" class="btn">[수정]</a>
-                            </div>
-                            <div><a href="#">[중지]</a></div>
-                        </td>
-                    </tr>
-                    
-                    </tbody>
-                </table>
+        <div class="main">
+            <div class="setting">
+                <h1>회원목록</h1>
+                <ul>
+                    <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/member/list}">회원관리&nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/member/list}"><span>회원목록&nbsp;</span></a></li>
+                </ul>
             </div>
-            <div class="click">
-                <button onclick="openModal('/popup@{/admin/shop_Register}')" class="select-delete button btn">선택수정
-                </button>
-            </div>
-            <div class="modal-overlay" id="modalOverlay">
-                <div class="modal">
-                    <iframe id="modalFrame"></iframe>
+            <div class="line"></div>
+            <div class="container">
+                <div class="search">
+                    <select name="">
+                        <option value="">아이디</option>
+                        <option value="">이름</option>
+                        <option value="">이메일</option>
+                        <option value="">휴대폰</option>
+                    </select>
+                    <input type="text" placeholder="검색어입력">
+                    <button>검색</button>
+                </div>
+                <div class="table-wrapper">
+                    <div class="table">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>번호</th>
+                                <th>아이디</th>
+                                <th>이름</th>
+                                <th>성별</th>
+                                <th>등급</th>
+                                <th>포인트</th>
+                                <th>이메일</th>
+                                <th>휴대폰</th>
+                                <th>가입일</th>
+                                <th>상태</th>
+                                <th>관리</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="user : ${users}">
+                                <td><input type="checkbox"></td>
+                                <td th:text="${user.no}"></td>
+                                <td th:text="${user.uid}"></td>
+                                <td th:text="${user.uname}"></td>
+                                <td th:text="${user.gender}"></td>
+                                <td>
+                                    <select name="">
+                                        <option value="">VVIP</option>
+                                        <option value="">VIP</option>
+                                        <option value="">GOLD</option>
+                                        <option value="">SILVER</option>
+                                        <option value="">FAMILY</option>
+                                    </select>
+                                </td>
+                                <td th:text="${user.point}"></td>
+                                <td th:text="${user.email}"></td>
+                                <td th:text="${user.hp}"></td>
+                                <td th:text="${user.u_created_at}"></td>
+                                <td class="green" th:text="${user.status}"></td>
+                                <td>
+                                    <div><a href="#" onclick="openModal('/popup@{/admin/shop_Register}')" class="btn">[수정]</a>
+                                    </div>
+                                    <div><a href="#">[중지]</a></div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="click">
+                        <button onclick="openModal('/popup@{/admin/shop_Register}')" class="select-delete button btn">
+                            선택수정
+                        </button>
+                    </div>
+                    <div class="modal-overlay" id="modalOverlay">
+                        <div class="modal">
+                            <iframe id="modalFrame"></iframe>
+                        </div>
+                    </div>
+                    <div class="page">
+                        <button class="page-move">이전</button>
+                        <button>[1]</button>
+                        <button>[2]</button>
+                        <button>[3]</button>
+                        <button>[4]</button>
+                        <button>[5]</button>
+                        <button class="page-move">다음</button>
+                    </div>
                 </div>
             </div>
-            <div class="page">
-                <button class="page-move">이전</button>
-                <button>[1]</button>
-                <button>[2]</button>
-                <button>[3]</button>
-                <button>[4]</button>
-                <button>[5]</button>
-                <button class="page-move">다음</button>
-            </div>
         </div>
     </div>
-</div>
-</div>
 </main>
 <th:block th:include="/common/_admin_footer"/>
 </body>

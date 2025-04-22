@@ -3,7 +3,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/common/_admin_header.css}">
     <link rel="stylesheet" th:href="@{/css/common/_admin_footer.css}">
     <link rel="stylesheet" th:href="@{/css/admin/member/point.css}">
@@ -26,114 +27,116 @@
 
 <body>
 <th:block th:include="/common/_admin_header"/>
-<th:block th:include="/common/_admin_aside"/>
+<main>
+    <div class="main-wrapper">
+        <th:block th:include="/common/_admin_aside"/>
 
-<div class="main">
-    <div class="setting">
-        <h1>포인트관리</h1>
-        <ul>
-            <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/member/list}">회원관리&nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/member/point}"><span>포인트관리&nbsp;</span></a></li>
-        </ul>
-    </div>
-    <div class="line"></div>
-    <div class="container">
-        <div class="search">
-            <select name="" id="">
-                <option value="">아이디</option>
-                <option value="">이름</option>
-                <option value="">이메일</option>
-                <option value="">휴대폰</option>
-            </select>
-            <input type="text" placeholder="검색어입력">
-            <button>검색</button>
+        <div class="main">
+            <div class="setting">
+                <h1>포인트관리</h1>
+                <ul>
+                    <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/member/list}">회원관리&nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/member/point}"><span>포인트관리&nbsp;</span></a></li>
+                </ul>
+            </div>
+            <div class="line"></div>
+            <div class="container">
+                <div class="search">
+                    <select name="" id="">
+                        <option value="">아이디</option>
+                        <option value="">이름</option>
+                        <option value="">이메일</option>
+                        <option value="">휴대폰</option>
+                    </select>
+                    <input type="text" placeholder="검색어입력">
+                    <button>검색</button>
+                </div>
+                <div class="table-wrapper">
+                    <div class="table">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>번호</th>
+                                <th>아이디</th>
+                                <th>이름</th>
+                                <th>지급 포인트</th>
+                                <th>잔여 포인트</th>
+                                <th>지급 내용</th>
+                                <th>지급 날짜</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>5</td>
+                                <td>xxxsd1234</td>
+                                <td>정우성</td>
+                                <td>1,000</td>
+                                <td>15,000</td>
+                                <td>구매 확정 포인트 지급</td>
+                                <td>0000-00-00<br>00:00:00</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>4</td>
+                                <td>xxxsd1234</td>
+                                <td>정우성</td>
+                                <td>1,000</td>
+                                <td>15,000</td>
+                                <td>이벤트 참여</td>
+                                <td>0000-00-00<br>00:00:00</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>3</td>
+                                <td>xxxsd1234</td>
+                                <td>정우성</td>
+                                <td>1,000</td>
+                                <td>15,000</td>
+                                <td>주문 결제 사용</td>
+                                <td>0000-00-00<br>00:00:00</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>2</td>
+                                <td>xxxsd1234</td>
+                                <td>정우성</td>
+                                <td>1,000</td>
+                                <td>15,000</td>
+                                <td>상품 리뷰 작성</td>
+                                <td>0000-00-00<br>00:00:00</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>1</td>
+                                <td>xxxsd1234</td>
+                                <td>정우성</td>
+                                <td>1,000</td>
+                                <td>15,000</td>
+                                <td>회원가입 축하</td>
+                                <td>0000-00-00<br>00:00:00</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="click">
+                        <button class="select-delete button">선택삭제</button>
+                    </div>
+                    <div class="page">
+                        <button class="page-move">이전</button>
+                        <button>[1]</button>
+                        <button>[2]</button>
+                        <button>[3]</button>
+                        <button>[4]</button>
+                        <button>[5]</button>
+                        <button class="page-move">다음</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="table-wrapper">
-            <div class="table">
-                <table>
-                    <thead>
-                    <tr>
-                        <th><input type="checkbox"></th>
-                        <th>번호</th>
-                        <th>아이디</th>
-                        <th>이름</th>
-                        <th>지급 포인트</th>
-                        <th>잔여 포인트</th>
-                        <th>지급 내용</th>
-                        <th>지급 날짜</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>5</td>
-                        <td>xxxsd1234</td>
-                        <td>정우성</td>
-                        <td>1,000</td>
-                        <td>15,000</td>
-                        <td>구매 확정 포인트 지급</td>
-                        <td>0000-00-00<br>00:00:00</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>4</td>
-                        <td>xxxsd1234</td>
-                        <td>정우성</td>
-                        <td>1,000</td>
-                        <td>15,000</td>
-                        <td>이벤트 참여</td>
-                        <td>0000-00-00<br>00:00:00</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>3</td>
-                        <td>xxxsd1234</td>
-                        <td>정우성</td>
-                        <td>1,000</td>
-                        <td>15,000</td>
-                        <td>주문 결제 사용</td>
-                        <td>0000-00-00<br>00:00:00</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>2</td>
-                        <td>xxxsd1234</td>
-                        <td>정우성</td>
-                        <td>1,000</td>
-                        <td>15,000</td>
-                        <td>상품 리뷰 작성</td>
-                        <td>0000-00-00<br>00:00:00</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>1</td>
-                        <td>xxxsd1234</td>
-                        <td>정우성</td>
-                        <td>1,000</td>
-                        <td>15,000</td>
-                        <td>회원가입 축하</td>
-                        <td>0000-00-00<br>00:00:00</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="click">
-                <button class="select-delete button">선택삭제</button>
-            </div>
-            <div class="page">
-                <button class="page-move">이전</button>
-                <button>[1]</button>
-                <button>[2]</button>
-                <button>[3]</button>
-                <button>[4]</button>
-                <button>[5]</button>
-                <button class="page-move">다음</button>
-            </div>
-        </div>
     </div>
-</div>
-</div>
 </main>
 <th:block th:include="/common/_admin_footer"/>
 </body>

@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/notice/list.css}">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <!-- Font Awesome CDN -->
@@ -27,202 +28,204 @@
 
 <body>
 <th:block th:include="/common/_admin_header"/>
-<th:block th:include="/common/_admin_aside"/>
+<main>
+    <div class="main-wrapper">
+        <th:block th:include="/common/_admin_aside"/>
 
-<div class="main">
-    <div class="setting">
-        <h1>공지사항 목록</h1>
-        <ul>
-            <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/cs/notice/list}">고객센터 &nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/cs/notice/list}"><span>공지사항 &nbsp;</span></a></li>
-        </ul>
-    </div>
-    <div class="line"></div>
-    <div class="container">
-        <select class="notice" name="name" id="noticenum"
-                style="margin-top: 12px; margin-left: 5px; margin-bottom: 15px;">
-            <option value="유형선택">유형선택</option>
-            <option value="전체">전체</option>
-            <option value="고객서비스">고객서비스</option>
-            <option value="안전거래">안전거래</option>
-            <option value="위해상품">위해상품</option>
-            <option value="이벤트당첨">이벤트당첨</option>
-        </select>
-
-        <div>
-            <table>
-                <tr>
-                    <th><input type="checkbox"></th>
-                    <th>번호</th>
-                    <th>유형</th>
-                    <th>제목</th>
-                    <th>조회</th>
-                    <th>날짜</th>
-                    <th>관리</th>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>100</td>
-                    <td>고객서비스</td>
-                    <td>
-                        <a href="#">[안내] 해외결제 사칭 문자 주의</a>
-
-                    </td>
-                    <td>120</td>
-                    <td>00.00.00</td>
-                    <td>
-                        <a href="#">[삭제]</a><br>
-                        <a href="#">[수정]</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>99</td>
-                    <td>이벤트 당첨</td>
-                    <td>
-                        <a href="#">[발표] 『G.Live X SK스토아 (하남 쭈구미)』 이벤트<br>당첨자</a>
-                    </td>
-                    <td>120</td>
-                    <td>00.00.00</td>
-                    <td>
-                        <a href="#">[삭제]</a><br>
-                        <a href="#">[수정]</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>98</td>
-                    <td>안전거래</td>
-                    <td>
-                        <a href="#">[안내] 로젠택배 반품 / 교환 수거지시 지연안내</a>
-                    </td>
-                    <td>120</td>
-                    <td>00.00.00</td>
-                    <td>
-                        <a href="#">[삭제]</a><br>
-                        <a href="#">[수정]</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>97</td>
-                    <td>고객서비스</td>
-                    <td>
-                        <a href="#">[안내] 위치정보이용 약관 개정 공지</a>
-                    </td>
-                    <td>120</td>
-                    <td>00.00.00</td>
-                    <td>
-                        <a href="#">[삭제]</a><br>
-                        <a href="#">[수정]</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>96</td>
-                    <td>고객서비스</td>
-                    <td>
-                        <a href="#">[안내] 경북 산불 피해로 인한 배송지연 양해 안내</a>
-                    </td>
-                    <td>120</td>
-                    <td>00.00.00</td>
-                    <td>
-                        <a href="#">[삭제]</a><br>
-                        <a href="#">[수정]</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>95</td>
-                    <td>안전거래</td>
-                    <td>
-                        <a href="#">[안내] 판매자의 현금거래 유도를 주의하세요!</a>
-                    </td>
-                    <td>120</td>
-                    <td>00.00.00</td>
-                    <td>
-                        <a href="#">[삭제]</a><br>
-                        <a href="#">[수정]</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>94</td>
-                    <td>전체</td>
-                    <td>
-                        <a href="#">개인정보처리방침 개정 안내(시행일:2025.04.15)</a>
-                    </td>
-                    <td>120</td>
-                    <td>00.00.00</td>
-                    <td>
-                        <a href="#">[삭제]</a><br>
-                        <a href="#">[수정]</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>93</td>
-                    <td>고객서비스</td>
-                    <td>
-                        <a href="#">[안내] 구매회원 이용약관 개정</a>
-                    </td>
-                    <td>120</td>
-                    <td>00.00.00</td>
-                    <td>
-                        <a href="#">[삭제]</a><br>
-                        <a href="#">[수정]</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>92</td>
-                    <td>위해상품</td>
-                    <td>
-                        <a href="#">[위해상품정보] 무주 구치뿡 지도점검 회수사 유적발</a>
-                    </td>
-                    <td>120</td>
-                    <td>00.00.00</td>
-                    <td>
-                        <a href="#">[삭제]</a><br>
-                        <a href="#">[수정]</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>91</td>
-                    <td>고객서비스</td>
-                    <td>
-                        <a href="#">[안내] 씨티은행 시스템 점검에 따른 계죄 <br>체크키드...</a>
-                    </td>
-                    <td>120</td>
-                    <td>00.00.00</td>
-                    <td>
-                        <a href="#">[삭제]</a><br>
-                        <a href="#">[수정]</a>
-                    </td>
-                </tr>
-            </table>
-            <div class="notice-bottom">
-                <button class="btn">선택삭제</button>
-
-                <div class="pagination">
-                    <a href="#">이전</a>
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">다음</a>
-                </div>
-
-                <button class="btn2">작성하기</button>
+        <div class="main">
+            <div class="setting">
+                <h1>공지사항 목록</h1>
+                <ul>
+                    <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/cs/notice/list}">고객센터 &nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/cs/notice/list}"><span>공지사항 &nbsp;</span></a></li>
+                </ul>
             </div>
+            <div class="line"></div>
+            <div class="container">
+                <select class="notice" name="name" id="noticenum"
+                        style="margin-top: 12px; margin-left: 5px; margin-bottom: 15px;">
+                    <option value="유형선택">유형선택</option>
+                    <option value="전체">전체</option>
+                    <option value="고객서비스">고객서비스</option>
+                    <option value="안전거래">안전거래</option>
+                    <option value="위해상품">위해상품</option>
+                    <option value="이벤트당첨">이벤트당첨</option>
+                </select>
+
+                <div>
+                    <table>
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>번호</th>
+                            <th>유형</th>
+                            <th>제목</th>
+                            <th>조회</th>
+                            <th>날짜</th>
+                            <th>관리</th>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>100</td>
+                            <td>고객서비스</td>
+                            <td>
+                                <a href="#">[안내] 해외결제 사칭 문자 주의</a>
+
+                            </td>
+                            <td>120</td>
+                            <td>00.00.00</td>
+                            <td>
+                                <a href="#">[삭제]</a><br>
+                                <a href="#">[수정]</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>99</td>
+                            <td>이벤트 당첨</td>
+                            <td>
+                                <a href="#">[발표] 『G.Live X SK스토아 (하남 쭈구미)』 이벤트<br>당첨자</a>
+                            </td>
+                            <td>120</td>
+                            <td>00.00.00</td>
+                            <td>
+                                <a href="#">[삭제]</a><br>
+                                <a href="#">[수정]</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>98</td>
+                            <td>안전거래</td>
+                            <td>
+                                <a href="#">[안내] 로젠택배 반품 / 교환 수거지시 지연안내</a>
+                            </td>
+                            <td>120</td>
+                            <td>00.00.00</td>
+                            <td>
+                                <a href="#">[삭제]</a><br>
+                                <a href="#">[수정]</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>97</td>
+                            <td>고객서비스</td>
+                            <td>
+                                <a href="#">[안내] 위치정보이용 약관 개정 공지</a>
+                            </td>
+                            <td>120</td>
+                            <td>00.00.00</td>
+                            <td>
+                                <a href="#">[삭제]</a><br>
+                                <a href="#">[수정]</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>96</td>
+                            <td>고객서비스</td>
+                            <td>
+                                <a href="#">[안내] 경북 산불 피해로 인한 배송지연 양해 안내</a>
+                            </td>
+                            <td>120</td>
+                            <td>00.00.00</td>
+                            <td>
+                                <a href="#">[삭제]</a><br>
+                                <a href="#">[수정]</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>95</td>
+                            <td>안전거래</td>
+                            <td>
+                                <a href="#">[안내] 판매자의 현금거래 유도를 주의하세요!</a>
+                            </td>
+                            <td>120</td>
+                            <td>00.00.00</td>
+                            <td>
+                                <a href="#">[삭제]</a><br>
+                                <a href="#">[수정]</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>94</td>
+                            <td>전체</td>
+                            <td>
+                                <a href="#">개인정보처리방침 개정 안내(시행일:2025.04.15)</a>
+                            </td>
+                            <td>120</td>
+                            <td>00.00.00</td>
+                            <td>
+                                <a href="#">[삭제]</a><br>
+                                <a href="#">[수정]</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>93</td>
+                            <td>고객서비스</td>
+                            <td>
+                                <a href="#">[안내] 구매회원 이용약관 개정</a>
+                            </td>
+                            <td>120</td>
+                            <td>00.00.00</td>
+                            <td>
+                                <a href="#">[삭제]</a><br>
+                                <a href="#">[수정]</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>92</td>
+                            <td>위해상품</td>
+                            <td>
+                                <a href="#">[위해상품정보] 무주 구치뿡 지도점검 회수사 유적발</a>
+                            </td>
+                            <td>120</td>
+                            <td>00.00.00</td>
+                            <td>
+                                <a href="#">[삭제]</a><br>
+                                <a href="#">[수정]</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>91</td>
+                            <td>고객서비스</td>
+                            <td>
+                                <a href="#">[안내] 씨티은행 시스템 점검에 따른 계죄 <br>체크키드...</a>
+                            </td>
+                            <td>120</td>
+                            <td>00.00.00</td>
+                            <td>
+                                <a href="#">[삭제]</a><br>
+                                <a href="#">[수정]</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="notice-bottom">
+                        <button class="btn">선택삭제</button>
+
+                        <div class="pagination">
+                            <a href="#">이전</a>
+                            <a href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">다음</a>
+                        </div>
+
+                        <button class="btn2">작성하기</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-
-</div>
-</div>
 </main>
 <th:block th:include="/common/_admin_footer"/>
 </body>

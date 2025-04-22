@@ -109,85 +109,87 @@
 </script>
 <body>
 <th:block th:include="/common/_admin_header"/>
-<th:block th:include="/common/_admin_aside"/>
+<main>
+    <div class="main-wrapper">
+        <th:block th:include="/common/_admin_aside"/>
 
-<div class="main">
-    <div class="setting">
-        <h1>카테고리</h1>
-        <ul>
-            <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/config/basic}">환경설정 &nbsp;>&nbsp;</a></li>
-            <li><a th:href="@{/admin/config/category}"><span>카테고리 &nbsp;</span></a></li>
-        </ul>
-    </div>
-    <div class="line"></div>
-    <div class="container">
-        <div class="cate">
-            <h2>카테고리 관리</h2>
-            <div class="cate-text p-div">
-                <p>쇼핑몰 메인, 상품 페이지 사이드 카테고리 메뉴입니다.</p>
-            </div>
-            <div class="category">
-                <ul class="acodion-menu">
-                    <li>
-                        <a href="#" class="click">▼ 뷰티</a>
-                        <button>삭제</button>
-                        <ul class="sub">
-                            <li><a href="#">럭셔리 스킨케어</a>
-                                <button>삭제</button>
-                            </li>
-                            <li><a href="#">클렌징</a>
-                                <button>삭제</button>
-                            </li>
-                            <li><a href="#">스킨/토너</a>
-                                <button>삭제</button>
-                            </li>
-                            <li><a href="#">➕ 2차 카테고리 추가</a>
-                                <button>삭제</button>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="#" class="click">▼ 메이크업</a>
-                        <button>삭제</button>
-                        <ul class="sub">
-                            <li><a href="#">베이스 메이크업</a>
-                                <button>삭제</button>
-                            </li>
-                            <li><a href="#">립 메이크업</a>
-                                <button>삭제</button>
-                            </li>
-                            <li><a href="#">아이 메이크업</a>
-                                <button>삭제</button>
-                            </li>
-                            <li><a href="#">➕ 2차 카테고리 추가</a>
-                                <button>삭제</button>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="#" class="click">➕ 1차 카테고리 추가</a>
-                        <button>삭제</button>
-                        <ul class="sub">
-                            <li><a href="#">➕ 2차 카테고리 추가</a>
-                                <button>삭제</button>
-                            </li>
-                        </ul>
-                    </li>
+        <div class="main">
+            <div class="setting">
+                <h1>카테고리</h1>
+                <ul>
+                    <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/config/basic}">환경설정 &nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/config/category}"><span>카테고리 &nbsp;</span></a></li>
                 </ul>
             </div>
-        </div>
-        <div class="cate-info">
-            <p>카테고리 메뉴 순서를 변경할 때 드래그 앤 드롭으로 1차, 2차 카테고리 메뉴 이동 후 수정하기 클릭</p>
-        </div>
-        <div>
-            <button class="modify">수정하기</button>
+            <div class="line"></div>
+            <div class="container">
+                <div class="cate">
+                    <h2>카테고리 관리</h2>
+                    <div class="cate-text p-div">
+                        <p>쇼핑몰 메인, 상품 페이지 사이드 카테고리 메뉴입니다.</p>
+                    </div>
+                    <div class="category">
+                        <ul class="acodion-menu">
+                            <li>
+                                <a href="#" class="click">▼ 뷰티</a>
+                                <button>삭제</button>
+                                <ul class="sub">
+                                    <li><a href="#">럭셔리 스킨케어</a>
+                                        <button>삭제</button>
+                                    </li>
+                                    <li><a href="#">클렌징</a>
+                                        <button>삭제</button>
+                                    </li>
+                                    <li><a href="#">스킨/토너</a>
+                                        <button>삭제</button>
+                                    </li>
+                                    <li><a href="#">➕ 2차 카테고리 추가</a>
+                                        <button>삭제</button>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#" class="click">▼ 메이크업</a>
+                                <button>삭제</button>
+                                <ul class="sub">
+                                    <li><a href="#">베이스 메이크업</a>
+                                        <button>삭제</button>
+                                    </li>
+                                    <li><a href="#">립 메이크업</a>
+                                        <button>삭제</button>
+                                    </li>
+                                    <li><a href="#">아이 메이크업</a>
+                                        <button>삭제</button>
+                                    </li>
+                                    <li><a href="#">➕ 2차 카테고리 추가</a>
+                                        <button>삭제</button>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#" class="click">➕ 1차 카테고리 추가</a>
+                                <button>삭제</button>
+                                <ul class="sub">
+                                    <li><a href="#">➕ 2차 카테고리 추가</a>
+                                        <button>삭제</button>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="cate-info">
+                    <p>카테고리 메뉴 순서를 변경할 때 드래그 앤 드롭으로 1차, 2차 카테고리 메뉴 이동 후 수정하기 클릭</p>
+                </div>
+                <div>
+                    <button class="modify">수정하기</button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
 </main>
 <th:block th:include="/common/_admin_footer"/>
 </body>
