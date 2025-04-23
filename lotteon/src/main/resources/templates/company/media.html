@@ -4,69 +4,161 @@
     <meta charset="UTF-8" />
     <title>롯데ON 스토리</title>
     <link rel="stylesheet" href="/css/company/media.css" />
+    <style>
+        /* 페이지네이션 관련 스타일만 여기에 유지 */
+        .pagination a {
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #555;
+            margin: 0 4px;
+            border-radius: 4px;
+        }
+        .pagination a.disabled {
+            color: #ccc;
+            pointer-events: none;
+        }
+        .pagination a.active {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+        .pagination a:hover {
+            background-color: #f0f0f0;
+            color: #007bff;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
     <th:block th:include="/common/company_header"/>
 </div>
+
 <div class="main">
     <div class="content">
         <h1>미디어 세상 속 롯데&nbsp;&nbsp;ON&nbsp;&nbsp;을 소개합니다&nbsp;&nbsp;!</h1>
         <div class="subtitle">더 다양한 LotteON 영상을 소개합니다.</div>
 
-        <div class="video-section">
-            <div class="video-thumbnail">
-                <!--<img src="https://img.icons8.com/ios-filled/50/youtube-play.png" alt="영상 플레이 아이콘">-->
-                <a href="https://www.youtube.com/watch?v=PEUvPBB2v6U">
-                    <img  src="/images/img.png" style="width: 200px; height: 120px">
+        <!-- 페이지 1 -->
+        <div class="page" id="page-1">
+            <div class="video-section">
+                <div class="video-thumbnail">
+                    <a href="https://www.youtube.com/watch?v=PEUvPBB2v6U">
+                        <img src="/images/img.png" style="width: 200px; height: 120px">
+
+                </div>
+                <div class="video-info">
+                    <h2>[롯데ON] 🚨단, 10일!🚨 올 하반기 역대급 브랜드 쇼핑 축제, 온세상 쇼핑 페스타</h2>
+                    </a>
+                    <p>쇼핑 요정들이 손꼽아 기다려온 🌟10월 14일 부터 23일 까지🌟 단, 10일간 진행되는 역대급 브랜드 쇼핑 축제!</p>
+                </div>
             </div>
-            <div class="video-info">
-                <h2>
-                    [롯데ON] 🚨단, 10일!🚨 올 하반기 역대급 브랜드 쇼핑 축제, 온세상 쇼핑 페스타
-                </h2>
-                </a>
-                <p>쇼핑 요정들이 손꼽아 기다려온
-                    🌟10월 14일 부터 23일 까지🌟 단, 10일간 진행되는 역대급 브랜드 쇼핑 축제!</p>
+
+            <div class="video-section">
+                <div class="video-thumbnail">
+                    <a href="https://www.youtube.com/watch?v=9ZtsI8Hn1rg">
+                        <img src="/images/img_1.png" style="width: 200px; height: 120px">
+
+                </div>
+                <div class="video-info">
+                    <h2>[롯데ON] 🎈4월9일 롯데를 가지세요!🎈 4,300만의 브랜드 대축제!</h2>
+                    </a>
+                    <p>💌4월9일에는 전국민 롯.또.청.약 📆4.9 당신은 여기로 옵니다. 롯데 온라인 쇼핑 페스타💞</p>
+                </div>
+            </div>
+
+            <div class="video-section">
+                <div class="video-thumbnail">
+                    <a href="https://www.youtube.com/watch?v=LoQ_m-CGGAQ">
+                        <img src="/images/img_2.png" style="width: 200px; height: 120px">
+
+                </div>
+                <div class="video-info">
+                    <h2>롯데ON세상”에 여러분을 초대합니다!</h2>
+                    </a>
+                    <p>💌4월9일에는 전국민 롯.또.청.약 📆4.9 당신은 여기로 옵니다. 롯데 온라인 쇼핑 페스타💞</p>
+                </div>
             </div>
         </div>
 
-        <div class="video-section">
-            <div class="video-thumbnail">
-                <!-- <img src="https://img.icons8.com/ios-filled/50/youtube-play.png" alt="영상 플레이 아이콘" style="width: 50px; height: auto">-->
-                <a href="https://www.youtube.com/watch?v=9ZtsI8Hn1rg">
-                    <img src="/images/img_1.png" style="width: 200px; height: 120px" >
-            </div>
-            <div class="video-info">
-                <h2>[롯데ON] 🎈4월9일 롯데를 가지세요!🎈 4,300만의 브랜드 대축제!</h2>
-                </a>
-                <p>💌4월9일에는 전국민 롯.또.청.약
+        <!-- 페이지 2 -->
+        <div class="page" id="page-2" style="display: none;">
+            <div class="video-section">
+                <div class="video-thumbnail">
+                    <a href="https://www.youtube.com/watch?v=C9CATYLCNso">
+                        <img src="/images/img_3.png" style="width: 200px; height: 120px">
 
-                    📆4.9 당신은 여기로 옵니다.
-                    롯데 온라인 쇼핑 페스타💞</p>
+                </div>
+                <div class="video-info">
+                    <h2>언제, 어디서든 롯데ON 하나로 쇼핑을 즐겨보세요!</h2>
+                    </a>
+                    <p>🎉롯데ON을 켜면 롯데를 ONE(한) 곳에서!
+                        온라인과 오프라인의 경계를 허무는 새로운 쇼핑경험
+                        언제, 어디서든 롯데ON 하나로 쇼핑을 즐겨보세요</p>
+                </div>
             </div>
+
+            <div class="video-section">
+                <div class="video-thumbnail">
+                    <a href="https://www.youtube.com/watch?v=DQ85petMyEU">
+                        <img src="/images/img_4.png" style="width: 200px; height: 120px">
+
+                </div>
+                <div class="video-info">
+                    <h2>1996년 창립 그-때 그 가격으로, 백투더롯데닷컴🚀</h2>
+                    </a>
+                    <p>롯데ON에서 쇼핑하는 꿀팁, 최신 트렌드를 소개합니다!</p>
+                </div>
+            </div>
+
+            <div class="video-section">
+                <div class="video-thumbnail">
+                    <a href="https://www.youtube.com/watch?v=AEHoUyrL6bI">
+                        <img src="/images/img_5.png" style="width: 200px; height: 120px">
+
+                </div>
+                <div class="video-info">
+                    <h2>롯데레드페스티벌 개막🎉 100만 포인트가 쏟아진다!!</h2>
+                    </a>
+                    <p>쇼핑 버라이어티, 역대 최대 혜택을 담은
+                        롯데레드페스티벌이 개막했습니다🎉</p>
+                </div>
+            </div>
+
         </div>
 
-
+        <!-- 페이지네이션 -->
         <div class="pagination">
-            <a th:href="@{'/company/media?page=' + ${currentPage - 1}}"
-               th:classappend="${currentPage == 0} ? 'disabled'" >이전</a>
-
-            <span th:each="i : ${#numbers.sequence(
-                        currentPage < 3 ? 0 : currentPage - 2,
-                        (currentPage < 3 ? 0 : currentPage - 2) + 4)}"
-                  th:if="${i < totalPages}">
-        <a th:href="@{'/company/media?page=' + ${i}}"
-           th:text="${i + 1}"
-           th:classappend="${currentPage == i} ? ' active'"></a>
-    </span>
-
-            <a th:href="@{'/company/media?page=' + ${currentPage + 1}}"
-               th:classappend="${currentPage >= totalPages - 1} ? 'disabled'">다음</a>
+            <a href="javascript:void(0);" onclick="goToPage(currentPage - 1)" id="prevBtn">이전</a>
+            <a href="javascript:void(0);" onclick="goToPage(1)" id="pageBtn1" class="active">1</a>
+            <a href="javascript:void(0);" onclick="goToPage(2)" id="pageBtn2">2</a>
+            <a href="javascript:void(0);" onclick="goToPage(currentPage + 1)" id="nextBtn">다음</a>
         </div>
-
-
     </div>
 </div>
+
+<script>
+    let currentPage = 1;
+    const totalPages = 2; // 3페이지로 수정
+
+    function goToPage(page) {
+        if (page < 1 || page > totalPages) return;
+
+        currentPage = page;
+
+        // 페이지 번호에 맞는 페이지만 표시하고 나머지는 숨김
+        for (let i = 1; i <= totalPages; i++) {
+            document.getElementById("page-" + i).style.display = (i === page) ? "block" : "none";
+            document.getElementById("pageBtn" + i).classList.remove("active");
+        }
+
+        document.getElementById("pageBtn" + currentPage).classList.add("active");
+
+        // '이전' 버튼과 '다음' 버튼의 비활성화/활성화 상태 변경
+        document.getElementById("prevBtn").classList.toggle("disabled", currentPage === 1);
+        document.getElementById("nextBtn").classList.toggle("disabled", currentPage === totalPages);
+    }
+</script>
+
 <th:block th:include="/common/company_footer"/>
 </body>
 </html>
