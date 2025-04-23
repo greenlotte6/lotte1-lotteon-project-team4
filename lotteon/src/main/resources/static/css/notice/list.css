@@ -234,13 +234,15 @@ table td {
 }
 
 .btn2 {
-    width: 95px;
-    height: 36px;
+    display: inline-block;
+    padding: 10px 20px;
     background-color: #8eb4e3;
-    color: #ffffff;
+    color: white;
     border: none;
-    margin-left: auto;
-
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .notice-bottom {
