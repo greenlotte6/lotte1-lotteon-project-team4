@@ -9,10 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -87,11 +84,12 @@ public class NoticeController {
             return "redirect:/admin/cs/notice/list";
         }
 
-    @GetMapping("/admin/cs/notice/delete")
-    public String deleteNotice(@RequestParam("id") int id) {
+    @GetMapping("/admin/cs/notice/delete/{id}")
+    public String deleteNotice(@PathVariable("id") int id) {
         noticeService.deleteNotice(id);
         return "redirect:/admin/cs/notice/list";
     }
+
     @PostMapping("/admin/cs/notice/deleteSelected")
     public String deleteSelectedNotices(@RequestParam(name = "ids", required = false) List<Integer> ids) {
         if (ids != null && !ids.isEmpty()) {

@@ -94,10 +94,12 @@
                             <button class="btn" type="submit">선택삭제</button>
 
 
-                            <a th:href="@{/admin/cs/notice/write}">
-                                <button class="btn2">작성하기</button>
-                            </a>
                         </div>
+
+                        <a th:href="@{/admin/cs/notice/write}" class="btn2">작성하기</a>
+
+
+
                     </form>
                     <div class="pagination">
                         <a th:if="${page.hasPrevious()}"
