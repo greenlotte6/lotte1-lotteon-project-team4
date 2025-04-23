@@ -16,12 +16,19 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>공지사항</title>
-    <script th:src="/js/modal.js"></script>
+    <script th:src="@{/js/modal.js}"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             $('.hover').click(function (e) {
                 $(this).parent().toggleClass('active');
             })
+
+            $(document).ready(function () {
+                $('#checkAll').click(function () {
+                    $('input[name="ids"]').prop('checked', this.checked);
+                });
+            });
         });
     </script>
 </head>
@@ -43,188 +50,75 @@
             </div>
             <div class="line"></div>
             <div class="container">
-                <select class="notice" name="name" id="noticenum"
-                        style="margin-top: 12px; margin-left: 5px; margin-bottom: 15px;">
-                    <option value="유형선택">유형선택</option>
-                    <option value="전체">전체</option>
-                    <option value="고객서비스">고객서비스</option>
-                    <option value="안전거래">안전거래</option>
-                    <option value="위해상품">위해상품</option>
-                    <option value="이벤트당첨">이벤트당첨</option>
-                </select>
+                <form th:action="@{/admin/cs/notice/list}" method="get">
+                    <select class="notice" name="type" id="noticenum"
+                            style="margin-top: 12px; margin-left: 5px; margin-bottom: 15px;"
+                            onchange="this.form.submit()">
+                        <option th:value="전체" th:selected="${param.type} == '전체'">전체</option>
+                        <option th:value="고객서비스" th:selected="${param.type} == '고객서비스'">고객서비스</option>
+                        <option th:value="안전거래" th:selected="${param.type} == '안전거래'">안전거래</option>
+                        <option th:value="위해상품" th:selected="${param.type} == '위해상품'">위해상품</option>
+                        <option th:value="이벤트당첨" th:selected="${param.type} == '이벤트당첨'">이벤트당첨</option>
+                    </select>
+                </form>
+
 
                 <div>
-                    <table>
-                        <tr>
-                            <th><input type="checkbox"></th>
-                            <th>번호</th>
-                            <th>유형</th>
-                            <th>제목</th>
-                            <th>조회</th>
-                            <th>날짜</th>
-                            <th>관리</th>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>100</td>
-                            <td>고객서비스</td>
-                            <td>
-                                <a href="#">[안내] 해외결제 사칭 문자 주의</a>
+                    <form th:action="@{/admin/cs/notice/deleteSelected}" method="post" id="deleteForm">
+                        <table>
+                            <tr>
+                                <th><input type="checkbox" id="checkAll"></th>
+                                <th>번호</th>
+                                <th>유형</th>
+                                <th>제목</th>
+                                <th>조회</th>
+                                <th>날짜</th>
+                                <th>관리</th>
+                            </tr>
+                            <tr th:each="notice : ${noticeList}">
+                                <td><input type="checkbox" name="ids" th:value="${notice.noticeId}"></td>
+                                <td th:text="${notice.noticeId}"></td>
+                                <td th:text="${notice.noticeType}"></td>
+                                <td><a th:href="@{/admin/cs/notice/view(id=${notice.noticeId})}"
+                                       th:text="${notice.title}">제목</a></td>
+                                <td th:text="${notice.hits}"></td>
+                                <td th:text="${#temporals.format(notice.upload_at, 'yy.MM.dd')}"></td>
+                                <td>
+                                    <a th:href="@{'/admin/cs/notice/delete?id=' + ${notice.noticeId}}">[삭제]</a><br>
+                                    <a th:href="@{'/admin/cs/notice/modify?id=' + ${notice.noticeId}}">[수정]</a>
+                                </td>
+                            </tr>
 
-                            </td>
-                            <td>120</td>
-                            <td>00.00.00</td>
-                            <td>
-                                <a href="#">[삭제]</a><br>
-                                <a href="#">[수정]</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>99</td>
-                            <td>이벤트 당첨</td>
-                            <td>
-                                <a href="#">[발표] 『G.Live X SK스토아 (하남 쭈구미)』 이벤트<br>당첨자</a>
-                            </td>
-                            <td>120</td>
-                            <td>00.00.00</td>
-                            <td>
-                                <a href="#">[삭제]</a><br>
-                                <a href="#">[수정]</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>98</td>
-                            <td>안전거래</td>
-                            <td>
-                                <a href="#">[안내] 로젠택배 반품 / 교환 수거지시 지연안내</a>
-                            </td>
-                            <td>120</td>
-                            <td>00.00.00</td>
-                            <td>
-                                <a href="#">[삭제]</a><br>
-                                <a href="#">[수정]</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>97</td>
-                            <td>고객서비스</td>
-                            <td>
-                                <a href="#">[안내] 위치정보이용 약관 개정 공지</a>
-                            </td>
-                            <td>120</td>
-                            <td>00.00.00</td>
-                            <td>
-                                <a href="#">[삭제]</a><br>
-                                <a href="#">[수정]</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>96</td>
-                            <td>고객서비스</td>
-                            <td>
-                                <a href="#">[안내] 경북 산불 피해로 인한 배송지연 양해 안내</a>
-                            </td>
-                            <td>120</td>
-                            <td>00.00.00</td>
-                            <td>
-                                <a href="#">[삭제]</a><br>
-                                <a href="#">[수정]</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>95</td>
-                            <td>안전거래</td>
-                            <td>
-                                <a href="#">[안내] 판매자의 현금거래 유도를 주의하세요!</a>
-                            </td>
-                            <td>120</td>
-                            <td>00.00.00</td>
-                            <td>
-                                <a href="#">[삭제]</a><br>
-                                <a href="#">[수정]</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>94</td>
-                            <td>전체</td>
-                            <td>
-                                <a href="#">개인정보처리방침 개정 안내(시행일:2025.04.15)</a>
-                            </td>
-                            <td>120</td>
-                            <td>00.00.00</td>
-                            <td>
-                                <a href="#">[삭제]</a><br>
-                                <a href="#">[수정]</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>93</td>
-                            <td>고객서비스</td>
-                            <td>
-                                <a href="#">[안내] 구매회원 이용약관 개정</a>
-                            </td>
-                            <td>120</td>
-                            <td>00.00.00</td>
-                            <td>
-                                <a href="#">[삭제]</a><br>
-                                <a href="#">[수정]</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>92</td>
-                            <td>위해상품</td>
-                            <td>
-                                <a href="#">[위해상품정보] 무주 구치뿡 지도점검 회수사 유적발</a>
-                            </td>
-                            <td>120</td>
-                            <td>00.00.00</td>
-                            <td>
-                                <a href="#">[삭제]</a><br>
-                                <a href="#">[수정]</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>91</td>
-                            <td>고객서비스</td>
-                            <td>
-                                <a href="#">[안내] 씨티은행 시스템 점검에 따른 계죄 <br>체크키드...</a>
-                            </td>
-                            <td>120</td>
-                            <td>00.00.00</td>
-                            <td>
-                                <a href="#">[삭제]</a><br>
-                                <a href="#">[수정]</a>
-                            </td>
-                        </tr>
-                    </table>
-                    <div class="notice-bottom">
-                        <button class="btn">선택삭제</button>
+                        </table>
+                        <div class="notice-bottom">
+                            <button class="btn" type="submit">선택삭제</button>
 
-                        <div class="pagination">
-                            <a href="#">이전</a>
-                            <a href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">다음</a>
+
+                            <a th:href="@{/admin/cs/notice/write}">
+                                <button class="btn2">작성하기</button>
+                            </a>
                         </div>
+                    </form>
+                    <div class="pagination">
+                        <a th:if="${page.hasPrevious()}"
+                           th:href="@{/admin/cs/notice/list(page=${page.number - 1})}">이전</a>
 
-                        <button class="btn2" >작성하기</button>
+                        <span th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}">
+                                <a th:href="@{/admin/cs/notice/list(page=${i})}"
+                                   th:text="${i + 1}"
+                                   th:classappend="${page.number == i} ? 'active'">1</a>
+                            </span>
+
+                        <a th:if="${page.hasNext()}"
+                           th:href="@{/admin/cs/notice/list(page=${page.number + 1})}">다음</a>
                     </div>
+
+
                 </div>
             </div>
-
         </div>
+
+    </div>
     </div>
 </main>
 <th:block th:include="/common/_admin_footer"/>
