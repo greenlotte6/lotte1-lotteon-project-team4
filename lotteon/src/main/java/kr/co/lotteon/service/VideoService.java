@@ -1,3 +1,4 @@
+/*
 package kr.co.lotteon.service;
 
 
@@ -23,4 +24,4 @@ public class VideoService {
     public Page<VideoEntity> getVideoPage(int page, int pageSize, String sortBy, String order, String filter, String filterValue) {
         return videoRepository.findAll(PageRequest.of(page - 1, pageSize));
     }
-}
+}*/

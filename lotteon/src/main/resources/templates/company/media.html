@@ -48,14 +48,22 @@
 
 
         <div class="pagination">
-            <a href="#">이전</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">다음</a>
+            <a th:href="@{'/company/media?page=' + ${currentPage - 1}}"
+               th:classappend="${currentPage == 0} ? 'disabled'" >이전</a>
+
+            <span th:each="i : ${#numbers.sequence(
+                        currentPage < 3 ? 0 : currentPage - 2,
+                        (currentPage < 3 ? 0 : currentPage - 2) + 4)}"
+                  th:if="${i < totalPages}">
+        <a th:href="@{'/company/media?page=' + ${i}}"
+           th:text="${i + 1}"
+           th:classappend="${currentPage == i} ? ' active'"></a>
+    </span>
+
+            <a th:href="@{'/company/media?page=' + ${currentPage + 1}}"
+               th:classappend="${currentPage >= totalPages - 1} ? 'disabled'">다음</a>
         </div>
+
 
     </div>
 </div>
