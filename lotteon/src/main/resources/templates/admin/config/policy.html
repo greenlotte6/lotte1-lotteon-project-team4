@@ -50,17 +50,17 @@
                         <p>회원가입 및 정책 페이지 노출 약관입니다.</p>
                     </div>
                     <div class="customer-content">
-                        <form action="#">
+                        <form th:action="@{/admin/config/policy}" method="post">
                             <table>
-                                <tr>
+                                <tr th:each="term : ${terms}">
                                     <td>약관내용</td>
-                                    <td><input type="text" value="약관내용"></td>
+                                    <td><textarea th:text="${term.purchase_terms}"></textarea></td>
                                 </tr>
                             </table>
+                            <div>
+                                <button type="submit">수정하기</button>
+                            </div>
                         </form>
-                    </div>
-                    <div>
-                        <button>수정하기</button>
                     </div>
                 </div>
 
@@ -70,18 +70,19 @@
                         <p>회원가입 및 정책 페이지 노출 약관입니다.</p>
                     </div>
                     <div class="seller-content">
-                        <form action="#">
+                        <form th:action="@{/admin/config/policy}" method="post">
                             <table>
-                                <tr>
+                                <tr th:each="term : ${terms}">
                                     <td>약관내용</td>
-                                    <td><input type="text" value="약관내용"></td>
+                                    <td><textarea th:text="${term.seller_terms}"></textarea></td>
                                 </tr>
                             </table>
+                            <div>
+                                <button type="submit">수정하기</button>
+                            </div>
                         </form>
                     </div>
-                    <div>
-                        <button>수정하기</button>
-                    </div>
+
                 </div>
 
                 <h2>전자금융거래 약관</h2>
@@ -90,18 +91,19 @@
                         <p>회원가입 및 정책 페이지 노출 약관입니다.</p>
                     </div>
                     <div class="it-content">
-                        <form action="#">
+                        <form th:action="@{/admin/config/policy}" method="post">
                             <table>
-                                <tr>
+                                <tr th:each="term : ${terms}">
                                     <td>약관내용</td>
-                                    <td><input type="text" value="약관내용"></td>
+                                    <td><textarea th:text="${term.electronic_terms}"></textarea></td>
                                 </tr>
                             </table>
+                            <div>
+                                <button type="submit">수정하기</button>
+                            </div>
                         </form>
                     </div>
-                    <div>
-                        <button>수정하기</button>
-                    </div>
+
                 </div>
 
                 <h2>위치정보 이용약관</h2>
@@ -110,18 +112,19 @@
                         <p>회원가입 및 정책 페이지 노출 약관입니다.</p>
                     </div>
                     <div class="map-content">
-                        <form action="#">
+                        <form th:action="@{/admin/config/policy}" method="post">
                             <table>
-                                <tr>
+                                <tr th:each="term : ${terms}">
                                     <td>약관내용</td>
-                                    <td><input type="text" value="약관내용"></td>
+                                    <td><textarea th:text="${term.location_terms}"></textarea></td>
                                 </tr>
                             </table>
+                            <div>
+                                <button type="submit">수정하기</button>
+                            </div>
                         </form>
                     </div>
-                    <div>
-                        <button>수정하기</button>
-                    </div>
+
                 </div>
 
                 <h2>개인정보처리방침</h2>
@@ -130,18 +133,19 @@
                         <p>회원가입 및 정책 페이지 노출 약관입니다.</p>
                     </div>
                     <div class="person-content">
-                        <form action="#">
+                        <form th:action="@{/admin/config/policy}" method="post">
                             <table>
-                                <tr>
+                                <tr th:each="term : ${terms}">
                                     <td>약관내용</td>
-                                    <td><input type="text" value="약관내용"></td>
+                                    <td><textarea th:text="${term.privacy_policy}"></textarea></td>
                                 </tr>
                             </table>
+                            <div>
+                                <button type="submit">수정하기</button>
+                            </div>
                         </form>
                     </div>
-                    <div>
-                        <button>수정하기</button>
-                    </div>
+
                 </div>
             </div>
         </div>

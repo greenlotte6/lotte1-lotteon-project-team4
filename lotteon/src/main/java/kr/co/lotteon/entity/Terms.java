@@ -6,6 +6,7 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -17,6 +18,9 @@ public class Terms {
     @Id
     private int terms_id;
 
-    private String type;
-    private String content;
+    private String purchase_terms;
+    private String seller_terms;
+    private String electronic_terms;
+    private String location_terms;
+    private String privacy_policy;
 }
