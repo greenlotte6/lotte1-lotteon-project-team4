@@ -217,6 +217,13 @@ button:last-child {
     margin-bottom: 80px;
 }
 
+textarea {
+    width: 98%;
+    height: 95%;
+    margin: 3px 0 0 8px;
+    border: none;
+}
+
 
 /* 추가 */
 
