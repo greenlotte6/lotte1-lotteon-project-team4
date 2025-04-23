@@ -41,13 +41,13 @@
             </div>
             <div class="line"></div>
             <div class="container">
-                <form action="#">
+                <form th:action="@{/admin/cs/notice/write}" method="post">
                     <table>
                         <tr>
                             <td>유형</td>
                             <td>
-                                <select name="name" id="writenum"
-                                        style="padding: 15px; width: 150px; margin-top: 10px; margin-bottom: 10px;">
+                                <select name="notice_type" id="writenum"
+                                        style="padding: 15px; width: 150px; margin-top: 10px; margin-bottom: 10px;" required>
                                     <option value="유형선택">유형선택</option>
                                     <option value="전체">전체</option>
                                     <option value="고객서비스">고객서비스</option>
@@ -59,19 +59,19 @@
                         </tr>
                         <tr>
                             <td>제목</td>
-                            <td>
-                                <input type="text" placeholder="제목을 입력합니다." class="input-box">
-                            </td>
+                            <td><input type="text" name="title" required placeholder="제목을 입력합니다." class="input-box"></td>
                         </tr>
                         <tr>
                             <td>내용</td>
                             <td>
-                                <input type="text" placeholder="내용을 입력합니다." class="input-box content-box">
+                                <textarea name="content" class="input-box content-box" rows="10" placeholder="내용을 입력합니다." required></textarea>
+
                             </td>
                         </tr>
+
                     </table>
                     <div class="but">
-                        <button>취소하기</button>
+                        <button type="button" onclick="window.history.back();">취소하기</button>
                         <button>등록하기</button>
                     </div>
                 </form>
