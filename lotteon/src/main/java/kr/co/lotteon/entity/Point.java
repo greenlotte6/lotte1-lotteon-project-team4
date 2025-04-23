@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 @Table(name = "point")
 public class Point {
 
-    @Id
     private int no;
 
+    @Id
     private int point_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -30,6 +30,5 @@ public class Point {
 
     @CreationTimestamp
     private LocalDateTime given_date;
-
 
 }
