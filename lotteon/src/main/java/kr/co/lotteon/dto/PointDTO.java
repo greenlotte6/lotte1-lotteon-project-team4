@@ -17,10 +17,13 @@ public class PointDTO {
 
     private int no;
     private int point_id;
-    private String Users_uid;
+    private String uid;
     private int given;
     private int balance;
     private String details;
     private LocalDateTime given_date;
+
+    // 사용자 정보
+    private String uname;
 
 }
