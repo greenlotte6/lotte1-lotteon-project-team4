@@ -20,7 +20,9 @@ public class Notice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int noticeId;
-    private String notice_type;
+
+    @Column(name = "notice_type")
+    private String noticeType;
     private String title;
     private String content;
 
