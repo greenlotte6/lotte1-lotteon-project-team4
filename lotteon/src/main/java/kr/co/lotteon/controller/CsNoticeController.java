@@ -21,7 +21,7 @@ public class CsNoticeController {
         return "/cs/notice/custom-list";
     }
 
-    @GetMapping("/notice/event.list")
+    @GetMapping("/notice/event-list")
     public String eventlist() {
         return "/cs/notice/event-list";
     }

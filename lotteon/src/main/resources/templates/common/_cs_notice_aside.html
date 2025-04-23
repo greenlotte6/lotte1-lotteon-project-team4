@@ -1,0 +1,39 @@
+<aside class="cs-sidebar">
+    <h3>공지사항</h3>
+    <ul class="cs-menu">
+        <a th:href="@{/notice/all-list}">
+            <li id="all">전체</li>
+        </a>
+        <a th:href="@{/notice/custom-list}">
+            <li id="custom">고객서비스</li>
+        </a>
+        <a th:href="@{/notice/sayty-list}">
+            <li id="sayty">안전거래</li>
+        </a>
+        <a th:href="@{/notice/harm-list}">
+            <li id="harm">위해상품</li>
+        </a>
+        <a th:href="@{/notice/event-list}">
+            <li id="event">이벤트당첨</li>
+        </a>
+    </ul>
+</aside>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const path = location.pathname;
+
+        if (path.includes("all")) {
+            document.getElementById("all").classList.add("active");
+        }else if (path.includes("custom")) {
+            document.getElementById("custom").classList.add("active");
+        }else if (path.includes("sayty")) {
+            document.getElementById("sayty").classList.add("active");
+        }else if (path.includes("harm")) {
+            document.getElementById("harm").classList.add("active");
+        }else if (path.includes("event")) {
+            document.getElementById("event").classList.add("active");
+        }
+    });
+</script>
