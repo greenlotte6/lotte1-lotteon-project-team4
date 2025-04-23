@@ -95,7 +95,7 @@ public class MyaccountController {
 
         return "/myaccount/inquiry :: modalContent";
     }
-    
+
     @GetMapping("/myaccount/review")
     public String review() {
         return "/myaccount/review";

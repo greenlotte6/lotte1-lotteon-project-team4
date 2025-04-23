@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.lotteon.dao.MemberMapper">
+
+    <!-- INSERT한 데이터의 no값을 반환받기 위해 useGeneratedKeys, keyProperty 속성 선언, no = PK -->
+
+    <select id="selectPoint" resultType="kr.co.lotteon.dto.PointDTO">
+        SELECT
+            p.no,
+            p.point_id,
+            u.uid,
+            u.uname,
+            p.given,
+            p.balance,
+            p.details,
+            p.given_date
+        FROM point p
+        JOIN Users u
+        ON p.point_id = u.uid;
+    </select>
+
+
+</mapper>

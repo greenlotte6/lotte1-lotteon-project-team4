@@ -68,55 +68,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr th:each="point : ${points}">
                                 <td><input type="checkbox"></td>
-                                <td>5</td>
-                                <td>xxxsd1234</td>
-                                <td>정우성</td>
-                                <td>1,000</td>
-                                <td>15,000</td>
-                                <td>구매 확정 포인트 지급</td>
-                                <td>0000-00-00<br>00:00:00</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>4</td>
-                                <td>xxxsd1234</td>
-                                <td>정우성</td>
-                                <td>1,000</td>
-                                <td>15,000</td>
-                                <td>이벤트 참여</td>
-                                <td>0000-00-00<br>00:00:00</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>3</td>
-                                <td>xxxsd1234</td>
-                                <td>정우성</td>
-                                <td>1,000</td>
-                                <td>15,000</td>
-                                <td>주문 결제 사용</td>
-                                <td>0000-00-00<br>00:00:00</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>2</td>
-                                <td>xxxsd1234</td>
-                                <td>정우성</td>
-                                <td>1,000</td>
-                                <td>15,000</td>
-                                <td>상품 리뷰 작성</td>
-                                <td>0000-00-00<br>00:00:00</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>1</td>
-                                <td>xxxsd1234</td>
-                                <td>정우성</td>
-                                <td>1,000</td>
-                                <td>15,000</td>
-                                <td>회원가입 축하</td>
-                                <td>0000-00-00<br>00:00:00</td>
+                                <td th:text="${point.no}"></td>
+                                <td th:text="${point.uid}"></td>
+                                <td th:text="${point.uname}"></td>
+                                <td th:text="${point.given}"></td>
+                                <td th:text="${point.balance}"></td>
+                                <td th:text="${point.details}"></td>
+                                <td th:text="${point.given_date}"></td>
                             </tr>
                             </tbody>
                         </table>
