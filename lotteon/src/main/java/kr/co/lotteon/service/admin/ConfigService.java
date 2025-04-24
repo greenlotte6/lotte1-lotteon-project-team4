@@ -22,30 +22,48 @@ public class ConfigService {
     private final ModelMapper modelMapper;
     private final TermsRepository termsRepository;
 
-    public List<TermsDTO> findAll() {
+    public TermsDTO findById(int terms_id) {
 
-        List<Terms> termsList = termsRepository.findAll();
+        Terms terms = termsRepository.findById(terms_id).orElse(null);
 
-        return termsList.stream()
-                .map(terms -> (modelMapper.map(terms, TermsDTO.class)))
-                .collect(Collectors.toList());
+        return modelMapper.map(terms, TermsDTO.class);
 
     }
 
-//    public void modifyPolicy(Terms terms) {
-//        // 해당 terms_id를 가진 엔티티가 존재하는지 확인
-//        Terms existingTerms = termsRepository.findById(terms.getTerms_id())
-//                .orElseThrow(() -> new IllegalArgumentException("해당 약관이 존재하지 않습니다."));
-//
-//        // 엔티티 필드를 수정
-//        existingTerms.setPurchase_terms(terms.getPurchase_terms());
-//        existingTerms.setSeller_terms(terms.getSeller_terms());
-//        existingTerms.setElectronic_terms(terms.getElectronic_terms());
-//        existingTerms.setLocation_terms(terms.getLocation_terms());
-//        existingTerms.setPrivacy_policy(terms.getPrivacy_policy());
-//
-//        // 엔티티를 저장
-//        termsRepository.save(existingTerms);  // 수정된 엔티티 저장
-//    }
+    public void policy(TermsDTO termsDTO) {
+        Optional<Terms> termsOpt = termsRepository.findById(1);
+
+        // 아이디가 1인 값인 데이터 존재 여부
+        if(termsOpt.isPresent()) {
+
+            // 존재하면 데이터 가져오기
+            Terms terms = termsOpt.get();
+
+            // 널이 아니면 클라이언트가 보낸 값을 엔티티에 저장
+            if(termsDTO.getPrivacyPolicy() != null) {
+                terms.setPrivacyPolicy(termsDTO.getPrivacyPolicy());
+            }
+
+            if (termsDTO.getLocationTerms() != null) {
+                terms.setLocationTerms(termsDTO.getLocationTerms());
+            }
+
+            if(termsDTO.getElectronicTerms() != null) {
+                terms.setElectronicTerms(termsDTO.getElectronicTerms());
+            }
+
+            if(termsDTO.getSellerTerms() != null) {
+                terms.setSellerTerms(termsDTO.getSellerTerms());
+            }
+
+            if(termsDTO.getPurchaseTerms() != null) {
+                terms.setPurchaseTerms(termsDTO.getPurchaseTerms());
+            }
+
+            // DB에 저장
+            termsRepository.save(terms);
+        }
+
+    }
 
 }
