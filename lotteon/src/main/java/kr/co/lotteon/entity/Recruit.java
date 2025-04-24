@@ -11,13 +11,14 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Builder
 public class Recruit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "job_id") //
-    private String id;  //
+    private Long id;  //
 
     @Column(length = 50)
     private String department;

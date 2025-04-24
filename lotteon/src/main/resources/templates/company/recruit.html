@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8" />
     <title>롯데ON 스토리</title>
+    <style>
+        .pagination a.active {
+            font-weight: bold;
+            color: #fff;
+            background-color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
     <link rel="stylesheet" href="/css/company/recruit.css" />
 </head>
 <body>
@@ -36,53 +45,27 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>4</td>
-                <td>광고사업팀</td>
-                <td>경력 4 ~ 15년</td>
-                <td>정규직</td>
-                <td>광고 플랫폼 기획</td>
-                <td class="status-active">모집중</td>
-                <td>0000-00-00 ~ 0000-00-00</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>IT</td>
-                <td>경력 2 ~ 15년</td>
-                <td>정규직</td>
-                <td>IT 인재 상시 영입(경력)</td>
-                <td class="status-active">모집중</td>
-                <td>0000-00-00 ~ 0000-00-00</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>문화</td>
-                <td>무관</td>
-                <td>계약직</td>
-                <td>단기 아르바이트 모집</td>
-                <td class="status-end">종료</td>
-                <td>0000-00-00 ~ 0000-00-00</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>경영</td>
-                <td>신입</td>
-                <td>계약직</td>
-                <td>경영지원 직원 채용 공고</td>
-                <td class="status-end">종료</td>
-                <td>0000-00-00 ~ 0000-00-00</td>
+            <tr th:each="recruit : ${recruitList}">
+                <td th:text="${recruit.id}"></td>
+                <td th:text="${recruit.department}"></td>
+                <td th:text="${recruit.experience}"></td>
+                <td th:text="${recruit.type}"></td>
+                <td th:text="${recruit.title}"></td>
+                <td th:text="${recruit.status}"
+                    th:classappend="${recruit.status == '모집중'} ? ' status-active' : ' status-end'"></td>
+                <td th:text="${recruit.startDate + ' ~ ' + recruit.endDate}"></td>
             </tr>
             </tbody>
         </table>
 
         <div class="pagination">
-            <a href="#">이전</a>
-            <span class="current">1</span>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">다음</a>
+            <a th:href="@{/company/recruit(page=${currentPage - 1}, searchType=${searchType}, search=${search})}"
+               th:if="${currentPage > 1}">이전</a>
+            <a th:each="i : ${#numbers.sequence(1, totalPages)}"
+               th:href="@{/company/recruit(page=${i}, searchType=${searchType}, search=${search})}"
+               th:text="${i}" th:classappend="${i == currentPage ? 'active' : ''}"></a>
+            <a th:href="@{/company/recruit(page=${currentPage + 1}, searchType=${searchType}, search=${search})}"
+               th:if="${currentPage < totalPages}">다음</a>
         </div>
 
     </div>
