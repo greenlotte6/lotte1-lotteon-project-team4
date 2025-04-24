@@ -107,4 +107,9 @@ public class MyaccountController {
         return "/myaccount/seller";
     }
 
+    @GetMapping("/myaccount/return-modal")
+    public String returnModal(){
+        return "/myaccount/return :: modalContent";
+    }
+
 }

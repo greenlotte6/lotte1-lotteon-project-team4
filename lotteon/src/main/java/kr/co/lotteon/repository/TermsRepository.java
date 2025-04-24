@@ -8,6 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface TermsRepository extends JpaRepository<Terms, Integer> {
+    Optional<Terms> findByTermsId(int termsId);
 
 
 }

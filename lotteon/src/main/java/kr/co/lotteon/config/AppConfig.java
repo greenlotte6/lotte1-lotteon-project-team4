@@ -26,4 +26,6 @@ public class AppConfig {
         return modelMapper; // 리턴된 modelMapper를 빈으로 등록. private에 접근하기 위해 이렇게 정의함.
     }
 
+
+
 }
