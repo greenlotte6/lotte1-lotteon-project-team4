@@ -14,7 +14,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>공지사항 보기</title>
+    <title>자주하는 질문 보기</title>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 
@@ -47,24 +47,29 @@
                 <table>
                     <tr>
                         <td style="font-weight: 700; font-size: 15px;">유형</td>
-                        <td>회원-가입</td>
+                        <td th:text="${faq.type1} + '   -   ' + ${faq.type2}">회원-가입</td>
                     </tr>
                     <tr>
                         <td style="font-weight: 700; font-size: 15px;">제목</td>
-                        <td>개인회원과 법인회원에 차이가 있나요?</td>
+                        <td th:text="${faq.title}">개인회원과 법인회원에 차이가 있나요?</td>
                     </tr>
                     <tr>
                         <td style="font-weight: 700; font-size: 15px;">내용</td>
-                        <td>
+                        <td th:utext="${faq.content}"> <!-- HTML 태그 줄바꿈을 허용할 경우 -->
                             개인회원은 본인인증,법인회원은 사업자등록번호를 기준으로 사업자인증후 가입<br>
                             가능합니다.
                         </td>
                     </tr>
                 </table>
                 <div class="btn">
-                    <button>삭제</button>
-                    <button>수정</button>
-                    <button>목록</button>
+                    <!-- 삭제 -->
+                    <button th:onclick="|location.href='@{/admin/cs/faq/delete(faqId=${faq.faqId})}'|">삭제</button>
+
+                    <!-- 수정 -->
+                    <button th:onclick="|location.href='@{/admin/cs/faq/modify/{id}(id=${faq.faqId})}'|">수정</button>
+
+                    <!-- 목록 -->
+                    <button onclick="location.href='/admin/cs/faq/list'">목록</button>
                 </div>
             </div>
         </div>

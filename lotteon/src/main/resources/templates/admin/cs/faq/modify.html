@@ -1,54 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <title>자주묻는질문 수정</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
-          rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/faq/modify.css}">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>공지사항 작성</title>
+
+    <!-- 기존 값 JS 변수로 전달 -->
+    <script th:inline="javascript">
+        const existingMainCategory = /*[[${faq.type1}]]*/ '';
+        const existingSubCategory = /*[[${faq.type2}]]*/ '';
+    </script>
+
 
     <script>
-        const isEdit = true;
-
-        const existingData = {
-            mainCategory: '회원',
-            subCategory: '가입',
-            title: '개인회원과 법인회원에차이가 있나요?',
-            content: '개인회원은 본인인증,법인회원은 사업자등록번호....'
-        };
-
-        function updateSubCategory() {
+        function updateSubCategory(selectedSub = '') {
             const mainCategory = document.getElementById('qndnum').value;
             const subCategory = document.getElementById('qnanum2');
             let options = [];
 
             if (mainCategory === '회원') {
-                options = ['가입', '아이디/비밀번호 찾기', '회원정보 수정', '회원탈퇴'];
+                options = ['가입', '탈퇴', '회원정보', '로그인'];
+            } else if (mainCategory === '쿠폰/혜택/이벤트') {
+                options = ['쿠폰/할인혜택', '포인트', '제휴', '이벤트'];
             } else if (mainCategory === '주문/결제') {
-                options = ['주문확인', '결제방법', '결제오류', '영수증/세금계산서 발급'];
+                options = ['상품', '결제', '구매내역', '영수증/증빙'];
             } else if (mainCategory === '배송') {
-                options = ['배송조회', '배송기간', '배송지 변경', '해외배송'];
-            } else if (mainCategory === '취소/교환/반품') {
-                options = ['주문취소', '반품신청', '교환절차', '환불소요기간'];
-            } else if (mainCategory === '쿠폰/포인트') {
-                options = ['쿠폰확인', '쿠폰사용', '포인트적립', '포인트사용'];
-            } else if (mainCategory === '이벤트') {
-                options = ['이벤트 참여', '당첨확인', '경품수령', '이벤트문의'];
+                options = ['배송상태/기간', '배송정보확인/변경', '해외배송', '당일배송','해외직구'];
+            } else if (mainCategory === '취소/반품/교환') {
+                options = ['반품신청/철회', '반품정보확인/변경', '교환 AS신청/철회', '교환정보확인/변경','취소신청/철회','취소확인/환불정보'];
+            } else if (mainCategory === '여행/숙박/항공') {
+                options = ['여행/숙박', '항공'];
+            } else if (mainCategory === '안전거래') {
+                options = ['서비스 이용규칙 위반', '지식재산권침해', '게시물 정책위반', '직거래/외부거래유도','표시광고','청소년 위해상품/이미지'];
             }
 
+            // 기존 옵션 제거 후 다시 렌더링
             subCategory.innerHTML = '';
             const defaultOption = document.createElement('option');
-            defaultOption.value = '';
             defaultOption.textContent = '2차 선택';
             subCategory.appendChild(defaultOption);
 
@@ -56,111 +48,86 @@
                 const opt = document.createElement('option');
                 opt.value = option;
                 opt.textContent = option;
+                if (option === selectedSub) {
+                    opt.selected = true;
+                }
                 subCategory.appendChild(opt);
             });
         }
 
-        function handleCancel() {
-            if (confirm('취소하시겠습니까?')) {
-                location.th
-            :
-                href = '@{/admin/qna/list';
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
-            // jQuery 이벤트 바인딩
-            $('.hover').click(function () {
-                $(this).parent().toggleClass('active');
-            });
-
-            // 수정 모드일 경우 데이터 넣기
-            if (isEdit) {
-                document.getElementById('qndnum').value = existingData.mainCategory;
-                updateSubCategory();
-                document.getElementById('qnanum2').value = existingData.subCategory;
-                document.getElementById('titleInput').value = existingData.title;
-                document.getElementById('contentInput').value = existingData.content;
-            }
-
-            // 폼 제출 이벤트
-            const form = document.getElementById('qnaForm');
-            if (form) {
-                form.addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    const data = {
-                        mainCategory: document.getElementById('qndnum').value,
-                        subCategory: document.getElementById('qnanum2').value,
-                        title: document.getElementById('titleInput').value,
-                        content: document.getElementById('contentInput').value
-                    };
-                    console.log('제출된 데이터:', data);
-                    alert('등록 완료!');
-                });
+            // 기존 데이터 있을 때 초기화
+            if (existingMainCategory) {
+                document.getElementById('qndnum').value = existingMainCategory;
+                updateSubCategory(existingSubCategory);
             }
         });
     </script>
 </head>
-
 <body>
-<th:block th:include="/common/_admin_header"/>
+<th:block th:insert="~{/common/_admin_header}" />
 <main>
     <div class="main-wrapper">
-        <th:block th:include="/common/_admin_aside"/>
+        <th:block th:insert="~{/common/_admin_aside}" />
 
         <div class="main">
             <div class="setting">
                 <h1>자주하는질문 수정</h1>
                 <ul>
-                    <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
-                    <li><a th:href="@{/admin/cs/notice/list}">고객센터 &nbsp;>&nbsp;</a></li>
-                    <li><a th:href="@{/admin/cs/faq/modify}"><span>자주하는질문 &nbsp;</span></a></li>
+                    <li><a th:href="@{/admin/index}">HOME &gt;&nbsp;</a></li>
+                    <li><a th:href="@{/admin/cs/notice/list}">고객센터 &gt;&nbsp;</a></li>
+                    <li><a th:href="@{/admin/cs/faq/list}"><span>자주하는질문</span></a></li>
                 </ul>
             </div>
+
             <div class="line"></div>
             <div class="container">
-                <form action="#">
-                    <form id="qnaForm">
-                        <table>
-                            <tr>
-                                <td>유형</td>
-                                <td>
-                                    <select id="qndnum" name="mainCategory" onchange="updateSubCategory()">
-                                        <option value="">1차 선택</option>
-                                        <option value="회원">회원</option>
-                                        <option value="주문/결제">주문/결제</option>
-                                        <option value="배송">배송</option>
-                                        <option value="취소/교환/반품">취소/교환/반품</option>
-                                        <option value="쿠폰/포인트">쿠폰/포인트</option>
-                                        <option value="이벤트">이벤트</option>
-                                    </select>
+                <form th:action="@{/admin/cs/faq/modify}" method="post">
+                    <input type="hidden" name="faqId" th:value="${faq.faqId}" />
 
-                                    <select id="qnanum2" name="subCategory">
-                                        <option value="">2차 선택</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>제목</td>
-                                <td><input type="text" class="input-box" id="titleInput" name="title"
-                                           placeholder="제목을 입력합니다."></td>
-                            </tr>
-                            <tr>
-                                <td>내용</td>
-                                <td><input class="input-box content-box" id="contentInput" name="content"
-                                           placeholder="내용을 입력합니다."></td>
-                            </tr>
-                        </table>
-                        <div class="but">
-                            <button type="button" onclick="handleCancel()">취소하기</button>
-                            <button type="submit">수정하기</button>
-                        </div>
-                    </form>
+                    <table>
+                        <tr>
+                            <td>유형</td>
+                            <td>
+                                <select id="qndnum" name="type1" onchange="updateSubCategory()">
+                                    <option value="">1차 선택</option>
+                                    <option value="회원">회원</option>
+                                    <option value="쿠폰/혜택/이벤트">쿠폰/혜택/이벤트</option>
+                                    <option value="주문/결제">주문/결제</option>
+                                    <option value="배송">배송</option>
+                                    <option value="취소/반품/교환">취소/반품/교환</option>
+                                    <option value="여행/숙박/항공">여행/숙박/항공</option>
+                                    <option value="안전거래">안전거래</option>
+                                </select>
+
+                                <select id="qnanum2" name="type2">
+                                    <option value="">2차 선택</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>제목</td>
+                            <td>
+                                <input type="text" class="input-box" name="title" th:value="${faq.title}" placeholder="제목을 입력하세요">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>내용</td>
+                            <td>
+                                <textarea class="input-box content-box" name="content" placeholder="내용을 입력하세요" th:text="${faq.content}"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="but">
+                        <button type="button" onclick="history.back()">취소하기</button>
+                        <button type="submit">수정하기</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </main>
-<th:block th:include="/common/_admin_footer"/>
+<th:block th:insert="~{/common/_admin_footer}" />
 </body>
-
 </html>

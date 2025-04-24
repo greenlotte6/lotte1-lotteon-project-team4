@@ -48,41 +48,38 @@ public class NoticeController {
     }
 
 
-
-
     @GetMapping("/admin/cs/notice/modify")
-        public String showModifyPage(@RequestParam("id") int id, Model model) {
-            Notice notice = noticeService.getNoticeById(id);
-            model.addAttribute("notice", notice);
-            return "/admin/cs/notice/modify";
-        }
+    public String showModifyPage(@RequestParam("id") int id, Model model) {
+        Notice notice = noticeService.getNoticeById(id);
+        model.addAttribute("notice", notice);
+        return "/admin/cs/notice/modify";
+    }
 
-        @PostMapping("/admin/cs/notice/modify")
-        public String modifyNotice(@ModelAttribute Notice notice) {
-            noticeService.updateNotice(notice);
-            return "redirect:/admin/cs/notice/view?id=" + notice.getNoticeId();
-        }
-
-
-
-        @GetMapping("/admin/cs/notice/view")
-        public String view(@RequestParam("id") int id, Model model) {
-            Notice notice = noticeService.findById(id);
-            model.addAttribute("notice", notice);
-            return "/admin/cs/notice/view";
-        }
-
-        @GetMapping("/admin/cs/notice/write")
-        public String write() {
-            return "/admin/cs/notice/write";
-        }
+    @PostMapping("/admin/cs/notice/modify")
+    public String modifyNotice(@ModelAttribute Notice notice) {
+        noticeService.updateNotice(notice);
+        return "redirect:/admin/cs/notice/view?id=" + notice.getNoticeId();
+    }
 
 
-        @PostMapping("/admin/cs/notice/write")
-        public String submitNotice(@ModelAttribute Notice notice) {
-            noticeService.saveNotice(notice);
-            return "redirect:/admin/cs/notice/list";
-        }
+    @GetMapping("/admin/cs/notice/view")
+    public String view(@RequestParam("id") int id, Model model) {
+        Notice notice = noticeService.findById(id);
+        model.addAttribute("notice", notice);
+        return "/admin/cs/notice/view";
+    }
+
+    @GetMapping("/admin/cs/notice/write")
+    public String write() {
+        return "/admin/cs/notice/write";
+    }
+
+
+    @PostMapping("/admin/cs/notice/write")
+    public String submitNotice(@ModelAttribute Notice notice) {
+        noticeService.saveNotice(notice);
+        return "redirect:/admin/cs/notice/list";
+    }
 
     @GetMapping("/admin/cs/notice/delete/{id}")
     public String deleteNotice(@PathVariable("id") int id) {

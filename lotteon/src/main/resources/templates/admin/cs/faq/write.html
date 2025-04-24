@@ -32,17 +32,19 @@
             let options = [];
 
             if (mainCategory === '회원') {
-                options = ['가입', '아이디/비밀번호 찾기', '회원정보 수정', '회원탈퇴'];
+                options = ['가입', '탈퇴', '회원정보', '로그인'];
+            } else if (mainCategory === '쿠폰/혜택/이벤트') {
+                options = ['쿠폰/할인혜택', '포인트', '제휴', '이벤트'];
             } else if (mainCategory === '주문/결제') {
-                options = ['주문확인', '결제방법', '결제오류', '영수증/세금계산서 발급'];
+                options = ['상품', '결제', '구매내역', '영수증/증빙'];
             } else if (mainCategory === '배송') {
-                options = ['배송조회', '배송기간', '배송지 변경', '해외배송'];
-            } else if (mainCategory === '취소/교환/반품') {
-                options = ['주문취소', '반품신청', '교환절차', '환불소요기간'];
-            } else if (mainCategory === '쿠폰/포인트') {
-                options = ['쿠폰확인', '쿠폰사용', '포인트적립', '포인트사용'];
-            } else if (mainCategory === '이벤트') {
-                options = ['이벤트 참여', '당첨확인', '경품수령', '이벤트문의'];
+                options = ['배송상태/기간', '배송정보확인/변경', '해외배송', '당일배송','해외직구'];
+            } else if (mainCategory === '취소/반품/교환') {
+                options = ['반품신청/철회', '반품정보확인/변경', '교환 AS신청/철회', '교환정보확인/변경','취소신청/철회','취소확인/환불정보'];
+            } else if (mainCategory === '여행/숙박/항공') {
+                options = ['여행/숙박', '항공'];
+            } else if (mainCategory === '안전거래'){
+                options = ['서비스 이용규칙 위반', '지식재산권침해', '게시물 정책위반', '직거래/외부거래유도','표시광고','청소년 위해상품/이미지'];
             }
 
             // 기존 옵션 삭제
@@ -81,7 +83,7 @@
             </div>
             <div class="line"></div>
             <div class="container">
-                <form action="#">
+                <form th:action="@{/admin/cs/faq/write}" method="post">
                     <table>
                         <tr>
                             <td>유형</td>
@@ -89,19 +91,19 @@
                                 <form class="category-form">
                                     <div class="select-wrapper">
                                         <label for="qndnum"></label>
-                                        <select id="qndnum" name="name" onchange="updateSubCategory()"
+                                        <select id="qndnum" name="type1" onchange="updateSubCategory()"
                                                 style="padding: 8px;">
-                                            <option value="1차선택">1차 선택</option>
                                             <option value="회원">회원</option>
+                                            <option value="쿠폰/혜택/이벤트">쿠폰/혜택/이벤트</option>
                                             <option value="주문/결제">주문/결제</option>
                                             <option value="배송">배송</option>
-                                            <option value="취소/교환/반품">취소/교환/반품</option>
-                                            <option value="쿠폰/포인트">쿠폰/포인트</option>
-                                            <option value="이벤트">이벤트</option>
+                                            <option value="취소/반품/교환">취소/반품/교환</option>
+                                            <option value="여행/숙박/항공">여행/숙박/항공</option>
+                                            <option value="안전거래">안전거래</option>
                                         </select>
 
                                         <label for="qnanum2"></label>
-                                        <select id="qnanum2" name="name" style="padding: 8px; margin-left: 10px;">
+                                        <select id="qnanum2" name="type2" style="padding: 8px; margin-left: 10px;">
                                             <option value="">2차 선택</option>
                                         </select>
                                     </div>
@@ -111,19 +113,19 @@
                         <tr>
                             <td>제목</td>
                             <td>
-                                <input type="text" placeholder="제목을 입력합니다." class="input-box">
+                                <input type="text" name="title" placeholder="제목을 입력합니다." class="input-box">
                             </td>
                         </tr>
                         <tr>
                             <td>내용</td>
                             <td>
-                                <input type="text" placeholder="내용을 입력합니다." class="input-box content-box">
+                                <input type="text" name="content" placeholder="내용을 입력합니다." class="input-box content-box">
                             </td>
                         </tr>
                     </table>
                     <div class="but">
                         <button>취소하기</button>
-                        <button>등록하기</button>
+                        <button type="submit">등록하기</button>
                     </div>
                 </form>
             </div>
