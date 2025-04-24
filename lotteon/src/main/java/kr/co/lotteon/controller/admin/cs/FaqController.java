@@ -1,7 +1,11 @@
 package kr.co.lotteon.controller.admin.cs;
 
 import kr.co.lotteon.entity.Faq;
+import kr.co.lotteon.repository.FaqRepository;
 import kr.co.lotteon.service.FaqService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,23 +13,42 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+
 
 @Controller
 public class FaqController {
 
     private final FaqService faqService;
+    private final FaqRepository faqRepository;
 
-    public FaqController(FaqService faqService) {
+    public FaqController(FaqService faqService, FaqRepository faqRepository) {
         this.faqService = faqService;
+        this.faqRepository = faqRepository;
     }
 
     @GetMapping("/admin/cs/faq/list")
-    public String list(Model model) {
-        List<Faq> faqList = faqService.getAllFaqs();
-        model.addAttribute("faqList", faqList);
+    public String listFaqs(Model model,
+                           @RequestParam(defaultValue = "1") int page,
+                           @RequestParam(required = false) String type1,
+                           @RequestParam(required = false) String type2) {
+        PageRequest pageRequest = PageRequest.of(page - 1, 10, Sort.by("faqId").descending());
+        Page<Faq> faqPage;
+
+        if (type1 != null && type2 != null) {
+            faqPage = faqRepository.findByType1AndType2(type1, type2, pageRequest);
+        } else if (type1 != null) {
+            faqPage = faqRepository.findByType1(type1, pageRequest);
+        } else {
+            faqPage = faqRepository.findAll(pageRequest);
+        }
+
+        model.addAttribute("faqList", faqPage.getContent());
+        model.addAttribute("totalPages", faqPage.getTotalPages());
+        model.addAttribute("currentPage", page);
+
         return "/admin/cs/faq/list";
     }
+
 
     @GetMapping("/admin/cs/faq/modify")
     public String modifyFaq(@RequestParam("id") int id, Model model) {

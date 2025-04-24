@@ -96,7 +96,7 @@
                                 <td th:text="${user.u_created_at}"></td>
                                 <td class="green" th:text="${user.status}"></td>
                                 <td>
-                                    <div><a href="#" onclick="openModal('/popup@{/admin/shop_Register}')" class="btn">[수정]</a>
+                                    <div><a href="#" onclick="openModal('/popup@{/admin/shop_Register-modal}')" class="btn">[수정]</a>
                                     </div>
                                     <div><a href="#">[중지]</a></div>
                                 </td>
@@ -130,5 +130,12 @@
     </div>
 </main>
 <th:block th:include="/common/_admin_footer"/>
+
+<div class="modal-overlay" id="modalOverlay" style="display:none;">
+    <div class="modal" id="modalFrame"></div>
+    <div class="modal-content">
+        <div id="modalBody"></div>
+    </div>
+</div>
 </body>
 </html>

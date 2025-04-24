@@ -110,7 +110,6 @@ aside {
 .aside li {
     text-align: center;
 }
-
 .ul-list {
     margin-top: 10px;
     padding: 10px 0 10px 0;
@@ -401,6 +400,13 @@ footer {
 
 .submit-btn {
     background-color: #009944;
+}
+.in-ul {
+    display: none;
+}
+
+.ul-list > li.active > ul {
+    display: block;
 }
 .in-ul {
     display: none;
