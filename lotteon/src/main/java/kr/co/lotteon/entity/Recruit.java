@@ -2,7 +2,6 @@ package kr.co.lotteon.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -17,7 +16,8 @@ public class Recruit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long jobId;
+    @Column(name = "job_id") //
+    private String id;  //
 
     @Column(length = 50)
     private String department;
@@ -38,7 +38,7 @@ public class Recruit {
     private String status;
 
     @Column(length = 50)
-    private String period; // 🔥 빠졌던 근무 기간 필드 추가
+    private String period;
 
     private LocalDate startDate;
 
@@ -49,8 +49,14 @@ public class Recruit {
     @Lob
     private String content;
 
+    @Column(nullable = false)
+    private LocalDateTime date;
+
     @PrePersist
     protected void onCreate() {
         this.regDate = LocalDateTime.now();
+        if (this.date == null) {
+            this.date = LocalDateTime.now(); // 기본값 설정
+        }
     }
 }
