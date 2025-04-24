@@ -247,6 +247,7 @@ table select {
     width: 100px;
     height: 40px;
     font-size: 14px;
+    padding: 11px 0 0 23px;
     cursor: pointer;
     color: #fff;
     border: none;
