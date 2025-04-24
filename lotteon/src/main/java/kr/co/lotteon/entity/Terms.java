@@ -1,5 +1,6 @@
 package kr.co.lotteon.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -16,11 +17,12 @@ import lombok.*;
 public class Terms {
 
     @Id
-    private int terms_id;
+    @Column(name = "terms_id")
+    private int termsId;
 
-    private String purchase_terms;
-    private String seller_terms;
-    private String electronic_terms;
-    private String location_terms;
-    private String privacy_policy;
+    private String purchaseTerms;
+    private String sellerTerms;
+    private String electronicTerms;
+    private String locationTerms;
+    private String privacyPolicy;
 }
