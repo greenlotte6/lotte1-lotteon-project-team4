@@ -3,24 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
-          rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/cs/recruit/list.css}">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
-    <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/css/cs/recruit/list.css">
     <title>채용등록</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        .pagination a.active {
+            font-weight: bold;
+            color: #fff;
+            background-color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 
-            $('.hover').click(function (e) {
-                $(this).parent().toggleClass('active');
-            })
+            // 선택삭제 버튼 클릭 시
+            $('#deleteBtn').click(function () {
+                const selectedJobIds = [];
+                $('tbody input[type="checkbox"]:checked').each(function () {
+                    const jobId = $(this).closest('tr').data('job-id');
+                    selectedJobIds.push(jobId);
+                });
 
+                if (selectedJobIds.length === 0) {
+                    alert('삭제할 항목을 선택하세요!');
+                    return;
+                }
 
+                if (confirm('선택한 채용 정보를 삭제하시겠습니까?')) {
+                    $.ajax({
+                        url: '/admin/cs/recruit/delete',
+                        type: 'POST',
+                        data: {
+                            jobIds: selectedJobIds
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                alert('선택한 채용정보가 삭제되었습니다.');
+                                location.reload();
+                            } else {
+                                alert('삭제에 실패했습니다.');
+                            }
+                        },
+                        error: function() {
+                            alert('서버 오류로 삭제에 실패했습니다.');
+                        }
+                    });
+                }
+            });
+
+            // 전체 선택 체크박스 기능
+            $('#checkAll').on('change', function () {
+                const checked = $(this).is(':checked');
+                $('tbody input[type="checkbox"]').prop('checked', checked);
+            });
+
+            // 개별 체크박스 상태에 따라 전체 선택 체크박스 업데이트
+            $('tbody').on('change', 'input[type="checkbox"]', function () {
+                const total = $('tbody input[type="checkbox"]').length;
+                const checked = $('tbody input[type="checkbox"]:checked').length;
+                $('#checkAll').prop('checked', total === checked);
+            });
+
+            // 모달 관련 스크립트
+            const openBtn = document.querySelector('.open-modal-btn');
+            const modal = document.getElementById('modalOverlay');
+            const closeBtn = document.getElementById('closeModal');
+            const cancelBtn = document.getElementById('cancelBtn');
+
+            openBtn.onclick = () => modal.style.display = 'block';
+            closeBtn.onclick = () => modal.style.display = 'none';
+            cancelBtn.onclick = () => modal.style.display = 'none';
+
+            window.onclick = (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            };
         });
     </script>
 
@@ -30,118 +91,92 @@
 <main>
     <div class="main-wrapper">
         <th:block th:include="/common/_admin_aside"/>
-
         <div class="main">
             <div class="setting">
                 <h1>채용하기 목록</h1>
                 <ul>
-                    <li><a th:href="@{/admin/index}">HOME &nbsp;>&nbsp;</a></li>
-                    <li><a th:href="@{/admin/cs/notice/list}">고객센터 &nbsp;>&nbsp;</a></li>
-                    <li><a th:href="@{/admin/cs/recruit/list}"><span>채용하기 &nbsp;</span></a></li>
+                    <li><a href="/admin/index">HOME &nbsp;>&nbsp;</a></li>
+                    <li><a href="/admin/cs/notice/list">고객센터 &nbsp;>&nbsp;</a></li>
+                    <li><a href="/admin/cs/recruit/list"><span>채용하기 &nbsp;</span></a></li>
                 </ul>
             </div>
             <div class="line"></div>
             <div class="container">
                 <div class="search">
-                    <select name="" id="">
-                        <option value="">채용번호</option>
-                        <option value="">채용부서</option>
-                        <option value="">채용형태</option>
-                        <option value="">제목</option>
-                    </select>
-                    <input type="text" placeholder="검색어입력">
-                    <button>검색</button>
-                </div>
-
-                <div>
-                    <table>
-                        <tr>
-                            <th><input type="checkbox"></th>
-                            <th>번호</th>
-                            <th>채용부서</th>
-                            <th>경력사항</th>
-                            <th>채용형태</th>
-                            <th>제목</th>
-                            <th>작성자</th>
-                            <th>상태</th>
-                            <th>모집기간</th>
-                            <th>작성일</th>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>120</td>
-                            <td>광고산업</td>
-                            <td>경력 4~15년</td>
-                            <td>정규직</td>
-                            <td>광고 플랫폼 기획</td>
-                            <td>관리자</td>
-                            <td>
-                                <span style="color: #00b050;">모집중</span>
-                            </td>
-                            <td>0000-00-00 <br>~0000-00-00</td>
-                            <td>0000-00-00 <br> 00.00.00</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>119</td>
-                            <td>IT</td>
-                            <td>경력 2~15년</td>
-                            <td>정규직</td>
-                            <td>IT 인재 상시영입(경력)</td>
-                            <td>관리자</td>
-                            <td>
-                                <span style="color: #00b050;">모집중</span>
-                            </td>
-                            <td>0000-00-00 <br>~0000-00-00</td>
-                            <td>0000-00-00 <br> 00.00.00</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>118</td>
-                            <td>운영</td>
-                            <td>무관</td>
-                            <td>계약직</td>
-                            <td>딘기아르바이트</td>
-                            <td>관리자</td>
-                            <td>
-                                <span style="color: #808080;">마감</span>
-
-                            </td>
-                            <td>0000-00-00 <br>~0000-00-00</td>
-                            <td>0000-00-00 <br> 00.00.00</td>
-                        </tr>
-
-                    </table>
-                    <div class="notice-bottom">
-                        <button class="btn">선택삭제</button>
-
-                        <div class="pagination">
-                            <a href="#">이전</a>
-                            <a href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">다음</a>
+                    <form action="/admin/cs/recruit/list" method="get">
+                        <div class="search">
+                            <select name="searchType">
+                                <option value="job_id">채용번호</option>
+                                <option value="department">채용부서</option>
+                                <option value="type">채용형태</option>
+                                <option value="title">제목</option>
+                            </select>
+                            <input type="text" name="searchKeyword" placeholder="검색어입력" />
+                            <button type="submit">검색</button>
                         </div>
-                        <button class="btn2 open-modal-btn" style="font-size: 13px;">채용등록</button>
+                    </form>
+                </div>
+                <table>
+                    <tr>
+                        <th><input type="checkbox" id="checkAll"></th>
+                        <th>번호</th>
+                        <th>채용부서</th>
+                        <th>경력사항</th>
+                        <th>채용형태</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>상태</th>
+                        <th>모집기간</th>
+                        <th>작성일</th>
+                    </tr>
+                    <tbody>
+                    <tr th:each="recruit : ${recruits}" th:data-job-id="${recruit.id}">
+                        <td><input type="checkbox"/></td>
+                        <td th:text="${recruit.id}">번호</td>
+                        <td th:text="${recruit.department}">부서</td>
+                        <td th:text="${recruit.experience}">경력사항</td>
+                        <td th:text="${recruit.type}">채용형태</td>
+                        <td th:text="${recruit.title}">제목</td>
+                        <td>관리자</td>
+                        <td>
+                        <span th:text="${recruit.endDate >= T(java.time.LocalDate).now() ? '모집중' : '마감'}"
+                              th:style="${'color:' + (recruit.endDate >= T(java.time.LocalDate).now() ? '#00b050' : '#808080')}">
+                            상태
+                        </span>
+                        </td>
+                        <td>
+                            <span th:text="${recruit.startDate}">시작일</span><br/>
+                            ~<span th:text="${recruit.endDate}">마감일</span>
+                        </td>
+                        <td th:text="${recruit.date}">작성일</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="notice-bottom">
+                    <button class="btn" id="deleteBtn">선택삭제</button>
+
+
+                    <div class="pagination">
+                        <a th:href="@{/admin/cs/recruit/list(page=${currentPage - 1})}" th:if="${currentPage > 1}">이전</a>
+                        <a th:each="i : ${#numbers.sequence(1, totalPages)}"
+                           th:href="@{/admin/cs/recruit/list(page=${i})}"
+                           th:text="${i}" th:classappend="${i == currentPage ? 'active' : ''}"></a>
+                        <a th:href="@{/admin/cs/recruit/list(page=${currentPage + 1})}" th:if="${currentPage < totalPages}">다음</a>
                     </div>
+                    <button class="btn2 open-modal-btn" style="font-size: 13px;">채용등록</button>
                 </div>
             </div>
-
         </div>
     </div>
 </main>
 <th:block th:include="/common/_admin_footer"/>
-<!-- 채용 등록 모달 -->
-<!-- 채용 등록 모달 -->
 <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
         <div class="modal-header">
             <span>채용등록</span>
             <button class="close-btn" id="closeModal">X</button>
         </div>
-        <form action="/admin/cs/recruit/register" method="post">
+        <form action="#" th:action="@{/admin/cs/recruit/register}" method="post">
             <div class="form-group">
                 <label>제목</label>
                 <input type="text" name="title" required />
@@ -153,8 +188,10 @@
                     <option value="IT">IT</option>
                     <option value="운영">운영</option>
                     <option value="영업">영업</option>
+                    <option value="경영">경영</option>
                     <option value="마케팅">마케팅</option>
                     <option value="인사">인사</option>
+                    <option value="광고사업">광고사업</option>
                 </select>
             </div>
 
@@ -163,10 +200,11 @@
                 <select name="experience" required>
                     <option value="">경력사항 선택</option>
                     <option value="신입">신입</option>
+                    <option value="무관">무관</option>
                     <option value="1~3년">1~3년</option>
-                    <option value="3~5년">3~5년</option>
-                    <option value="5~10년">5~10년</option>
-                    <option value="10년 이상">10년 이상</option>
+                    <option value="2~15년">2~15년</option>
+                    <option value="4~15년">4~15년</option>
+                    <option value="15년 이상">15년 이상</option>
                 </select>
             </div>
 
@@ -198,24 +236,6 @@
         </form>
     </div>
 </div>
-
-<!-- 모달 관련 스크립트 -->
-<script>
-    const openBtn = document.querySelector('.open-modal-btn');
-    const modal = document.getElementById('modalOverlay');
-    const closeBtn = document.getElementById('closeModal');
-    const cancelBtn = document.getElementById('cancelBtn');
-
-    openBtn.onclick = () => modal.style.display = 'block';
-    closeBtn.onclick = () => modal.style.display = 'none';
-    cancelBtn.onclick = () => modal.style.display = 'none';
-
-    window.onclick = (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-        }
-    };
-</script>
 
 </body>
 </html>
