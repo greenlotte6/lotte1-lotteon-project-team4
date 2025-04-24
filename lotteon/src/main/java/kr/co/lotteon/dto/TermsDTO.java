@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class TermsDTO {
 
-    private int terms_id;
+    private int termsId;
     private String purchaseTerms;
     private String sellerTerms;
     private String electronicTerms;
@@ -31,7 +31,7 @@ public class TermsDTO {
     public Terms toEntity() {
 
         return Terms.builder()
-                .terms_id(terms_id)
+                .termsId(termsId)
                 .purchaseTerms(purchaseTerms)
                 .sellerTerms(sellerTerms)
                 .electronicTerms(electronicTerms)
