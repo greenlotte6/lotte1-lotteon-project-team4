@@ -38,21 +38,23 @@ public class RecruitController {
         Page<Recruit> recruitPage;
 
         if (search == null || search.isBlank()) {
-            // 검색어가 비어있으면 전체 조회
             recruitPage = recruitService.findAllRecruits(pageRequest);
         } else {
-            // 검색어가 있으면 검색 조건에 따라 조회
             recruitPage = recruitService.searchRecruits(searchType, search, pageRequest);
         }
 
         model.addAttribute("recruitList", recruitPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", recruitPage.getTotalPages());
+
         model.addAttribute("search", search);
         model.addAttribute("searchType", searchType);
 
-        return "/admin/cs/recruit/list";  // 이 뷰 이름에 맞는 HTML 파일이 필요합니다.
+
+        return "/admin/cs/recruit/list";
     }
+
+
 
 
     @PostMapping("/admin/cs/recruit/register")
@@ -66,12 +68,24 @@ public class RecruitController {
                                   Model model) {
 
         Recruit recruit = new Recruit();
+
+        // 오늘 날짜를 기준으로 상태를 설정
+        LocalDate currentDate = LocalDate.now();
+        LocalDate parsedEndDate = LocalDate.parse(endDate);
+
+        // 마감일이 현재 날짜 이후면 "모집중", 그렇지 않으면 "마감"
+        if (currentDate.isBefore(parsedEndDate) || currentDate.isEqual(parsedEndDate)) {
+            recruit.setStatus("모집중");
+        } else {
+            recruit.setStatus("마감");
+        }
+
         recruit.setTitle(title);
         recruit.setDepartment(department);
         recruit.setExperience(experience);
         recruit.setType(type);
         recruit.setStartDate(LocalDate.parse(startDate));
-        recruit.setEndDate(LocalDate.parse(endDate));
+        recruit.setEndDate(parsedEndDate);
         recruit.setContent(content);
 
         recruitService.saveRecruit(recruit);
@@ -80,6 +94,7 @@ public class RecruitController {
 
         return "redirect:/admin/cs/recruit/list";
     }
+
 
     @PostMapping("/admin/cs/recruit/delete")
     @ResponseBody

@@ -33,10 +33,19 @@ public class RecruitService {
     // 검색 조건에 맞는 채용 공고 조회 (검색기능 추가)
     public Page<Recruit> searchRecruits(String searchType, String searchKeyword, Pageable pageable) {
         searchKeyword = searchKeyword.trim();  // 공백 제거
+        System.out.println(searchType + " / " + searchKeyword);
+        System.out.println(searchType + " / " + searchKeyword);
+        System.out.println(searchType + " / " + searchKeyword);
 
         switch (searchType) {
             case "job_id":
-                return recruitRepository.findByIdContaining(searchKeyword, pageable);
+                try {
+                    Long id = Long.parseLong(searchKeyword);
+                    return recruitRepository.findById(id, pageable);
+                } catch (NumberFormatException e) {
+                    // 숫자가 아닌 경우 결과 없음 반환
+                    return Page.empty(pageable);
+                }
             case "department":
                 return recruitRepository.findByDepartmentContaining(searchKeyword, pageable);
             case "type":
@@ -44,10 +53,10 @@ public class RecruitService {
             case "title":
                 return recruitRepository.findByTitleContaining(searchKeyword, pageable);
             default:
-                throw new IllegalArgumentException("Invalid search type: " + searchType);
+                return recruitRepository.findAll(pageable);  // fallback
         }
-
     }
+
 
     // 특정 채용 공고 조회
     public Recruit findRecruitById(Long id) {
