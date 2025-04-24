@@ -21,5 +21,14 @@
         ON p.point_id = u.uid;
     </select>
 
+    <!-- 여러 개의 point_id를 받아서 삭제하는 쿼리 -->
+    <delete id="deletePoint">
+        DELETE FROM point
+        WHERE point_id IN
+        <foreach collection="point_id" item="point_id" open="(" separator="," close=")">
+            #{point_id}
+        </foreach>
+    </delete>
+
 
 </mapper>
