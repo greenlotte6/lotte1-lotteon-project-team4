@@ -10,9 +10,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PageResponseDTO {
+public class PageResponseDTO<T> {
 
-    private List<UsersDTO> dtoList;
+    private List<T> dtoList;
 
     private String cate;
     private int pg;
@@ -27,7 +27,7 @@ public class PageResponseDTO {
     private int CinforId;
 
     @Builder
-    public PageResponseDTO(PageRequestDTO pageRequestDTO, List<UsersDTO> dtoList, int total) {
+    public PageResponseDTO(PageRequestDTO pageRequestDTO, List<T> dtoList, int total) {
 
         this.cate = pageRequestDTO.getCate();
         this.pg = pageRequestDTO.getPg();
