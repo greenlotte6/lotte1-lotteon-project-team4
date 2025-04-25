@@ -139,7 +139,7 @@
                             <td th:text="${faq.hits}"></td>
                             <td th:text="${faq.uploadDateStr}"></td>
                             <td>
-                                <a th:href="@{'/admin/cs/faq/delete?id=' + ${faq.faqId}}">[삭제]</a><br>
+                                <a th:href="@{/admin/cs/faq/delete(faqId=${faq.faqId})}">[삭제]</a><br>
                                 <a th:href="@{'/admin/cs/faq/modify?id=' + ${faq.faqId}}">[수정]</a>
                             </td>
                         </tr>

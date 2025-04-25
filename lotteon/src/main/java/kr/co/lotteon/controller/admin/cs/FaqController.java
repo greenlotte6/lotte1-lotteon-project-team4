@@ -9,10 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -90,19 +87,17 @@ public class FaqController {
         return "/admin/cs/faq/list";
     }
 
-
+    @PostMapping("/admin/cs/faq/modify")
+    public String updateFaq(@ModelAttribute Faq faq) {
+        faqService.updateFaq(faq);
+        return "redirect:/admin/cs/faq/list"; // 수정 후 목록으로 이동
+    }
 
     @GetMapping("/admin/cs/faq/modify")
     public String modifyFaq(@RequestParam("id") int id, Model model) {
         Faq faq = faqService.getFaqById(id);
         model.addAttribute("faq", faq);
-        return "/admin/cs/faq/modify"; // 수정페이지 HTML
-    }
-
-    @PostMapping("/admin/cs/faq/modify")
-    public String updateFaq(@ModelAttribute Faq faq) {
-        faqService.updateFaq(faq);
-        return "redirect:/admin/cs/faq/list"; // 수정 후 목록으로 이동
+        return "/admin/cs/faq/modify";
     }
 
     @GetMapping("/admin/cs/faq/view")
@@ -141,10 +136,9 @@ public class FaqController {
         faqService.deleteAllByIds(faqIds);
         return "redirect:/admin/cs/faq/list";
     }
-
     @GetMapping("/admin/cs/faq/delete")
-    public String deleteFaq(@RequestParam int id) {
-        faqService.deleteFaq(id);
+    public String deleteFaq(@RequestParam("faqId") int faqId) {
+        faqService.deleteFaq(faqId);
         return "redirect:/admin/cs/faq/list";
     }
 

@@ -24,6 +24,7 @@ bin/
 *.ipr
 *.log
 *.gz
+*.tmp
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
