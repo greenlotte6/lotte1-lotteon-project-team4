@@ -88,58 +88,30 @@
 
                         <table class="cs-table">
                             <tbody>
-                                <tr>
-                                    <td><a href="#">[안내] 해외결제사 칭 문자주의</a></td>
-                                    <td>2024.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[발표] G.Live X SK 스토아 이벤트당첨자 발표</a></td>
-                                    <td>2024.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[안내] 해외결제사 칭 문자주의</a></td>
-                                    <td>2024.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[발표] G.Live X SK 스토아 이벤트당첨자 발표</a></td>
-                                    <td>2024.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[안내] 해외결제사 칭 문자주의</a></td>
-                                    <td>2024.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[발표] G.Live X SK 스토아 이벤트당첨자 발표</a></td>
-                                    <td>2024.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[안내] 해외결제사 칭 문자주의</a></td>
-                                    <td>2024.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[발표] G.Live X SK 스토아 이벤트당첨자 발표</a></td>
-                                    <td>2024.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[안내] 해외결제사 칭 문자주의</a></td>
-                                    <td>2024.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[발표] G.Live X SK 스토아 이벤트당첨자 발표</a></td>
-                                    <td>2024.01.01</td>
-                                </tr>
+                            <tr th:each="notice : ${noticeList}">
+                                <td th:text="${notice.noticeId}"></td>
+                                <td>
+                                    <a th:href="@{'/notice/' + ${notice.noticeId}}" th:text="${notice.title}"></a>
+                                </td>
+                                <td th:text="${#temporals.format(notice.upload_at, 'yy.MM.dd')}"></td>
+                            </tr>
                             </tbody>
                         </table>
 
                         <div class="pagination">
-                            <a href="#">이전</a>
-                            <a class="active" href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">다음</a>
+                            <a th:if="${page.hasPrevious()}"
+                               th:href="@{/notice/all-list(page=${page.number - 1})}">이전</a>
+
+                            <span th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}">
+                                <a th:href="@{/notice/all-list(page=${i})}"
+                                   th:text="${i + 1}"
+                                   th:classappend="${page.number == i} ? 'active'">1</a>
+                            </span>
+
+                            <a th:if="${page.hasNext()}"
+                               th:href="@{/notice/all-list(page=${page.number + 1})}">다음</a>
                         </div>
+
                     </section>
                 </div>
             </div>
