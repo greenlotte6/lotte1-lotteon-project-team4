@@ -14,12 +14,14 @@ public class MyaccountController {
 
     @GetMapping("/myaccount/buy-modal")
     public String buyModal() {
+
         return "/myaccount/buy :: modalContent";
     }
 
 
     @GetMapping("/myaccount/coupon")
     public String coupon() {
+
         return "/myaccount/coupon";
     }
 

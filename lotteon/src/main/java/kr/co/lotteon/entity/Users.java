@@ -1,8 +1,6 @@
 package kr.co.lotteon.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -31,6 +29,7 @@ public class Users {
     private String addr1;
     private String addr2;
     private String role;
+
 
     @CreationTimestamp
     private LocalDateTime u_created_at;

@@ -29,4 +29,23 @@ public class UsersService {
                 .collect(Collectors.toList());
     }
 
+    public void saveUser(UsersDTO dto) {
+        Users user = Users.builder()
+                .uid(dto.getUid())
+                .uname(dto.getUname())
+                .password(dto.getPassword())
+                .email(dto.getEmail())
+                .hp(dto.getHp())
+                .addr1(dto.getAddr1())
+                .addr2(dto.getAddr2())
+                .zip(dto.getZip())
+                .role("USER")              // 기본값 부여
+                .status("ACTIVE")          // 기본값 부여
+                .grade("basic")            // 등급도 기본 지정 가능
+                .point(0)
+                .build();
+
+        usersRepository.save(user);
+    }
+
 }
