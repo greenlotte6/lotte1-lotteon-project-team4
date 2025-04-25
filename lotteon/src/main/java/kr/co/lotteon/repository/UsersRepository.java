@@ -12,6 +12,10 @@ import java.util.List;
 @Repository
 public interface UsersRepository extends JpaRepository<Users, String> {
 
+    boolean existsByEmail(String email);
+
+
+
 //    @Query("SELECT u FROM Users u WHERE u.status = :status")
 //    List<Users> findByStatus(@Param("status") String status);
 }

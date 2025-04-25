@@ -22,7 +22,7 @@ public class PolicyController {
 
     @GetMapping("/policy/seller")
     public String policySeller(Model model) {
-        model.addAttribute("terms", policyService.getTermsSet(2));
+        model.addAttribute("terms", policyService.getTermsSet(1));
         return "/policy/seller";
     }
 
