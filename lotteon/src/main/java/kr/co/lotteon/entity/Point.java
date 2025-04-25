@@ -22,7 +22,7 @@ public class Point {
     private int point_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "uid")
+    @JoinColumn(name = "uid") // 외래키로 "uid"를 사용
     private Users users;
 
     private int given;

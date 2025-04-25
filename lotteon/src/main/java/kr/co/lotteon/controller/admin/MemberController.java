@@ -1,6 +1,7 @@
 package kr.co.lotteon.controller.admin;
 
 import kr.co.lotteon.dto.PageRequestDTO;
+import kr.co.lotteon.dto.PageResponseDTO;
 import kr.co.lotteon.dto.PointDTO;
 import kr.co.lotteon.dto.UsersDTO;
 import kr.co.lotteon.service.UsersService;
@@ -29,36 +30,36 @@ public class MemberController {
     @GetMapping("/admin/member/list")
     public String list(Model model) {
 
-        List<UsersDTO> users = usersService.findAll();
-        model.addAttribute("users", users);
+        List<UsersDTO> userList = usersService.findAll();
+        model.addAttribute("userList", userList);
 
-        log.info("users: {}", users);
+        log.info("users: {}", userList);
 
         // 회원 목록 불러오기
         return "/admin/member/list";
     }
 
+    //검색
     @GetMapping("/admin/member/search")
-    public String search(@RequestParam(required = false) String searchType,
-                         @RequestParam(required = false) String keyword,
-                         PageRequestDTO pageRequestDTO,
-                         Pageable pageable,
+    public String search(@RequestParam("searchType") String searchType,
+                         @RequestParam("keyword") String keyword,
                          Model model) {
 
-        // 서비스 호출하여 페이징 처리된 사용자 목록을 반환
-        Page<UsersDTO> usersPage = memberService.getUsers(searchType, keyword, pageRequestDTO, pageable);
+        List<UsersDTO> userList;
 
-        // 모델에 결과를 담아서 반환
-        model.addAttribute("users", usersPage);  // 페이징된 사용자 목록만 추가
+        if (searchType != null && keyword != null) {
+            userList = memberService.searchMembers(searchType, keyword);
+            log.info("검색한 유저 리스트: {}", userList);
+        } else {
+            userList = usersService.findAll();
+            log.info("모든 유저 리스트: {}", userList);
+        }
+
+        model.addAttribute("userList", userList);
         model.addAttribute("searchType", searchType);
         model.addAttribute("keyword", keyword);
 
-        log.info("searchType: {}", searchType);
-        log.info("keyword: {}", keyword);
-        log.info("pageRequestDTO: {}", pageRequestDTO);
-        log.info("pageable: {}", pageable);
-
-        return "/admin/member/searchList";
+        return "/admin/member/list";
     }
 
     @GetMapping("/admin/member/point")

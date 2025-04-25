@@ -77,7 +77,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="user : ${users}">
+                            <tr th:each="user : ${userList}">
                                 <td><input type="checkbox"></td>
                                 <td th:text="${user.no}"></td>
                                 <td th:text="${user.uid}"></td>
@@ -104,7 +104,9 @@
                                     <div><a href="#">[중지]</a></div>
                                 </td>
                             </tr>
-
+                            <tr th:if="${#lists.isEmpty(users)}">
+                                <td colspan="12" class="no-results">검색 결과가 없습니다.</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
