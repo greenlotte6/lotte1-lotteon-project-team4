@@ -21,7 +21,9 @@
         <div class="section-title">쇼핑을 새롭게, 세상을 이롭게 만들어 나가요.</div>
         <h2>대기업 속의 스타트업, 롯데ON은 이렇게 일해요!</h2>
         <div class="content-box">
-            <div class="image-placeholder"></div>
+            <div class="image-placeholder">
+                <img style="height: 220px; width: 380px"  src="/images/img_20.png" alt="썸네일 이미지" />
+            </div>
             <div class="text-box">
                 <h3>스스로 책임지고 자율적으로 일해요</h3>
                 <p>
@@ -41,10 +43,14 @@
                     있는 것이 무엇인지 항상 고민해요.
                 </p>
             </div>
-            <div class="image-placeholder"></div>
+            <div class="image-placeholder">
+                <img style="height: 220px; width: 380px"  src="/images/img_21.png" alt="썸네일 이미지" />
+            </div>
         </div>
         <div class="content-box">
-            <div class="image-placeholder"></div>
+            <div class="image-placeholder">
+                <img style="height: 220px; width: 380px"  src="/images/img_22.png" alt="썸네일 이미지" />
+            </div>
             <div class="text-box">
                 <h3>스스로 책임지고 자율적으로 일해요</h3>
                 <p>
@@ -89,7 +95,9 @@
         <div class="banner">
             <div class="banner-line">
                 <strong>롯데ON의 기업문화가 더 궁금하다면?</strong><br>
-                <button>더 알아보기 &gt;</button>
+                <button>
+                    <a th:href="@{/company/story}">더알아보기</a>
+                </button>
             </div>
         </div>
         <th:block th:include="/common/company_footer"/>
