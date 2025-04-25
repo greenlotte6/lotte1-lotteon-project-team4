@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
@@ -7,8 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+            rel="stylesheet">
     <link rel="stylesheet" href="/css/common/_header.css">
     <link rel="stylesheet" href="/css/common/_footer.css">
     <link rel="stylesheet" href="/css/cs/qna/write.css" />
@@ -33,10 +33,6 @@
             rank.addEventListener('mouseleave', () => {
                 ranknav.classList.remove('rank-show');
             });
-            /*
-            const rankitem = document.getElementsByClassName('rank-item')[0];
-            let currentIndex = 0;
-            */
 
             bar.addEventListener('click', () => {
                 barcate.classList.toggle('show');
@@ -54,15 +50,6 @@
                 fullmenu.classList.remove('menu');
             });
 
-            /*
-            function showNextItem() {
-                currentIndex = (currentIndex + 1) % rankitem.length;
-                ranklist.style.transform = `translateY(-${currentIndex * 100}%)`;
-            }
-
-            setInterval(showNextItem, 3000);
-            */
-
             const categoryMap = {
                 "회원": ["가입", "탈퇴", "회원정보", "로그인"],
                 "쿠폰/혜택/이벤트": ["쿠폰/할인혜택", "포인트", "제휴", "이벤트"],
@@ -79,7 +66,7 @@
             primary.addEventListener('change', function () {
                 const selected = primary.value;
                 const subOptions = categoryMap[selected] || [];
-                secondary.innerHTML = '<option hidden selected>2차 선택</option>';
+                secondary.innerHTML = '<option hidden selected>  ▼ 2차 선택</option>';
 
                 subOptions.forEach(function (opt) {
                     const option = document.createElement('option');
@@ -88,75 +75,77 @@
                     secondary.appendChild(option);
                 });
             });
-
         });
     </script>
 </head>
 
 <body>
-    <div id="wrapper">
-        <th:block th:include="/common/_header"/>
+<div id="wrapper">
+    <th:block th:include="/common/_header"/>
 
-        <main>
+    <main>
 
-            <div class="notice-wrapper">
-                <div class="notice-path">
-                    <span>홈</span> &gt; <strong>문의하기</strong>
-                </div>
-
-
-                <div class="cs-container">
-                    <th:block th:include="/common/_cs_qna_aside.html"/>
-
-                    <section class="cs-content">
-                        <h3 class="cs-title">문의하기</h3>
-                        <p class="cs-desc">궁금하신 내용을 남겨주시면 신속히 답변드리겠습니다.</p>
-
-                        <form action="/cs/qna/write" method="post">
-                            <table class="qna-write-table">
-                                <tr>
-                                    <th>문의유형</th>
-                                    <td>
-                                        <select id="primary" name="primary">
-                                            <option hidden selected>  ▼ 1차 선택</option>
-                                            <option value="회원">회원</option>
-                                            <option value="쿠폰/혜택/이벤트">쿠폰/혜택/이벤트</option>
-                                            <option value="주문/결제">주문/결제</option>
-                                            <option value="배송">배송</option>
-                                            <option value="취소/반품/교환">취소/반품/교환</option>
-                                            <option value="여행/숙박/항공">여행/숙박/항공</option>
-                                            <option value="안전거래">안전거래</option>
-                                        </select>
-
-                                        <select id="secondary" name="secondary">
-                                            <option hidden selected>  ▼ 2차 선택</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>제목</th>
-                                    <td><input type="text" name="title" placeholder="제목을 입력합니다." required /></td>
-                                </tr>
-                                <tr>
-                                    <th>내용</th>
-                                    <td><textarea name="content" placeholder="내용을 입력합니다." rows="8" required></textarea>
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <div class="qna-write-button">
-                                <button type="button" onclick="history.back()">취소하기</button>
-                                <button type="submit">등록하기</button>
-                            </div>
-                        </form>
-
-                    </section>
-                </div>
+        <div class="notice-wrapper">
+            <div class="notice-path">
+                <span>홈</span> &gt; <strong>문의하기</strong>
             </div>
-        </main>
 
-        <th:block th:include="/common/_footer"/>
-    </div>
+            <div class="cs-container">
+                <th:block th:include="/common/_cs_qna_aside.html"/>
+
+                <section class="cs-content">
+                    <h3 class="cs-title">문의하기</h3>
+                    <p class="cs-desc">궁금하신 내용을 남겨주시면 신속히 답변드리겠습니다.</p>
+
+                    <form action="/qna/write" method="post">
+                        <!-- userUid 값을 동적으로 전달하는 숨은 필드 추가 -->
+                        <input type="hidden" name="uid" value="${userUid}" /> <!-- 변경된 부분 -->
+
+                        <table class="qna-write-table">
+                            <tr>
+                                <th>문의유형</th>
+                                <td>
+                                    <select id="primary" name="primary">
+                                        <option hidden selected>  ▼ 1차 선택</option>
+                                        <option value="회원">회원</option>
+                                        <option value="쿠폰/혜택/이벤트">쿠폰/혜택/이벤트</option>
+                                        <option value="주문/결제">주문/결제</option>
+                                        <option value="배송">배송</option>
+                                        <option value="취소/반품/교환">취소/반품/교환</option>
+                                        <option value="여행/숙박/항공">여행/숙박/항공</option>
+                                        <option value="안전거래">안전거래</option>
+                                    </select>
+
+                                    <select id="secondary" name="secondary">
+                                        <option hidden selected>  ▼ 2차 선택</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>제목</th>
+                                <td><input type="text" name="title" placeholder="제목을 입력합니다." required /></td>
+                            </tr>
+                            <tr>
+                                <th>내용</th>
+                                <td><textarea name="content" placeholder="내용을 입력합니다." rows="8" required></textarea></td>
+                            </tr>
+                        </table>
+
+                        <div class="qna-write-button">
+                            <button type="button" onclick="history.back()">취소하기</button>
+                            <button type="submit">등록하기</button>
+                        </div>
+                    </form>
+
+
+
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <th:block th:include="/common/_footer"/>
+</div>
 </body>
 
 </html>
