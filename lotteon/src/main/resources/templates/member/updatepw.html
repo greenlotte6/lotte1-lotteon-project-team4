@@ -69,6 +69,20 @@
             input.type = input.type === 'password' ? 'text' : 'password';
         }
     </script>
+
+    <script>
+        function showModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('hide');
+        }
+
+        function hideModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('hide');
+        }
+    </script>
+
+
 </head>
 
 <body>
@@ -102,11 +116,16 @@
                     </div>
 
                     <div class="submit-btn">
-                        <button type="submit">변경하기</button>
+                        <button type="button" onclick="showModal()">변경하기</button>
                     </div>
                 </form>
             </div>
         </article>
+
+        <div id="modal" class="top-modal hide">
+            <span>비밀번호가 성공적으로 변경되었습니다.</span>
+            <button class="close-btn" onclick="hideModal()">×</button>
+        </div>
     </main>
 
 

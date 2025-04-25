@@ -143,53 +143,68 @@ h2 {
     margin-bottom: 5px;
     color: #e60012;
 }
+
 footer {
     background-color: #fff;
     border-top: 1px solid #ddd;
     padding: 30px 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #444;
 }
-footer .container {
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
 }
+
 .footer-left {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
+
 .footer-nav {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
 }
+
 .footer-nav a {
     color: #d14171;
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
 }
+
 .footer-right {
     text-align: right;
 }
+
 .email {
     font-size: 14px;
     margin-bottom: 10px;
     color: #333;
 }
+
 .sns-icons a {
     display: inline-block;
     width: 32px;
     height: 32px;
     margin-left: 6px;
 }
+
 .sns-icons img {
     width: 100%;
     height: auto;
     filter: grayscale(1);
     transition: 0.3s ease;
 }
+
 .sns-icons img:hover {
     filter: grayscale(0);
 }
