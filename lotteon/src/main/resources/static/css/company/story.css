@@ -322,12 +322,7 @@ footer {
     background-color: #003d7a;
 }
 
-/* 카드 숨김 처리 스타일 */
-.card {
-    display: none; /* 기본적으로 카드 숨김 */
-}
-
-/* 'extra-cards' 클래스는 '더보기' 버튼 클릭 후 보일 카드에 적용 */
-.card.extra-cards {
+.card{
     display: block;
+
 }
