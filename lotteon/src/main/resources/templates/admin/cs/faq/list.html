@@ -6,33 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
           rel="stylesheet">
+
     <link rel="stylesheet" th:href="@{/css/faq/list.css}">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <link rel="stylesheet" th:href="@{/css/common/_admin_header.css}">
     <link rel="stylesheet" th:href="@{/css/common/_admin_footer.css}">
-    <!-- Font Awesome CDN -->
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>자주묻는 질문</title>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-
-            $('.hover').click(function (e) {
-                $(this).parent().toggleClass('active');
-            })
-
-
-        });
+        window.onload = function () {
+            // updateSubCategory();
+            document.getElementById('checkAll').addEventListener('change', function () {
+                const isChecked = this.checked;
+                document.querySelectorAll('input[name="faqIds"]').forEach(function (checkbox) {
+                    checkbox.checked = isChecked;
+                });
+            });
+        };
 
         function updateSubCategory() {
-            const mainCategory = document.getElementById('qndnum').value;  // 1차유형
-            const subCategory = document.getElementById('qnanum2');  // 2차유형
-
+            const mainCategory = document.getElementById('qndnum').value;
+            const subCategory = document.getElementById('qnanum2');
+            const selectedValue = subCategory.getAttribute('data-selected');
             let options = [];
 
             if (mainCategory === '회원') {
@@ -42,28 +42,29 @@
             } else if (mainCategory === '주문/결제') {
                 options = ['상품', '결제', '구매내역', '영수증/증빙'];
             } else if (mainCategory === '배송') {
-                options = ['배송상태/기간', '배송정보확인/변경', '해외배송', '당일배송','해외직구'];
+                options = ['배송상태/기간', '배송정보확인/변경', '해외배송', '당일배송', '해외직구'];
             } else if (mainCategory === '취소/반품/교환') {
-                options = ['반품신청/철회', '반품정보확인/변경', '교환 AS신청/철회', '교환정보확인/변경','취소신청/철회','취소확인/환불정보'];
+                options = ['반품신청/철회', '반품정보확인/변경', '교환 AS신청/철회', '교환정보확인/변경', '취소신청/철회', '취소확인/환불정보'];
             } else if (mainCategory === '여행/숙박/항공') {
                 options = ['여행/숙박', '항공'];
-            } else if (mainCategory === '안전거래'){
-                options = ['서비스 이용규칙 위반', '지식재산권침해', '게시물 정책위반', '직거래/외부거래유도','표시광고','청소년 위해상품/이미지'];
+            } else if (mainCategory === '안전거래') {
+                options = ['서비스 이용규칙 위반', '지식재산권침해', '게시물 정책위반', '직거래/외부거래유도', '표시광고', '청소년 위해상품/이미지'];
             }
 
-            // 기존 옵션 삭제
             subCategory.innerHTML = '';
 
-            // 기본 옵션 추가
             const defaultOption = document.createElement('option');
             defaultOption.text = '2차 선택';
+            defaultOption.value = '';
             subCategory.appendChild(defaultOption);
 
-            // 선택된 1차유형에 맞는 2차유형 옵션 추가
             options.forEach(function (option) {
                 const newOption = document.createElement('option');
                 newOption.value = option;
                 newOption.text = option;
+                if (selectedValue === option) {
+                    newOption.selected = true;
+                }
                 subCategory.appendChild(newOption);
             });
         }
@@ -71,10 +72,10 @@
 </head>
 
 <body>
-<th:block th:include="/common/_admin_header"/>
+<th:block th:insert="~{/common/_admin_header}"/>
 <main>
     <div class="main-wrapper">
-        <th:block th:include="/common/_admin_aside"/>
+        <th:block th:insert="~{/common/_admin_aside}"/>
 
         <div class="main">
             <div class="setting">
@@ -87,63 +88,73 @@
             </div>
             <div class="line"></div>
             <div class="container">
-                <form class="category-form">
+                <form class="category-form" method="get" action="/admin/cs/faq/list">
                     <div class="select-wrapper">
-                        <label for="qndnum"></label>
-                        <select id="qndnum" name="type1" onchange="updateSubCategory()"
-                                style="padding: 8px;">
-                            <option value="회원">회원</option>
-                            <option value="쿠폰/혜택/이벤트">쿠폰/혜택/이벤트</option>
-                            <option value="주문/결제">주문/결제</option>
-                            <option value="배송">배송</option>
-                            <option value="취소/반품/교환">취소/반품/교환</option>
-                            <option value="여행/숙박/항공">여행/숙박/항공</option>
-                            <option value="안전거래">안전거래</option>
+                        <select id="qndnum" name="type1" onchange="this.form.submit()" style="padding: 8px;">
+                            <option value="">1차 전체</option>
+                            <option value="회원" th:selected="${selectedType1 == '회원'}">회원</option>
+                            <option value="쿠폰/혜택/이벤트" th:selected="${selectedType1 == '쿠폰/혜택/이벤트'}">쿠폰/혜택/이벤트</option>
+                            <option value="주문/결제" th:selected="${selectedType1 == '주문/결제'}">주문/결제</option>
+                            <option value="배송" th:selected="${selectedType1 == '배송'}">배송</option>
+                            <option value="취소/반품/교환" th:selected="${selectedType1 == '취소/반품/교환'}">취소/반품/교환</option>
+                            <option value="여행/숙박/항공" th:selected="${selectedType1 == '여행/숙박/항공'}">여행/숙박/항공</option>
+                            <option value="안전거래" th:selected="${selectedType1 == '안전거래'}">안전거래</option>
                         </select>
 
-                        <label for="qnanum2"></label>
-                        <select id="qnanum2" name="type2" style="padding: 8px; margin-left: 10px;">
-                            <option value="">2차 선택</option>
-                        </select>
+
+
+                        <th:block th:if="${selectedType1 != null}">
+                            <select id="qnanum2" name="type2" onchange="this.form.submit()" style="padding: 8px;">
+                                <option value="">2차 전체</option> <!-- 전체 보기용 -->
+                                <option th:each="sub : ${subTypes}"
+                                        th:value="${sub}"
+                                        th:text="${sub}"
+                                        th:selected="${sub == selectedType2}">
+                                </option>
+                            </select>
+                        </th:block>
                     </div>
                 </form>
-                <table>
-                    <tr>
-                        <th><input type="checkbox"></th>
-                        <th>번호</th>
-                        <th>1차유형</th>
-                        <th>2차유형</th>
-                        <th>제목</th>
-                        <th>조회</th>
-                        <th>날짜</th>
-                        <th>관리</th>
-                    </tr>
-                    <tr th:each="faq : ${faqList}">
-                        <td><input type="checkbox" name="ids" th:value="${faq.faqId}"></td>
-                        <td th:text="${faq.faqId}"></td>
-                        <td th:text="${faq.type1}"></td>
-                        <td th:text="${faq.type2}"></td>
-                        <td>
-                            <a th:href="@{/admin/cs/faq/view(faqId=${faq.faqId})}" th:text="${faq.title}"></a>
-                        </td>
-                        <td th:text="${faq.hits}"></td>
-                        <td th:text="${#temporals.format(faq.uploadDate, 'yy.MM.dd')}"></td>
-                        <td>
-                            <a th:href="@{'/admin/cs/faq/delete?id=' + ${faq.faqId}}">[삭제]</a><br>
-                            <a th:href="@{'/admin/cs/faq/modify?id=' + ${faq.faqId}}">[수정]</a>
 
-                        </td>
-                    </tr>
-                </table>
+                <form method="post" action="/admin/cs/faq/deleteSelected" id="deleteForm">
+                    <table>
+                        <tr>
+                            <th><input type="checkbox" id="checkAll"></th>
+                            <th>번호</th>
+                            <th>1차유형</th>
+                            <th>2차유형</th>
+                            <th>제목</th>
+                            <th>조회</th>
+                            <th>날짜</th>
+                            <th>관리</th>
+                        </tr>
+                        <tr th:each="faq : ${faqList}">
+                            <td><input type="checkbox" name="faqIds" th:value="${faq.faqId}"></td>
+                            <td th:text="${faq.faqId}"></td>
+                            <td th:text="${faq.type1}"></td>
+                            <td th:text="${faq.type2}"></td>
+                            <td>
+                                <a th:href="@{/admin/cs/faq/view(faqId=${faq.faqId})}" th:text="${faq.title}"></a>
+                            </td>
+                            <td th:text="${faq.hits}"></td>
+                            <td th:text="${faq.uploadDateStr}"></td>
+                            <td>
+                                <a th:href="@{'/admin/cs/faq/delete?id=' + ${faq.faqId}}">[삭제]</a><br>
+                                <a th:href="@{'/admin/cs/faq/modify?id=' + ${faq.faqId}}">[수정]</a>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+
                 <div class="btn">
-                    <button>선택삭제</button>
+                    <button type="submit" form="deleteForm">선택삭제</button>
                     <button class="write-btn" onclick="location.href='/admin/cs/faq/write'">작성하기</button>
                 </div>
             </div>
         </div>
     </div>
 </main>
-<th:block th:include="/common/_admin_footer"/>
+<th:block th:insert="~{/common/_admin_footer}"/>
 </body>
 
 </html>

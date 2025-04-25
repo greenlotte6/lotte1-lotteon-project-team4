@@ -45,4 +45,22 @@ public class FaqService {
         faqRepository.save(existing);
     }
 
+    public void deleteAllByIds(List<Integer> ids) {
+        faqRepository.deleteAllByIdInBatch(ids);
+    }
+
+    public void deleteFaq(int id) {
+        faqRepository.deleteById(id);
+    }
+    public List<Faq>getFilteredFaqs(String type1, String type2) {
+        if (type1 != null && !type1.isEmpty() && type2 != null && !type2.isEmpty()) {
+            return faqRepository.findByType1AndType2(type1, type2);
+        } else if (type1 != null && !type1.isEmpty()) {
+            return faqRepository.findByType1(type1);
+        } else {
+            return faqRepository.findAll();
+        }
+    }
+
+
 }
