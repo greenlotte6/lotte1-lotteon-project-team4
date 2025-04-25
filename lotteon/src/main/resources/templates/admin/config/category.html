@@ -22,8 +22,8 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         $(document).ready(function () {
-            $('.click').click(function (e) {
-                $(this).parent().toggleClass('active');
+            $('.hover').click(function () {
+                $(this).closest('li').toggleClass('active');
             });
 
             $('.sub').sortable({

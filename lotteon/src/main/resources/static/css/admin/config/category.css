@@ -121,7 +121,7 @@ aside {
     display: none;
 }
 
-.in-ul.active {
+.ul-list > li.active > .in-ul {
     display: block;
 }
 

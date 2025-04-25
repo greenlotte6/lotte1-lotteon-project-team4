@@ -16,13 +16,13 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>공지사항</title>
-    <script th:src="@{/js/modal.js}"></script>
+    <script src="@{/js/modal.js}"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            $('.hover').click(function (e) {
-                $(this).parent().toggleClass('active');
-            })
+            $('.hover').click(function () {
+                $(this).closest('li').toggleClass('active');
+            });
 
             $(document).ready(function () {
                 $('#checkAll').click(function () {
