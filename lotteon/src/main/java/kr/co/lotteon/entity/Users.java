@@ -5,10 +5,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.modelmapper.internal.bytebuddy.asm.Advice;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -42,5 +44,6 @@ public class Users {
 
     private String mgmt;
     private String other;
+
 
 }
