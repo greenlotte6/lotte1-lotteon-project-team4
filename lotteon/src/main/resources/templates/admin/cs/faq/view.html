@@ -63,13 +63,19 @@
                 </table>
                 <div class="btn">
                     <!-- 삭제 -->
-                    <button th:onclick="|location.href='@{/admin/cs/faq/delete(faqId=${faq.faqId})}'|">삭제</button>
+                    <a th:href="@{/admin/cs/faq/delete(faqId=${faq.faqId})}">
+                        <button type="button">삭제</button>
+                    </a>
 
                     <!-- 수정 -->
-                    <button th:onclick="|location.href='@{/admin/cs/faq/modify/{id}(id=${faq.faqId})}'|">수정</button>
+                    <a th:href="@{/admin/cs/faq/modify(id=${faq.faqId})}">
+                        <button type="button">수정</button>
+                    </a>
 
                     <!-- 목록 -->
-                    <button onclick="location.href='/admin/cs/faq/list'">목록</button>
+                    <a th:href="@{/admin/cs/faq/list}">
+                        <button type="button">목록</button>
+                    </a>
                 </div>
             </div>
         </div>
