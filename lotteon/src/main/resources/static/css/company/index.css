@@ -10,19 +10,17 @@ body {
     color: #333;
 }
 .container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 50px 20px;
 }
 header {
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-    padding: 20px 0;
-}
-header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 20px 0;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
 }
 header img {
     height: 40px;
