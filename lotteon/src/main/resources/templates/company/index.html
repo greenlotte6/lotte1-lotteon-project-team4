@@ -4,27 +4,38 @@
     <meta charset="UTF-8" />
     <title>롯데ON 스토리</title>
     <link rel="stylesheet" href="/css/company/index.css" />
+
+    <!-- 구글 폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- AOS 스크롤 애니메이션 -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+
 </head>
+
 <body>
 <div class="container">
-    <th:block th:include="/common/company_header"/>
+    <th:block th:include="/common/company_header" />
 </div>
 
 <div class="main-banner">
-    <div class="main-memo">
+    <div class="main-memo" data-aos="fade-down">
         취향을, 브랜드를, 혜택을 발견하는 즐거움<br />지금 롯데온에서 만나요
     </div>
 </div>
 
 <main>
     <div class="container">
-        <div class="intro-text">
+        <div class="intro-text" data-aos="fade-up">
             소비 등 생활 사람들이 만든 플랫폼, 롯데온은 혁신적인 온라인 쇼핑의 판을 바꿉니다.
         </div>
 
-        <div class="section-title">쇼핑을 새롭게, 세상을 이롭게 만들어 나가요.</div>
+        <div class="section-title" data-aos="zoom-in">
+            쇼핑을 새롭게, 세상을 이롭게 만들어 나가요.
+        </div>
 
-        <div class="carousel-container">
+        <div class="carousel-container" data-aos="fade-up">
             <div class="carousel-track" id="carouselTrack">
                 <div class="carousel-item"><img src="/images/banner/main_slider (1).webp" alt="고객서비스"></div>
                 <div class="carousel-item"><img src="/images/banner/main_slider (2).webp" alt="하이테크"></div>
@@ -32,14 +43,14 @@
                 <div class="carousel-item"><img src="/images/banner/main_slider (3).webp" alt="하이테크"></div>
             </div>
             <div class="carousel-buttons">
-                <button onclick="moveSlide(-1)">&#8249;</button>
-                <button onclick="moveSlide(1)">&#8250;</button>
+                <button style="background: #1a73e8" onclick="moveSlide(-1)">&#8249;</button>
+                <button  onclick="moveSlide(1)">&#8250;</button>
             </div>
         </div>
 
-        <h2>롯데ON은 이렇게 성장해가고 있어요.</h2>
+        <h2 data-aos="fade-right">롯데ON은 이렇게 성장해가고 있어요.</h2>
 
-        <div class="news-item" >
+        <div class="news-item" data-aos="fade-up">
             <div>
                 <a href="#">
                     <div class="news-date">2024.07</div>
@@ -49,7 +60,7 @@
             </div>
         </div>
 
-        <div class="news-item" >
+        <div class="news-item" data-aos="fade-up" data-aos-delay="100">
             <div>
                 <a href="#">
                     <div class="news-date">2024.07</div>
@@ -58,7 +69,8 @@
                 </a>
             </div>
         </div>
-        <div class="news-item" >
+
+        <div class="news-item" data-aos="fade-up" data-aos-delay="200">
             <div>
                 <a href="#">
                     <div class="news-date">2024.07</div>
@@ -67,7 +79,8 @@
                 </a>
             </div>
         </div>
-        <div class="news-item" >
+
+        <div class="news-item" data-aos="fade-up" data-aos-delay="300">
             <div>
                 <a href="#">
                     <div class="news-date">2024.07</div>
@@ -76,30 +89,71 @@
                 </a>
             </div>
         </div>
-        <div class="section-title">국내 최초의 온라인 종합쇼핑몰로서의 여정</div>
-        <div class="timeline">
+
+        <div class="section-title" data-aos="fade-up">국내 최초의 온라인 종합쇼핑몰로서의 여정</div>
+
+        <div class="timeline" data-aos="zoom-in-up">
             <img src="/images/history.png" alt="히스토리">
         </div>
     </div>
 </main>
 
-<th:block th:include="/common/company_footer"/>
+<th:block th:include="/common/company_footer" />
 
+<!-- 스크립트 -->
+<!-- 기존 스크립트 삭제하고 이걸로 교체 -->
 <script>
     let currentIndex = 0;
     const track = document.getElementById('carouselTrack');
     const items = document.querySelectorAll('.carousel-item');
+    const totalItems = items.length;
     const itemsPerView = 2;
-    const maxIndex = Math.ceil(items.length / itemsPerView) - 1;
+    const maxIndex = Math.ceil(totalItems / itemsPerView) - 1;
+
+    const indicators = document.createElement('div');
+    indicators.className = 'carousel-indicators';
+    document.querySelector('.carousel-container').appendChild(indicators);
+
+    for (let i = 0; i <= maxIndex; i++) {
+        const dot = document.createElement('span');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.dataset.index = i;
+        dot.addEventListener('click', () => moveToSlide(i));
+        indicators.appendChild(dot);
+    }
+
+    function updateIndicators() {
+        document.querySelectorAll('.dot').forEach(dot => dot.classList.remove('active'));
+        document.querySelector(`.dot[data-index="${currentIndex}"]`).classList.add('active');
+    }
+
+    function moveToSlide(index) {
+        currentIndex = index;
+        const moveX = -(100 / itemsPerView) * currentIndex;
+        track.style.transform = `translateX(${moveX}%)`;
+        updateIndicators();
+    }
 
     function moveSlide(direction) {
         currentIndex += direction;
-        if (currentIndex < 0) currentIndex = 0;
-        if (currentIndex > maxIndex) currentIndex = maxIndex;
-
-        const moveX = -(100 / itemsPerView) * currentIndex;
-        track.style.transform = `translateX(${moveX}%)`;
+        if (currentIndex < 0) currentIndex = maxIndex;
+        if (currentIndex > maxIndex) currentIndex = 0;
+        moveToSlide(currentIndex);
     }
+
+    let autoSlide = setInterval(() => moveSlide(1), 4000);
+
+    const carousel = document.querySelector('.carousel-container');
+    carousel.addEventListener('mouseenter', () => clearInterval(autoSlide));
+    carousel.addEventListener('mouseleave', () => {
+        autoSlide = setInterval(() => moveSlide(1), 4000);
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init();
 </script>
 </body>
 </html>
