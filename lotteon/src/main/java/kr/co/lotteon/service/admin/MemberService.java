@@ -84,4 +84,15 @@ public class MemberService {
 //                .total(total)
 //                .build();
 //    }
+
+    public void modify(UsersDTO usersDTO) {
+        // 선택한 유저 아이디가 있는지 확인
+        boolean exists = usersRepository.existsById(usersDTO.getUid());
+
+        // 있으면 수정 데이터를 엔티티에 넣기
+        if (exists) {
+            Users users = usersDTO.toEntity();
+            usersRepository.save(users);
+        }
+    }
 }

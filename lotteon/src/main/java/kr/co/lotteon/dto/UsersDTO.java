@@ -1,5 +1,6 @@
 package kr.co.lotteon.dto;
 
+import kr.co.lotteon.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,4 +37,26 @@ public class UsersDTO {
     // 추가 필드
     private int point_id;
 
+    public Users toEntity() {
+        return Users.builder()
+                .uid(uid)
+                .no(no)
+                .uname(uname)
+                .password(password)
+                .gender(gender)
+                .grade(grade)
+                .point(point)
+                .email(email)
+                .hp(hp)
+                .zip(zip)
+                .addr1(addr1)
+                .addr2(addr2)
+                .role(role)
+                .u_created_at(u_created_at)
+                .status(status)
+                .u_last_login(u_last_login)
+                .mgmt(mgmt)
+                .other(other)
+                .build();
+    }
 }

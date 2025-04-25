@@ -6,5 +6,4 @@ import org.springframework.data.domain.Page;
 
 public interface UserRepositoryCustom {
 
-    public Page<Tuple> selectAllForSearch(PageRequestDTO pageRequestDTO);
 }

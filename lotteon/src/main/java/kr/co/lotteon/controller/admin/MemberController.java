@@ -4,6 +4,7 @@ import kr.co.lotteon.dto.PageRequestDTO;
 import kr.co.lotteon.dto.PageResponseDTO;
 import kr.co.lotteon.dto.PointDTO;
 import kr.co.lotteon.dto.UsersDTO;
+import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.service.UsersService;
 import kr.co.lotteon.service.admin.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -71,6 +72,24 @@ public class MemberController {
         //log.info("point: {}", points);
 
         return "/admin/member/point";
+    }
+
+//    @GetMapping("/admin/member/modify")
+//    public String modify(String uid, Model model) {
+//
+//        Users user = memberService.modify(uid);
+//
+//        model.addAttribute("user", user);
+//
+//        return "/admin/member/list";
+//    }
+
+    @PostMapping("/admin/member/postModify")
+    public String modify(UsersDTO usersDTO) {
+
+        memberService.modify(usersDTO);
+
+        return "redirect:/admin/member/list";
     }
 
     @PostMapping("/admin/member/delete")

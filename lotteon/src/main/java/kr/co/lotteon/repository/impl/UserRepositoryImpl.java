@@ -27,48 +27,48 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     private QPoint qPoint = QPoint.point;
     private QUsers qUsers = QUsers.users;
 
-    // 글 목록 검색 메서드
-    @Override
-    public Page<Tuple> selectAllForSearch(PageRequestDTO pageRequestDTO) {
-
-        String searchType = pageRequestDTO.getSearchType();
-        String keyword = pageRequestDTO.getKeyword();
-
-        Pageable pageable = pageRequestDTO.getPageable("no");
-
-        // 검색 조건에 따라서 where 조건 표현식 생성
-        BooleanExpression expression = null;
-
-        if(searchType.equals("uid")){ // 제목 검색
-            expression = qUsers.uid.contains(keyword); // where title = contain 'keyword'
-        }else if(searchType.equals("uname")){
-            expression = qUsers.uname.contains(keyword);
-        }else if(searchType.equals("email")){
-            expression = qUsers.email.contains(keyword);
-        }else if(searchType.equals("hp")){
-            expression = qUsers.hp.contains(keyword);
-        }
-
-        List<Tuple> tupleList = queryFactory // 페이징 된 리스트
-                .select(qPoint, qUsers)
-                .from(qPoint)
-                .join(qUsers)
-                .on(qPoint.users.uid.eq(qUsers.uid))
-                .where(expression)
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .orderBy(qPoint.no.desc())
-                .fetch();
-
-        long total = queryFactory
-                .select(qPoint.count())
-                .from(qPoint)
-                .join(qUsers)
-                .on(qPoint.users.uid.eq(qUsers.uid))
-                .where(expression)
-                .fetchOne();
-
-        // 페이징 처리를 위한 페이지 객체 반환
-        return new PageImpl<Tuple>(tupleList, pageable, total);
-    }
+//    // 회원 목록 검색 메서드
+//    @Override
+//    public Page<Tuple> selectAllForSearch(PageRequestDTO pageRequestDTO) {
+//
+//        String searchType = pageRequestDTO.getSearchType();
+//        String keyword = pageRequestDTO.getKeyword();
+//
+//        Pageable pageable = pageRequestDTO.getPageable("no");
+//
+//        // 검색 조건에 따라서 where 조건 표현식 생성
+//        BooleanExpression expression = null;
+//
+//        if(searchType.equals("uid")){ // 제목 검색
+//            expression = qUsers.uid.contains(keyword); // where title = contain 'keyword'
+//        }else if(searchType.equals("uname")){
+//            expression = qUsers.uname.contains(keyword);
+//        }else if(searchType.equals("email")){
+//            expression = qUsers.email.contains(keyword);
+//        }else if(searchType.equals("hp")){
+//            expression = qUsers.hp.contains(keyword);
+//        }
+//
+//        List<Tuple> tupleList = queryFactory // 페이징 된 리스트
+//                .select(qPoint, qUsers)
+//                .from(qPoint)
+//                .join(qUsers)
+//                .on(qPoint.users.uid.eq(qUsers.uid))
+//                .where(expression)
+//                .offset(pageable.getOffset())
+//                .limit(pageable.getPageSize())
+//                .orderBy(qPoint.no.desc())
+//                .fetch();
+//
+//        long total = queryFactory
+//                .select(qPoint.count())
+//                .from(qPoint)
+//                .join(qUsers)
+//                .on(qPoint.users.uid.eq(qUsers.uid))
+//                .where(expression)
+//                .fetchOne();
+//
+//        // 페이징 처리를 위한 페이지 객체 반환
+//        return new PageImpl<Tuple>(tupleList, pageable, total);
+//    }
 }
