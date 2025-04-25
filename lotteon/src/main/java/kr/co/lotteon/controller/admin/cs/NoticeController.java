@@ -1,6 +1,7 @@
 package kr.co.lotteon.controller.admin.cs;
 
 import kr.co.lotteon.entity.Notice;
+import kr.co.lotteon.repository.NoticeRepository;
 import kr.co.lotteon.service.NoticeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -15,37 +16,45 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Formatter;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
 public class NoticeController {
 
     private final NoticeService noticeService;
+    private final NoticeRepository noticeRepository;
 
-    public NoticeController(NoticeService noticeService) {
+    public NoticeController(NoticeService noticeService, NoticeRepository noticeRepository) {
         this.noticeService = noticeService;
+        this.noticeRepository = noticeRepository;
     }
 
     @GetMapping("/admin/cs/notice/list")
-    public String list(@RequestParam(defaultValue = "0") int page,
-                       @RequestParam(defaultValue = "10") int size,
-                       @RequestParam(defaultValue = "전체") String type,
-                       Model model) {
+    public String listNotices(@RequestParam(value = "type", required = false) String type,
+                              @RequestParam(value = "page", defaultValue = "0") int page,
+                              Model model) {
 
-        Pageable pageable = PageRequest.of(page, size, Sort.by("noticeId").descending());
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("noticeId").descending());
         Page<Notice> noticePage;
 
-        if (type.equals("전체")) {
-            noticePage = noticeService.getNoticePage(pageable);
+        if (type == null || type.isBlank() || type.equals("전체")) {
+            noticePage = noticeRepository.findAll(pageable);
         } else {
-            noticePage = noticeService.getNoticePageByType(type, pageable);
+            noticePage = noticeRepository.findByNoticeType(type, pageable);
         }
+
 
         model.addAttribute("noticeList", noticePage.getContent());
         model.addAttribute("page", noticePage);
-        model.addAttribute("type", type);  // 선택 유지용
+        if (type != null) {
+            model.addAttribute("param", Map.of("type", type));
+        } else {
+            model.addAttribute("param", Map.of());
+        }
         return "/admin/cs/notice/list";
     }
+
 
 
     @GetMapping("/admin/cs/notice/modify")

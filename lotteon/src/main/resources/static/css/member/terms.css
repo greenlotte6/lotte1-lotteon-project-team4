@@ -108,6 +108,18 @@ textarea {
     transition: 0.3s;
 }
 
+.submit-wrap button a {
+    background-color: #b93131;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 12px 40px;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
 .submit-wrap button:hover {
     background-color: #a62323;
 }

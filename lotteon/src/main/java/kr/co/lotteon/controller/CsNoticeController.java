@@ -1,9 +1,17 @@
 package kr.co.lotteon.controller;
 
+import kr.co.lotteon.entity.Notice;
+import kr.co.lotteon.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Slf4j
@@ -11,10 +19,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class CsNoticeController {
 
+    private final NoticeService noticeService;
+
+
+
     @GetMapping("/notice/all-list")
-    public String alllist() {
+    public String list(@RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "10") int size,
+                       @RequestParam(defaultValue = "전체") String type,
+                       Model model) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("noticeId").descending());
+        Page<Notice> noticePage;
+
+        if (type.equals("전체")) {
+            noticePage = noticeService.getNoticePage(pageable);
+        } else {
+            noticePage = noticeService.getNoticePageByType(type, pageable);
+        }
+
+        model.addAttribute("noticeList", noticePage.getContent());
+        model.addAttribute("page", noticePage);
+        model.addAttribute("type", type);  // 선택 유지용
         return "/cs/notice/all-list";
     }
+
+
 
     @GetMapping("/notice/custom-list")
     public String customlist() {
