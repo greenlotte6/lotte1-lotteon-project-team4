@@ -11,4 +11,5 @@ public interface MemberMapper {
     public List<PointDTO> selectPoint();
 
     public void deletePoint(List<Integer> point_id);
+
 }

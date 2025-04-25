@@ -1,11 +1,14 @@
 package kr.co.lotteon.controller.admin;
 
+import kr.co.lotteon.dto.PageRequestDTO;
 import kr.co.lotteon.dto.PointDTO;
 import kr.co.lotteon.dto.UsersDTO;
 import kr.co.lotteon.service.UsersService;
 import kr.co.lotteon.service.admin.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +36,29 @@ public class MemberController {
 
         // 회원 목록 불러오기
         return "/admin/member/list";
+    }
+
+    @GetMapping("/admin/member/search")
+    public String search(@RequestParam(required = false) String searchType,
+                         @RequestParam(required = false) String keyword,
+                         PageRequestDTO pageRequestDTO,
+                         Pageable pageable,
+                         Model model) {
+
+        // 서비스 호출하여 페이징 처리된 사용자 목록을 반환
+        Page<UsersDTO> usersPage = memberService.getUsers(searchType, keyword, pageRequestDTO, pageable);
+
+        // 모델에 결과를 담아서 반환
+        model.addAttribute("users", usersPage);  // 페이징된 사용자 목록만 추가
+        model.addAttribute("searchType", searchType);
+        model.addAttribute("keyword", keyword);
+
+        log.info("searchType: {}", searchType);
+        log.info("keyword: {}", keyword);
+        log.info("pageRequestDTO: {}", pageRequestDTO);
+        log.info("pageable: {}", pageable);
+
+        return "/admin/member/searchList";
     }
 
     @GetMapping("/admin/member/point")

@@ -33,5 +33,7 @@ public class UsersDTO {
     private String mgmt;
     private String other;
 
+    // 추가 필드
+    private int point_id;
 
 }
