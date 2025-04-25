@@ -85,7 +85,7 @@
                                 <td th:text="${notice.hits}"></td>
                                 <td th:text="${#temporals.format(notice.upload_at, 'yy.MM.dd')}"></td>
                                 <td>
-                                    <a th:href="@{'/admin/cs/notice/delete?id=' + ${notice.noticeId}}">[삭제]</a><br>
+                                    <a th:href="@{'/admin/cs/notice/delete/' + ${notice.noticeId}}">[삭제]</a><br>
                                     <a th:href="@{'/admin/cs/notice/modify?id=' + ${notice.noticeId}}">[수정]</a>
                                 </td>
                             </tr>

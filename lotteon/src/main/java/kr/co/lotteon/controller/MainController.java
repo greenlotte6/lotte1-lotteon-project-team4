@@ -16,4 +16,10 @@ public class MainController {
         return "/admin/index";
     }
 
+    @GetMapping("/cs/index")
+    public String cs() {
+        return "/cs/index";
+    }
+
+
 }
