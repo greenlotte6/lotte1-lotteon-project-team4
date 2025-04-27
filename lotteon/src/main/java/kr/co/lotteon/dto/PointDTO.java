@@ -26,4 +26,7 @@ public class PointDTO {
     // 사용자 정보
     private String uname;
 
+    private String searchType;
+    private String keyword;
+
 }

@@ -42,21 +42,13 @@ public class ConfigService {
             // 널이 아니면 클라이언트가 보낸 값을 엔티티에 저장
             if(termsDTO.getPrivacyPolicy() != null) {
                 terms.setPrivacyPolicy(termsDTO.getPrivacyPolicy());
-            }
-
-            if (termsDTO.getLocationTerms() != null) {
+            } else if (termsDTO.getLocationTerms() != null) {
                 terms.setLocationTerms(termsDTO.getLocationTerms());
-            }
-
-            if(termsDTO.getElectronicTerms() != null) {
+            } else if(termsDTO.getElectronicTerms() != null) {
                 terms.setElectronicTerms(termsDTO.getElectronicTerms());
-            }
-
-            if(termsDTO.getSellerTerms() != null) {
+            } else if(termsDTO.getSellerTerms() != null) {
                 terms.setSellerTerms(termsDTO.getSellerTerms());
-            }
-
-            if(termsDTO.getPurchaseTerms() != null) {
+            } else if(termsDTO.getPurchaseTerms() != null) {
                 terms.setPurchaseTerms(termsDTO.getPurchaseTerms());
             }
 
