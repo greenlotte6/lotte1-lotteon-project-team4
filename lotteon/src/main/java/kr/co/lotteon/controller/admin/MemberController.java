@@ -13,12 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -63,6 +61,25 @@ public class MemberController {
         return "/admin/member/list";
     }
 
+    // 포인트 목록 검색
+    @GetMapping("/admin/member/pointSearch")
+    public String searchPoint(@RequestParam("searchType") String searchType,
+                              @RequestParam("keyword") String keyword,
+                              Model model) {
+
+        PointDTO dto = new PointDTO();
+        dto.setSearchType(searchType);
+        dto.setKeyword(keyword);
+
+        List<PointDTO> pointList = memberService.searchPoint(dto);
+
+        model.addAttribute("points", pointList);
+        model.addAttribute("searchType", searchType);
+        model.addAttribute("keyword", keyword);
+
+        return "/admin/member/point";
+    }
+
     @GetMapping("/admin/member/point")
     public String point(Model model) {
 
@@ -74,21 +91,39 @@ public class MemberController {
         return "/admin/member/point";
     }
 
-//    @GetMapping("/admin/member/modify")
-//    public String modify(String uid, Model model) {
-//
-//        Users user = memberService.modify(uid);
-//
-//        model.addAttribute("user", user);
-//
-//        return "/admin/member/list";
-//    }
+    // 수정
+    @GetMapping("/admin/member/postModify")
+    public String modifyUsers(Model model) {
+
+        List<UsersDTO> userList = usersService.findAll();
+        model.addAttribute("userList", userList);
+
+        log.info("userList : {}", userList);
+
+        return "/admin/member/list";
+    }
 
     @PostMapping("/admin/member/postModify")
-    public String modify(UsersDTO usersDTO) {
+    public String modifyUsers(@RequestParam("selectedUsers") List<String> selectedUsers,
+                              @RequestParam Map<String, String> grades) {
 
-        memberService.modify(usersDTO);
+        // 유저 ID와 등급을 매칭하여 처리
+        for (int i = 0; i < selectedUsers.size(); i++) {
+            String uid = selectedUsers.get(i);  // 선택된 유저의 uid
+            String grade = grades.get(i);  // 해당 유저의 등급
 
+            // UsersDTO 생성 및 값 설정
+            UsersDTO usersDTO = new UsersDTO();
+            usersDTO.setUid(uid);  // 유저의 uid 설정
+            usersDTO.setGrade(grade);  // 유저의 grade 설정
+
+            log.info("UID: {}, Grade: {}", uid, grade);
+
+            // 해당 유저의 등급 수정
+            memberService.modify(usersDTO);
+        }
+
+        // 수정 후, 리스트 페이지로 리다이렉트
         return "redirect:/admin/member/list";
     }
 

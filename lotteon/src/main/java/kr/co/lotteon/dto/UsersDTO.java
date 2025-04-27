@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -36,6 +37,7 @@ public class UsersDTO {
 
     // 추가 필드
     private int point_id;
+    private boolean selected;
 
     public Users toEntity() {
         return Users.builder()
@@ -59,4 +61,5 @@ public class UsersDTO {
                 .other(other)
                 .build();
     }
+
 }
