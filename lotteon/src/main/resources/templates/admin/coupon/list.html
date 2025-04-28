@@ -38,10 +38,40 @@
         // 쿠폰번호 클릭 시 정보 모달 열기
         document.querySelectorAll("table tr td:first-child").forEach(td => {
             td.style.cursor = 'pointer';
-            td.addEventListener('click', () => {
-                openModal('info-modal');
+            td.addEventListener('click', (event) => {
+                const row = event.target.parentElement; // 클릭한 td의 부모 tr
+
+                // td 순서대로 데이터 읽어오기
+                const couponId = row.children[0]?.innerText || '';
+                const couponType = row.children[1]?.innerText || '';
+                const couponName = row.children[2]?.innerText || '';
+                const benefit = row.children[3]?.innerText || '';
+                const spans = row.children[4]?.querySelectorAll('span') || [];
+                const validFrom = spans[0]?.innerText || '';
+                const validTo = spans[1]?.innerText || '';
+                const sellerCompany = row.children[5]?.innerText || '';
+                const issuedCount = row.children[6]?.innerText || '';
+                const usedCount = row.children[7]?.innerText || '';
+                const status = row.children[8]?.innerText || '';
+                const createdAt = row.children[9]?.innerText || '';
+                const other = row.children[11]?.innerText || '(등록된 유의사항 없음)';
+
+
+                // 모달에 데이터 넣기
+                document.getElementById('modal-couponId').innerText = couponId;
+                document.getElementById('modal-sellerCompany').innerText = sellerCompany;
+                document.getElementById('modal-couponType').innerText = couponType;
+                document.getElementById('modal-couponName').innerText = couponName;
+                document.getElementById('modal-benefit').innerText = benefit;
+                document.getElementById('modal-validPeriod').innerText = `${validFrom} ~ ${validTo}`;
+                document.getElementById('modal-other').innerText = other;
+
+                document.getElementById('modal-couponTitle').innerText = `[쿠폰번호: ${couponId}]`;
+
+                openModal('info-modal'); // 모달 열기
             });
         });
+
 
         // 쿠폰등록 버튼 클릭 시 등록 모달 열기
         document.querySelector(".btn-wrapper button").addEventListener('click', () => {
@@ -143,6 +173,20 @@
                 </div>
                 <div>
                     <table class="coupon-table">
+                        <colgroup>
+                            <col style="width: 10%;">
+                            <col style="width: 8%;">
+                            <col style="width: 14%;">
+                            <col style="width: 8%;">
+                            <col style="width: 16%;">
+                            <col style="width: 10%;">
+                            <col style="width: 6%;">
+                            <col style="width: 6%;">
+                            <col style="width: 6%;">
+                            <col style="width: 12%;">
+                            <col style="width: 4%;">
+                        </colgroup>
+                        <thead>
                         <tr>
                             <th>쿠폰번호</th>
                             <th>쿠폰종류</th>
@@ -156,6 +200,8 @@
                             <th>발급일</th>
                             <th>관리</th>
                         </tr>
+                        </thead>
+                        <tbody>
                         <tr th:each="coupon : ${coupons}">
                             <td th:text="${coupon.couponId}"></td>
                             <td th:text="${coupon.couponType}"></td>
@@ -170,7 +216,6 @@
                             <td th:text="${coupon.status}"
                                 th:classappend="${coupon.status == '발급중'} ? 'status-issued' : (${coupon.status == '종료'} ? 'status-ended' : '')">
                             </td>
-
                             <td th:text="${#temporals.format(coupon.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             <td>
                                 <th:block th:if="${coupon.status != '종료'}">
@@ -180,9 +225,11 @@
                                     <span>종료됨</span>
                                 </th:block>
                             </td>
+                            <td th:text="${coupon.other}" style="display: none;"></td>
                         </tr>
-
+                        </tbody>
                     </table>
+
                     <div class="btn-wrapper">
                         <button>쿠폰등록</button>
                     </div>
@@ -221,46 +268,39 @@
 
 
 <div class="modal-overlay info-modal">
-
     <div class="modal">
         <div class="modal-header">
-            <div><span>■</span>쿠폰정보</div>
-            <button onclick="closeModal()">X</button>
+            <div class="modal-title"><span>■</span>쿠폰정보</div>
+            <div class="modal-title" id="modal-couponTitle"></div>
+            <button class="modal-button" onclick="closeModal()">X</button>
         </div>
 
         <table class="info-table">
             <tr>
                 <td class="label">쿠폰번호</td>
-                <td>10121211341</td>
+                <td id="modal-couponId"></td>
                 <td class="label">발급처</td>
-                <td>(주)다있어</td>
+                <td id="modal-sellerCompany"></td>
             </tr>
             <tr>
                 <td class="label">쿠폰종류</td>
-                <td colspan="3">개별상품 할인</td>
+                <td colspan="3" id="modal-couponType"></td>
             </tr>
             <tr>
                 <td class="label">쿠폰명</td>
-                <td colspan="3">10월 한달 감사 쿠폰 이벤트</td>
+                <td colspan="3" id="modal-couponName"></td>
             </tr>
             <tr>
                 <td class="label">혜택</td>
-                <td colspan="3">2,000원 할인</td>
+                <td colspan="3" id="modal-benefit"></td>
             </tr>
             <tr>
                 <td class="label">사용기간</td>
-                <td colspan="3">0000-00-00 ~ 0000-00-00</td>
+                <td colspan="3" id="modal-validPeriod"></td>
             </tr>
             <tr>
                 <td class="label">유의사항</td>
-                <td colspan="3">
-                    상품 중복 할인 쿠폰
-                    - 상품 1개에 대해 사용 가능
-                    - 판매자 즉시할인/상품할인 쿠폰과 중복 사용 가능
-
-                    사용처
-                    - (주)다있어
-                </td>
+                <td colspan="3" id="modal-other"></td>
             </tr>
         </table>
 
@@ -269,6 +309,7 @@
         </div>
     </div>
 </div>
+
 
 
 <!-- 쿠폰 등록 모달 -->
@@ -303,16 +344,16 @@
             <tr>
                 <td class="label">혜택</td>
                 <td class="benefits">
-                    <label><input type="radio" name="benefit" value="1000"> 1,000 할인</label>
-                    <label><input type="radio" name="benefit" value="2000"> 2,000 할인</label>
-                    <label><input type="radio" name="benefit" value="3000"> 3,000 할인</label>
-                    <label><input type="radio" name="benefit" value="4000"> 4,000 할인</label>
-                    <label><input type="radio" name="benefit" value="5000"> 5,000 할인</label><br>
-                    <label><input type="radio" name="benefit" value="10%"> 10% 할인</label>
-                    <label><input type="radio" name="benefit" value="20%"> 20% 할인</label>
-                    <label><input type="radio" name="benefit" value="30%"> 30% 할인</label>
-                    <label><input type="radio" name="benefit" value="40%"> 40% 할인</label>
-                    <label><input type="radio" name="benefit" value="50%"> 50% 할인</label><br>
+                    <label><input type="radio" name="benefit" value="1000원 할인"> 1,000 할인</label>
+                    <label><input type="radio" name="benefit" value="2000원 할인"> 2,000 할인</label>
+                    <label><input type="radio" name="benefit" value="3000원 할인"> 3,000 할인</label>
+                    <label><input type="radio" name="benefit" value="4000원 할인"> 4,000 할인</label>
+                    <label><input type="radio" name="benefit" value="5000원 할인"> 5,000 할인</label><br>
+                    <label><input type="radio" name="benefit" value="10% 할인"> 10% 할인</label>
+                    <label><input type="radio" name="benefit" value="20% 할인"> 20% 할인</label>
+                    <label><input type="radio" name="benefit" value="30% 할인"> 30% 할인</label>
+                    <label><input type="radio" name="benefit" value="40% 할인"> 40% 할인</label>
+                    <label><input type="radio" name="benefit" value="50% 할인"> 50% 할인</label><br>
                     <label><input type="radio" name="benefit" value="배송비 무료"> 배송비 무료</label>
                 </td>
             </tr>
