@@ -1,3 +1,59 @@
+
+document.addEventListener('DOMContentLoaded', function () {
+    const bar = document.querySelector('.bar');
+    const barcate = document.querySelector('.bar-cate');
+    const fullview = document.querySelector('.full-view');
+    const fullmenu = document.querySelector('.full-menu');
+    const all = document.getElementsByClassName('all')[0];
+    const rank = document.querySelector('.rank');
+    const ranknav = document.getElementById('rank-nav');
+    const form = document.forms['formRegister'];
+
+
+    rank.addEventListener('click', () => {
+        ranknav.classList.toggle('rank-show');
+    });
+
+    rank.addEventListener('mouseleave', () => {
+        ranknav.classList.remove('rank-show');
+    });
+    /*
+    const rankitem = document.getElementsByClassName('rank-item')[0];
+    let currentIndex = 0;
+    */
+
+    bar.addEventListener('click', () => {
+        barcate.classList.toggle('show');
+    });
+
+    bar.addEventListener('mouseleave', () => {
+        barcate.classList.remove('show');
+    });
+
+    fullview.addEventListener('click', () => {
+        fullmenu.classList.toggle('menu');
+    });
+
+    all.addEventListener('mouseleave', () => {
+        fullmenu.classList.remove('menu');
+    });
+
+    form.onsubmit = function (e) {
+        // 유효성 검사 로직...
+        e.preventDefault(); // 실패 시 페이지 넘어가는 것 방지
+        return false;
+    };
+
+    /*
+    function showNextItem() {
+        currentIndex = (currentIndex + 1) % rankitem.length;
+        ranklist.style.transform = `translateY(-${currentIndex * 100}%)`;
+    }
+
+    setInterval(showNextItem, 3000);
+    */
+});
+
 //유효성 검사에 사용할 정규표현식
 const reUid   = /^[a-z]+[a-z0-9]{4,19}$/g;
 const rePass  = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{5,16}$/;
@@ -57,10 +113,9 @@ document.addEventListener('DOMContentLoaded', function(){
     // 2.비밀번호 유효성 검사
     const passResult = document.getElementsByClassName('passResult')[0];
 
-    formRegister.pass2.addEventListener('focusout', function(){
-
-        const value1 = formRegister.pass.value;
-        const value2 = formRegister.pass2.value;
+    formRegister.password_confirm.addEventListener('focusout', function () {
+        const value1 = formRegister.password.value;
+        const value2 = formRegister.password_confirm.value;
 
         if(!value1.match(rePass)){
             passResult.innerText = '비밀번호는 숫자, 소문자, 대문자, 특수문자 조합 8자리';
@@ -81,10 +136,7 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     // 3.이름 유효성 검사
-    const nameResult = document.getElementsByClassName('nameResult')[0];
-
-    formRegister.name.addEventListener('focusout', function(){
-
+    formRegister.uname.addEventListener('focusout', function(){
         const value = this.value;
 
         if(!value.match(reName)){
@@ -98,38 +150,38 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     // 4.별명 유효성 검사(중복체크 포함)
-    const btnCheckNick = document.getElementById('btnCheckNick');
-    const nickResult = document.getElementsByClassName('nickResult')[0];
+    // const btnCheckNick = document.getElementById('btnCheckNick');
+    //const nickResult = document.getElementsByClassName('nickResult')[0];
 
-    btnCheckNick.onclick = async function(){
+    //btnCheckNick.onclick = async function(){
 
-        const value = formRegister.nick.value;
+    //const value = formRegister.nick.value;
 
-        if(!value.match(reNick)){
-            nickResult.innerText = '유효하지 않은 별명 입니다.';
-            nickResult.style.color = 'red';
-            isNickOk = false;
-            return;
-        }
+    // if(!value.match(reNick)){
+    //     nickResult.innerText = '유효하지 않은 별명 입니다.';
+    //     nickResult.style.color = 'red';
+    //     isNickOk = false;
+    //    return;
+    // }
 
-        try {
-            const response = await fetch(`/user/nick/${value}`);
-            const data = await response.json();
-            console.log(data);
+    // try {
+    //   const response = await fetch(`/user/nick/${value}`);
+    //  const data = await response.json();
+    //  console.log(data);
 
-            if(data.count > 0){
-                nickResult.innerText = '이미 사용중인 별명 입니다.';
-                nickResult.style.color = 'red';
-                isNickOk = false;
-            }else{
-                nickResult.innerText = '사용 가능한 별명 입니다.';
-                nickResult.style.color = 'green';
-                isNickOk = true;
-            }
-        }catch(err){
-            console.log(err);
-        }
-    };
+    //   if(data.count > 0){
+    //     nickResult.innerText = '이미 사용중인 별명 입니다.';
+    //     nickResult.style.color = 'red';
+    //      isNickOk = false;
+    //  }else{
+    //       nickResult.innerText = '사용 가능한 별명 입니다.';
+    //     nickResult.style.color = 'green';
+    //      isNickOk = true;
+    //  }
+    //  }catch(err){
+    //       console.log(err);
+    ///   }
+    // };
 
     // 5. 이메일 유효성 검사(중복/인증처리 포함)
     const btnSendEmail = document.getElementById('btnSendEmail');
@@ -229,40 +281,101 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     });
 
+
     // 최종 폼 전송 이벤트
     formRegister.onsubmit = function(e){
-        console.log("form submit!!!")
+        const uid = formRegister.uid.value.trim();
+        const pass = formRegister.password.value.trim();
+        const passConfirm = formRegister.password_confirm.value.trim();
+        const uname = formRegister.uname.value.trim();
+        const nick = formRegister.nick?.value?.trim() || "";
+        const email = formRegister.email.value.trim();
+        const hp = formRegister.hp.value.trim();
+        const addr1 = formRegister.addr1.value.trim();
+        const addr2 = formRegister.addr2.value.trim();
 
-        // 1) 아이디 유효성 검사 결과
-        if(!isUidOk){
-            return false; // 폼 전송 취소
-        }
-
-        // 2) 비밀번호 유효성 검사 결과
-        if(!isPassOk){
+        // 1. 아이디
+        if (!uid || !isUidOk) {
+            alert("아이디를 정확히 입력하고 중복 확인을 해주세요.");
+            formRegister.uid.focus();
+            e.preventDefault();
             return false;
         }
 
-        // 3) 이름 유효성 검사 결과
-        if(!isNameOk){
+        // 2. 비밀번호
+        if (!pass.match(rePass)) {
+            alert("비밀번호 형식을 확인해주세요.");
+            formRegister.password.focus();
+            e.preventDefault();
             return false;
         }
 
-        // 4) 별명 유효성 검사 결과
-        if(!isNickOk){
+        if (pass !== passConfirm) {
+            alert("비밀번호가 일치하지 않습니다.");
+            formRegister.password_confirm.focus();
+            e.preventDefault();
             return false;
         }
 
-        // 5) 이메일 유효성 검사 결과
-        if(!isEmailOk){
+        // 3. 이름
+        if (!uname.match(reName)) {
+            alert("이름 형식을 확인해주세요.");
+            formRegister.uname.focus();
+            e.preventDefault();
             return false;
         }
 
-        // 6) 휴대폰 유효성 검사 결과
-        if(!isHpOk){
+        // 4. 별명
+        //if (formRegister.nick && !nick.match(reNick)) {
+        //  alert("별명 형식이 올바르지 않습니다.");
+        //formRegister.nick.focus();
+        //e.preventDefault();
+        //return false;
+        //}
+
+        //if (!isNickOk) {
+        //  alert("별명 중복 확인을 해주세요.");
+        // e.preventDefault();
+        // return false;
+        // }
+
+        // 5. 이메일
+        if (!email.match(reEmail)) {
+            alert("올바른 이메일 형식을 입력해 주세요.");
+            formRegister.email.focus();
+            e.preventDefault();
             return false;
         }
 
-        return true; // 폼 전송 시작
-    }; // 최종 폼 전송 이벤트 끝
+        if (!isEmailOk) {
+            alert("이메일 인증을 완료해 주세요.");
+            e.preventDefault();
+            return false;
+        }
+
+        // 6. 휴대폰
+        if (!hp.match(reHp)) {
+            alert("올바른 휴대폰 번호 형식을 입력해 주세요.");
+            formRegister.hp.focus();
+            e.preventDefault();
+            return false;
+        }
+
+        if (!isHpOk) {
+            alert("휴대폰 인증을 완료해 주세요.");
+            e.preventDefault();
+            return false;
+        }
+
+        // 7. 주소
+        if (!addr1 || !addr2) {
+            alert("주소를 모두 입력해 주세요.");
+            formRegister.addr1.focus();
+            e.preventDefault();
+            return false;
+        }
+
+        // 모든 조건 만족
+        return true;
+    };
 });

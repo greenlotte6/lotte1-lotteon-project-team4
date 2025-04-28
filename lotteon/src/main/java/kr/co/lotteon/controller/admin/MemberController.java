@@ -1,5 +1,6 @@
 package kr.co.lotteon.controller.admin;
 
+import jakarta.servlet.http.HttpSession;
 import kr.co.lotteon.dto.PageRequestDTO;
 import kr.co.lotteon.dto.PageResponseDTO;
 import kr.co.lotteon.dto.PointDTO;
@@ -137,6 +138,7 @@ public class MemberController {
         // 삭제 후 포인트 목록 페이지로 리다이렉트
         return "redirect:/admin/member/point";
     }
+
 
 
 }
