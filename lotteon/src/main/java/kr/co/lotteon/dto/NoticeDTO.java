@@ -1,35 +1,25 @@
-package kr.co.lotteon.entity;
+package kr.co.lotteon.dto;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Setter
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
-@Entity
-@Table(name = "notice")
-public class Notice {
+public class NoticeDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int noticeId;
-
-    @Column(name = "notice_type")
     private String noticeType;
     private String title;
     private String content;
-
     private int hits;
-
-    @Column(name = "upload_at")
     private LocalDate upload_at;
-    private String mgmt = "admin";
-
 }

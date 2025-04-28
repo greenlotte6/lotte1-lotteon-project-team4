@@ -50,8 +50,8 @@ public class MemberService {
         }
 
         return result.stream()
-                        .map(m -> modelMapper.map(m, UsersDTO.class))
-                        .collect(Collectors.toList());
+                .map(m -> modelMapper.map(m, UsersDTO.class))
+                .collect(Collectors.toList());
     }
 
     public List<PointDTO> searchPoint(PointDTO pointDTO) {

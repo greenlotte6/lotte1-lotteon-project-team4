@@ -87,7 +87,8 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="user : ${userList}">
-                                    <td><input type="checkbox" class="userCheckbox" name="selectedUsers" th:value="${user.uid}"></td>
+                                    <td><input type="checkbox" class="userCheckbox" name="selectedUsers"
+                                               th:value="${user.uid}"></td>
                                     <td th:text="${user.no}"></td>
                                     <td th:text="${user.uid}"></td>
                                     <td th:text="${user.uname}"></td>

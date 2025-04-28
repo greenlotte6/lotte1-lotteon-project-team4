@@ -185,75 +185,28 @@
                     <div class="h2">
                         <h2>공지사항</h2>
                     </div>
-                    <table>
-                        <tr>
-                            <td><a href="#">[안내] 해외 결제 사칭 문자 주의</a></td>
-                            <td>22.10.31</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">[안내] 로젠 택배 반품/교환 수거지</a></td>
-                            <td>22.10.31</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">[안내] 위치 정보 이용 약관 개정 공...</a></td>
-                            <td>22.10.31</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">[안내] 구매 회원 이용 약관 개정</a></td>
-                            <td>22.10.31</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">[안내] 씨티 은행 시스템 점검 에 따...</a></td>
-                            <td>22.10.31</td>
-                        </tr>
-                    </table>
+                    <form th:action="@{/admin/index/notice}">
+                        <table>
+                            <tr th:each="notice : ${noticeList}">
+                                <td><a href="#" th:text="${notice.title}"></a></td>
+                                <td th:text="${notice.upload_at}"></td>
+                            </tr>
+                        </table>
+                    </form>
                 </div>
                 <div class="inqu">
                     <div class="h2">
                         <h2>고객문의</h2>
                     </div>
-                    <table>
-                        <tr>
-                            <td><a href="#">[가입] 가입문의내용</a></td>
-                            <td>chh**</td>
-                            <td>22.10.31</td>
-                        </tr>
-                    </table>
-                    <table>
-                        <tr>
-                            <td><a href="#">[가입] 가입문의내용</a></td>
-                            <td>chh**</td>
-                            <td>22.10.31</td>
-                        </tr>
-                    </table>
-                    <table>
-                        <tr>
-                            <td><a href="#">[가입] 가입문의내용</a></td>
-                            <td>chh**</td>
-                            <td>22.10.31</td>
-                        </tr>
-                    </table>
-                    <table>
-                        <tr>
-                            <td><a href="#">[가입] 가입문의내용</a></td>
-                            <td>chh**</td>
-                            <td>22.10.31</td>
-                        </tr>
-                    </table>
-                    <table>
-                        <tr>
-                            <td><a href="#">[가입] 가입문의내용</a></td>
-                            <td>chh**</td>
-                            <td>22.10.31</td>
-                        </tr>
-                    </table>
-                    <table>
-                        <tr>
-                            <td><a href="#">[가입] 가입문의내용</a></td>
-                            <td>chh**</td>
-                            <td>22.10.31</td>
-                        </tr>
-                    </table>
+                    <form th:action="@{/admin/index/qna}">
+                        <table>
+                            <tr th:each="qna : ${qnaList}">
+                                <td><a href="#" th:text="${qna.title}"></a></td>
+                                <td th:text="${qna.getUname()}">chh**</td>
+                                <td th:text="${qna.date}">22.10.31</td>
+                            </tr>
+                        </table>
+                    </form>
                 </div>
             </div>
         </div>

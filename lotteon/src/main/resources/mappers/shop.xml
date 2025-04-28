@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.lotteon.dao.ShopMapper">
+
+    <!-- resultType = 어느 객체로 데이터를 반환할 것인가 -->
+<!--    <select id="findShopList" resultType="kr.co.lotteon.entity.Shop">-->
+<!--        SELECT-->
+<!--        s.`no`,-->
+<!--        se.company,-->
+<!--        se.ceo,-->
+<!--        se.biz_num,-->
+<!--        se.osn,-->
+<!--        se.`number`,-->
+<!--        s.operation,-->
+<!--        s.mgmt,-->
+<!--        s.seller_aid,-->
+<!--        se.aid-->
+<!--        FROM shop s LEFT JOIN seller se ON s.seller_aid = se.aid;-->
+<!--    </select>-->
+
+        <!-- 여러 개의 point_id를 받아서 삭제하는 쿼리 -->
+        <delete id="deleteShop">
+            DELETE FROM shop
+            WHERE seller_aid IN
+            <foreach collection="seller_aid" item="seller_aid" open="(" separator="," close=")">
+                #{seller_aid}
+            </foreach>
+        </delete>
+
+</mapper>

@@ -1,9 +1,6 @@
 package kr.co.lotteon.controller.admin;
 
-import kr.co.lotteon.dto.PageRequestDTO;
-import kr.co.lotteon.dto.PageResponseDTO;
-import kr.co.lotteon.dto.PointDTO;
-import kr.co.lotteon.dto.UsersDTO;
+import kr.co.lotteon.dto.*;
 import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.service.UsersService;
 import kr.co.lotteon.service.admin.MemberService;
@@ -92,16 +89,16 @@ public class MemberController {
     }
 
     // 수정
-    @GetMapping("/admin/member/postModify")
-    public String modifyUsers(Model model) {
-
-        List<UsersDTO> userList = usersService.findAll();
-        model.addAttribute("userList", userList);
-
-        log.info("userList : {}", userList);
-
-        return "/admin/member/list";
-    }
+//    @GetMapping("/admin/member/postModify")
+//    public String modifyUsers(Model model) {
+//
+//        List<UsersDTO> userList = usersService.findAll();
+//        model.addAttribute("userList", userList);
+//
+//        log.info("userList : {}", userList);
+//
+//        return "/admin/member/list";
+//    }
 
     @PostMapping("/admin/member/postModify")
     public String modifyUsers(@RequestParam("selectedUsers") List<String> selectedUsers,
