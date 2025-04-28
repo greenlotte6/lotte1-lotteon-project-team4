@@ -26,13 +26,6 @@ public class PassController {
     }
 
 
-    @GetMapping("/email/{email}")
-    public Map<String, Integer> checkEmail(@PathVariable String email) {
-        int count = usersService.countByEmail(email);
-        Map<String, Integer> result = new HashMap<>();
-        result.put("count", count);
-        return result;
-    }
 
 
     @GetMapping("/hp/{hp}")
@@ -43,13 +36,5 @@ public class PassController {
         return result;
     }
 
-    @PostMapping("/email/auth")
-    public Map<String, Boolean> emailAuth(@RequestBody Map<String, String> request, HttpSession session) {
-        String inputCode = request.get("authCode"); // 사용자가 입력한 코드
-        String sessionCode = (String) session.getAttribute("authCode"); // 서버에 저장된 코드
 
-        Map<String, Boolean> result = new HashMap<>();
-        result.put("status", inputCode.equals(sessionCode)); // 둘이 일치하면 true, 아니면 false
-        return result;
-    }
 }

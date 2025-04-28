@@ -29,7 +29,7 @@ spring:
         host: smtp.gmail.com
         port: 587
         username: garden9001@gmail.com
-        password: cnyc kpod dtkt otqm
+        password: cnyckpoddtktotqm
         #username: gyeol000726@gmail.com
         #password: joeikdynwvkggpds
         properties:

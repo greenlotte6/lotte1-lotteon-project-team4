@@ -1,16 +1,22 @@
 package kr.co.lotteon.service;
 
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpSession;
 import kr.co.lotteon.dto.UsersDTO;
 import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -21,6 +27,7 @@ public class UsersService {
     private final UsersRepository usersRepository;
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final HttpSession session;
 
     public List<UsersDTO> findAll() {
         List<Users> usersList = usersRepository.findAll();
@@ -65,13 +72,13 @@ public class UsersService {
         return usersRepository.countByUid(uid);
     }
 
-    public int countByEmail(String email) {
-        return usersRepository.countByEmail(email);
-    }
 
     public int countByHp(String hp) {
         return usersRepository.countByHp(hp);
     }
+
+    private final JavaMailSender mailSender;
+
 
 
 
