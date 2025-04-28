@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -32,6 +34,13 @@ public class ShopController {
     @GetMapping("/admin/shop/sales")
     public String sales() {
         return "/admin/shop/sales";
+    }
+
+    @PostMapping("/admin/shop/delete")
+    public String delete(@RequestParam("seller_aid") List<String> seller_aid) {
+        shopService.delete(seller_aid);
+
+        return "redirect:/admin/shop/list";
     }
 
 }

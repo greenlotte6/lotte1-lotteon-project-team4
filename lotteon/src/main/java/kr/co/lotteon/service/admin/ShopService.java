@@ -2,6 +2,7 @@ package kr.co.lotteon.service.admin;
 
 import kr.co.lotteon.dao.ShopMapper;
 import kr.co.lotteon.dto.ShopDTO;
+import kr.co.lotteon.dto.UsersDTO;
 import kr.co.lotteon.entity.Shop;
 import kr.co.lotteon.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class ShopService {
 
     private final ShopRepository shopRepository;
+    private final ShopMapper shopMapper;
     private final ModelMapper modelMapper;
 
     public List<ShopDTO> findShopList() {
@@ -40,8 +42,11 @@ public class ShopService {
                 .collect(Collectors.toList());
     }
 
-    public void delete(int no) {
-        shopRepository.deleteAll();
+    public void delete(List<String> seller_aid) {
+        if (seller_aid == null || seller_aid.isEmpty()) {
+            throw new IllegalArgumentException("셀러없음.");
+        }
+        shopRepository.deleteBySellerAidIn(seller_aid);
     }
 
 }
