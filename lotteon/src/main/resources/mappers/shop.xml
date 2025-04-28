@@ -21,11 +21,11 @@
 <!--    </select>-->
 
         <!-- 여러 개의 point_id를 받아서 삭제하는 쿼리 -->
-        <delete id="deleteShop">
+        <delete id="deleteShop" parameterType="java.util.List">
             DELETE FROM shop
             WHERE seller_aid IN
             <foreach collection="seller_aid" item="seller_aid" open="(" separator="," close=")">
-                #{seller_aid}
+                    #{seller_aid}
             </foreach>
         </delete>
 

@@ -16,13 +16,27 @@
 </head>
 <script src="/js/modal.js"></script>
 <script>
+    // 선택 확인 후 제출
+    function validateDelete() {
+        const selected = document.querySelectorAll('.checkItem:checked');
+        if (selected.length === 0) {
+            alert('삭제할 항목을 선택하세요.');
+            return false;
+        }
+        return confirm('삭제하시겠습니까?');
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
 
         $('.hover').click(function (e) {
             $(this).parent().toggleClass('active');
         })
 
-
+        // 전체 선택/해제
+        document.getElementById('checkAll').addEventListener('change', function () {
+            const checkboxes = document.querySelectorAll('.checkItem');
+            checkboxes.forEach(cb => cb.checked = this.checked);
+        });
     });
 </script>
 
@@ -59,12 +73,12 @@
                         <p><span class="red">● 운영중지</span></p>
                         <p><span class="blue">● 운영준비</span></p>
                     </div>
-                    <form th:action="@{/admin/shop/list}">
+                    <form th:action="@{/admin/shop/delete}" method="post" onsubmit="return validateDelete()">
                         <div class="table">
                             <table>
                                 <thead>
                                 <tr>
-                                    <th><input type="checkbox"></th>
+                                    <th><input type="checkbox" id="checkAll"></th>
                                     <th>번호</th>
                                     <th>상호명</th>
                                     <th>대표</th>
@@ -77,7 +91,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="shop : ${shopList}">
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" name="seller_aid" th:value="${shop.seller_aid}" class="checkItem"></td>
                                     <td th:text="${shop.no}">5</td>
                                     <td th:text="${shop.company}">(주)다나와</td>
                                     <td th:text="${shop.ceo}">정우성</td>
@@ -90,27 +104,28 @@
                                 </tbody>
                             </table>
                         </div>
-                    </form>
-                    <div class="click">
-                        <button class="select-delete button">선택삭제</button>
-                        <button onclick="openModal('/popup@{/admin/shop_Register}')"
-                                class="banner-register button btn">상점등록
-                        </button>
-                    </div>
-                    <div class="page">
-                        <button class="page-move">이전</button>
-                        <button>[1]</button>
-                        <button>[2]</button>
-                        <button>[3]</button>
-                        <button>[4]</button>
-                        <button>[5]</button>
-                        <button class="page-move">다음</button>
-                    </div>
-                    <div class="modal-overlay" id="modalOverlay">
-                        <div class="modal">
-                            <iframe id="modalFrame"></iframe>
+
+                        <div class="click">
+                            <button class="select-delete button" type="submit">선택삭제</button>
+                            <button onclick="openModal('/popup@{/admin/shop_Register}')"
+                                    class="banner-register button btn">상점등록
+                            </button>
                         </div>
-                    </div>
+                        <div class="page">
+                            <button class="page-move">이전</button>
+                            <button>[1]</button>
+                            <button>[2]</button>
+                            <button>[3]</button>
+                            <button>[4]</button>
+                            <button>[5]</button>
+                            <button class="page-move">다음</button>
+                        </div>
+                        <div class="modal-overlay" id="modalOverlay">
+                            <div class="modal">
+                                <iframe id="modalFrame"></iframe>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

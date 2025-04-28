@@ -26,7 +26,6 @@ public class MainController {
         return "/index";
     }
 
-
     @GetMapping("/admin/index")
     public String adminIndex(HttpSession session, Model model) {
         Users user = (Users) session.getAttribute("user");

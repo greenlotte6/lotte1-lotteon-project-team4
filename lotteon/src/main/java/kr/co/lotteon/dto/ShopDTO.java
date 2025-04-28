@@ -25,5 +25,6 @@ public class ShopDTO {
     private String biz_num;
     private String osn;
     private String number;
+    private String seller_aid;
 
 }
