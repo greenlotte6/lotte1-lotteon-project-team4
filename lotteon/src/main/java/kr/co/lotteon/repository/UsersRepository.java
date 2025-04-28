@@ -20,4 +20,5 @@ public interface UsersRepository extends JpaRepository<Users, String> {
     int countByHp(String hp);
 //    @Query("SELECT u FROM Users u WHERE u.status = :status")
 //    List<Users> findByStatus(@Param("status") String status);
+
 }

@@ -48,6 +48,4 @@ public class MainController {
     public String cs() {
         return "/cs/index";
     }
-
-
 }
