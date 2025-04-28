@@ -1,5 +1,7 @@
 package kr.co.lotteon.controller;
 
+import jakarta.servlet.http.HttpSession;
+import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.dto.NoticeDTO;
 import kr.co.lotteon.dto.QnaDTO;
 import kr.co.lotteon.entity.Notice;
@@ -24,7 +26,14 @@ public class MainController {
         return "/index";
     }
 
+
     @GetMapping("/admin/index")
+    public String adminIndex(HttpSession session) {
+        Users user = (Users) session.getAttribute("user");
+
+        if (user == null || !"ADMIN".equals(user.getRole())) {
+            return "redirect:/";
+        }
     public String adminIndex(Model model) {
 
         List<NoticeDTO> noticeDTOList = mainService.findAll();

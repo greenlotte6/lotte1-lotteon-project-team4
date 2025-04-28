@@ -6,9 +6,11 @@ import kr.co.lotteon.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -18,6 +20,7 @@ public class UsersService {
 
     private final UsersRepository usersRepository;
     private final ModelMapper modelMapper;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public List<UsersDTO> findAll() {
         List<Users> usersList = usersRepository.findAll();
@@ -33,7 +36,7 @@ public class UsersService {
         Users user = Users.builder()
                 .uid(dto.getUid())
                 .uname(dto.getUname())
-                .password(dto.getPassword())
+                .password(passwordEncoder.encode(dto.getPassword()))
                 .email(dto.getEmail())
                 .hp(dto.getHp())
                 .addr1(dto.getAddr1())
@@ -46,6 +49,28 @@ public class UsersService {
                 .build();
 
         usersRepository.save(user);
+    }
+
+    public Users login(String uid, String password) {
+        return usersRepository.findByUid(uid)
+                .filter(user -> passwordEncoder.matches(password, user.getPassword())) //
+                .orElse(null);
+    }
+
+    public Optional<Users> findById(String uid) {
+        return usersRepository.findById(uid);
+    }
+
+    public int countByUid(String uid) {
+        return usersRepository.countByUid(uid);
+    }
+
+    public int countByEmail(String email) {
+        return usersRepository.countByEmail(email);
+    }
+
+    public int countByHp(String hp) {
+        return usersRepository.countByHp(hp);
     }
 
 
