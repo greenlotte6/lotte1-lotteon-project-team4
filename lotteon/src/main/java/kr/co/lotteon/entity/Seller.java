@@ -7,6 +7,7 @@ import lombok.*;
 import org.modelmapper.internal.bytebuddy.utility.dispatcher.JavaDispatcher;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -27,6 +28,5 @@ public class Seller {
     private String fax;
     private String addr;
     private String role;
-
-
+    private String seller_id;
 }

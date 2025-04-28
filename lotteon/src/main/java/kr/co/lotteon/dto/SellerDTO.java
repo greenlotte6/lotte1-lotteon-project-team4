@@ -22,5 +22,6 @@ public class SellerDTO {
     private String fax;
     private String addr;
     private String role;
+    private String seller_id;
 
 }
