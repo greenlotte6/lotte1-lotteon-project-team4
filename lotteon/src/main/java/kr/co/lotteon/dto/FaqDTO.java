@@ -21,5 +21,8 @@ public class FaqDTO {
     private int hits;
     private LocalDate uploadDate;
     private String uploadDateStr;
+    private String answer;
+    private String category;
+
 
 }

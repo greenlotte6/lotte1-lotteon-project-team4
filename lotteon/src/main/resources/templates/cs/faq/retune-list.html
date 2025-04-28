@@ -103,11 +103,12 @@
                         <div class="faq-box">
                             <div class="faq-section-title">반품신청/철회</div>
                             <ul class="faq-list">
-                                <li><span class="q-icon">Q.</span> 개인회원과 법인회원에 차이가 있나요?</li>
-                                <li><span class="q-icon">Q.</span> 개인회원과 법인회원에 차이가 있나요?</li>
-                                <li><span class="q-icon">Q.</span> 개인회원과 법인회원에 차이가 있나요?</li>
-                                <li><span class="q-icon">Q.</span> 개인회원과 법인회원에 차이가 있나요?</li>
-                                <li><span class="q-icon">Q.</span> 개인회원과 법인회원에 차이가 있나요?</li>
+                                <th:block th:each="faq : ${ReturnrequesFaqs}">
+                                    <li>
+                                        <span class="q-icon">Q.</span>
+                                        <a th:href="@{/faq/view/{faqId}(faqId=${faq.faqId})}" th:text="${faq.title}"></a>
+                                    </li>
+                                </th:block>
                             </ul>
                             <div class="faq-more">
                                 <button class="toggle-btn">간략히보기</button>
@@ -115,39 +116,44 @@
                         </div>
 
                         <div class="faq-box">
-                            <div class="faq-section-title">반품정보확인/변경</div>
+                            <div class="faq-section-title">반품정보확인</div>
                             <ul class="faq-list">
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
+                                <th:block th:each="faq : ${CheckreturninformationFaqs}">
+                                    <li>
+                                        <span class="q-icon">Q.</span>
+                                        <a th:href="@{/faq/view/{faqId}(faqId=${faq.faqId})}" th:text="${faq.title}"></a>
+                                    </li>
+                                </th:block>
                             </ul>
                             <div class="faq-more">
                                 <button class="toggle-btn">간략히보기</button>
                             </div>
                         </div>
+
                         <div class="faq-box">
-                            <div class="faq-section-title">교환 AS신청/철회</div>
+                            <div class="faq-section-title">교환AS신청/철회</div>
                             <ul class="faq-list">
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
+                                <th:block th:each="faq : ${ApplyforexchangeAS}">
+                                    <li>
+                                        <span class="q-icon">Q.</span>
+                                        <a th:href="@{/faq/view/{faqId}(faqId=${faq.faqId})}" th:text="${faq.title}"></a>
+                                    </li>
+                                </th:block>
                             </ul>
                             <div class="faq-more">
                                 <button class="toggle-btn">간략히보기</button>
                             </div>
                         </div>
+
                         <div class="faq-box">
-                            <div class="faq-section-title">교환정보확인/변경</div>
+                            <div class="faq-section-title">교환정보확인</div>
                             <ul class="faq-list">
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
+                                <th:block th:each="faq : ${CheckexchangeinformationFaqs}">
+                                    <li>
+                                        <span class="q-icon">Q.</span>
+                                        <a th:href="@{/faq/view/{faqId}(faqId=${faq.faqId})}" th:text="${faq.title}"></a>
+                                    </li>
+                                </th:block>
                             </ul>
                             <div class="faq-more">
                                 <button class="toggle-btn">간략히보기</button>
@@ -156,11 +162,12 @@
                         <div class="faq-box">
                             <div class="faq-section-title">취소신청/철회</div>
                             <ul class="faq-list">
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
+                                <th:block th:each="faq : ${CancellationrequestFaqs}">
+                                    <li>
+                                        <span class="q-icon">Q.</span>
+                                        <a th:href="@{/faq/view/{faqId}(faqId=${faq.faqId})}" th:text="${faq.title}"></a>
+                                    </li>
+                                </th:block>
                             </ul>
                             <div class="faq-more">
                                 <button class="toggle-btn">간략히보기</button>
@@ -169,18 +176,17 @@
                         <div class="faq-box">
                             <div class="faq-section-title">취소확인/환불정보</div>
                             <ul class="faq-list">
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
+                                <th:block th:each="faq : ${CancelConfirmFaqs}">
+                                    <li>
+                                        <span class="q-icon">Q.</span>
+                                        <a th:href="@{/faq/view/{faqId}(faqId=${faq.faqId})}" th:text="${faq.title}"></a>
+                                    </li>
+                                </th:block>
                             </ul>
                             <div class="faq-more">
                                 <button class="toggle-btn">간략히보기</button>
                             </div>
                         </div>
-
-
                     </section>
                 </div>
             </div>

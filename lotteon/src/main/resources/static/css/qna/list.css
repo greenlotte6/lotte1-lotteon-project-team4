@@ -215,5 +215,9 @@ select{
 .clear {
     color: #0070c0;
 }
+a {
+    color: inherit; /* 부모 요소의 색상으로 설정 */
+    text-decoration: none; /* 밑줄 제거 */
+}
 
 

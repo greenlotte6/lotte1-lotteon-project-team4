@@ -129,3 +129,7 @@
 .faq-list.show-limit li:nth-child(n+4) {
     display: none;
 }
+a {
+    color: inherit; /* 부모 요소의 색상으로 설정 */
+    text-decoration: none; /* 밑줄 제거 */
+}

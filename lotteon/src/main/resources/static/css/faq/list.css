@@ -57,7 +57,6 @@ aside {
 .aside li {
     text-align: center;
 }
-
 .ul-list {
     margin-top: 10px;
     padding: 10px 0 10px 0;
@@ -204,6 +203,14 @@ select{
     display: block;
 }
 
+.in-ul {
+    display: none;
+}
+
+.ul-list > li.active > ul {
+    display: block;
+}
+
 .in-ul li {
     margin: 5px 0;
 }
@@ -218,6 +225,10 @@ select{
 
 .in-ul li a:hover {
     text-decoration: underline;
+}
+a {
+    color: inherit; /* 부모 요소의 색상으로 설정 */
+    text-decoration: none; /* 밑줄 제거 */
 }
 
 
