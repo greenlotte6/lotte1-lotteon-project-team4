@@ -101,13 +101,14 @@
                         <p class="cs-desc">여행 / 숙박 / 항공 관련 자주 묻는 질문입니다.</p>
 
                         <div class="faq-box">
-                            <div class="faq-section-title">여행 / 숙박</div>
+                            <div class="faq-section-title">여행/숙박</div>
                             <ul class="faq-list">
-                                <li><span class="q-icon">Q.</span> 개인회원과 법인회원에 차이가 있나요?</li>
-                                <li><span class="q-icon">Q.</span> 개인회원과 법인회원에 차이가 있나요?</li>
-                                <li><span class="q-icon">Q.</span> 개인회원과 법인회원에 차이가 있나요?</li>
-                                <li><span class="q-icon">Q.</span> 개인회원과 법인회원에 차이가 있나요?</li>
-                                <li><span class="q-icon">Q.</span> 개인회원과 법인회원에 차이가 있나요?</li>
+                                <th:block th:each="faq : ${travelFaqs}">
+                                    <li>
+                                        <span class="q-icon">Q.</span>
+                                        <a th:href="@{/faq/view/{faqId}(faqId=${faq.faqId})}" th:text="${faq.title}"></a>
+                                    </li>
+                                </th:block>
                             </ul>
                             <div class="faq-more">
                                 <button class="toggle-btn">간략히보기</button>
@@ -117,11 +118,12 @@
                         <div class="faq-box">
                             <div class="faq-section-title">항공</div>
                             <ul class="faq-list">
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
+                                <th:block th:each="faq : ${aviationFaqs}">
+                                    <li>
+                                        <span class="q-icon">Q.</span>
+                                        <a th:href="@{/faq/view/{faqId}(faqId=${faq.faqId})}" th:text="${faq.title}"></a>
+                                    </li>
+                                </th:block>
                             </ul>
                             <div class="faq-more">
                                 <button class="toggle-btn">간략히보기</button>

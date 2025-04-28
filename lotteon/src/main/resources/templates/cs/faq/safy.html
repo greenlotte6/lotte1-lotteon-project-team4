@@ -6,63 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/common/_header.css">
     <link rel="stylesheet" href="/css/common/_footer.css">
     <link rel="stylesheet" href="/css/cs/faq/list.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <title>롯데ON 고객센터 자주묻는 질문 - 안전거래</title>
+    <title>롯데ON 고객센터 자주 묻는 질문 - 안전거래</title>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const bar = document.querySelector('.bar');
-            const barcate = document.querySelector('.bar-cate');
-            const fullview = document.querySelector('.full-view');
-            const fullmenu = document.querySelector('.full-menu');
-            const all = document.getElementsByClassName('all')[0];
-            const rank = document.querySelector('.rank');
-            const ranknav = document.getElementById('rank-nav');
-
-            rank.addEventListener('click', () => {
-                ranknav.classList.toggle('rank-show');
-            });
-
-            rank.addEventListener('mouseleave', () => {
-                ranknav.classList.remove('rank-show');
-            });
-            /*
-            const rankitem = document.getElementsByClassName('rank-item')[0];
-            let currentIndex = 0;
-            */
-
-            bar.addEventListener('click', () => {
-                barcate.classList.toggle('show');
-            });
-
-            bar.addEventListener('mouseleave', () => {
-                barcate.classList.remove('show');
-            });
-
-            fullview.addEventListener('click', () => {
-                fullmenu.classList.toggle('menu');
-            });
-
-            all.addEventListener('mouseleave', () => {
-                fullmenu.classList.remove('menu');
-            });
-
-            /*
-            function showNextItem() {
-                currentIndex = (currentIndex + 1) % rankitem.length;
-                ranklist.style.transform = `translateY(-${currentIndex * 100}%)`;
-            }
-
-            setInterval(showNextItem, 3000);
-            */
-
             const toggleButtons = document.querySelectorAll('.toggle-btn');
 
             toggleButtons.forEach(button => {
@@ -82,125 +37,119 @@
 </head>
 
 <body>
-    <div id="wrapper">
-        <th:block th:include="/common/_header"/>
+<div id="wrapper">
+    <th:block th:include="/common/_header"/>
 
-        <main>
-
-            <div class="notice-wrapper">
-                <div class="notice-path">
-                    <span>홈</span> &gt; <strong>자주묻는 질문</strong>
-                </div>
-
-
-                <div class="cs-container">
-                    <th:block th:include="/common/_faq_aside.html"/>
-
-                    <section class="cs-content">
-                        <h3 class="cs-title">안전거래</h3>
-                        <p class="cs-desc">안전거래 관련 자주 묻는 질문입니다.</p>
-
-                        <div class="faq-box">
-                            <div class="faq-section-title">서비스 이용규칙 위반</div>
-                            <ul class="faq-list">
-                                <li><span class="q-icon">Q.</span> 개인회원과 법인회원에 차이가 있나요?</li>
-                                <li><span class="q-icon">Q.</span> 개인회원과 법인회원에 차이가 있나요?</li>
-                                <li><span class="q-icon">Q.</span> 개인회원과 법인회원에 차이가 있나요?</li>
-                                <li><span class="q-icon">Q.</span> 개인회원과 법인회원에 차이가 있나요?</li>
-                                <li><span class="q-icon">Q.</span> 개인회원과 법인회원에 차이가 있나요?</li>
-                            </ul>
-                            <div class="faq-more">
-                                <button class="toggle-btn">간략히보기</button>
-                            </div>
-                        </div>
-
-                        <div class="faq-box">
-                            <div class="faq-section-title">지식재산권침해</div>
-                            <ul class="faq-list">
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                            </ul>
-                            <div class="faq-more">
-                                <button class="toggle-btn">간략히보기</button>
-                            </div>
-                        </div>
-                        <div class="faq-box">
-                            <div class="faq-section-title">법령 및 정책위반 상품</div>
-                            <ul class="faq-list">
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                            </ul>
-                            <div class="faq-more">
-                                <button class="toggle-btn">간략히보기</button>
-                            </div>
-                        </div>
-                        <div class="faq-box">
-                            <div class="faq-section-title">게시물 정책위반</div>
-                            <ul class="faq-list">
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                            </ul>
-                            <div class="faq-more">
-                                <button class="toggle-btn">간략히보기</button>
-                            </div>
-                        </div>
-                        <div class="faq-box">
-                            <div class="faq-section-title">직거래/외부거래유도</div>
-                            <ul class="faq-list">
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                            </ul>
-                            <div class="faq-more">
-                                <button class="toggle-btn">간략히보기</button>
-                            </div>
-                        </div>
-                        <div class="faq-box">
-                            <div class="faq-section-title">표시광고</div>
-                            <ul class="faq-list">
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                            </ul>
-                            <div class="faq-more">
-                                <button class="toggle-btn">간략히보기</button>
-                            </div>
-                        </div>
-                        <div class="faq-box">
-                            <div class="faq-section-title">청소년 위해상품/이미지</div>
-                            <ul class="faq-list">
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                                <li><span class="q-icon">Q.</span> 회원 탈퇴 후 재가입이 가능한가요?</li>
-                            </ul>
-                            <div class="faq-more">
-                                <button class="toggle-btn">간략히보기</button>
-                            </div>
-                        </div>
-
-
-                    </section>
-                </div>
+    <main>
+        <div class="notice-wrapper">
+            <div class="notice-path">
+                <span>홈</span> &gt; <strong>자주 묻는 질문</strong>
             </div>
-        </main>
 
-        <th:block th:include="/common/_footer"/>
-    </div>
+            <div class="cs-container">
+                <th:block th:include="/common/_faq_aside.html"/>
+
+                <section class="cs-content">
+                    <h3 class="cs-title">안전거래</h3>
+                    <p class="cs-desc">안전거래 관련 자주 묻는 질문입니다.</p>
+
+                    <div class="faq-box">
+                        <div class="faq-section-title">서비스 이용규칙 위반</div>
+                        <ul class="faq-list">
+                            <th:block th:each="faq : ${ServiceFaqs}">
+                                <li>
+                                    <span class="q-icon">Q.</span>
+                                    <a th:href="@{/faq/view/{faqId}(faqId=${faq.faqId})}" th:text="${faq.title}"></a>
+                                </li>
+                            </th:block>
+                        </ul>
+                        <div class="faq-more">
+                            <button class="toggle-btn">간략히보기</button>
+                        </div>
+                    </div>
+
+                    <div class="faq-box">
+                        <div class="faq-section-title">지식재산권침해</div>
+                        <ul class="faq-list">
+                            <th:block th:each="faq : ${knowledgeFaqs}">
+                                <li>
+                                    <span class="q-icon">Q.</span>
+                                    <a th:href="@{/faq/view/{faqId}(faqId=${faq.faqId})}" th:text="${faq.title}"></a>
+                                </li>
+                            </th:block>
+                        </ul>
+                        <div class="faq-more">
+                            <button class="toggle-btn">간략히보기</button>
+                        </div>
+                    </div>
+
+                    <div class="faq-box">
+                        <div class="faq-section-title">게시물 정책위반</div>
+                        <ul class="faq-list">
+                            <th:block th:each="faq : ${postFaqs}">
+                                <li>
+                                    <span class="q-icon">Q.</span>
+                                    <a th:href="@{/faq/view/{faqId}(faqId=${faq.faqId})}" th:text="${faq.title}"></a>
+                                </li>
+                            </th:block>
+                        </ul>
+                        <div class="faq-more">
+                            <button class="toggle-btn">간략히보기</button>
+                        </div>
+                    </div>
+
+                    <div class="faq-box">
+                        <div class="faq-section-title">직거래/외부거래유도</div>
+                        <ul class="faq-list">
+                            <th:block th:each="faq : ${directFaqs}">
+                                <li>
+                                    <span class="q-icon">Q.</span>
+                                    <a th:href="@{/faq/view/{faqId}(faqId=${faq.faqId})}" th:text="${faq.title}"></a>
+                                </li>
+                            </th:block>
+                        </ul>
+                        <div class="faq-more">
+                            <button class="toggle-btn">간략히보기</button>
+                        </div>
+                    </div>
+
+                    <div class="faq-box">
+                        <div class="faq-section-title">표시광고</div>
+                        <ul class="faq-list">
+                            <th:block th:each="faq : ${displayFaqs}">
+                                <li>
+                                    <span class="q-icon">Q.</span>
+                                    <a th:href="@{/faq/view/{faqId}(faqId=${faq.faqId})}" th:text="${faq.title}"></a>
+                                </li>
+                            </th:block>
+                        </ul>
+                        <div class="faq-more">
+                            <button class="toggle-btn">간략히보기</button>
+                        </div>
+                    </div>
+
+                    <div class="faq-box">
+                        <div class="faq-section-title">청소년 위해상품/이미지</div>
+                        <ul class="faq-list">
+                            <th:block th:each="faq : ${youthFaqs}">
+                                <li>
+                                    <span class="q-icon">Q.</span>
+                                    <a th:href="@{/faq/view/{faqId}(faqId=${faq.faqId})}" th:text="${faq.title}"></a>
+                                </li>
+                            </th:block>
+                        </ul>
+                        <div class="faq-more">
+                            <button class="toggle-btn">간략히보기</button>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <th:block th:include="/common/_footer"/>
+</div>
 </body>
 
 </html>

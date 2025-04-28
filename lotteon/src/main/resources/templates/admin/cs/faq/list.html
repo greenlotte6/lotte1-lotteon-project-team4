@@ -15,10 +15,19 @@
     <link rel="stylesheet" th:href="@{/css/common/_admin_footer.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>자주묻는 질문</title>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            $('.hover').click(function(e) {
+                $(this).parent().toggleClass('active');
+            })
+
+
+        });
         window.onload = function () {
             // updateSubCategory();
             document.getElementById('checkAll').addEventListener('change', function () {

@@ -32,5 +32,7 @@ public class Faq {
 
     private String mgmt = "admin";
     private String cateIcon;
+    private String answer;
+    private String category;
 
 }
