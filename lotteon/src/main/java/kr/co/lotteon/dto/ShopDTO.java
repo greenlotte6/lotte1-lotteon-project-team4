@@ -17,14 +17,15 @@ public class ShopDTO {
     private String shop_id;
     private String operation;
     private String mgmt;
-    private String aid;
+    private String seller_aid;
 
     // 추가필드
+    private String aid;
     private String company;
     private String ceo;
     private String biz_num;
     private String osn;
     private String number;
-    private String seller_aid;
+
 
 }

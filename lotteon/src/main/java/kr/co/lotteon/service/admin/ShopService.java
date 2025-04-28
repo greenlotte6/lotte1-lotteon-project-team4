@@ -1,6 +1,8 @@
 package kr.co.lotteon.service.admin;
 
 import kr.co.lotteon.dao.ShopMapper;
+import kr.co.lotteon.dto.PageRequestDTO;
+import kr.co.lotteon.dto.PageResponseDTO;
 import kr.co.lotteon.dto.ShopDTO;
 import kr.co.lotteon.dto.UsersDTO;
 import kr.co.lotteon.entity.Shop;
@@ -22,10 +24,9 @@ public class ShopService {
     private final ShopMapper shopMapper;
     private final ModelMapper modelMapper;
 
+    // 글 목록 조회
     public List<ShopDTO> findShopList() {
         List<Shop> shops = shopRepository.findAll();
-
-        log.info("shops : {}", shops);
 
         return shops.stream()
                 .map(shop -> {
@@ -36,6 +37,10 @@ public class ShopService {
                     sDTO.setBiz_num(shop.getSeller().getBiz_num());
                     sDTO.setOsn(shop.getSeller().getOsn());
                     sDTO.setNumber(shop.getSeller().getNumber());
+                    sDTO.setAid(shop.getSeller().getAid());
+                    sDTO.setSeller_aid(shop.getSeller().getAid());
+
+                    log.info("sDTO : {}", sDTO);
 
                     return sDTO;
                 })
@@ -43,10 +48,13 @@ public class ShopService {
     }
 
     public void delete(List<String> seller_aid) {
-        if (seller_aid == null || seller_aid.isEmpty()) {
-            throw new IllegalArgumentException("셀러없음.");
-        }
-        shopRepository.deleteBySellerAidIn(seller_aid);
+
+        shopRepository.deleteAllById(seller_aid);
     }
 
+    /* 글 목록 검색
+    public void searchShop(PageRequestDTO pageRequestDTO) {
+
+    }
+    */
 }
