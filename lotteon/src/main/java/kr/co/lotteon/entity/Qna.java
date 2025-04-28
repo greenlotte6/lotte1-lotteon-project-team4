@@ -24,6 +24,10 @@ public class Qna {
     @Column(name = "Users_uid", length = 12, nullable = false)
     private String userUid;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Users_uid", insertable = false, updatable = false)
+    private Users users;
+
     @Column(name = "qna_type_1", length = 5, nullable = false)
     private String qnaType1;
 

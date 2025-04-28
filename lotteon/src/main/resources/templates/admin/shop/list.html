@@ -59,80 +59,38 @@
                         <p><span class="red">● 운영중지</span></p>
                         <p><span class="blue">● 운영준비</span></p>
                     </div>
-                    <div class="table">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th><input type="checkbox"></th>
-                                <th>번호</th>
-                                <th>상호명</th>
-                                <th>대표</th>
-                                <th>사업자등록번호</th>
-                                <th>통신판매업번호</th>
-                                <th>연락처</th>
-                                <th>운영</th>
-                                <th>관리</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>5</td>
-                                <td>(주)다나와</td>
-                                <td>정우성</td>
-                                <td>112-12-12345</td>
-                                <td>2024-서울강남-04433</td>
-                                <td>010-1234-1001</td>
-                                <td class="green">●</td>
-                                <td>[중단]</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>4</td>
-                                <td>(주)멋남</td>
-                                <td>이정재</td>
-                                <td>112-12-12345</td>
-                                <td>2024-서울강남-04433</td>
-                                <td>010-1234-1001</td>
-                                <td class="red">●</td>
-                                <td>[재개]</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>3</td>
-                                <td>(주)컴퓨존</td>
-                                <td>장동건</td>
-                                <td>112-12-12345</td>
-                                <td>2024-서울강남-04433</td>
-                                <td>010-1234-1001</td>
-                                <td class="blue">●</td>
-                                <td>[승인]</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>2</td>
-                                <td>(주)다나와</td>
-                                <td>정우성</td>
-                                <td>112-12-12345</td>
-                                <td>2024-서울강남-04433</td>
-                                <td>010-1234-1001</td>
-                                <td>●</td>
-                                <td>[중단]</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>1</td>
-                                <td>(주)다나와</td>
-                                <td>정우성</td>
-                                <td>112-12-12345</td>
-                                <td>2024-서울강남-04433</td>
-                                <td>010-1234-1001</td>
-                                <td>●</td>
-                                <td>[중단]</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <form th:action="@{/admin/shop/list}">
+                        <div class="table">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>번호</th>
+                                    <th>상호명</th>
+                                    <th>대표</th>
+                                    <th>사업자등록번호</th>
+                                    <th>통신판매업번호</th>
+                                    <th>연락처</th>
+                                    <th>운영</th>
+                                    <th>관리</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="shop : ${shopList}">
+                                    <td><input type="checkbox"></td>
+                                    <td th:text="${shop.no}">5</td>
+                                    <td th:text="${shop.company}">(주)다나와</td>
+                                    <td th:text="${shop.ceo}">정우성</td>
+                                    <td th:text="${shop.biz_num}">112-12-12345</td>
+                                    <td th:text="${shop.osn}">2024-서울강남-04433</td>
+                                    <td th:text="${shop.number}">010-1234-1001</td>
+                                    <td class="green" th:text="${shop.operation}">●</td>
+                                    <td th:text="${shop.mgmt}">[중단]</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
                     <div class="click">
                         <button class="select-delete button">선택삭제</button>
                         <button onclick="openModal('/popup@{/admin/shop_Register}')"
