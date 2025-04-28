@@ -1,9 +1,11 @@
 package kr.co.lotteon.dto;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,17 +14,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FaqDTO {
+public class NoticeDTO {
 
-    private int faqId;
-    private String type1;
-    private String type2;
+    private int noticeId;
+    private String noticeType;
     private String title;
+    private String content;
     private int hits;
-    private LocalDate uploadDate;
-    private String uploadDateStr;
-    private String answer;
-    private String category;
-
-
+    private LocalDate upload_at;
 }

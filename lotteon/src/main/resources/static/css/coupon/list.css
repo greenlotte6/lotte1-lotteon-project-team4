@@ -55,30 +55,6 @@ body {
     margin-left: 35px;
 }
 
-/* 전체 스타일 */
-* {
-    margin: 0;
-    padding: 0;
-    font-family: "Gothic A1", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 12px;
-}
-
-a {
-    text-decoration: none;
-}
-
-ul,
-li {
-    list-style: none;
-}
-
-body {
-    overflow-x: scroll;
-    min-width: 1200px;
-}
-
 .setting h1 {
     color: #333;
     font-size: 25px;
@@ -98,6 +74,7 @@ body {
     display: flex;
     width: 1200px;
     margin: 0 auto;
+    margin-bottom: 30px;
 }
 
 aside {
@@ -235,6 +212,11 @@ table {
     width: 100%;
     font-family: 'Inter', sans-serif;
 }
+.searchType {
+    padding: 5px;
+    font-size: 14px;
+    width: 15%;
+}
 
 table th {
 
@@ -248,11 +230,16 @@ table th {
 table td {
     border-bottom: 1px solid #ddd;
     padding: 8px;
+}
+
+.coupon-table th,
+.coupon-table td {
     text-align: center;
+    vertical-align: middle;
 }
 
 button {
-    width: 106px;
+    width: 80px;
     height: 41px;
     background-color: #8eb4e3;
     border: none;
@@ -260,8 +247,6 @@ button {
     font-weight: 700;
     font-size: 15px;
     margin-left: 20px;
-    margin-top: 15px;
-
 }
 
 .btn-wrapper {
@@ -270,17 +255,34 @@ button {
     justify-content: flex-end;
     margin-top: 20px;
 }
-
+.status-issued {
+    color: limegreen;
+    font-weight: bold;
+}
+.status-ended {
+    color: gray;
+    font-weight: bold;
+}
 
 .pagination {
+    margin-top: 20px;
     text-align: center;
-    flex-grow: 1;
 }
 
 .pagination a {
+    display: inline-block;
     margin: 0 5px;
+    padding: 8px 12px;
     text-decoration: none;
     color: #333;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
 }
 
 footer {
@@ -326,7 +328,6 @@ footer {
     max-width: 100%; /* 화면 크기에 맞춰 모달 크기 조절 */
     box-sizing: border-box; /* 여백을 포함하여 크기 계산 */
 }
-
 
 .modal-header {
     background: #3b3b3b;
@@ -375,6 +376,19 @@ footer {
     white-space: pre-line;
 }
 
+.pagination a {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.pagination a.active {
+    background-color: #C00000;
+    color: white;
+}
+
 .modal-footer {
     text-align: center;
     padding: 20px 0;
@@ -382,6 +396,7 @@ footer {
 
 .modal-footer button {
     background: #009944;
+    width: 106px;
     color: white;
     border: none;
     padding: 10px 30px;
@@ -415,16 +430,21 @@ footer {
     background: #3b3b3b;
     color: white;
     padding: 10px 15px;
-    font-size: 16px;
-    font-weight: bold;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.modal-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
 .modal-header span {
     color: red;
     margin-right: 5px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .modal-header button {
@@ -444,7 +464,6 @@ footer {
     border: 1px solid #ddd;
     padding: 10px;
     font-size: 14px;
-    vertical-align: top;
 }
 
 .label {
@@ -454,19 +473,36 @@ footer {
     white-space: nowrap;
 }
 
-.text, select, textarea {
-    width: 100%;
+td.label {
+    text-align: center;
+}
+
+.text, textarea {
+    width: 80%;
     padding: 5px;
     font-size: 14px;
+    resize: none;
 }
 
 textarea {
-    resize: vertical;
     height: 100px;
 }
 
+select{
+    padding: 5px;
+    font-size: 14px;
+    width: 50%;
+}
+
+.benefits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
 .benefits label {
-    margin-right: 15px;
+    flex: 0 0 calc(20% - 10px);
     white-space: nowrap;
 }
 

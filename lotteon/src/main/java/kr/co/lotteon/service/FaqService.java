@@ -2,6 +2,7 @@ package kr.co.lotteon.service;
 
 import kr.co.lotteon.entity.Faq;
 import kr.co.lotteon.repository.FaqRepository;
+import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -10,9 +11,11 @@ import java.util.List;
 @Service
 public class FaqService {
     private final FaqRepository faqRepository;
+    private final ListableBeanFactory listableBeanFactory;
 
-    public FaqService(FaqRepository faqRepository) {
+    public FaqService(FaqRepository faqRepository, ListableBeanFactory listableBeanFactory) {
         this.faqRepository = faqRepository;
+        this.listableBeanFactory = listableBeanFactory;
     }
 
     public void saveFaq(Faq faq) {
@@ -24,6 +27,7 @@ public class FaqService {
     public List<Faq> getAllFaqs() {
         return faqRepository.findAll();
     }
+
     public Faq getFaqById(int id) {
         return faqRepository.findById(id).orElseThrow();
     }
@@ -32,7 +36,6 @@ public class FaqService {
         Faq existing = faqRepository.findById(faq.getFaqId())
                 .orElseThrow(() -> new RuntimeException("FAQ not found"));
 
-        // 수정 항목만 덮어쓰기
         existing.setType1(faq.getType1());
         existing.setType2(faq.getType2());
         existing.setTitle(faq.getTitle());
@@ -41,7 +44,6 @@ public class FaqService {
         existing.setMgmt(faq.getMgmt());
         existing.setUploadDate(LocalDate.now());
 
-        // 💡 hits는 변경하지 않고 그대로 둔다
         faqRepository.save(existing);
     }
 
@@ -52,9 +54,11 @@ public class FaqService {
     public void deleteFaq(int id) {
         faqRepository.deleteById(id);
     }
-    public List<Faq>getFilteredFaqs(String type1, String type2) {
+
+    // 수정: getFilteredFaqs → LIKE 검색으로 변경
+    public List<Faq> getFilteredFaqs(String type1, String type2) {
         if (type1 != null && !type1.isEmpty() && type2 != null && !type2.isEmpty()) {
-            return faqRepository.findByType1AndType2(type1, type2);
+            return faqRepository.findByType1AndType2Like(type1, type2);
         } else if (type1 != null && !type1.isEmpty()) {
             return faqRepository.findByType1(type1);
         } else {
@@ -62,5 +66,25 @@ public class FaqService {
         }
     }
 
+    public List<String> getSubTypesByType1(String category) {
+        return faqRepository.findDistinctType2ByType1(category);
+    }
 
+    public List<Faq> getFaqsByCategory(String category) {
+        return faqRepository.findByType1(category);
+    }
+
+    public List<Faq> getFaqsByCategory2(String category) {
+        return faqRepository.findByType2(category);
+    }
+
+    public List<Faq> getFaqsByCategoryAndSubType(String type1, String type2) {
+        if (type1 != null && !type1.isEmpty() && type2 != null && !type2.isEmpty()) {
+            return faqRepository.findByType1AndType2Like(type1, type2);
+        } else if (type1 != null && !type1.isEmpty()) {
+            return faqRepository.findByType1(type1);
+        } else {
+            return faqRepository.findAll();
+        }
+    }
 }

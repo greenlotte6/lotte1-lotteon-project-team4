@@ -13,7 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>공지사항</title>
+    <title>쿠폰 목록</title>
 
 </head>
 <script>
@@ -48,11 +48,68 @@
             openModal('register-modal');
         });
 
-        // 쿠폰 등록 처리 함수 (예시로만 작성)
         window.submitCoupon = function () {
-            alert('쿠폰이 등록되었습니다.');
-            closeModal();
+            const data = {
+                sellerCompany: document.getElementById('sellerCompany').value,
+                couponType: document.getElementById('couponType').value,
+                couponName: document.getElementById('couponName').value,
+                benefit: document.querySelector('input[name="benefit"]:checked')?.value || '',
+                validFrom: document.getElementById('startDate').value,
+                validTo: document.getElementById('endDate').value,
+                other: document.getElementById('note').value,
+                issuedCount: 0,
+                usedCount: 0,
+                status: '발급중'
+            };
+
+            fetch('/admin/coupon/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.text())
+                .then(result => {
+                    if (result === 'success') {
+                        alert('쿠폰 등록 완료!');
+                        closeModal();
+                        setTimeout(() => {
+                            location.reload();
+                        }, 300);
+                    } else {
+                        alert('등록 실패');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('서버 오류 발생');
+                });
         };
+        window.endCoupon = function (button) {
+            const couponId = button.getAttribute('data-couponid'); // 버튼 속성에서 couponId를 꺼낸다
+            if (confirm('정말 종료하시겠습니까?')) {
+                fetch('/admin/coupon/end/' + couponId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.text())
+                    .then(result => {
+                        if (result === 'success') {
+                            alert('쿠폰이 종료되었습니다.');
+                            location.reload();
+                        } else {
+                            alert('종료 실패했습니다.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('서버 오류 발생');
+                    });
+            }
+        }
     });
 </script>
 
@@ -74,16 +131,18 @@
             <div class="line"></div>
             <div class="container">
                 <div class="search">
-                    <select name="" id="">
-                        <option value="">쿠폰번호</option>
-                        <option value="">쿠폰종류</option>
-                        <option value="">쿠폰명</option>
-                    </select>
-                    <input type="text" placeholder="검색어입력">
-                    <button>검색</button>
+                    <form action="/admin/coupon/list" method="get">
+                        <select name="searchType" id="searchType" class="searchType">
+                            <option value="couponId">쿠폰번호</option>
+                            <option value="couponName">쿠폰명</option>
+                            <option value="sellerCompany">발급자</option>
+                        </select>
+                        <input type="text" name="searchKeyword" placeholder="검색어입력">
+                        <button type="submit">검색</button>
+                    </form>
                 </div>
                 <div>
-                    <table>
+                    <table class="coupon-table">
                         <tr>
                             <th>쿠폰번호</th>
                             <th>쿠폰종류</th>
@@ -97,49 +156,29 @@
                             <th>발급일</th>
                             <th>관리</th>
                         </tr>
-                        <tr>
-                            <td>10121211341</td>
-                            <td>개별상품 할인</td>
-                            <td>10월 한달 감사 쿠폰</td>
-                            <td>2,000 할인</td>
-                            <td>0000-00-00 <br> ~0000-00-00</td>
-                            <td>(주)다있어</td>
-                            <td>102</td>
-                            <td>43</td>
-                            <td>발급중</td>
-                            <td>0000-00-00 <br> 00:00:00</td>
+                        <tr th:each="coupon : ${coupons}">
+                            <td th:text="${coupon.couponId}"></td>
+                            <td th:text="${coupon.couponType}"></td>
+                            <td th:text="${coupon.couponName}"></td>
+                            <td th:text="${coupon.benefit}"></td>
                             <td>
-                                <span>종료</span>
+                                <span th:text="${coupon.validFrom}"></span> <br> ~ <br> <span th:text="${coupon.validTo}"></span>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>10121211342</td>
-                            <td>주문상품 할인</td>
-                            <td>회원가입 축하쿠폰</td>
-                            <td>15% 할인</td>
-                            <td>0000-00-00 <br> ~0000-00-00</td>
-                            <td>최고관리자</td>
-                            <td>102</td>
-                            <td>43</td>
-                            <td>발급중</td>
-                            <td>0000-00-00 <br> 00:00:00</td>
-                            <td>
-                                <span>종료</span>
+                            <td th:text="${coupon.sellerCompany}"></td>
+                            <td th:text="${coupon.issuedCount}"></td>
+                            <td th:text="${coupon.usedCount}"></td>
+                            <td th:text="${coupon.status}"
+                                th:classappend="${coupon.status == '발급중'} ? 'status-issued' : (${coupon.status == '종료'} ? 'status-ended' : '')">
                             </td>
-                        </tr>
-                        <tr>
-                            <td>10121211343</td>
-                            <td>배송비 무료</td>
-                            <td>배송비 무료쿠폰</td>
-                            <td>배송비 무료</td>
-                            <td>0000-00-00 <br> ~0000-00-00</td>
-                            <td>최고관리자</td>
-                            <td>102</td>
-                            <td>43</td>
-                            <td>종료</td>
-                            <td>0000-00-00 <br> 00:00:00</td>
+
+                            <td th:text="${#temporals.format(coupon.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             <td>
-                                <span>종료</span>
+                                <th:block th:if="${coupon.status != '종료'}">
+                                    <button type="button" th:attr="data-couponid=${coupon.couponId}" onclick="endCoupon(this)">종료</button>
+                                </th:block>
+                                <th:block th:if="${coupon.status == '종료'}">
+                                    <span>종료됨</span>
+                                </th:block>
                             </td>
                         </tr>
 
@@ -147,21 +186,40 @@
                     <div class="btn-wrapper">
                         <button>쿠폰등록</button>
                     </div>
+
                     <div class="pagination">
-                        <a href="#">이전</a>
-                        <a href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#">다음</a>
+                        <!-- 이전 버튼 -->
+                        <th:block th:if="${currentPage > 1}">
+                            <a th:href="@{/admin/coupon/list(pg=${currentPage - 1}, searchType=${searchType}, searchKeyword=${searchKeyword})}">
+                                이전
+                            </a>
+                        </th:block>
+
+                        <!-- 페이지 숫자들 -->
+                        <th:block th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
+                            <a th:href="@{/admin/coupon/list(pg=${pageNum}, searchType=${searchType}, searchKeyword=${searchKeyword})}"
+                               th:text="${pageNum}"
+                               th:classappend="${currentPage == pageNum} ? 'active' : ''">
+                            </a>
+                        </th:block>
+
+                        <!-- 다음 버튼 -->
+                        <th:block th:if="${currentPage < totalPages}">
+                            <a th:href="@{/admin/coupon/list(pg=${currentPage + 1}, searchType=${searchType}, searchKeyword=${searchKeyword})}">
+                                다음
+                            </a>
+                        </th:block>
                     </div>
+
 
 
                 </div>
             </div>
         </div>
+    </div>
 </main>
+
+
 <div class="modal-overlay info-modal">
 
     <div class="modal">
@@ -211,37 +269,40 @@
         </div>
     </div>
 </div>
+
+
 <!-- 쿠폰 등록 모달 -->
 <div class="modal-overlay register-modal">
 
     <div class="modal">
         <div class="modal-header">
-            <div><span>■</span>쿠폰등록</div>
-            <button onclick="closeModal()">X</button>
+            <div class="modal-title"><span>■</span>쿠폰등록</div>
+            <button class="modal-button" onclick="closeModal()">X</button>
         </div>
 
         <table class="modal-table">
             <tr>
                 <td class="label">발급처</td>
-                <td colspan="3"><input type="text" class="text" id="issuer" value="(주)다있어"></td>
+                <td><input type="text" class="text" id="sellerCompany" placeholder="(주)다있어"></td>
             </tr>
             <tr>
                 <td class="label">쿠폰종류</td>
-                <td colspan="3">
+                <td>
                     <select id="couponType">
                         <option>종류선택</option>
                         <option>개별상품 할인</option>
-                        <option>전체상품 할인</option>
+                        <option>주문상품 할인</option>
+                        <option>배송비 무료</option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td class="label">쿠폰명</td>
-                <td colspan="3"><input type="text" class="text" id="couponName"></td>
+                <td><input type="text" class="text" id="couponName"></td>
             </tr>
             <tr>
                 <td class="label">혜택</td>
-                <td colspan="3" class="benefits">
+                <td class="benefits">
                     <label><input type="radio" name="benefit" value="1000"> 1,000 할인</label>
                     <label><input type="radio" name="benefit" value="2000"> 2,000 할인</label>
                     <label><input type="radio" name="benefit" value="3000"> 3,000 할인</label>
@@ -257,7 +318,7 @@
             </tr>
             <tr>
                 <td class="label">사용기간</td>
-                <td colspan="3">
+                <td>
                     <div class="date-inputs">
                         <input type="date" id="startDate">
                         ~
@@ -277,7 +338,8 @@
 
         <div class="modal-footer">
             <button class="cancel-btn" onclick="closeModal()">취소</button>
-            <button class="submit-btn" onclick="submitCoupon()">등록</button>
+            <button type="button" class="submit-btn" onclick="submitCoupon()">등록</button>
+
         </div>
     </div>
 </div>

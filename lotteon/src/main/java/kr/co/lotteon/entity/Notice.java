@@ -28,8 +28,8 @@ public class Notice {
 
     private int hits;
 
-    @CreationTimestamp
-    private LocalDateTime upload_at;
+    @Column(name = "upload_at")
+    private LocalDate upload_at;
     private String mgmt = "admin";
 
 }

@@ -1,5 +1,6 @@
 package kr.co.lotteon.dto;
 
+import kr.co.lotteon.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,4 +23,7 @@ public class QnaDTO {
     private LocalDate date;
     private String status;
     private String answer;
+
+    // 추가 필드
+    private String uname;
 }
