@@ -219,17 +219,23 @@ table {
 }
 
 table th {
-
     border-top: 1px solid black;
     margin-top: 50px;
     border-bottom: 1px solid black;
     padding: 10px;
 }
 
+#modal-couponTitle {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 10px;
+    color: #ffffff;
+}
 
 table td {
     border-bottom: 1px solid #ddd;
     padding: 8px;
+    font-size: 13px;
 }
 
 .coupon-table th,
