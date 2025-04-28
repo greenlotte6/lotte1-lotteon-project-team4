@@ -20,16 +20,41 @@
         document.addEventListener('DOMContentLoaded', function () {
             const toggleButtons = document.querySelectorAll('.toggle-btn');
 
+            // 초기에 3개만 보이도록 설정
+            const faqLists = document.querySelectorAll('.faq-list');
+            faqLists.forEach(faqList => {
+                const faqItems = faqList.querySelectorAll('li');
+                faqItems.forEach((item, index) => {
+                    if (index >= 3) {
+                        item.style.display = 'none'; // 3개 이상은 숨기기
+                    }
+                });
+            });
+
             toggleButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const faqBox = button.closest('.faq-box');
                     const faqList = faqBox.querySelector('.faq-list');
+                    const faqItems = faqList.querySelectorAll('li');
 
-                    // toggle class
-                    faqList.classList.toggle('show-limit');
+                    // '더보기' 클릭 시 10개까지 보이도록 설정
+                    let currentVisibleCount = Array.from(faqItems).filter(item => item.style.display !== 'none').length;
 
-                    // 버튼 텍스트 변경
-                    button.textContent = faqList.classList.contains('show-limit') ? '더보기' : '간단히보기';
+                    if (currentVisibleCount <= 3) {
+                        faqItems.forEach((item, index) => {
+                            if (index < 10) {
+                                item.style.display = 'list-item'; // 최대 10개까지 표시
+                            }
+                        });
+                        button.textContent = '간단히보기'; // 버튼 텍스트 변경
+                    } else {
+                        faqItems.forEach((item, index) => {
+                            if (index >= 3) {
+                                item.style.display = 'none'; // 다시 3개로 줄이기
+                            }
+                        });
+                        button.textContent = '더보기'; // 버튼 텍스트 변경
+                    }
                 });
             });
         });
@@ -64,7 +89,7 @@
                             </th:block>
                         </ul>
                         <div class="faq-more">
-                            <button class="toggle-btn">간략히보기</button>
+                            <button class="toggle-btn">더보기</button>
                         </div>
                     </div>
 
@@ -79,7 +104,7 @@
                             </th:block>
                         </ul>
                         <div class="faq-more">
-                            <button class="toggle-btn">간략히보기</button>
+                            <button class="toggle-btn">더보기</button>
                         </div>
                     </div>
 
@@ -94,7 +119,7 @@
                             </th:block>
                         </ul>
                         <div class="faq-more">
-                            <button class="toggle-btn">간략히보기</button>
+                            <button class="toggle-btn">더보기</button>
                         </div>
                     </div>
 
@@ -109,7 +134,7 @@
                             </th:block>
                         </ul>
                         <div class="faq-more">
-                            <button class="toggle-btn">간략히보기</button>
+                            <button class="toggle-btn">더보기</button>
                         </div>
                     </div>
 
@@ -124,7 +149,7 @@
                             </th:block>
                         </ul>
                         <div class="faq-more">
-                            <button class="toggle-btn">간략히보기</button>
+                            <button class="toggle-btn">더보기</button>
                         </div>
                     </div>
 
@@ -139,7 +164,7 @@
                             </th:block>
                         </ul>
                         <div class="faq-more">
-                            <button class="toggle-btn">간략히보기</button>
+                            <button class="toggle-btn">더보기</button>
                         </div>
                     </div>
 

@@ -28,13 +28,12 @@ public class MainController {
 
 
     @GetMapping("/admin/index")
-    public String adminIndex(HttpSession session) {
+    public String adminIndex(HttpSession session, Model model) {
         Users user = (Users) session.getAttribute("user");
 
         if (user == null || !"ADMIN".equals(user.getRole())) {
             return "redirect:/";
         }
-    public String adminIndex(Model model) {
 
         List<NoticeDTO> noticeDTOList = mainService.findAll();
         List<QnaDTO> qnaDTOList = mainService.findAllQna();
@@ -49,6 +48,4 @@ public class MainController {
     public String cs() {
         return "/cs/index";
     }
-
-
 }

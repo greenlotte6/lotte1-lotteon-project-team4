@@ -2,15 +2,13 @@ package kr.co.lotteon.controller;
 
 import kr.co.lotteon.dto.QnaDTO;
 import kr.co.lotteon.entity.Qna;
+import kr.co.lotteon.repository.QnaRepository;
 import kr.co.lotteon.service.QnaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +18,7 @@ import java.util.List;
 public class CsQnaController {
 
     private final QnaService qnaService;
+    private final QnaRepository qnaRepository;
 
     @GetMapping("/qna/coupun-list")
     public String coupunList() {
@@ -67,27 +66,21 @@ public class CsQnaController {
     }
 
     @PostMapping("/qna/write")
-    public String submitQna(@RequestParam("primary") String primary,
-                            @RequestParam("secondary") String secondary,
-                            @RequestParam("title") String title,
-                            @RequestParam("content") String content,
-                            @RequestParam("uid") String uid) {
-
-        QnaDTO qnaDTO = QnaDTO.builder()
-                .userUid(uid)
-                .qnaType1(primary)
-                .qnaType2(secondary)
-                .title(title)
-                .content(content)
-                .status("대기")  // 기본 상태는 대기
+    public String writeQna(@ModelAttribute QnaDTO qnaDTO, Model model) {
+        Qna qna = Qna.builder()
+                .userUid(qnaDTO.getUserUid())
+                .qnaType1(qnaDTO.getQnaType1())
+                .qnaType2(qnaDTO.getQnaType2())
+                .title(qnaDTO.getTitle())
+                .content(qnaDTO.getContent())
+                .status("검토중")  // 상태는 기본적으로 '검토중'으로 설정
                 .build();
 
-        // 서비스에서 처리
-        qnaService.saveQna(qnaDTO);
+        qnaService.saveQna(qna);  // QnaService에서 저장 처리
 
-        // 문의 목록 페이지로 리디렉션 (해당 카테고리의 목록 페이지로)
-        return "redirect:/qna/" + primary.toLowerCase() + "-list";
+        return "redirect:/qna/coupun-list";  // 문의 등록 후 목록 페이지로 리다이렉트
     }
+
 }
 
 
