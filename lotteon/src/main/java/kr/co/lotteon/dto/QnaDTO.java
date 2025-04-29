@@ -23,6 +23,7 @@ public class QnaDTO {
     private LocalDate date;
     private String status;
     private String answer;
+    private String writer;
 
     // 추가 필드
     private String uname;

@@ -1,16 +1,20 @@
 package kr.co.lotteon.controller;
 
+import jakarta.servlet.http.HttpSession;
 import kr.co.lotteon.dto.QnaDTO;
 import kr.co.lotteon.entity.Qna;
 import kr.co.lotteon.repository.QnaRepository;
 import kr.co.lotteon.service.QnaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,38 +24,66 @@ public class CsQnaController {
     private final QnaService qnaService;
     private final QnaRepository qnaRepository;
 
+
+    // 쿠폰/혜택/이벤트 리스트
     @GetMapping("/qna/coupun-list")
-    public String coupunList() {
+    public String coupunList(Model model) {
+        List<Qna> coupunlist = qnaService.getQnaListByType("쿠폰/혜택/이벤트");
+
+        System.out.println(coupunlist);
+        System.out.println(coupunlist);
+        System.out.println(coupunlist);
+        System.out.println(coupunlist);
+
+        model.addAttribute("coupun", coupunlist);
         return "/cs/qna/coupun-list";
     }
 
+    // 배송 리스트
     @GetMapping("/qna/delivery-list")
-    public String deliveryList() {
+    public String deliveryList(Model model) {
+        List<Qna> qnaList = qnaService.getQnaListByType("배송");
+        model.addAttribute("qnaList", qnaList);
         return "/cs/qna/delivery-list";
     }
 
+    // 회원 리스트
     @GetMapping("/qna/member-list")
-    public String memberList() {
+    public String memberList(Model model) {
+        List<Qna> qnaList = qnaService.getQnaListByType("회원");
+        model.addAttribute("qnaList", qnaList);
         return "/cs/qna/member-list";
     }
 
+    // 주문/결제 리스트
     @GetMapping("/qna/order-list")
-    public String orderList() {
+    public String orderList(Model model) {
+        List<Qna> qnaList = qnaService.getQnaListByType("주문/결제");
+        model.addAttribute("qnaList", qnaList);
         return "/cs/qna/order-list";
     }
 
+    // 취소/반품/교환 리스트
     @GetMapping("/qna/return-list")
-    public String returnList() {
+    public String returnList(Model model) {
+        List<Qna> qnaList = qnaService.getQnaListByType("취소/반품/교환");
+        model.addAttribute("qnaList", qnaList);
         return "/cs/qna/return-list";
     }
 
+    // 안전거래 리스트
     @GetMapping("/qna/safy-list")
-    public String safyList() {
+    public String safyList(Model model) {
+        List<Qna> qnaList = qnaService.getQnaListByType("안전거래");
+        model.addAttribute("qnaList", qnaList);
         return "/cs/qna/safy-list";
     }
 
+    // 여행/숙박/항공 리스트
     @GetMapping("/qna/trip-list")
-    public String tripList() {
+    public String tripList(Model model) {
+        List<Qna> qnaList = qnaService.getQnaListByType("여행/숙박/항공");
+        model.addAttribute("qnaList", qnaList);
         return "/cs/qna/trip-list";
     }
 
@@ -61,26 +93,55 @@ public class CsQnaController {
     }
 
     @GetMapping("/qna/write")
-    public String write() {
+    public String write(Model model) {
+        // 로그인된 사용자 정보에서 userUid 가져오기
+        String userUid = "kc727900";
+
+        model.addAttribute("userUid", userUid);  // userUid를 모델에 추가하여 폼에 전달
         return "/cs/qna/write";
     }
 
     @PostMapping("/qna/write")
-    public String writeQna(@ModelAttribute QnaDTO qnaDTO, Model model) {
-        Qna qna = Qna.builder()
-                .userUid(qnaDTO.getUserUid())
-                .qnaType1(qnaDTO.getQnaType1())
-                .qnaType2(qnaDTO.getQnaType2())
-                .title(qnaDTO.getTitle())
-                .content(qnaDTO.getContent())
-                .status("검토중")  // 상태는 기본적으로 '검토중'으로 설정
-                .build();
+    public String writeQna(@ModelAttribute QnaDTO qnaDTO, HttpSession session) {
+        // 세션에서 userUid를 가져와 강제 세팅
+        String userUid = "kc727900";
+        qnaDTO.setUserUid(userUid);
 
-        qnaService.saveQna(qna);  // QnaService에서 저장 처리
+        // 작성된 QnA 정보 로그 출력
+        log.info("작성된 QnA 정보: {}", qnaDTO);
+        log.info("작성된 QnA 정보: {}", qnaDTO);
+        log.info("작성된 QnA 정보: {}", qnaDTO);
 
-        return "redirect:/qna/coupun-list";  // 문의 등록 후 목록 페이지로 리다이렉트
+        // QnA 저장
+        qnaService.createQna(
+                qnaDTO.getUserUid(),
+                qnaDTO.getQnaType1(),
+                qnaDTO.getQnaType2(),
+                qnaDTO.getTitle(),
+                qnaDTO.getContent(),
+                qnaDTO.getWriter()
+        );
+
+        // 문의 유형에 따라 리다이렉트할 URL 맵핑
+        Map<String, String> redirectMap = Map.of(
+                "쿠폰/혜택/이벤트", "/qna/coupun-list",
+                "회원", "/qna/member-list",
+                "배송", "/qna/delivery-list",
+                "취소/반품/교환", "/qna/return-list",
+                "안전거래", "/qna/safy-list",
+                "여행/숙박/항공", "/qna/trip-list",
+                "주문/결제", "/qna/order-list"
+        );
+
+        // qnaDTO의 문의 유형에 맞는 리다이렉트 URL 가져오기
+        String redirectUrl = redirectMap.get(qnaDTO.getQnaType1());
+
+        // 리다이렉트 URL이 존재하면 해당 URL로, 없으면 기본 URL로 리다이렉트
+        if (redirectUrl != null) {
+            return "redirect:" + redirectUrl;
+        } else {
+            return "redirect:/qna/coupun-list";
+        }
     }
 
 }
-
-

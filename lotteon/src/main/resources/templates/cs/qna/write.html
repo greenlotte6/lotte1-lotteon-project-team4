@@ -98,14 +98,15 @@
                     <p class="cs-desc">궁금하신 내용을 남겨주시면 신속히 답변드리겠습니다.</p>
 
                     <form action="/qna/write" method="post">
-                        <!-- userUid 값을 동적으로 전달하는 숨은 필드 추가 -->
-                        <input type="hidden" name="uid" value="${userUid}" /> <!-- 변경된 부분 -->
+                        <!-- userUid 값을 동적으로 전달하는 숨은 필드 수정 -->
+                        <input type="hidden" name="userUid" th:value="${userUid}" />
+                        <!-- name="userUid" 로 수정 완료 -->
 
                         <table class="qna-write-table">
                             <tr>
                                 <th>문의유형</th>
                                 <td>
-                                    <select id="primary" name="primary">
+                                    <select id="primary" name="qnaType1">
                                         <option hidden selected>  ▼ 1차 선택</option>
                                         <option value="회원">회원</option>
                                         <option value="쿠폰/혜택/이벤트">쿠폰/혜택/이벤트</option>
@@ -116,7 +117,7 @@
                                         <option value="안전거래">안전거래</option>
                                     </select>
 
-                                    <select id="secondary" name="secondary">
+                                    <select id="secondary" name="qnaType2">
                                         <option hidden selected>  ▼ 2차 선택</option>
                                     </select>
                                 </td>
@@ -136,8 +137,6 @@
                             <button type="submit">등록하기</button>
                         </div>
                     </form>
-
-
 
                 </section>
             </div>
