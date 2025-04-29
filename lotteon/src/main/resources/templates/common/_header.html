@@ -21,7 +21,7 @@
 
                     <!-- 판매자 로그인 상태 -->
                     <li th:if="${session.seller != null}">
-                        <span th:text="'판매자님 환영합니다, ' + ${session.seller.aid}"></span>
+                        <span th:text="'환영합니다 판매자님 ' + ${session.seller.aid}"></span>
                         <a th:href="@{/logout}">로그아웃</a>
                     </li>
 
