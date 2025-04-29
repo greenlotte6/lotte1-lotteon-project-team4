@@ -71,4 +71,8 @@ public class CouponService {
         return Long.parseLong(prefix + String.format("%09d", randomNum));
     }
 
+    public void stopIssuedCoupon(String issueNumber) {
+
+    }
+
 }
