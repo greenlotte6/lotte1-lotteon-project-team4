@@ -41,4 +41,8 @@ public class SellerService {
     public long countByAid(String aid) {
         return sellerRepository.countByAid(aid);
     }
+
+
+
+
 }

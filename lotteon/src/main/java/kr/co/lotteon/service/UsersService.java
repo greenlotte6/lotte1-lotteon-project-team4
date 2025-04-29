@@ -136,6 +136,17 @@ public class UsersService {
     public long countByAid(String aid) {
         return sellerRepository.countByAid(aid);
     }
+
+    // UsersService
+    public Optional<Users> findByNameAndEmail(String uname, String email) {
+        return usersRepository.findByUnameAndEmail(uname, email);
+    }
+
+    public boolean isEmailExists(String email) {
+        return usersRepository.countByEmail(email) > 0;
+    }
+
+
 }
 
 

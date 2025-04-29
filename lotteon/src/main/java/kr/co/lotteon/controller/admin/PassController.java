@@ -2,12 +2,17 @@ package kr.co.lotteon.controller.admin;
 
 
 import jakarta.servlet.http.HttpSession;
+import kr.co.lotteon.entity.Seller;
+import kr.co.lotteon.entity.Users;
+import kr.co.lotteon.service.SellerService;
 import kr.co.lotteon.service.UsersService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,12 +39,12 @@ public class PassController {
         return result;
     }
 
-    @GetMapping("/email/{email}")
+    @GetMapping("/user/email/{email}")
     public Map<String, Integer> checkEmail(@PathVariable String email) {
         int count = usersService.countByEmail(email);
 
-        if (count == 0) {
-            usersService.sendEmailCode(email); // 중복 없으면 인증코드 발송
+        if (count == 1) {
+            usersService.sendEmailCode(email); // 인증코드 전송
         }
 
         Map<String, Integer> result = new HashMap<>();
@@ -56,6 +61,30 @@ public class PassController {
 
         return inputCode != null && inputCode.equals(sessionCode);
     }
+
+    private final SellerService sellerService;
+
+
+    @PostMapping("/member/find/id")
+    @ResponseBody
+    public Map<String, Object> findUserId(@RequestParam("uname") String uname,
+                                          @RequestParam("email") String email) {
+        Map<String, Object> result = new HashMap<>();
+
+        Optional<Users> userOpt = usersService.findByNameAndEmail(uname, email);
+
+        if (userOpt.isPresent()) {
+            result.put("status", "success");
+            result.put("uname", userOpt.get().getUname());
+        } else {
+            result.put("status", "fail");
+            result.put("message", "일치하는 회원 정보를 찾을 수 없습니다.");
+        }
+
+        return result;
+    }
+
+
 
 
 
