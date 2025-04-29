@@ -10,7 +10,7 @@
                 <ul>
                     <!-- 비로그인 상태 -->
                     <li th:if="${session.user == null and session.seller == null}">
-                        <a th:href="@{/member/login}">로그인</a> / <a th:href="@{/member/join}">회원가입</a>
+                        <a th:href="@{/member/login}">로그인</a> &nbsp;&nbsp; <a th:href="@{/member/join}">회원가입</a>
                     </li>
 
                     <!-- 일반 사용자 로그인 상태 -->
@@ -21,7 +21,7 @@
 
                     <!-- 판매자 로그인 상태 -->
                     <li th:if="${session.seller != null}">
-                        <span th:text="'환영합니다 판매자님 ' + ${session.seller.aid}"></span>
+                        <span th:text="'환영합니다 판매자님 (' + ${session.seller.aid} + ')'"></span>
                         <a th:href="@{/logout}">로그아웃</a>
                     </li>
 

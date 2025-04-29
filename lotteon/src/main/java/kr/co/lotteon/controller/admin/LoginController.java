@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -32,31 +33,26 @@ public class LoginController {
     @PostMapping("/member/login")
     public String login(@RequestParam("id") String id,
                         @RequestParam("password") String password,
-                        @RequestParam(value = "userType", required = false, defaultValue = "user") String userType, // ⭐ userType 추가
                         HttpSession session,
                         Model model) {
 
-        if ("seller".equals(userType)) {
-            // 판매자 로그인 처리
-            Seller seller = sellerService.loginSeller(id, password);
-            if (seller != null) {
-                session.setAttribute("seller", seller);
-                return "redirect:/"; // 판매자 로그인 성공
-            } else {
-                model.addAttribute("error", "판매자 아이디 또는 비밀번호를 확인하세요.");
-                return "/member/login";
-            }
-        } else {
-            // 일반 회원 로그인 처리
-            Users user = usersService.login(id, password);
-            if (user != null) {
-                session.setAttribute("user", user);
-                return "redirect:/"; // 일반 회원 로그인 성공
-            } else {
-                model.addAttribute("error", "아이디 또는 비밀번호를 확인하세요.");
-                return "/member/login";
-            }
+        // 1. 일반 회원 로그인 먼저 시도
+        Users user = usersService.login(id, password);
+        if (user != null) {
+            session.setAttribute("user", user);
+            return "redirect:/";
         }
+
+        // 2. 일반회원 로그인 실패 → 판매자 로그인 시도
+        Seller seller = sellerService.loginSeller(id, password);
+        if (seller != null) {
+            session.setAttribute("seller", seller);
+            return "redirect:/";
+        }
+
+        // 3. 모두 실패
+        model.addAttribute("error", "아이디 또는 비밀번호를 확인하세요.");
+        return "/member/login";
     }
     private final UsersService usersService;
 
@@ -131,6 +127,23 @@ public class LoginController {
     }
 
 
+    @GetMapping("/member/such")
+    public String such() {
+        return "/member/such";
+    }
+
+    @PostMapping("/member/such")
+    public String findId(@RequestParam String name, @RequestParam String email, Model model) {
+        Optional<Users> userOpt = usersService.findByNameAndEmail(name, email);
+
+        if (userOpt.isPresent()) {
+            model.addAttribute("user", userOpt.get());
+            return "/member/such"; // such.html 로 이동
+        } else {
+            model.addAttribute("error", "일치하는 회원이 없습니다.");
+            return "/member/find"; // 다시 찾기 페이지
+        }
+    }
 
 
 

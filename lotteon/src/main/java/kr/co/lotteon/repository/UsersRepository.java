@@ -13,6 +13,7 @@ public interface UsersRepository extends JpaRepository<Users, String> {
     List<Users> findByUnameContaining(String keyword);
     List<Users> findByEmailContaining(String keyword);
     List<Users> findByHpContaining(String keyword);
+    Optional<Users> findByUnameAndEmail(String uname, String email);
 
 
     Optional<Users> findByUid(String uid);
