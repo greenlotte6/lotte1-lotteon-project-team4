@@ -28,10 +28,10 @@ public class Qna {
     @JoinColumn(name = "Users_uid", insertable = false, updatable = false)
     private Users users;
 
-    @Column(name = "qna_type_1", length = 5, nullable = false)
+    @Column(name = "qna_type_1", length = 255, nullable = false)
     private String qnaType1;
 
-    @Column(name = "qna_type_2", length = 5, nullable = false)
+    @Column(name = "qna_type_2", length = 255, nullable = false)
     private String qnaType2;
 
     @Column(length = 45, nullable = false)
@@ -49,4 +49,13 @@ public class Qna {
 
     @Column(columnDefinition = "TEXT", nullable = true)
     private String answer;
+
+    private String writer;
+
+    @PrePersist
+    public void prePersist(){
+        if(this.status == null){
+            this.status = "검토중";
+        }
+    }
 }
