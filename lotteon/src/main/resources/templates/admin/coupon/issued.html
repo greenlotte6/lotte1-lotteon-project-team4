@@ -23,12 +23,56 @@
         });
 
 
-        // 모달 외부 클릭 시 닫기
-        window.onclick = function (event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
+        // 모달 열기 함수
+        function openModal(className) {
+            document.querySelector(`.${className}`).style.display = 'flex';
+        }
+
+        // 모달 닫기 함수
+        window.closeModal = function () {
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.style.display = 'none';
+            });
         };
+
+        document.querySelectorAll("table tr td:first-child").forEach(td => {
+            td.style.cursor = 'pointer';
+            td.addEventListener('click', (event) => {
+                const row = event.target.parentElement; // 클릭한 td의 부모 tr
+
+                // td 순서대로 데이터 읽어오기
+                // 테이블 각 칸에서 데이터 읽어오기
+                const issueId = row.children[0]?.innerText.trim() || '';
+                const couponId = row.children[1]?.innerText.trim() || '';
+                const couponType = row.children[2]?.innerText.trim() || '';
+                const couponName = row.children[3]?.innerText.trim() || '';
+                const uid = row.children[4]?.innerText.trim() || '';
+                const status = row.children[5]?.innerText.trim() || '';
+                const usedDate = row.children[6]?.innerText.trim() || '';
+
+                // 여기서는 발급자(issuer), 혜택(benefit), 유의사항(notes) 정보가 추가로 필요하면 DB에서 받아오거나, 없으면 기본값
+                const issuer = '(발급처 정보 없음)';
+                const benefit = '(혜택 정보 없음)';
+                const notes = '(등록된 유의사항 없음)';
+
+                // 모달에 데이터 넣기
+                document.getElementById('modalCouponNumber').innerText = couponId;
+                document.getElementById('modalIssueNumber').innerText = issueId;
+                document.getElementById('modalIssuer').innerText = issuer;
+                document.getElementById('modalUsageStatus').innerText = status;
+                document.getElementById('modalRecipient').innerText = uid;
+                document.getElementById('modalCouponType').innerText = couponType;
+                document.getElementById('modalCouponName').innerText = couponName;
+                document.getElementById('modalBenefit').innerText = benefit;
+                document.getElementById('modalUsagePeriod').innerText = usedDate;
+                document.getElementById('modalNotes').innerText = notes;
+
+                document.getElementById('modal-couponTitle').innerText = `[쿠폰번호: ${couponId}]`;
+
+                openModal('info-modal'); // 모달 열기
+            });
+        });
+
         document.querySelectorAll('.end, .end2').forEach(button => {
             button.addEventListener('click', function () {
                 const row = this.closest('tr');
@@ -110,7 +154,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="issued : ${issuedList}">
+                        <tr th:each="issued : ${issuedPage.content}">
                             <td th:text="${issued.issueId}"></td>
                             <td th:text="${issued.coupon.couponId}"></td>
                             <td th:text="${issued.coupon.couponType}"></td>
@@ -132,26 +176,39 @@
                         </tr>
                         </tbody>
                     </table>
-                    <div class="pagination-wrapper">
-                        <div class="pagination">
-                            <a href="#">이전</a>
-                            <a href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">다음</a>
-                        </div>
+                    <div class="pagination">
+                        <th:block th:if="${issuedPage.hasPrevious()}">
+                            <a th:href="@{/admin/coupon/issued(page=${issuedPage.number - 1}, type=${type}, keyword=${keyword})}">이전</a>
+                        </th:block>
+
+                        <th:block th:each="i : ${#numbers.sequence(0, issuedPage.totalPages - 1)}">
+                            <a th:href="@{/admin/coupon/issued(page=${i}, type=${type}, keyword=${keyword})}"
+                               th:text="${i + 1}"
+                               th:classappend="${i == issuedPage.number} ? 'active'">
+                            </a>
+                        </th:block>
+
+                        <th:block th:if="${issuedPage.hasNext()}">
+                            <a th:href="@{/admin/coupon/issued(page=${issuedPage.number + 1}, type=${type}, keyword=${keyword})}">다음</a>
+                        </th:block>
                     </div>
-</main>
-<div id="couponModal" class="modal-overlay" style="display: none;">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>쿠폰 정보</h2>
-            <button type="button" class="modal-close-button" onclick="closeCouponModal()">×</button>
+                </div>
+            </div>
         </div>
+    </div>
+</main>
+<div id="couponModal" class="modal-overlay info-modal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">
+                <span>■</span>쿠폰정보
+            </div>
+            <div id="modal-couponTitle"></div>
+            <button class="modal-button" onclick="closeModal()">X</button>
+        </div>
+
         <div class="modal-body">
-            <table>
+            <table class="info-table">
                 <tr>
                     <th>쿠폰 번호</th>
                     <td id="modalCouponNumber"></td>
@@ -162,7 +219,7 @@
                     <th>발급 번호</th>
                     <td id="modalIssueNumber"></td>
                     <th>사용 여부</th>
-                    <td id="modalUsageStatus" class="status-notused"></td>
+                    <td id="modalUsageStatus"></td>
                 </tr>
                 <tr>
                     <th>쿠폰 종류</th>
@@ -184,15 +241,17 @@
                 </tr>
                 <tr>
                     <th>유의사항</th>
-                    <td id="modalNotes"></td>
+                    <td colspan="3" id="modalNotes" class="scrollable-notes"></td>
                 </tr>
             </table>
         </div>
+
         <div class="modal-footer">
-            <button type="button" onclick="closeCouponModal()">닫기</button>
+            <button class="submit-btn" onclick="closeModal()">닫기</button>
         </div>
     </div>
 </div>
+
 
 <th:block th:include="/common/_admin_footer"/>
 </body>

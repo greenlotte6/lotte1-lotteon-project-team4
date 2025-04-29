@@ -59,12 +59,12 @@
         </table>
 
         <div class="pagination">
-            <a th:href="@{/company/recruit(page=${currentPage - 1}, searchType=${searchType}, search=${search})}"
+            <a th:href="@{/company/recruit(page=${currentPage - 1})}"
                th:if="${currentPage > 1}">이전</a>
             <a th:each="i : ${#numbers.sequence(1, totalPages)}"
-               th:href="@{/company/recruit(page=${i}, searchType=${searchType}, search=${search})}"
+               th:href="@{/company/recruit(page=${i})}"
                th:text="${i}" th:classappend="${i == currentPage ? 'active' : ''}"></a>
-            <a th:href="@{/company/recruit(page=${currentPage + 1}, searchType=${searchType}, search=${search})}"
+            <a th:href="@{/company/recruit(page=${currentPage + 1})}"
                th:if="${currentPage < totalPages}">다음</a>
         </div>
 
