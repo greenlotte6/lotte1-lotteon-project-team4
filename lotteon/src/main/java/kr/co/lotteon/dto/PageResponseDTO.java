@@ -30,7 +30,7 @@ public class PageResponseDTO<T> {
     public PageResponseDTO(PageRequestDTO pageRequestDTO, List<T> dtoList, int total) {
 
         this.cate = pageRequestDTO.getCate();
-        this.pg = pageRequestDTO.getPg();
+        this.pg = pageRequestDTO.getPg() > 0 ? pageRequestDTO.getPg() : 1;
         this.size = pageRequestDTO.getSize();
         this.total = total;
         this.dtoList = dtoList;
@@ -48,4 +48,7 @@ public class PageResponseDTO<T> {
         this.next = total > this.end * this.size;
     }
 
+    public int getPg() {
+        return pg <= 0 ? 1 : pg;
+    }
 }

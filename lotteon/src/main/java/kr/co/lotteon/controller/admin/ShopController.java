@@ -1,5 +1,7 @@
 package kr.co.lotteon.controller.admin;
 
+import kr.co.lotteon.dto.PageRequestDTO;
+import kr.co.lotteon.dto.PageResponseDTO;
 import kr.co.lotteon.dto.ShopDTO;
 import kr.co.lotteon.service.admin.ShopService;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +23,21 @@ public class ShopController {
     private final ShopService shopService;
 
     @GetMapping("/admin/shop/list")
-    public String list(Model model) {
+    public String list(Model model, PageRequestDTO pageRequestDTO) {
 
-        List<ShopDTO> shopList = shopService.findShopList();
+        if (pageRequestDTO.getPg() <= 0) {
+            pageRequestDTO.setPg(1);
+        }
 
-        log.info("shops : {}", shopList);
+        PageResponseDTO<ShopDTO> pageResponseDTO = shopService.findShopList(pageRequestDTO);
 
-        model.addAttribute("shopList", shopList);
+        model.addAttribute(pageResponseDTO);
+
+//        List<ShopDTO> shopList = shopService.findShopList();
+//
+//        log.info("shops : {}", shopList);
+//
+//        model.addAttribute("shopList", shopList);
 
         return "/admin/shop/list";
     }
@@ -45,7 +55,11 @@ public class ShopController {
     }
 
     @GetMapping("/admin/shop/searchShop")
-    public String searchShop() {
+    public String searchShop(PageRequestDTO pageRequestDTO, Model model) {
+        PageResponseDTO<ShopDTO> pageResponseDTO = shopService.searchShop(pageRequestDTO);
+
+        model.addAttribute(pageResponseDTO);
+
         return "/admin/shop/list";
     }
 

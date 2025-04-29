@@ -1,15 +1,17 @@
 package kr.co.lotteon.service.admin;
 
+import com.querydsl.core.Tuple;
 import kr.co.lotteon.dao.ShopMapper;
 import kr.co.lotteon.dto.PageRequestDTO;
 import kr.co.lotteon.dto.PageResponseDTO;
 import kr.co.lotteon.dto.ShopDTO;
-import kr.co.lotteon.dto.UsersDTO;
 import kr.co.lotteon.entity.Shop;
 import kr.co.lotteon.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,26 +27,49 @@ public class ShopService {
     private final ModelMapper modelMapper;
 
     // 글 목록 조회
-    public List<ShopDTO> findShopList() {
-        List<Shop> shops = shopRepository.findAll();
+    public PageResponseDTO<ShopDTO> findShopList(PageRequestDTO pageRequestDTO) {
 
-        return shops.stream()
-                .map(shop -> {
-                    ShopDTO sDTO = modelMapper.map(shop, ShopDTO.class);
+        // 페이징 처리를 위한 pageable 객체 생성
+        Pageable pageable = pageRequestDTO.getPageable("no");
 
-                    sDTO.setCompany(shop.getSeller().getCompany());
-                    sDTO.setCeo(shop.getSeller().getCeo());
-                    sDTO.setBiz_num(shop.getSeller().getBiz_num());
-                    sDTO.setOsn(shop.getSeller().getOsn());
-                    sDTO.setNumber(shop.getSeller().getNumber());
-                    sDTO.setAid(shop.getSeller().getAid());
-                    sDTO.setSeller_aid(shop.getSeller().getAid());
+        Page<Shop> pageShop = shopRepository.findAll(pageable);
 
-                    log.info("sDTO : {}", sDTO);
+        List<ShopDTO> shopDTOList = pageShop.getContent().stream()
+                                                            .map(ShopDTO::new)
+                                                            .collect(Collectors.toList());
 
-                    return sDTO;
-                })
-                .collect(Collectors.toList());
+        int total = (int) pageShop.getTotalElements();
+
+        log.info("Shop List: {}", shopDTOList);
+
+        return PageResponseDTO.<ShopDTO>builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(shopDTOList)
+                .total(total)
+                .build();
+
+    }
+
+    // 글 목록 검색
+    public PageResponseDTO<ShopDTO> searchShop(PageRequestDTO pageRequestDTO) {
+
+        // 페이징 처리를 위한 pageable 객체 생성
+        Pageable pageable = pageRequestDTO.getPageable("no");
+
+        Page<Tuple> pageShop = shopRepository.searchShop(pageRequestDTO, pageable);
+
+        List<ShopDTO> shopDTOList = pageShop.getContent().stream()
+                                                            .map(shop -> modelMapper.map(shop, ShopDTO.class))
+                                                            .collect(Collectors.toList());
+
+        int total = (int) pageShop.getTotalElements();
+
+        return PageResponseDTO.<ShopDTO>builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(shopDTOList)
+                .total(total)
+                .build();
+
     }
 
     public void delete(List<String> seller_aid) {
