@@ -34,12 +34,6 @@ public class ShopController {
 
         model.addAttribute(pageResponseDTO);
 
-//        List<ShopDTO> shopList = shopService.findShopList();
-//
-//        log.info("shops : {}", shopList);
-//
-//        model.addAttribute("shopList", shopList);
-
         return "/admin/shop/list";
     }
 
