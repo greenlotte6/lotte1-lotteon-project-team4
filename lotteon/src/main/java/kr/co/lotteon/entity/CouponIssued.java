@@ -34,7 +34,7 @@ public class CouponIssued {
     private String status;
 
     @CreationTimestamp
-    private LocalDate usedDate;
+    private LocalDateTime usedDate;
 
 
 }
