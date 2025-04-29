@@ -252,7 +252,7 @@ button {
     color: #ffffff;
     font-weight: 700;
     font-size: 15px;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .btn-wrapper {
@@ -455,12 +455,6 @@ footer {
     font-weight: bold;
 }
 
-#modal-couponTitle {
-    font-size: 14px;
-    color: #ccc;
-    margin-left: 10px;
-}
-
 .scrollable-notes {
     max-height: 150px;
     overflow-y: auto;
@@ -483,6 +477,17 @@ footer {
     border: 1px solid #ddd;
     padding: 10px;
     font-size: 14px;
+}
+
+.info-table th:nth-child(1),
+.info-table th:nth-child(3){
+    text-align: center;
+    width: 20%;
+}
+
+.info-table td:nth-child(2),
+.info-table td:nth-child(4) {
+    width: 30%;  /* 원하는 비율로 조정 */
 }
 
 .label {
@@ -587,11 +592,11 @@ select{
 }
 
 .status-used {
-    color: red;
+    color: green;
 }
 
 .status-notused {
-    color: green;
+    color: red;
 }
 
 .status-stopped {

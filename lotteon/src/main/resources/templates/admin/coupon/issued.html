@@ -40,20 +40,26 @@
             td.addEventListener('click', (event) => {
                 const row = event.target.parentElement; // 클릭한 td의 부모 tr
 
-                // td 순서대로 데이터 읽어오기
-                // 테이블 각 칸에서 데이터 읽어오기
+
                 const issueId = row.children[0]?.innerText.trim() || '';
                 const couponId = row.children[1]?.innerText.trim() || '';
                 const couponType = row.children[2]?.innerText.trim() || '';
                 const couponName = row.children[3]?.innerText.trim() || '';
                 const uid = row.children[4]?.innerText.trim() || '';
                 const status = row.children[5]?.innerText.trim() || '';
-                const usedDate = row.children[6]?.innerText.trim() || '';
+                const issuer = row.children[7]?.innerText.trim() || '';
+                const benefit = row.children[8]?.innerText.trim() || '';
+                const notes = row.children[9]?.innerText.trim() || '';
+                const usedDate = row.children[10]?.innerText.trim() || '';
 
-                // 여기서는 발급자(issuer), 혜택(benefit), 유의사항(notes) 정보가 추가로 필요하면 DB에서 받아오거나, 없으면 기본값
-                const issuer = '(발급처 정보 없음)';
-                const benefit = '(혜택 정보 없음)';
-                const notes = '(등록된 유의사항 없음)';
+                modalUsageStatus.classList.remove('status-used', 'status-notused', 'status-stopped'); // 기존 클래스 제거
+                if (status === '사용') {
+                    modalUsageStatus.classList.add('status-used');
+                } else if (status === '미사용') {
+                    modalUsageStatus.classList.add('status-notused');
+                } else if (status === '중단') {
+                    modalUsageStatus.classList.add('status-stopped');
+                }
 
                 // 모달에 데이터 넣기
                 document.getElementById('modalCouponNumber').innerText = couponId;
@@ -93,6 +99,16 @@
                                 const statusCell = row.querySelector('td:nth-child(6) span');
                                 statusCell.innerText = '중단';
                                 statusCell.className = 'status-stopped';
+
+                                const usedDateCell = row.querySelector('td:nth-child(7)');
+                                const now = new Date();
+                                const formattedDate = now.getFullYear() + '-'
+                                    + String(now.getMonth() + 1).padStart(2, '0') + '-'
+                                    + String(now.getDate()).padStart(2, '0') + ' '
+                                    + String(now.getHours()).padStart(2, '0') + ':'
+                                    + String(now.getMinutes()).padStart(2, '0') + ':'
+                                    + String(now.getSeconds()).padStart(2, '0');
+                                usedDateCell.innerText = formattedDate;
 
                                 const manageCell = row.querySelector('td:nth-child(8)');
                                 manageCell.innerHTML = '';
@@ -165,7 +181,13 @@
                                       th:classappend="|status-label ${issued.status == '사용' ? 'status-used' : (issued.status == '미사용' ? 'status-notused' : 'status-stopped')}|">
                                 </span>
                             </td>
-                            <td th:text="${issued.usedDate != null ? issued.usedDate : '0000-00-00 00:00:00'}"></td>
+                            <td th:text="${issued.status == '미사용'} ? '' : ${#temporals.format(issued.usedDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td th:text="${issued.coupon.sellerCompany}" style="display: none"></td>
+                            <td th:text="${issued.coupon.benefit}" style="display: none"></td>
+                            <td th:text="${issued.coupon.other}" style="display: none"></td>
+                            <td style="display: none">
+                                <span th:text="${issued.coupon.validFrom}"></span> <br> ~ <br> <span th:text="${issued.coupon.validTo}"></span>
+                            </td>
                             <td>
                                 <th:block th:if="${issued.status == '미사용'}">
                                     <span class="end" th:if="${issued.status == '미사용'}">중단</span>
@@ -200,10 +222,8 @@
 <div id="couponModal" class="modal-overlay info-modal">
     <div class="modal">
         <div class="modal-header">
-            <div class="modal-title">
-                <span>■</span>쿠폰정보
-            </div>
-            <div id="modal-couponTitle"></div>
+            <div class="modal-title"><span>■</span>쿠폰정보</div>
+            <div class="modal-title" id="modal-couponTitle"></div>
             <button class="modal-button" onclick="closeModal()">X</button>
         </div>
 
