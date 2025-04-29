@@ -189,7 +189,7 @@ table th > button {
     margin: 50px 0 30px 0;
 }
 
-.page > button {
+.page > a {
     margin: 0 1px;
     font-size: 16px;
     color: #333;

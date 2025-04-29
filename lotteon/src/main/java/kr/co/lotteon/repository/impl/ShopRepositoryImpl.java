@@ -5,6 +5,8 @@ import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.lotteon.dto.PageRequestDTO;
+import kr.co.lotteon.entity.QDelivery;
+import kr.co.lotteon.entity.QSales;
 import kr.co.lotteon.entity.QSeller;
 import kr.co.lotteon.entity.QShop;
 import kr.co.lotteon.repository.custom.ShopRepositoryCustom;
@@ -52,10 +54,9 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
         }
 
         List<Tuple> content = queryFactory
-                .select(shop.no, shop.shop_id, shop.operation, shop.mgmt,
-                        seller.aid, seller.company, seller.ceo, seller.biz_num, seller.osn, seller.number)
+                .select(shop, seller.company, seller.ceo, seller.biz_num, seller.osn, seller.number)
                 .from(shop)
-                .leftJoin(shop.seller, seller)
+                .join(shop.seller, seller)
                 .where(builder)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -72,4 +73,5 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
 
         return new PageImpl<Tuple>(content, pageable, total);
     }
+
 }
