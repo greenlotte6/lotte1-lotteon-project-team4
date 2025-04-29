@@ -1,8 +1,11 @@
 package kr.co.lotteon.controller.admin;
 
 import kr.co.lotteon.entity.Coupon;
+import kr.co.lotteon.entity.CouponIssued;
 import kr.co.lotteon.entity.Notice;
+import kr.co.lotteon.repository.CouponIssuedRepository;
 import kr.co.lotteon.repository.CouponRepository;
+import kr.co.lotteon.service.admin.CouponIssuedService;
 import kr.co.lotteon.service.admin.CouponService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,6 +25,8 @@ public class CouponController {
 
     private final CouponService couponService;
     private final CouponRepository couponRepository;
+    private final CouponIssuedService couponIssuedService;
+    private final CouponIssuedRepository couponIssuedRepository;
 
     @GetMapping("/list")
     public String list(@RequestParam(value = "pg", defaultValue = "1") int pg,
@@ -40,11 +46,6 @@ public class CouponController {
     }
 
 
-    @GetMapping("/issued")
-    public String issued() {
-        return "/admin/coupon/issued";
-    }
-
     @PostMapping("/register")
     @ResponseBody
     public String registerCoupon(@RequestBody Coupon coupon) {
@@ -63,5 +64,39 @@ public class CouponController {
 
         return "success";
     }
+
+    @GetMapping("/issued")
+    public String issued(
+            @RequestParam(value = "type", required = false) String type,
+            @RequestParam(value = "keyword", required = false) String keyword,
+            Model model) {
+
+        List<CouponIssued> issuedList;
+
+        if (type != null && keyword != null && !keyword.isEmpty()) {
+            issuedList = couponIssuedService.searchIssuedCoupons(type, keyword);
+        } else {
+            issuedList = couponIssuedService.findAll();
+        }
+
+        model.addAttribute("issuedList", issuedList);
+        return "admin/coupon/issued"; // 뷰 경로
+    }
+
+    @PostMapping("/issued/stop")
+    @ResponseBody
+    public String stopIssuedCoupon(@RequestBody Map<String, String> request) {
+        try {
+            long issueId = Long.parseLong(request.get("issueNumber"));
+            couponIssuedService.stopIssuedCoupon(issueId);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+
+
+
 }
 

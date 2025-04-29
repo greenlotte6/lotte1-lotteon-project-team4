@@ -57,16 +57,18 @@
             </div>
             <div class="line"></div>
             <div class="container">
+                <form th:action="@{/admin/shop/searchShop}">
                 <div class="search">
-                    <select name="searchType">
-                        <option value="company">상호명</option>
-                        <option value="ced">대표자</option>
-                        <option value="biz_num">사업자등록번호</option>
-                        <option value="number">연락처</option>
-                    </select>
-                    <input type="text" name="keyword" placeholder="검색어입력">
-                    <button>검색</button>
-                </div>
+                        <select name="searchType">
+                            <option value="company">상호명</option>
+                            <option value="ced">대표자</option>
+                            <option value="biz_num">사업자등록번호</option>
+                            <option value="number">연락처</option>
+                        </select>
+                        <input type="text" name="keyword" placeholder="검색어입력">
+                        <button type="submit">검색</button>
+                    </div>
+                </form>
                 <div class="table-wrapper">
                     <div class="status">
                         <p><span class="green">● 운영중</span></p>
@@ -90,17 +92,17 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="shop : ${shopList}">
+                                <tr th:each="shop, i:${pageResponseDTO.dtoList}">
                                     <td><input type="checkbox" name="seller_aid" th:value="${shop.seller_aid}"
                                                class="checkItem"></td>
-                                    <td th:text="${shop.no}">5</td>
-                                    <td th:text="${shop.company}">(주)다나와</td>
-                                    <td th:text="${shop.ceo}">정우성</td>
-                                    <td th:text="${shop.biz_num}">112-12-12345</td>
-                                    <td th:text="${shop.osn}">2024-서울강남-04433</td>
-                                    <td th:text="${shop.number}">010-1234-1001</td>
-                                    <td class="green" th:text="${shop.operation}">●</td>
-                                    <td th:text="${shop.mgmt}">[중단]</td>
+                                    <td>[[${pageResponseDTO.startNo - i.index}]]</td>
+                                    <td>[[${shop.company}]]</td>
+                                    <td>[[${shop.ceo}]]</td>
+                                    <td>[[${shop.biz_num}]]</td>
+                                    <td>[[${shop.osn}]]</td>
+                                    <td>[[${shop.number}]]</td>
+                                    <td class="green">[[${shop.operation}]]</td>
+                                    <td>[[${shop.mgmt}]]</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -113,15 +115,19 @@
                             </button>
                         </div>
                     </form>
-                    <div class="page">
-                        <button class="page-move">이전</button>
-                        <button>[1]</button>
-                        <button>[2]</button>
-                        <button>[3]</button>
-                        <button>[4]</button>
-                        <button>[5]</button>
-                        <button class="page-move">다음</button>
-                    </div>
+                        <div class="page">
+                            <th:block th:if="${pageResponseDTO.prev}">
+                                <a th:href="@{/admin/shop/list(pg=${pageResponseDTO.start-1})}" class="page-move">이전</a>
+                            </th:block>
+
+                            <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
+                                <a th:href="@{/admin/shop/list(pg=${num})}" th:class="${num == pageResponseDTO.pg} ? 'current' : 'num'">&#91;[[${num}]]&#93;</a>
+                            </th:block>
+
+                            <th:block th:if="${pageResponseDTO.next}">
+                                <a th:href="@{/admin/shop/list(pg=${pageResponseDTO.end+1})}" class="page-move">다음</a>
+                            </th:block>
+                        </div>
                     <div class="modal-overlay" id="modalOverlay">
                         <div class="modal">
                             <iframe id="modalFrame"></iframe>
