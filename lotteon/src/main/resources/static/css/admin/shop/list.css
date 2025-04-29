@@ -250,7 +250,7 @@ th, td {
     margin: -10px 0 30px 0;
 }
 
-.page > button {
+.page > a {
     margin: 0 1px;
     font-size: 16px;
     color: #333;
@@ -260,13 +260,20 @@ th, td {
     box-sizing: border-box;
 }
 
-.page > button:hover {
+.page > button:hover, .page > a:hover {
     text-decoration: underline;
 }
 
 .page-move {
     padding: 0 10px;
 }
+
+/*.page > .prev {}*/
+/*.page > .next {}*/
+/*.page > .num {}*/
+/*.page > .current {*/
+/*    font-weight: bold;*/
+/*}*/
 
 /* 추가 */
 
