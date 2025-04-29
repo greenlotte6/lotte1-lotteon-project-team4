@@ -62,6 +62,8 @@ public class ShopService {
                                                             .map(shop -> modelMapper.map(shop, ShopDTO.class))
                                                             .collect(Collectors.toList());
 
+        log.info("Shop List!!!!!!!!!!: {}", shopDTOList);
+
         int total = (int) pageShop.getTotalElements();
 
         return PageResponseDTO.<ShopDTO>builder()
