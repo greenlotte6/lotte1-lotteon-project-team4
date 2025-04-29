@@ -2,6 +2,7 @@ package kr.co.lotteon.controller.admin;
 
 import kr.co.lotteon.dto.PageRequestDTO;
 import kr.co.lotteon.dto.PageResponseDTO;
+import kr.co.lotteon.dto.SalesDTO;
 import kr.co.lotteon.dto.ShopDTO;
 import kr.co.lotteon.service.admin.ShopService;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,17 @@ public class ShopController {
     }
 
     @GetMapping("/admin/shop/sales")
-    public String sales() {
+    public String sales(PageRequestDTO pageRequestDTO, Model model) {
+
+        PageResponseDTO<SalesDTO> pageResponseDTO = shopService.salesList(pageRequestDTO);
+
+        log.info("pageResponseDTO@@@@@@@@@: {}", pageResponseDTO);
+        log.info("pageResponseDTO@@@@@@@@@: {}", pageResponseDTO);
+        log.info("pageResponseDTO@@@@@@@@@: {}", pageResponseDTO);
+        log.info("pageResponseDTO@@@@@@@@@: {}", pageResponseDTO);
+
+        model.addAttribute(pageResponseDTO);
+
         return "/admin/shop/sales";
     }
 
