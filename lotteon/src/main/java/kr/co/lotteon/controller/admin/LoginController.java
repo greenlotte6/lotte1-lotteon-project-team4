@@ -1,9 +1,12 @@
 package kr.co.lotteon.controller.admin;
 
 import jakarta.servlet.http.HttpSession;
+import kr.co.lotteon.dto.SellerDTO;
 import kr.co.lotteon.dto.UsersDTO;
+import kr.co.lotteon.entity.Seller;
 import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.service.PolicyService;
+import kr.co.lotteon.service.SellerService;
 import kr.co.lotteon.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,21 +27,35 @@ public class LoginController {
         return "/member/login";
     }
 
+    private final SellerService sellerService;
 
     @PostMapping("/member/login")
-    public String login(@RequestParam("id") String uid,
+    public String login(@RequestParam("id") String id,
                         @RequestParam("password") String password,
+                        @RequestParam(value = "userType", required = false, defaultValue = "user") String userType, // ⭐ userType 추가
                         HttpSession session,
                         Model model) {
 
-        Users user = usersService.login(uid, password);
-
-        if (user != null) {
-            session.setAttribute("user", user);
-            return "redirect:/"; // 로그인 성공
+        if ("seller".equals(userType)) {
+            // 판매자 로그인 처리
+            Seller seller = sellerService.loginSeller(id, password);
+            if (seller != null) {
+                session.setAttribute("seller", seller);
+                return "redirect:/"; // 판매자 로그인 성공
+            } else {
+                model.addAttribute("error", "판매자 아이디 또는 비밀번호를 확인하세요.");
+                return "/member/login";
+            }
         } else {
-            model.addAttribute("error", "아이디 또는 비밀번호를 확인하세요."); // 에러 메시지
-            return "/member/login"; // 다시 로그인 폼
+            // 일반 회원 로그인 처리
+            Users user = usersService.login(id, password);
+            if (user != null) {
+                session.setAttribute("user", user);
+                return "redirect:/"; // 일반 회원 로그인 성공
+            } else {
+                model.addAttribute("error", "아이디 또는 비밀번호를 확인하세요.");
+                return "/member/login";
+            }
         }
     }
     private final UsersService usersService;
@@ -79,14 +96,14 @@ public class LoginController {
     }
 
     @GetMapping("/member/registerSeller")
-    public String registerSeller() {
+    public String registerSeller(Model model) {
+        model.addAttribute("sellerDTO", new SellerDTO());
         return "/member/registerSeller";
-
     }
 
     @PostMapping("/member/registerSeller")
-    public String registerSeller(@ModelAttribute("usersDTO") UsersDTO usersDTO) {
-        usersService.saveUser(usersDTO);
+    public String registerSeller(@ModelAttribute("sellerDTO") SellerDTO sellerDTO) {
+        usersService.saveSeller(sellerDTO);
         return "redirect:/member/login";
     }
 

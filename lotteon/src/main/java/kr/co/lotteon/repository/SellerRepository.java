@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SellerRepository extends JpaRepository<Seller, String> {
+    long countByAid(String aid);
 }

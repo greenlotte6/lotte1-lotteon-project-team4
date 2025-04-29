@@ -26,8 +26,6 @@ public class PassController {
     }
 
 
-
-
     @GetMapping("/hp/{hp}")
     public Map<String, Integer> checkHp(@PathVariable String hp) {
         int count = usersService.countByHp(hp);
@@ -35,6 +33,32 @@ public class PassController {
         result.put("count", count);
         return result;
     }
+
+    @GetMapping("/email/{email}")
+    public Map<String, Integer> checkEmail(@PathVariable String email) {
+        int count = usersService.countByEmail(email);
+
+        if (count == 0) {
+            usersService.sendEmailCode(email); // 중복 없으면 인증코드 발송
+        }
+
+        Map<String, Integer> result = new HashMap<>();
+        result.put("count", count);
+        return result;
+    }
+
+
+    @PostMapping("/user/email/auth")
+    @ResponseBody
+    public boolean emailAuth(@RequestBody Map<String, String> requestBody, HttpSession session) {
+        String inputCode = requestBody.get("authCode");
+        String sessionCode = (String) session.getAttribute("authCode");
+
+        return inputCode != null && inputCode.equals(sessionCode);
+    }
+
+
+
 
 
 }
