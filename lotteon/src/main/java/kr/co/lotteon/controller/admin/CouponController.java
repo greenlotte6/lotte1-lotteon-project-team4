@@ -10,6 +10,8 @@ import kr.co.lotteon.service.admin.CouponService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -69,18 +71,22 @@ public class CouponController {
     public String issued(
             @RequestParam(value = "type", required = false) String type,
             @RequestParam(value = "keyword", required = false) String keyword,
+            @PageableDefault(size = 10) Pageable pageable,
             Model model) {
 
-        List<CouponIssued> issuedList;
+        Page<CouponIssued> issuedPage;
 
         if (type != null && keyword != null && !keyword.isEmpty()) {
-            issuedList = couponIssuedService.searchIssuedCoupons(type, keyword);
+            issuedPage = couponIssuedService.searchIssuedCoupons(type, keyword, pageable);
         } else {
-            issuedList = couponIssuedService.findAll();
+            issuedPage = couponIssuedService.findAll(pageable);
         }
 
-        model.addAttribute("issuedList", issuedList);
-        return "admin/coupon/issued"; // 뷰 경로
+        model.addAttribute("issuedPage", issuedPage);
+        model.addAttribute("type", type);
+        model.addAttribute("keyword", keyword);
+
+        return "/admin/coupon/issued";
     }
 
     @PostMapping("/issued/stop")

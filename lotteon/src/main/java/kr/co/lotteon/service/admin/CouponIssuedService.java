@@ -3,6 +3,8 @@ package kr.co.lotteon.service.admin;
 import kr.co.lotteon.entity.CouponIssued;
 import kr.co.lotteon.repository.CouponIssuedRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,27 +22,28 @@ public class CouponIssuedService {
         couponIssuedRepository.save(couponIssued);
     }
 
-    public List<CouponIssued> searchIssuedCoupons(String type, String keyword) {
+    public Page<CouponIssued> searchIssuedCoupons(String type, String keyword, Pageable pageable) {
         if (type == null || keyword == null || keyword.trim().isEmpty()) {
-            return findAll();
+            return findAll(pageable);
         }
 
         switch (type) {
             case "issueId":
-                return couponIssuedRepository.findByIssueId(Long.parseLong(keyword));
+                return couponIssuedRepository.findByIssueId(Long.parseLong(keyword), pageable);
             case "couponId":
-                return couponIssuedRepository.findByCoupon_CouponIdContaining(keyword);
+                return couponIssuedRepository.findByCoupon_CouponIdContaining(keyword, pageable);
             case "couponName":
-                return couponIssuedRepository.findByCoupon_CouponNameContaining(keyword);
+                return couponIssuedRepository.findByCoupon_CouponNameContaining(keyword, pageable);
             case "userId":
-                return couponIssuedRepository.findByUser_UidContaining(keyword);
+                return couponIssuedRepository.findByUser_UidContaining(keyword, pageable);
             default:
-                return couponIssuedRepository.findAll();
+                return findAll(pageable);
         }
     }
 
-    public List<CouponIssued> findAll() {
-        return couponIssuedRepository.findAll();
+
+    public Page<CouponIssued> findAll(Pageable pageable) {
+        return couponIssuedRepository.findAll(pageable);
     }
 
 
