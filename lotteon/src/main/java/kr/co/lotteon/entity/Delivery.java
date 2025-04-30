@@ -1,8 +1,6 @@
 package kr.co.lotteon.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jdk.jfr.Timestamp;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -20,7 +19,11 @@ public class Delivery {
 
     @Id
     private int delivery_id;
-    private int order_oid;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_oid")
+    private Orders orders;
+
     private String delivery_company;
     private String delivery_num;
     private String other;

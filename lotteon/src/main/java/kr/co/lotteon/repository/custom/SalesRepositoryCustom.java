@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SalesRepositoryCustom {
     public Page<Tuple> salesList(Pageable pageable);
+
 }

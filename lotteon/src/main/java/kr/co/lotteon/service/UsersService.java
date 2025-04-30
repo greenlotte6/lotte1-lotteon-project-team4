@@ -4,6 +4,8 @@ import jakarta.mail.Message;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpSession;
+import kr.co.lotteon.dto.PageRequestDTO;
+import kr.co.lotteon.dto.PageResponseDTO;
 import kr.co.lotteon.dto.SellerDTO;
 import kr.co.lotteon.dto.UsersDTO;
 import kr.co.lotteon.entity.Seller;
@@ -15,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,14 +39,26 @@ public class UsersService {
     private final HttpSession session;
     private final SellerRepository sellerRepository;
 
-    public List<UsersDTO> findAll() {
-        List<Users> usersList = usersRepository.findAll();
+    // 회원 목록 조회
+    public PageResponseDTO<UsersDTO> findAll(PageRequestDTO pageRequestDTO) {
+        Pageable pageable = pageRequestDTO.getPageable("no");
 
-        log.info("users: {}", usersList);
+        Page<Users> usersPage = usersRepository.findAll(pageable);
 
-        return usersList.stream()
-                .map(users -> modelMapper.map(users, UsersDTO.class))
-                .collect(Collectors.toList());
+        List<UsersDTO> usersDTOList = usersPage.getContent().stream()
+                                                                .map(user -> modelMapper.map(user, UsersDTO.class))
+                                                                .collect(Collectors.toList());
+
+        log.info("users: {}", usersDTOList);
+
+        int total = (int) usersPage.getTotalElements();
+
+        return PageResponseDTO
+                .<UsersDTO>builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(usersDTOList)
+                .total(total)
+                .build();
     }
 
     public void saveUser(UsersDTO dto) {
