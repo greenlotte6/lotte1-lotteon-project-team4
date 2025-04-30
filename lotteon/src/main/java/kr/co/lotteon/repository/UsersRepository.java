@@ -17,7 +17,7 @@ public interface UsersRepository extends JpaRepository<Users, String>, UserRepos
     List<Users> findByEmailContaining(String keyword);
     List<Users> findByHpContaining(String keyword);
     Optional<Users> findByUnameAndEmail(String uname, String email);
-
+    Optional<Users> findByUidAndEmail(String uid, String email);
 
     Optional<Users> findByUid(String uid);
     int countByUid(String uid);
