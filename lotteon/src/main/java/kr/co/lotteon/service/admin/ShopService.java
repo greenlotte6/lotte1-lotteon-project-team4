@@ -81,6 +81,8 @@ public class ShopService {
 
         int total = (int) pageShop.getTotalElements();
 
+        log.info("total {}", total);
+
         return PageResponseDTO.<ShopDTO>builder()
                 .pageRequestDTO(pageRequestDTO)
                 .dtoList(shopDTOList)
