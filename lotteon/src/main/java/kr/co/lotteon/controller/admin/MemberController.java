@@ -86,16 +86,16 @@ public class  MemberController {
     }
 
     // 수정
-    @GetMapping("/admin/member/postModify")
-    public String modifyUsers(Model model) {
+    //@GetMapping("/admin/member/postModify")
+    //public String modifyUsers(Model model) {
 
-        List<UsersDTO> userList = usersService.findAll();
-        model.addAttribute("userList", userList);
+   //     List<UsersDTO> userList = usersService.findAll();
+     //   model.addAttribute("userList", userList);
 
-        log.info("userList : {}", userList);
+       // log.info("userList : {}", userList);
 
-        return "/admin/member/list";
-    }
+       // return "/admin/member/list";
+    // }
 
     @PostMapping("/admin/member/postModify")
     public String modifyUsers(@ModelAttribute UsersDTO usersDTO,

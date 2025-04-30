@@ -81,6 +81,63 @@
             modal.classList.add('hide');
         }
     </script>
+    <script>
+        document.querySelector('.pw-tab .submit-btn button').addEventListener('click', async function() {
+            const uid = document.getElementById('pw-id').value;
+            const email = document.getElementById('pw-phone').value;
+
+            const response = await fetch('/user/email/find-pw', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ uid: uid, email: email })
+            });
+
+            const data = await response.json();
+            if (data.status === 'success') {
+                sessionStorage.setItem('verifiedUser', uid); // 변경할 사용자 저장
+                window.location.href = '/member/updatepw';   // 비밀번호 변경 페이지 이동
+            } else {
+                alert(data.message);
+            }
+        });
+    </script>
+    <script>
+        document.getElementById('pwUpdateForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const pw1 = document.getElementById('new-password').value;
+            const pw2 = document.getElementById('confirm-password').value;
+            const rePass = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+~]).{8,15}$/;
+
+            if (!rePass.test(pw1)) {
+                alert("비밀번호는 영문, 숫자, 특수문자 포함 8~15자여야 합니다.");
+                return;
+            }
+
+            if (pw1 !== pw2) {
+                alert("비밀번호가 일치하지 않습니다.");
+                return;
+            }
+
+            const res = await fetch('/user/updatepw', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ password: pw1 })
+            });
+
+            const data = await res.json();
+
+            if (data.status === 'success') {
+                alert("비밀번호가 성공적으로 변경되었습니다.");
+                window.location.href = "/member/login";
+            } else {
+                alert(data.message || "비밀번호 변경에 실패했습니다.");
+            }
+        });
+    </script>
+
+
+
 
 
 </head>

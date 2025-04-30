@@ -158,9 +158,32 @@ public class UsersService {
         return usersRepository.findByUnameAndEmail(uname, email);
     }
 
-    public boolean isEmailExists(String email) {
-        return usersRepository.countByEmail(email) > 0;
+
+    public Optional<Users> findByUidAndEmail(String uid, String email) {
+        return usersRepository.findByUidAndEmail(uid, email);
     }
+
+    public void save(Users user) {
+        usersRepository.save(user);
+    }
+
+    // UsersService.java
+    public void updatePassword(String uid, String rawPassword) {
+        Optional<Users> optUser = usersRepository.findByUid(uid);
+
+        if (optUser.isPresent()) {
+            Users user = optUser.get();
+            String encryptedPassword = passwordEncoder.encode(rawPassword);
+            user.setPassword(encryptedPassword);  // 기존 암호화 비번 덮어쓰기
+            usersRepository.save(user);           // DB 저장
+        } else {
+            throw new RuntimeException("사용자를 찾을 수 없습니다.");
+        }
+    }
+
+
+
+
 
 
 }

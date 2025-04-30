@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.modelmapper.internal.bytebuddy.asm.Advice;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -32,6 +35,10 @@ public class Users {
     private String addr1;
     private String addr2;
     private String role;
+
+    @DateTimeFormat
+    private LocalDate birth;
+
 
 
     @CreationTimestamp
