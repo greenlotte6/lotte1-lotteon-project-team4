@@ -72,7 +72,8 @@ public class  MemberController {
         return "/admin/member/point";
     }
 
-//    // 수정
+
+    // 수정
 //    @GetMapping("/admin/member/postModify")
 //    public String modifyUsers(Model model) {
 //

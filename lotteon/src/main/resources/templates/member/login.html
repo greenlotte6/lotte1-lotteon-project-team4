@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/css/common/_footer.css">
     <link rel="stylesheet" href="/css/member/login.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <title>롯데ON 로그인</title>
+    <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="/js/login.js"></script>
     <script th:inline="javascript">

@@ -13,10 +13,6 @@ public class PolicyController {
         this.policyService = policyService;
     }
 
-    @GetMapping("/policy/buyer")
-    public String policy() {
-        return "/policy/buyer";
-    }
 
     private final PolicyService policyService;
 
