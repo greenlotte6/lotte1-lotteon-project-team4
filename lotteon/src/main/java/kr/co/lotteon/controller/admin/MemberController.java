@@ -86,7 +86,7 @@ public class  MemberController {
     }
 
     // 수정
-    @GetMapping("/admin/member/postModify")
+   /* @GetMapping("/admin/member/postModify")
     public String modifyUsers(Model model) {
 
         List<UsersDTO> userList = usersService.findAll();
@@ -96,7 +96,7 @@ public class  MemberController {
 
         return "/admin/member/list";
     }
-
+*/
     @PostMapping("/admin/member/postModify")
     public String modifyUsers(@ModelAttribute UsersDTO usersDTO,
                               @RequestParam("selectedUsers") List<String> selectedUsers,

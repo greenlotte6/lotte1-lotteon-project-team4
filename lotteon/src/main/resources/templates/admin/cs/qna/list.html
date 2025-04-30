@@ -118,8 +118,8 @@
                         <td th:text="${qna.qnaId}"></td>
                         <td th:text="${qna.qnaType1}"></td>
                         <td th:text="${qna.qnaType2}"></td>
-                        <td><a th:href="@{'/admin/cs/qna/detail/' + ${qna.userUid}}" th:text="${qna.title}"></a></td>
-                        <td th:text="${qna.UserUid}"></td>
+                        <td><a th:href="@{'/admin/cs/qna/write/' + ${qna.qnaId}}" th:text="${qna.title}"></a></td>
+                        <td th:text="${qna.userUid}"></td>
                         <td th:text="${#temporals.format(qna.date, 'yyyy-MM-dd')}"></td>
                         <td>
                             <span th:class="${qna.status == '검토중' ? 'ing' : 'clear'}" th:text="${qna.status}"></span>
@@ -135,14 +135,19 @@
                 </div>
 
                 <!-- 페이징 처리 -->
-                <div class="pag">
-                    <a th:href="@{/qna/coupun-list(page=${currentPage - 1})}" th:if="${currentPage > 1}">이전</a>
+                <div class="pagination">
+                    <a th:if="${currentPage > 1}"
+                       th:href="@{/admin/cs/qna/list(page=${currentPage - 1})}">이전</a>
 
                     <th:block th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
-                        <a th:classappend="${pageNum == currentPage} ? 'active'" th:href="@{/qna/coupun-list(page=${pageNum})}" th:text="${pageNum}"></a>
+                        <a th:href="@{/admin/cs/qna/list(page=${pageNum})}"
+                           th:class="${pageNum == currentPage} ? 'active' : ''"
+                           th:text="${pageNum}">1</a>
                     </th:block>
 
-                    <a th:href="@{/qna/coupun-list(page=${currentPage + 1})}" th:if="${currentPage < totalPages}">다음</a>
+                    <a th:if="${currentPage < totalPages}"
+                       th:href="@{/admin/cs/qna/list(page=${currentPage + 1})}">다음</a>
+                </div>
                 </div>
             </div>
         </div>

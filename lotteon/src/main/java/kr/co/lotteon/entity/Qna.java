@@ -20,7 +20,8 @@ public class Qna {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "qna_id")
-    private Integer qnaId;
+    private long qnaId;
+
 
     @Column(name = "Users_uid", length = 12, nullable = false)
     private String userUid;

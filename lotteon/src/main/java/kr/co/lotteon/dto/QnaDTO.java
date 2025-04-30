@@ -16,7 +16,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Builder
 public class QnaDTO {
-    private int qnaid;
+    private long qnaid;
     private String userUid;
     private String qnaType1;
     private String qnaType2;
