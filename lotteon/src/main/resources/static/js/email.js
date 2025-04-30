@@ -1,3 +1,4 @@
+
 function updateDomain() {
     const select = document.getElementById('domainSelect');
     const domainInput = document.getElementById('emailaddr');
@@ -11,3 +12,4 @@ function updateDomain() {
       domainInput.disabled = true;
     }
   }
+

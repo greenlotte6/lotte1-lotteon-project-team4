@@ -39,8 +39,56 @@ public class PassController {
         return result;
     }
 
-    @GetMapping("/user/email/{email}")
+    @GetMapping("/email/{email}")
     public Map<String, Integer> checkEmail(@PathVariable String email) {
+        int count = usersService.countByEmail(email);
+
+        if (count == 0) {
+            usersService.sendEmailCode(email); // 인증코드 전송
+        }
+
+        Map<String, Integer> result = new HashMap<>();
+        result.put("count", count);
+        return result;
+    }
+
+
+    @PostMapping("/email/auth")
+    @ResponseBody
+    public boolean emailAuth(@RequestBody Map<String, String> requestBody, HttpSession session) {
+        String inputCode = requestBody.get("authCode");
+        String sessionCode = (String) session.getAttribute("authCode");
+
+
+        if (sessionCode == null || inputCode == null || inputCode.isBlank()) {
+            return false;
+        }
+
+        return inputCode.equals(sessionCode);
+    }
+
+
+    @PostMapping("/email/find")
+    @ResponseBody
+    public Map<String, Object> sendEmailCodeForFind(@RequestBody Map<String, String> params) {
+        String uname = params.get("uname");
+        String email = params.get("email");
+
+        Map<String, Object> result = new HashMap<>();
+        Optional<Users> userOpt = usersService.findByNameAndEmail(uname, email);
+
+        if (userOpt.isPresent()) {
+            usersService.sendEmailCode(email);
+            result.put("status", "success");
+        } else {
+            result.put("status", "fail");
+        }
+
+        return result;
+    }
+
+    @GetMapping("/email/find/{email}")
+    public Map<String, Integer> sendEmailCodeForFind(@PathVariable String email) {
         int count = usersService.countByEmail(email);
 
         if (count == 1) {
@@ -51,40 +99,6 @@ public class PassController {
         result.put("count", count);
         return result;
     }
-
-
-    @PostMapping("/user/email/auth")
-    @ResponseBody
-    public boolean emailAuth(@RequestBody Map<String, String> requestBody, HttpSession session) {
-        String inputCode = requestBody.get("authCode");
-        String sessionCode = (String) session.getAttribute("authCode");
-
-        return inputCode != null && inputCode.equals(sessionCode);
-    }
-
-    private final SellerService sellerService;
-
-
-    @PostMapping("/member/find/id")
-    @ResponseBody
-    public Map<String, Object> findUserId(@RequestParam("uname") String uname,
-                                          @RequestParam("email") String email) {
-        Map<String, Object> result = new HashMap<>();
-
-        Optional<Users> userOpt = usersService.findByNameAndEmail(uname, email);
-
-        if (userOpt.isPresent()) {
-            result.put("status", "success");
-            result.put("uname", userOpt.get().getUname());
-        } else {
-            result.put("status", "fail");
-            result.put("message", "일치하는 회원 정보를 찾을 수 없습니다.");
-        }
-
-        return result;
-    }
-
-
 
 
 

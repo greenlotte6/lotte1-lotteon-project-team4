@@ -4,45 +4,8 @@
     <meta charset="UTF-8">
     <title>아이디 찾기 결과</title>
     <link rel="stylesheet" href="/css/member/find.css" />
+    <link rel="stylesheet" href="/css/member/such.css" />
 </head>
-<style>
-    .find-result {
-        max-width: 400px;
-        margin: 50px auto;
-        text-align: center;
-    }
-
-    .result-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-    }
-
-    .result-table th, .result-table td {
-        padding: 10px;
-        border: 1px solid #ddd;
-        text-align: left;
-    }
-
-    .btn-group {
-        margin-top: 20px;
-    }
-
-    .btn-login, .btn-findpw {
-        display: inline-block;
-        padding: 10px 20px;
-        margin: 5px;
-        text-decoration: none;
-        background-color: #007bff;
-        color: white;
-        border-radius: 5px;
-    }
-
-    .btn-login:hover, .btn-findpw:hover {
-        background-color: #0056b3;
-    }
-
-</style>
 <body>
 
 <main class="find-result">
@@ -71,7 +34,7 @@
 
     <div class="btn-group">
         <a th:href="@{/member/login}" class="btn-login">로그인</a>
-        <a th:href="@{/member/findpw}" class="btn-findpw">비밀번호 찾기</a>
+        <a th:href="@{/member/find}" class="btn-findpw">비밀번호 찾기</a>
     </div>
 </main>
 

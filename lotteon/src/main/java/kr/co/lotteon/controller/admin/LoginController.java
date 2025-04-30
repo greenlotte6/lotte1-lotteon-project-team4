@@ -133,8 +133,8 @@ public class LoginController {
     }
 
     @PostMapping("/member/such")
-    public String findId(@RequestParam String name, @RequestParam String email, Model model) {
-        Optional<Users> userOpt = usersService.findByNameAndEmail(name, email);
+    public String findId(@RequestParam String uname, @RequestParam String email, Model model) {
+        Optional<Users> userOpt = usersService.findByNameAndEmail(uname, email);
 
         if (userOpt.isPresent()) {
             model.addAttribute("user", userOpt.get());

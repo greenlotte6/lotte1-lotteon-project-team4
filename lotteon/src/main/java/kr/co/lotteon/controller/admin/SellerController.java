@@ -18,7 +18,7 @@ public class SellerController {
 
     private final SellerService sellerService; // SellerService 주입
 
-    // 아이디 중복 체크
+
     @GetMapping("/aid/{aid}")
     @ResponseBody
     public Map<String, Object> checkAid(@PathVariable("aid") String aid) {
@@ -28,7 +28,6 @@ public class SellerController {
         return result;
     }
 
-    // 판매자 로그인
     @PostMapping("/login")
     public String loginSeller(@RequestParam("id") String aid,
                               @RequestParam("password") String password,
