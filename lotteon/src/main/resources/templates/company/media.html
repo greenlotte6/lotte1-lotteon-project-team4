@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>롯데ON 스토리</title>
+    <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
     <link rel="stylesheet" href="/css/company/media.css" />
     <style>
         /* 페이지네이션 관련 스타일만 여기에 유지 */

@@ -5,13 +5,22 @@ plugins {
 }
 
 group = 'kr.co.lotteon'
-version = '0.0.9-SNAPSHOT'
+version = '0.0.9 - SNAPSHOT'
 
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
 }
+
+
+//application.properties 파일 참조를 위한 스크립트
+processResources {
+    filesMatching("application.yml") {
+        expand(project.properties)
+    }
+}
+
 
 configurations {
     compileOnly {

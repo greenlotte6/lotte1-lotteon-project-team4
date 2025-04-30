@@ -346,7 +346,7 @@ button {
 
 td.label {
     text-align: center;
-    vertical-align: center;
+    vertical-align: middle;
 }
 
 .text, textarea {

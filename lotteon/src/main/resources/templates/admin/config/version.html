@@ -58,6 +58,47 @@
 
                 openModal('info-modal'); // 모달 열기
             });
+
+            document.getElementById("selectAll").addEventListener("change", function () {
+                const checked = this.checked;
+                document.querySelectorAll(".rowCheckbox").forEach(cb => {
+                    cb.checked = checked;
+                });
+            });
+
+            function deleteSelected() {
+                const selected = Array.from(document.querySelectorAll(".rowCheckbox:checked"))
+                    .map(cb => cb.value);
+
+                if (selected.length === 0) {
+                    alert("삭제할 항목을 선택해주세요.");
+                    return;
+                }
+
+                fetch('/admin/config/version/delete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(selected)
+                })
+                    .then(res => res.text())
+                    .then(result => {
+                        if (result === 'success') {
+                            alert("삭제되었습니다.");
+                            location.reload();
+                        } else {
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert("서버 오류 발생");
+                    });
+            }
+
+            // 버튼 이벤트 연결
+            document.querySelector(".select-delete").addEventListener("click", deleteSelected);
+
         });
 
     });
@@ -89,7 +130,7 @@
                     <table>
                         <thead>
                         <tr>
-                            <th><input type="checkbox"></th>
+                            <th><input type="checkbox" id="selectAll"></th>
                             <th>번호</th>
                             <th>버전</th>
                             <th>작성자</th>
@@ -99,7 +140,8 @@
                         </thead>
                         <tbody>
                         <tr th:each="ver : ${versions}">
-                            <td><input type="checkbox" name="selectedIds" th:value="${ver.versionId}"></td>
+                            <td><input type="checkbox" class="rowCheckbox" name="selectedIds"
+                                       th:value="${ver.versionId}"></td>
                             <td th:text="${ver.versionId}">1</td>
                             <td th:text="${ver.versionName}">버전명</td>
                             <td th:text="${ver.user.uid}"></td>
@@ -113,7 +155,9 @@
                     </table>
                 </div>
                 <div class="click">
-                    <button class="select-delete button">선택삭제</button>
+                    <button type="button" class="select-delete button">
+                        <i class="fas fa-trash-alt"></i> 선택삭제
+                    </button>
                     <button class="banner-register button btn">버전등록</button>
                 </div>
 
