@@ -14,7 +14,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>기본 환경설정</title>
+    <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
 </head>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -48,6 +48,26 @@
             }).catch(err => {
                 console.error(err);
                 alert('서버 오류가 발생했습니다.');
+            });
+        });
+
+        $(document).ready(function () {
+            $('#companyForm').submit(function (e) {
+                e.preventDefault();
+
+                const formData = $(this).serialize();
+
+                $.ajax({
+                    url: '/admin/config/company',
+                    method: 'POST',
+                    data: formData,
+                    success: function () {
+                        alert('수정되었습니다.');
+                    },
+                    error: function () {
+                        alert('수정 중 오류가 발생했습니다.');
+                    }
+                });
             });
         });
     });
@@ -135,43 +155,46 @@
                     </div>
                 </div>
 
-                <div class="company-info">
-                    <h2>기업 정보</h2>
-                    <div class="company-info-text p-div">
-                        <p>푸터에 노출되는 기업 정보입니다.</p>
+                <form id="companyForm">
+                    <div class="company-info">
+                        <h2>기업 정보</h2>
+                        <div class="company-info-text p-div">
+                            <p>푸터에 노출되는 기업 정보입니다.</p>
+                        </div>
+                        <div class="company-info-view">
+                            <table>
+                                <tr>
+                                    <td>상호명</td>
+                                    <td><input type="text" name="companyName" th:value="${companyConfig.companyName}"></td>
+                                </tr>
+                                <tr>
+                                    <td>대표이사</td>
+                                    <td><input type="text" name="ceo" th:value="${companyConfig.ceo}"></td>
+                                </tr>
+                                <tr>
+                                    <td>사업자등록번호</td>
+                                    <td><input type="text" name="businessNumber" th:value="${companyConfig.companyNumber}"></td>
+                                </tr>
+                                <tr>
+                                    <td>통신판매업신고</td>
+                                    <td><input type="text" name="commerceNumber" th:value="${companyConfig.ecommerceReg}"></td>
+                                </tr>
+                                <tr>
+                                    <td>기본주소</td>
+                                    <td><input type="text" name="address1" th:value="${companyConfig.addr1}"></td>
+                                </tr>
+                                <tr>
+                                    <td>상세주소</td>
+                                    <td><input type="text" name="address2" th:value="${companyConfig.addr2}"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modify">
+                            <button type="submit">수정하기</button>
+                        </div>
                     </div>
-                    <div class="company-info-view">
-                        <table>
-                            <tr>
-                                <td>상호명</td>
-                                <td><input type="text" name="company-name" value="롯데쇼핑주식회사"></td>
-                            </tr>
-                            <tr>
-                                <td>대표이사</td>
-                                <td><input type="text" name="ceo" value="홍길동"></td>
-                            </tr>
-                            <tr>
-                                <td>사업자등록번호</td>
-                                <td><input type="text" name="company-number" value="123-12-12345"></td>
-                            </tr>
-                            <tr>
-                                <td>통신판매업신고</td>
-                                <td><input type="text" name="e-commerce-reg" value="2024-서울강남-1234"></td>
-                            </tr>
-                            <tr>
-                                <td>기본주소</td>
-                                <td><input type="text" name="addr1" value="서울특별시 강남구 테헤란로 507"></td>
-                            </tr>
-                            <tr>
-                                <td>상세주소</td>
-                                <td><input type="text" name="addr2" value="(삼성동, WeWork 빌딩) 7층"></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="modify">
-                        <button>수정하기</button>
-                    </div>
-                </div>
+                </form>
+
 
                 <div class="support-info">
                     <h2>고객센터 정보</h2>
