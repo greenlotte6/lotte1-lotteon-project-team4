@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,6 +29,10 @@ public class SalesDTO {
     private String company;
     private String biz_num;
     private String shipping_status;
+    private LocalDateTime order_date;
+    private String order_item_id;
+    private int order_status;
+    private int order_total_sum;
 
     public SalesDTO(Sales sales) {
         this.sales_id = sales.getSales_id();

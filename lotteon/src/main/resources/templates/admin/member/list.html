@@ -65,7 +65,7 @@
                         <button type="submit">검색</button>
                     </div>
                 </form>
-                <form action="/admin/member/postModify" method="post">
+                <form th:action="@{/admin/member/postModify}" method="post">
                     <div class="table-wrapper">
                         <div class="table">
                             <table>
@@ -98,10 +98,8 @@
                                             <option value="VVIP" th:selected="${user.grade == 'VVIP'}">VVIP</option>
                                             <option value="VIP" th:selected="${user.grade == 'VIP'}">VIP</option>
                                             <option value="GOLD" th:selected="${user.grade == 'GOLD'}">GOLD</option>
-                                            <option value="SILVER" th:selected="${user.grade == 'SILVER'}">SILVER
-                                            </option>
-                                            <option value="FAMILY" th:selected="${user.grade == 'FAMILY'}">FAMILY
-                                            </option>
+                                            <option value="SILVER" th:selected="${user.grade == 'SILVER'}">SILVER</option>
+                                            <option value="FAMILY" th:selected="${user.grade == 'FAMILY'}">FAMILY</option>
                                         </select>
                                     </td>
                                     <td th:text="${user.point}"></td>

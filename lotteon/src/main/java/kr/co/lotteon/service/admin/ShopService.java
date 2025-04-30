@@ -15,6 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -93,6 +95,31 @@ public class ShopService {
 
     // 매출 현황 목록 조회
     public PageResponseDTO<SalesDTO> salesList(PageRequestDTO pageRequestDTO) {
+
+//        Pageable pageable = pageRequestDTO.getPageable("no");
+//
+//        Page<Tuple> salesPage = salesRepository.salesList(pageable);
+//
+//        List<SalesDTO> salesDTOList = salesPage.stream().map(tuple -> {
+//            Date order_date = tuple.get(0, Date.class);
+//            String order_item_id = tuple.get(1, String.class);
+//            Integer order_status = tuple.get(2, Integer.class);
+//            Integer shipping_status = tuple.get(3, Integer.class);
+//            Integer order_total = tuple.get(4, Integer.class);
+//            Integer order_total_sum = tuple.get(5, Integer.class);
+//
+//            SalesDTO salesDTO = modelMapper.map(tuple.get(0, SalesDTO.class), SalesDTO.class);
+//            salesDTO.setOrder_date(order_date);
+//            salesDTO.setOrder_item_id(order_item_id);
+//            salesDTO.setOrder_status(order_status);
+//            salesDTO.setOrder_total(order_total);
+//            salesDTO.setOrder_total_sum(order_total_sum);
+//            return salesDTO;
+//
+//
+//        })
+
+
         Pageable pageable = pageRequestDTO.getPageable("no");
 
         Page<Tuple> salesPage = salesRepository.salesList(pageable);
