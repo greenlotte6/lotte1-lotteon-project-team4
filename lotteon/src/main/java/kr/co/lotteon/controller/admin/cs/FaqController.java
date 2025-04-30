@@ -124,7 +124,7 @@ public class FaqController {
         faq.setType2(type2);
         faq.setTitle(title);
         faq.setContent(content);
-        faq.setMgmt("관리자");
+//        faq.setMgmt("관리자");
         faq.setCateIcon("Q");
 
         faqService.saveFaq(faq);

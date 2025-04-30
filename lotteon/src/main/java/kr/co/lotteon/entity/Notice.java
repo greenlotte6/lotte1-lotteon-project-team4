@@ -30,6 +30,6 @@ public class Notice {
 
     @Column(name = "upload_at")
     private LocalDate upload_at;
-    private String mgmt = "admin";
+//    private String mgmt = "admin";
 
 }
