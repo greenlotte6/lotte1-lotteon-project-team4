@@ -19,4 +19,8 @@ public class VersionService {
     public List<Version> getAllVersions() {
         return versionRepository.findAll();
     }
+
+    public void deleteVersions(List<Integer> ids) {
+        versionRepository.deleteAllById(ids);
+    }
 }

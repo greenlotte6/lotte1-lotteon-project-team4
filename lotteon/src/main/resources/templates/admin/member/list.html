@@ -15,7 +15,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>admin member list</title>
+    <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
 </head>
 <script src="/js/modal.js"></script>
 <script>
@@ -39,112 +39,119 @@
 <body>
 <th:block th:include="/common/_admin_header"/>
 <main>
-    <div class="main-wrapper">
-        <th:block th:include="/common/_admin_aside"/>
+    <div>
+        <div class="main-wrapper">
+            <th:block th:include="/common/_admin_aside"/>
 
-        <div class="main">
-            <div class="setting">
-                <h1>회원목록</h1>
-                <ul>
-                    <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
-                    <li><a th:href="@{/admin/member/list}">회원관리&nbsp;>&nbsp;</a></li>
-                    <li><a th:href="@{/admin/member/list}"><span>회원목록&nbsp;</span></a></li>
-                </ul>
-            </div>
-            <div class="line"></div>
-            <div class="container">
-                <form th:action="@{/admin/member/search}">
-                    <div class="search">
-                        <select name="searchType">
-                            <option value="uid">아이디</option>
-                            <option value="uname">이름</option>
-                            <option value="email">이메일</option>
-                            <option value="hp">휴대폰</option>
-                        </select>
-                        <input type="text" name="keyword" placeholder="검색어입력">
-                        <button type="submit">검색</button>
-                    </div>
-                </form>
-                <form th:action="@{/admin/member/postModify}" method="post">
-                    <div class="table-wrapper">
-                        <div class="table">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th><input type="checkbox" id="checkAll"></th>
-                                    <th>번호</th>
-                                    <th>아이디</th>
-                                    <th>이름</th>
-                                    <th>성별</th>
-                                    <th>등급</th>
-                                    <th>포인트</th>
-                                    <th>이메일</th>
-                                    <th>휴대폰</th>
-                                    <th>가입일</th>
-                                    <th>상태</th>
-                                    <th>관리</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="user : ${userList}">
-                                    <td><input type="checkbox" class="userCheckbox" name="selectedUsers"
-                                               th:value="${user.uid}"></td>
-                                    <td th:text="${user.no}"></td>
-                                    <td th:text="${user.uid}"></td>
-                                    <td th:text="${user.uname}"></td>
-                                    <td th:text="${user.gender}"></td>
-                                    <td>
-                                        <select name="grades[${user.uid}]" th:value="${user.grade}">
-                                            <option value="VVIP" th:selected="${user.grade == 'VVIP'}">VVIP</option>
-                                            <option value="VIP" th:selected="${user.grade == 'VIP'}">VIP</option>
-                                            <option value="GOLD" th:selected="${user.grade == 'GOLD'}">GOLD</option>
-                                            <option value="SILVER" th:selected="${user.grade == 'SILVER'}">SILVER</option>
-                                            <option value="FAMILY" th:selected="${user.grade == 'FAMILY'}">FAMILY</option>
-                                        </select>
-                                    </td>
-                                    <td th:text="${user.point}"></td>
-                                    <td th:text="${user.email}"></td>
-                                    <td th:text="${user.hp}"></td>
-                                    <td th:text="${user.u_created_at}"></td>
-                                    <td class="green" th:text="${user.status}"></td>
-                                    <td>
-                                        <div><a href="#" onclick="openModal('/popup@{/admin/shop_Register-modal}')"
-                                                class="btn">[수정]</a>
-                                        </div>
-                                        <div><a href="#">[중지]</a></div>
-                                    </td>
-                                </tr>
-                                <tr th:if="${#lists.isEmpty(userList)}">
-                                    <td colspan="12" class="no-results">검색 결과가 없습니다.</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="click">
-                            <button onclick="openModal('/popup@{/admin/shop_Register}')"
-                                    class="select-delete button btn">
-                                선택수정
-                            </button>
-                        </div>
-                    </div>
-                </form>
-                <div class="modal-overlay" id="modalOverlay">
-                    <div class="modal">
-                        <iframe id="modalFrame"></iframe>
-                    </div>
+            <div class="main">
+                <div class="setting">
+                    <h1>회원목록</h1>
+                    <ul>
+                        <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
+                        <li><a th:href="@{/admin/member/list}">회원관리&nbsp;>&nbsp;</a></li>
+                        <li><a th:href="@{/admin/member/list}"><span>회원목록&nbsp;</span></a></li>
+                    </ul>
                 </div>
-                <div class="page">
-                    <button class="page-move">이전</button>
-                    <button>[1]</button>
-                    <button>[2]</button>
-                    <button>[3]</button>
-                    <button>[4]</button>
-                    <button>[5]</button>
-                    <button class="page-move">다음</button>
+                <div class="line"></div>
+                <div class="container">
+                    <form th:action="@{/admin/member/search}">
+                        <div class="search">
+                            <select name="searchType">
+                                <option value="uid">아이디</option>
+                                <option value="uname">이름</option>
+                                <option value="email">이메일</option>
+                                <option value="hp">휴대폰</option>
+                            </select>
+                            <input type="text" name="keyword" placeholder="검색어입력">
+                            <button type="submit">검색</button>
+                        </div>
+                    </form>
+                    <form th:action="@{/admin/member/postModify}" method="post">
+                        <div class="table-wrapper">
+                            <div class="table">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th><input type="checkbox" id="checkAll"></th>
+                                        <th>번호</th>
+                                        <th>아이디</th>
+                                        <th>이름</th>
+                                        <th>성별</th>
+                                        <th>등급</th>
+                                        <th>포인트</th>
+                                        <th>이메일</th>
+                                        <th>휴대폰</th>
+                                        <th>가입일</th>
+                                        <th>상태</th>
+                                        <th>관리</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="user, i:${pageResponseDTO.dtoList}">
+                                        <td><input type="checkbox" class="userCheckbox" name="selectedUsers"
+                                                   th:value="${user.uid}"></td>
+                                        <td>[[${pageResponseDTO.startNo - i.index}]]</td>
+                                        <td>[[${user.uid}]]</td>
+                                        <td>[[${user.uname}]]</td>
+                                        <td>[[${user.gender}]]</td>
+                                        <td>
+                                            <select name="grades[${user.uid}]" th:value="${user.grade}">
+                                                <option value="VVIP" th:selected="${user.grade == 'VVIP'}">VVIP</option>
+                                                <option value="VIP" th:selected="${user.grade == 'VIP'}">VIP</option>
+                                                <option value="GOLD" th:selected="${user.grade == 'GOLD'}">GOLD</option>
+                                                <option value="SILVER" th:selected="${user.grade == 'SILVER'}">SILVER
+                                                </option>
+                                                <option value="FAMILY" th:selected="${user.grade == 'FAMILY'}">FAMILY
+                                                </option>
+                                            </select>
+                                        </td>
+                                        <td>[[${user.point}]]</td>
+                                        <td>[[${user.email}]]</td>
+                                        <td>[[${user.hp}]]</td>
+                                        <td>[[${user.u_created_at}]]</td>
+                                        <td>[[${user.status}]]</td>
+                                        <td>
+                                            <div><a href="#" onclick="openModal('/popup@{/admin/shop_Register-modal}')"
+                                                    class="btn">[수정]</a>
+                                            </div>
+                                            <div><a href="#">[중지]</a></div>
+                                        </td>
+                                    </tr>
+                                    <tr th:if="${#lists.isEmpty(pageResponseDTO.dtoList)}">
+                                        <td colspan="12" class="no-results">검색 결과가 없습니다.</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="click">
+                                <button onclick="openModal('/popup@{/admin/shop_Register}')"
+                                        class="select-delete button btn">
+                                    선택수정
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-overlay" id="modalOverlay">
+                        <div class="modal">
+                            <iframe id="modalFrame"></iframe>
+                        </div>
+                    </div>
+                    <div class="page" th:if="${pageResponseDTO.total > 0}">
+                        <th:block th:if="${pageResponseDTO.prev}">
+                            <a th:href="@{/admin/member/list(pg=${pageResponseDTO.start-1})}" class="prev">이전</a>
+                        </th:block>
+
+                        <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
+                            <a th:href="@{/admin/member/list(pg=${num})}" class="page-move" th:class="${num == pageResponseDTO.pg} ? 'currnt':'num'">[[${num}]]</a>
+                        </th:block>
+
+                        <th:block th:if="${pageResponseDTO.next}">
+                            <a th:href="@{/admin/member/list(pg=${pageResponseDTO.end+1})}" class="page-move next">다음</a>
+                        </th:block>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </main>
 <th:block th:include="/common/_admin_footer"/>

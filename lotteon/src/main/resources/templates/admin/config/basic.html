@@ -14,7 +14,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>admin basic</title>
+    <title>기본 환경설정</title>
 </head>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -23,7 +23,33 @@
             $(this).parent().toggleClass('active');
         })
 
+        document.getElementById('siteForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // 기본 폼 제출 막기
 
+            const formData = new FormData(this);
+            const data = {
+                siteTitle: formData.get("siteTitle"),
+                siteSubtitle: formData.get("siteSubtitle")
+            };
+
+            fetch('/admin/config/site', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(res => {
+                if (res.ok) {
+                    alert('수정되었습니다.');
+                    location.reload(); // 새로고침해서 적용된 값 반영
+                } else {
+                    alert('수정에 실패했습니다.');
+                }
+            }).catch(err => {
+                console.error(err);
+                alert('서버 오류가 발생했습니다.');
+            });
+        });
     });
 </script>
 <body>
@@ -52,33 +78,36 @@
                         <table>
                             <tr>
                                 <td>사이트 버전</td>
-                                <td>1.0.1-RELEASE</td>
+                                <td>[[${appInfo.appVersion}]]</td>
                             </tr>
                         </table>
                     </div>
                 </div>
 
-                <div class="site">
-                    <h2>사이트</h2>
-                    <div class="site-text p-div">
-                        <p>브라우저 탭, 헤더 및 푸터 노출 정보입니다.</p>
+                <form id="siteForm" method="post" th:action="@{/admin/config/site}" th:object="${siteConfig}">
+                    <div class="site">
+                        <h2>사이트</h2>
+                        <div class="site-text p-div">
+                            <p>브라우저 탭, 헤더 및 푸터 노출 정보입니다.</p>
+                        </div>
+                        <div class="site-view">
+                            <table>
+                                <tr>
+                                    <td>제목</td>
+                                    <td><input type="text" name="siteTitle" th:value="${siteConfig.siteTitle}"></td>
+                                </tr>
+                                <tr>
+                                    <td>부제</td>
+                                    <td><input type="text" name="siteSubtitle" th:value="${siteConfig.siteSubtitle}"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modify">
+                            <button type="submit">수정하기</button>
+                        </div>
                     </div>
-                    <div class="site-view">
-                        <table>
-                            <tr>
-                                <td>제목</td>
-                                <td><input type="text" name="title" value="롯데 ON"></td>
-                            </tr>
-                            <tr>
-                                <td>부제</td>
-                                <td><input type="text" name="title" value="더나은쇼핑위한선택"></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="modify">
-                        <button>수정하기</button>
-                    </div>
-                </div>
+                </form>
+
 
                 <div class="logo">
                     <h2>로고</h2>
