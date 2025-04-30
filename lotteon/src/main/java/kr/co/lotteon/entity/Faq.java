@@ -30,7 +30,7 @@ public class Faq {
     @CreationTimestamp
     private LocalDate uploadDate;
 
-    private String mgmt = "admin";
+//    private String mgmt = "admin";
     private String cateIcon;
     private String answer;
     private String category;

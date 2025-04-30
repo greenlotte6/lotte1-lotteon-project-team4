@@ -41,7 +41,7 @@ public class FaqService {
         existing.setTitle(faq.getTitle());
         existing.setContent(faq.getContent());
         existing.setCateIcon(faq.getCateIcon());
-        existing.setMgmt(faq.getMgmt());
+//        existing.setMgmt(faq.getMgmt());
         existing.setUploadDate(LocalDate.now());
 
         faqRepository.save(existing);
