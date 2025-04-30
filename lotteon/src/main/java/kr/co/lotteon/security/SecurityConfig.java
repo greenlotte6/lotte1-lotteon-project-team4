@@ -28,6 +28,7 @@ public class SecurityConfig {
                 .usernameParameter("uid")
                 .passwordParameter("password"));
 
+
         //로그아웃 설정
         http.logout(logout -> logout.logoutUrl("/member/logout")
                 .invalidateHttpSession(true)
@@ -43,13 +44,13 @@ public class SecurityConfig {
 
        */
 
-        //인가 설정
-        http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/").permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/product/cart/**", "/product/order/**", "/product/complete/**", "/qna/write/**", "/myaccount/**").authenticated()
-                .anyRequest().permitAll()
-        );
+//        //인가 설정
+//        http.authorizeHttpRequests(authorize -> authorize
+//                .requestMatchers("/").permitAll()
+//                .requestMatchers("/admin/**").hasRole("ADMIN")
+//                .requestMatchers("/product/cart/**", "/product/order/**", "/product/complete/**", "/qna/write/**", "/myaccount/**").authenticated()
+//                .anyRequest().permitAll()
+//        );
 
 
         //기타 보안 설정

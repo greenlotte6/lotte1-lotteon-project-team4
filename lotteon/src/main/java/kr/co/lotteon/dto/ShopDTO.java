@@ -4,6 +4,7 @@ import com.querydsl.core.Tuple;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import kr.co.lotteon.entity.Shop;
+import kr.co.lotteon.entity.SystemStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +29,19 @@ public class ShopDTO {
     private String biz_num;
     private String osn;
     private String number;
+
+    private SystemStatus status; // SystemStatus 필드
+
+    private String operationText;
+    private String statusClass;
+
+//    public void setOperationText(String text) {
+//        this.operationText = text;
+//    }
+//
+//    public void setStatusClass(String css) {
+//        this.statusClass = css;
+//    }
 
 
     public ShopDTO(Shop shop) {
