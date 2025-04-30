@@ -15,4 +15,3 @@ public interface QnaRepository extends JpaRepository<Qna, Integer> {
     // qnaType1과 userUid에 해당하는 Qna 리스트 반환 (페이지네이션 적용, 최신글 먼저)
     Page<Qna> findByQnaType1AndUserUidOrderByDateDesc(String qnaType1, String userUid, Pageable pageable);
 }
-

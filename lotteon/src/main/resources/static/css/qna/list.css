@@ -192,13 +192,19 @@ button:nth-of-type(2){
 }
 
 
-.pag {
+.pagination {
     display: flex;
     justify-content: center;
     margin-top: 20px; /* 필요 시 여백 조절 */
     gap: 10px; /* 페이지 번호 사이 간격 */
     margin-bottom: 40px;
+
 }
+.pagination a.active {
+    font-weight: bold;
+    color: #C00000;
+}
+
 
 
 

@@ -43,33 +43,35 @@
             <div class="container">
 
                 <div class="table-wrapper">
-                    <table>
-                        <tr>
-                            <td class="tabel-td2">유형</td>
-                            <td>회원-가입</td>
-                        </tr>
-                        <tr>
-                            <td class="tabel-td">제목</td>
-                            <td>개인회원과 법인회원에차이가 있나요?</td>
-                        </tr>
-                        <tr>
-                            <td class="tabel-td">내용</td>
-                            <td>개인회원하고 법인회원차이를 알고싶어요 그리고 법인회원으로가입하면<br>
-                                혜택이 있나요?
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tabel-td">답변</td>
-                            <td>
-                                <textarea name="name" id="qna"></textarea>
-                            </td>
-                        </tr>
-                    </table>
-                    <div class="btn">
-                        <button>삭제</button>
-                        <button>답변등록</button>
-                        <button>목록</button>
-                    </div>
+                    <form th:action="@{/admin/cs/qna/answer}" method="post">
+                        <input type="hidden" name="qnaId" th:value="${qna.qnaId}"/>
+
+                        <table>
+                            <tr>
+                                <td class="tabel-td2">유형</td>
+                                <td th:text="${qna.qnaType1 + '-' + qna.qnaType2}"></td>
+                            </tr>
+                            <tr>
+                                <td class="tabel-td">제목</td>
+                                <td th:text="${qna.title}"></td>
+                            </tr>
+                            <tr>
+                                <td class="tabel-td">내용</td>
+                                <td th:utext="${qna.content}"></td>
+                            </tr>
+                            <tr>
+                                <td class="tabel-td">답변</td>
+                                <td>
+                                    <textarea name="answer" id="qna" required></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="btn">
+                            <button type="button" onclick="confirmDelete()">삭제</button>
+                            <button type="submit">답변등록</button>
+                            <button type="button" onclick="window.location.href='/admin/cs/qna/list'">목록</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
