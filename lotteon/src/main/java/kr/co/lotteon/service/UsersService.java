@@ -34,32 +34,9 @@ import java.util.stream.Collectors;
 public class UsersService {
 
     private final UsersRepository usersRepository;
-    private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder passwordEncoder;
     private final HttpSession session;
     private final SellerRepository sellerRepository;
-
-    // 회원 목록 조회
-    public PageResponseDTO<UsersDTO> findAll(PageRequestDTO pageRequestDTO) {
-        Pageable pageable = pageRequestDTO.getPageable("no");
-
-        Page<Users> usersPage = usersRepository.findAll(pageable);
-
-        List<UsersDTO> usersDTOList = usersPage.getContent().stream()
-                                                                .map(user -> modelMapper.map(user, UsersDTO.class))
-                                                                .collect(Collectors.toList());
-
-        log.info("users: {}", usersDTOList);
-
-        int total = (int) usersPage.getTotalElements();
-
-        return PageResponseDTO
-                .<UsersDTO>builder()
-                .pageRequestDTO(pageRequestDTO)
-                .dtoList(usersDTOList)
-                .total(total)
-                .build();
-    }
 
     public void saveUser(UsersDTO dto) {
         Users user = Users.builder()

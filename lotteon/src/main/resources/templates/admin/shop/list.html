@@ -104,6 +104,9 @@
                                     <td class="green">[[${shop.operation}]]</td>
                                     <td>[[${shop.mgmt}]]</td>
                                 </tr>
+                                <tr th:if="${#lists.isEmpty(pageResponseDTO.dtoList)}">
+                                    <td colspan="12" class="no-results">검색 결과가 없습니다.</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -115,7 +118,7 @@
                             </button>
                         </div>
                     </form>
-                        <div class="page">
+                        <div class="page" th:if="${pageResponseDTO.total > 0}">
                             <th:block th:if="${pageResponseDTO.prev}">
                                 <a th:href="@{/admin/shop/list(pg=${pageResponseDTO.start-1})}" class="page-move">이전</a>
                             </th:block>
