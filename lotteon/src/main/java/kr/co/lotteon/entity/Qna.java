@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -42,9 +43,13 @@ public class Qna {
 
     @CreationTimestamp
     @Column(nullable = false)
-    private LocalDate date;
+    private LocalDate creationDate;
 
-    @Column(length = 5, nullable = false)
+    @CreationTimestamp
+    @Column(nullable = false)
+    private LocalDateTime date;
+
+    @Column(length = 255, nullable = false)
     private String status;
 
     @Column(columnDefinition = "TEXT", nullable = true)

@@ -19,12 +19,9 @@
     <title>문의하기 목록</title>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-
             $('.hover').click(function () {
                 $(this).closest('li').toggleClass('active');
             });
-
-
         });
 
         function updateSubCategory() {
@@ -102,7 +99,8 @@
                         </select>
                     </div>
                 </form>
-                <table>
+                <table style="padding: 30px;">
+                    <thead>
                     <tr>
                         <th><input type="checkbox"></th>
                         <th>번호</th>
@@ -113,61 +111,38 @@
                         <th>작성일</th>
                         <th>상태</th>
                     </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>121</td>
-                        <td>회원</td>
-                        <td>가입</td>
+                    </thead>
+                    <tbody>
+                    <tr th:each="qna : ${qnaList}">
+                        <td><input type="checkbox" th:value="${qna.userUid}"></td>
+                        <td th:text="${qna.qnaId}"></td>
+                        <td th:text="${qna.qnaType1}"></td>
+                        <td th:text="${qna.qnaType2}"></td>
+                        <td><a th:href="@{'/admin/cs/qna/detail/' + ${qna.userUid}}" th:text="${qna.title}"></a></td>
+                        <td th:text="${qna.UserUid}"></td>
+                        <td th:text="${#temporals.format(qna.date, 'yyyy-MM-dd')}"></td>
                         <td>
-                            <a href="#">개인회원과 법인회원에 차이가 있나요?</a>
-                        </td>
-                        <td>chh**</td>
-                        <td>00.00.00</td>
-                        <td>
-                            <span class="ing">검토중</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>120</td>
-                        <td>회원</td>
-                        <td>가입</td>
-                        <td>
-                            <a href="#">본인인증시 이미 가입되어 있는 정보라고 <br>
-                                나옵니다.</a>
-                        </td>
-                        <td>chh**</td>
-                        <td>00.00.00</td>
-                        <td>
-                            <span class="ing">검토중</span>
+                            <span th:class="${qna.status == '검토중' ? 'ing' : 'clear'}" th:text="${qna.status}"></span>
                         </td>
                     </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>119</td>
-                        <td>회원</td>
-                        <td>가입</td>
-                        <td>
-                            <a href="#">아이디를 여러 개 사용할 수 있나요?</a>
-                        </td>
-                        <td>chh**</td>
-                        <td>00.00.00</td>
-                        <td>
-                            <span class="clear">답변완료</span>
-                        </td>
+                    <tr th:if="${#lists.isEmpty(qnaList)}">
+                        <td colspan="8" class="text-center">등록된 문의가 없습니다.</td>
                     </tr>
+                    </tbody>
                 </table>
                 <div class="btn">
                     <button>선택삭제</button>
                 </div>
+
+                <!-- 페이징 처리 -->
                 <div class="pag">
-                    <a href="#">이전</a>
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">다음</a>
+                    <a th:href="@{/qna/coupun-list(page=${currentPage - 1})}" th:if="${currentPage > 1}">이전</a>
+
+                    <th:block th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
+                        <a th:classappend="${pageNum == currentPage} ? 'active'" th:href="@{/qna/coupun-list(page=${pageNum})}" th:text="${pageNum}"></a>
+                    </th:block>
+
+                    <a th:href="@{/qna/coupun-list(page=${currentPage + 1})}" th:if="${currentPage < totalPages}">다음</a>
                 </div>
             </div>
         </div>
