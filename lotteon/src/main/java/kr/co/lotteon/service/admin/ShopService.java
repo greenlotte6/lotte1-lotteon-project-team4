@@ -6,6 +6,7 @@ import kr.co.lotteon.dto.*;
 import kr.co.lotteon.entity.Sales;
 import kr.co.lotteon.entity.Seller;
 import kr.co.lotteon.entity.Shop;
+import kr.co.lotteon.entity.SystemStatus;
 import kr.co.lotteon.repository.SalesRepository;
 import kr.co.lotteon.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,9 +39,37 @@ public class ShopService {
 
         Page<Shop> pageShop = shopRepository.findAll(pageable);
 
+//        List<ShopDTO> shopDTOList = pageShop.getContent().stream()
+//                                                            .map(ShopDTO::new)
+//                                                            .collect(Collectors.toList());
+
         List<ShopDTO> shopDTOList = pageShop.getContent().stream()
-                                                            .map(ShopDTO::new)
-                                                            .collect(Collectors.toList());
+                .map(shop -> {
+                    ShopDTO shopDTO = new ShopDTO(shop);
+
+                    SystemStatus status = shopDTO.getStatus();
+                    if (status != null) {
+                        switch (status) {
+                            case OPERATING:
+                                shopDTO.setOperationText("[운영중]");
+                                shopDTO.setStatusClass("green");
+                                break;
+                            case READY:
+                                shopDTO.setOperationText("[운영준비]");
+                                shopDTO.setStatusClass("blue");
+                                break;
+                            case STOPPED:
+                                shopDTO.setOperationText("[운영중지]");
+                                shopDTO.setStatusClass("red");
+                                break;
+                        }
+                    } else {
+                        shopDTO.setOperationText("[운영준비]");
+                        shopDTO.setStatusClass("blue");
+                    }
+
+                    return shopDTO;
+                }).collect(Collectors.toList());
 
         int total = (int) pageShop.getTotalElements();
 
