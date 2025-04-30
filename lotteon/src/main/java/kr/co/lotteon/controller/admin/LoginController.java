@@ -86,9 +86,15 @@ public class LoginController {
     private final PolicyService policyService;
 
     @GetMapping("/member/terms")
-    public String policySellerExtra(Model model) {
+    public String policySeller(Model model) {
         model.addAttribute("terms", policyService.getTermsSet(1));
         return "/member/terms";
+    }
+
+    @GetMapping("/member/terms_2")
+    public String policySellerExtra(Model model) {
+        model.addAttribute("terms_2", policyService.getTermsSet(1));
+        return "/member/terms_2";
     }
 
     @GetMapping("/member/registerSeller")

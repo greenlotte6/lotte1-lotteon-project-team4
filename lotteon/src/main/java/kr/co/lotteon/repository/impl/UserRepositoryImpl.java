@@ -8,9 +8,11 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.lotteon.dto.PageRequestDTO;
 import kr.co.lotteon.entity.QPoint;
 import kr.co.lotteon.entity.QUsers;
+import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.repository.custom.UserRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.javassist.compiler.ast.Keyword;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +28,39 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     private final JPAQueryFactory queryFactory;
     private QPoint qPoint = QPoint.point;
     private QUsers qUsers = QUsers.users;
+
+//    @Override
+//    public Page<Tuple> searchMembers(Pageable pageable, PageRequestDTO pageRequestDTO) {
+//
+//        BooleanExpression expression = null;
+//
+//        if (pageRequestDTO.getSearchType().equals("uid")) {
+//            expression = qUsers.uid.contains(pageRequestDTO.getKeyword());
+//        } else if (pageRequestDTO.getSearchType().equals("uname")) {
+//            expression = qUsers.uname.contains(pageRequestDTO.getKeyword());
+//        } else if (pageRequestDTO.getSearchType().equals("email")) {
+//            expression = qUsers.email.contains(pageRequestDTO.getKeyword());
+//        } else if (pageRequestDTO.getSearchType().equals("phone")) {
+//            expression = qUsers.hp.contains(pageRequestDTO.getKeyword());
+//        }
+//
+//        List<Users> tupleList = queryFactory
+//                .select(qUsers)
+//                .from(qUsers)
+//                .where(expression)
+//                .offset(pageable.getOffset())
+//                .limit(pageable.getPageSize())
+//                .orderBy(qUsers.no.desc())
+//                .fetch();
+//
+//        long total = queryFactory
+//                .select(qUsers.count())
+//                .from(qUsers)
+//                .where(expression)
+//                .fetchOne();
+//
+//        return new PageImpl<Tuple>(tupleList, pageable, total);
+//    }
 
 //    // 회원 목록 검색 메서드
 //    @Override

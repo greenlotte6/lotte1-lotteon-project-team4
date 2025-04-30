@@ -19,41 +19,28 @@ import java.util.List;
 @RequiredArgsConstructor
 public class  MemberController {
 
-    private final UsersService usersService;
     private final MemberService memberService;
 
+    // 회원 목록 조회
     @GetMapping("/admin/member/list")
     public String list(PageRequestDTO pageRequestDTO, Model model) {
 
-        PageResponseDTO<UsersDTO> pageResponseDTO = usersService.findAll(pageRequestDTO);
+        PageResponseDTO<UsersDTO> pageResponseDTO = memberService.findAll(pageRequestDTO);
         model.addAttribute(pageResponseDTO);
 
         // 회원 목록 불러오기
         return "/admin/member/list";
     }
 
-    // 검색
-//    @GetMapping("/admin/member/search")
-//    public String search(@RequestParam("searchType") String searchType,
-//                         @RequestParam("keyword") String keyword,
-//                         Model model) {
-//
-//        List<UsersDTO> userList;
-//
-//        if (searchType != null && keyword != null) {
-//            userList = memberService.searchMembers(searchType, keyword);
-//            log.info("검색한 유저 리스트: {}", userList);
-//        } else {
-//            userList = usersService.findAll();
-//            log.info("모든 유저 리스트: {}", userList);
-//        }
-//
-//        model.addAttribute("userList", userList);
-//        model.addAttribute("searchType", searchType);
-//        model.addAttribute("keyword", keyword);
-//
-//        return "/admin/member/list";
-//    }
+    // 회원 목록 검색
+    @GetMapping("/admin/member/search")
+    public String search(PageRequestDTO pageRequestDTO, Model model) {
+        PageResponseDTO<UsersDTO> pageResponseDTO = memberService.searchMembers(pageRequestDTO);
+
+        model.addAttribute(pageResponseDTO);
+
+        return "/admin/member/list";
+    }
 
     // 포인트 목록 검색
     @GetMapping("/admin/member/pointSearch")
@@ -86,17 +73,17 @@ public class  MemberController {
     }
 
     // 수정
-   /* @GetMapping("/admin/member/postModify")
-    public String modifyUsers(Model model) {
+//    @GetMapping("/admin/member/postModify")
+//    public String modifyUsers(Model model) {
+//
+//        List<UsersDTO> userList = usersService.findAll();
+//        model.addAttribute("userList", userList);
+//
+//        log.info("userList : {}", userList);
+//
+//        return "/admin/member/list";
+//    }
 
-        List<UsersDTO> userList = usersService.findAll();
-        model.addAttribute("userList", userList);
-
-        log.info("userList : {}", userList);
-
-        return "/admin/member/list";
-    }
-*/
     @PostMapping("/admin/member/postModify")
     public String modifyUsers(@ModelAttribute UsersDTO usersDTO,
                               @RequestParam("selectedUsers") List<String> selectedUsers,

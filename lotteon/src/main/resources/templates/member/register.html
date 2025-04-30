@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/css/common/_footer.css">
     <link rel="stylesheet" href="/css/member/register.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <title>롯데ON 일반 회원가입</title>
+    <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="/js/validation.js"></script>
     <script src="/js/email.js"></script>
@@ -126,7 +126,7 @@
                         <tr>
                             <th>휴대폰</th>
                             <td>
-                                <input class="register" type="text" name="hp" placeholder="휴대폰 입력" />
+                                <input class="register" type="text" maxlength="13" name="hp" placeholder="휴대폰 입력" />
                                 <button type="button" class="auth-btn">휴대폰 인증</button>
                                 <span class="hpResult ex"></span>
                             </td>

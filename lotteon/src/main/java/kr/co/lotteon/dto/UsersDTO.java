@@ -6,8 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -34,6 +37,9 @@ public class UsersDTO {
     private LocalDateTime u_last_login;
     private String mgmt;
     private String other;
+
+    @DateTimeFormat
+    private LocalDateTime birth;
 
     // 추가 필드
     private int point_id;

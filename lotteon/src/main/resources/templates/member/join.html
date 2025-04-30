@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/css/common/_footer.css">
     <link rel="stylesheet" href="/css/member/join.css"/>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <title>롯데ON 회원가입</title>
+    <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -95,7 +95,7 @@
                         <p>사업자등록증을 보유한 회원</p>
                     </div>
                     <div class="card-footer">
-                        <a th:href="@{/member/terms1}">회원가입</a>
+                        <a th:href="@{/member/terms_2}">회원가입</a>
                     </div>
                 </div>
             </section>

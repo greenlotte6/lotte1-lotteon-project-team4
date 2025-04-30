@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/css/common/_footer.css">
     <link rel="stylesheet" href="/css/member/terms.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <title>롯데ON 약관동의</title>
+    <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -77,7 +77,7 @@
                 }
 
                 // 다음 페이지로 이동
-                window.location.href = "/member/register"; // ← 원하는 URL로 변경 가능
+                window.location.href = "/member/registerSeller"; // ← 원하는 URL로 변경 가능
             });
 
             // 2. 전체 동의 클릭 시 - 모두 체크 / 해제
@@ -106,34 +106,29 @@
             </div>
             <div class="terms-box">
                 <label class="terms-title"><span class="required">(필수)</span> 이용약관</label>
-                <textarea th:text="${terms.sellerTerms}" readonly>이용약관 내용이 들어갑니다.</textarea>
+                <textarea th:text="${terms_2.sellerTerms}" readonly>이용약관 내용이 들어갑니다.</textarea>
                 <label class="agree"><input type="checkbox"> 동의하기</label>
             </div>
 
             <div class="terms-box">
                 <label class="terms-title"><span class="required">(필수)</span> 전자금융 이용약관</label>
-                <textarea th:text="${terms.purchaseTerms}" readonly>전자금융 약관 내용이 들어갑니다.</textarea>
+                <textarea th:text="${terms_2.purchaseTerms}" readonly>전자금융 약관 내용이 들어갑니다.</textarea>
                 <label class="agree"><input type="checkbox"> 동의하기</label>
             </div>
 
             <div class="terms-box">
                 <label class="terms-title"><span class="required">(필수)</span> 개인정보 수집동의</label>
-                <textarea th:text="${terms.electronicTerms}" readonly>개인정보 약관 내용이 들어갑니다.</textarea>
+                <textarea th:text="${terms_2.electronicTerms}" readonly>개인정보 약관 내용이 들어갑니다.</textarea>
                 <label class="agree"><input type="checkbox"> 동의하기</label>
             </div>
 
-            <div class="terms-box">
-                <label class="terms-title"><span class="optional">(선택)</span> 위치정보 이용약관</label>
-                <textarea th:text="${terms.privacyPolicy}" readonly>위치정보 약관 내용이 들어갑니다.</textarea>
-                <label class="agree"><input type="checkbox"> 동의하기</label>
-            </div>
 
             <div class="check-all">
                 <label><input type="checkbox" id="checkAll"> 전체 약관에 모두 동의합니다.</label>
             </div>
 
             <div class="submit-wrap">
-                <button type="button" id="agreeButton" th:data-url="@{/member/register}">동의하기</button>
+                <button type="button" id="agreeButton" th:data-url="@{/member/registerSeller}">동의하기</button>
             </div>
         </article>
     </main>

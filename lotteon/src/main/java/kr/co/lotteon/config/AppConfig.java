@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
-//    @Bean
-//    public AppInfo appInfo() {
-//        return new AppInfo();
-//    }
+    @Bean
+    public AppInfo appInfo() {
+        return new AppInfo();
+    }
 
     @Bean
     public ModelMapper modelMapper() {

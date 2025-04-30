@@ -25,18 +25,18 @@ public class SecurityConfig {
                 .loginPage("/user/login")
                 .defaultSuccessUrl("/")
                 .failureUrl("/user/login?code=100")
-                .usernameParameter("id")
+                .usernameParameter("uid")
                 .passwordParameter("password"));
 
         //로그아웃 설정
         http.logout(logout -> logout.logoutUrl("/user/logout")
                 .invalidateHttpSession(true)
-                .logoutSuccessUrl("/user/login"));
+                .logoutSuccessUrl("/user/login?code=101"));
 
       /*
             인가 설정
              - MyUserDetails 권한 목록 생성하는 메서드 (getAuthorities)
-             에서 접두어로 ROLE_ 입력해야 haRole, hasAnyRole 권한 처리됨
+             에서 접두어로 ROLE_ 입력해야 hasRole, hasAnyRole 권한 처리됨
              - Spring Security는 기본적으로 인가 페이지에 대해
                                 login 페이지로 redirect 수행
 
@@ -46,11 +46,8 @@ public class SecurityConfig {
         //인가 설정
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/").permitAll()
-                .requestMatchers("/Management/**").hasRole("ADMIN")
-                .requestMatchers("/support/**").hasAnyRole("ADMIN","STUDENT")
-                .requestMatchers("/staff/**").hasAnyRole("ADMIN","MANAGER","STAFF")
-                .requestMatchers("/Community/write**").authenticated()
-                .requestMatchers("/Community/modify**").authenticated()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/product/cart/**", "/product/order/**", "/product/complete/**", "/qna/write/**", "/myaccount/**").authenticated()
                 .anyRequest().permitAll()
         );
 
@@ -73,5 +70,8 @@ public class SecurityConfig {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
+
 
 }

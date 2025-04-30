@@ -34,32 +34,9 @@ import java.util.stream.Collectors;
 public class UsersService {
 
     private final UsersRepository usersRepository;
-    private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder passwordEncoder;
     private final HttpSession session;
     private final SellerRepository sellerRepository;
-
-    // 회원 목록 조회
-    public PageResponseDTO<UsersDTO> findAll(PageRequestDTO pageRequestDTO) {
-        Pageable pageable = pageRequestDTO.getPageable("no");
-
-        Page<Users> usersPage = usersRepository.findAll(pageable);
-
-        List<UsersDTO> usersDTOList = usersPage.getContent().stream()
-                                                                .map(user -> modelMapper.map(user, UsersDTO.class))
-                                                                .collect(Collectors.toList());
-
-        log.info("users: {}", usersDTOList);
-
-        int total = (int) usersPage.getTotalElements();
-
-        return PageResponseDTO
-                .<UsersDTO>builder()
-                .pageRequestDTO(pageRequestDTO)
-                .dtoList(usersDTOList)
-                .total(total)
-                .build();
-    }
 
     public void saveUser(UsersDTO dto) {
         Users user = Users.builder()
@@ -158,9 +135,32 @@ public class UsersService {
         return usersRepository.findByUnameAndEmail(uname, email);
     }
 
-    public boolean isEmailExists(String email) {
-        return usersRepository.countByEmail(email) > 0;
+
+    public Optional<Users> findByUidAndEmail(String uid, String email) {
+        return usersRepository.findByUidAndEmail(uid, email);
     }
+
+    public void save(Users user) {
+        usersRepository.save(user);
+    }
+
+    // UsersService.java
+    public void updatePassword(String uid, String rawPassword) {
+        Optional<Users> optUser = usersRepository.findByUid(uid);
+
+        if (optUser.isPresent()) {
+            Users user = optUser.get();
+            String encryptedPassword = passwordEncoder.encode(rawPassword);
+            user.setPassword(encryptedPassword);  // 기존 암호화 비번 덮어쓰기
+            usersRepository.save(user);           // DB 저장
+        } else {
+            throw new RuntimeException("사용자를 찾을 수 없습니다.");
+        }
+    }
+
+
+
+
 
 
 }

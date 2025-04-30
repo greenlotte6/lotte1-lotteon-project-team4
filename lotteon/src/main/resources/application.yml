@@ -22,7 +22,6 @@ server:
     servlet:
         context-path: /
 spring:
-
     servlet:
         multipart:
             location: uploads

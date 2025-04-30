@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/css/common/_footer.css">
     <link rel="stylesheet" href="/css/member/register.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <title>롯데ON 판매자 회원가입</title>
+    <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="/js/validationSeller.js"></script>
@@ -134,28 +134,28 @@
                         <tr>
                             <th>사업자등록번호</th>
                             <td>
-                                <input class="register" type="text" name="biz_num" placeholder="사업자등록번호 입력" />
+                                <input class="register" type="text" maxlength="12" name="biz_num" placeholder="사업자등록번호 입력" />
                                 <span class="ex">-포함 12자리 입력</span>
                             </td>
                         </tr>
                         <tr>
                             <th>통신판매업번호</th>
                             <td>
-                                <input class="register" type="text" name="osn" placeholder="통신판매업번호 입력" />
+                                <input class="register" type="text" maxlength="6" name="osn" placeholder="통신판매업번호 입력" />
                             </td>
                         </tr>
 
                         <tr>
                             <th>전화번호</th>
                             <td>
-                                <input class="register" type="tel" name="number" placeholder="전화번호 입력" />
+                                <input class="register" type="tel" maxlength="13" name="number" placeholder="전화번호 입력" />
                                 <span class="hpResult ex"></span>
                             </td>
                         </tr>
                         <tr>
                             <th>팩스</th>
                             <td>
-                                <input class="register" type="text" name="fax" placeholder="팩스번호 입력" />
+                                <input class="register" type="text" maxlength="12" name="fax" placeholder="팩스번호 입력" />
                             </td>
                         </tr>
 
