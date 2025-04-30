@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 @Data
@@ -20,7 +22,8 @@ public class QnaDTO {
     private String qnaType2;
     private String title;
     private String content;
-    private LocalDate date;
+    private LocalDate creationDate;
+    private LocalDateTime date;
     private String status;
     private String answer;
     private String writer;
