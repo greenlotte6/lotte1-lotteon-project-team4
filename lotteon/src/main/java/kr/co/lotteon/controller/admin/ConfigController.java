@@ -1,10 +1,12 @@
 package kr.co.lotteon.controller.admin;
 
 import kr.co.lotteon.dto.TermsDTO;
+import kr.co.lotteon.entity.CompanyInfo;
 import kr.co.lotteon.entity.SiteInfo;
 import kr.co.lotteon.entity.Terms;
 import kr.co.lotteon.entity.Version;
 import kr.co.lotteon.repository.TermsRepository;
+import kr.co.lotteon.service.admin.CompanyInfoService;
 import kr.co.lotteon.service.admin.ConfigService;
 import kr.co.lotteon.service.admin.SiteInfoService;
 import kr.co.lotteon.service.admin.VersionService;
@@ -26,6 +28,7 @@ public class ConfigController {
     private final ConfigService configService;
     private final VersionService versionService;
     private final SiteInfoService siteInfoService;
+    private final CompanyInfoService companyInfoService;
 
 
     @GetMapping("/banner")
@@ -36,8 +39,20 @@ public class ConfigController {
     @GetMapping("/basic")
     public String basic(Model model) {
         SiteInfo siteInfo = siteInfoService.getInfo(1);
+        CompanyInfo companyInfo = companyInfoService.getInfo(1);
+
         model.addAttribute("siteConfig", siteInfo);
+        model.addAttribute("companyConfig", companyInfo);
+
         return "/admin/config/basic";
+    }
+
+    @PostMapping("/company")
+    @ResponseBody
+    public String updateCompany(@ModelAttribute SiteInfo siteInfo) {
+        siteInfo.setId(1);
+        siteInfoService.updateInfo(siteInfo);
+        return "success";
     }
 
     @PostMapping("/site")

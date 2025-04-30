@@ -22,16 +22,16 @@ public class SecurityConfig {
 
         //로그인 설정
         http.formLogin(login -> login
-                .loginPage("/user/login")
+                .loginPage("/member/login")
                 .defaultSuccessUrl("/")
-                .failureUrl("/user/login?code=100")
+                .failureUrl("/member/login?code=100")
                 .usernameParameter("uid")
                 .passwordParameter("password"));
 
         //로그아웃 설정
-        http.logout(logout -> logout.logoutUrl("/user/logout")
+        http.logout(logout -> logout.logoutUrl("/member/logout")
                 .invalidateHttpSession(true)
-                .logoutSuccessUrl("/user/login?code=101"));
+                .logoutSuccessUrl("/member/login?code=101"));
 
       /*
             인가 설정

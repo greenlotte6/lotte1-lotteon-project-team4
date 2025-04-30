@@ -19,13 +19,13 @@ public class MyUserDetailsService implements UserDetailsService { // DB에서 se
     private final UsersRepository usersRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { // AuthenticationProvider에서 username을 조회해서 loadUserByUsername로 넘겨줌
+    public UserDetails loadUserByUsername(String uid) throws UsernameNotFoundException { // AuthenticationProvider에서 username을 조회해서 loadUserByUsername로 넘겨줌
 
-        log.info("username : {}", username);
+        log.info("username : {}", uid);
 
         // 사용자 조회 - 사용자가 입력한 아이디, 비밀번호는 이전 단계인 AuthenticationProvider 쪽에서(인증) 먼저 수행됨
         // 아이디와 비밀번호로 인증하는 것이 끝나고 이 단계가 실행
-        Optional<Users> optUser = usersRepository.findById(username);
+        Optional<Users> optUser = usersRepository.findById(uid);
 
         if(optUser.isPresent()) {
 
@@ -40,4 +40,6 @@ public class MyUserDetailsService implements UserDetailsService { // DB에서 se
 
         return null;
     }
+
+
 }
