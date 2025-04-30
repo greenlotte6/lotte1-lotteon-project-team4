@@ -24,6 +24,41 @@
             $(this).parent().toggleClass('active');
         })
 
+        // 모달 열기 함수
+        function openModal(className) {
+            document.querySelector(`.${className}`).style.display = 'flex';
+        }
+
+        // 모달 닫기 함수
+        window.closeModal = function () {
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.style.display = 'none';
+            });
+        };
+
+        //등록 버튼 클릭 시 등록 모달 열기
+        document.querySelector(".banner-register").addEventListener('click', () => {
+            openModal('register-modal');
+        });
+
+        document.querySelectorAll("table tr td:last-child").forEach(td => {
+            td.style.cursor = 'pointer';
+            td.addEventListener('click', (event) => {
+                const row = event.target.closest('tr');
+                const versionId = row.children[2]?.textContent.trim() || '';
+                const changeHistory = row.children[5]?.textContent.trim() || '';
+
+                console.log('버전 ID:', versionId);
+                console.log('변경내역:', changeHistory);
+
+                // 모달에 데이터 넣기
+                document.getElementById('modalversionid').innerText = versionId;
+                document.getElementById('modalchangehistory').innerText = changeHistory;
+
+
+                openModal('info-modal'); // 모달 열기
+            });
+        });
 
     });
 </script>
@@ -61,74 +96,82 @@
                             <th>등록일시</th>
                             <th>변경내역</th>
                         </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>1</td>
-                            <td>0.0.1-SNAPSHOP</td>
-                            <td>chhak0503</td>
-                            <td>2024.10.13 17:12:00</td>
-                            <td>
-                                <button onclick="openModal('/popup@{/admin/Check_Version}')" class="btn">[확인]</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>2</td>
-                            <td>0.0.2-SNAPSHOP</td>
-                            <td>chhak0503</td>
-                            <td>2024.10.13 17:12:00</td>
-                            <td>
-                                <button onclick="openModal('/popup@{/admin/Check_Version}')" class="btn">[확인]</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>3</td>
-                            <td>0.0.3-SNAPSHOP</td>
-                            <td>chhak0503</td>
-                            <td>2024.10.13 17:12:00</td>
-                            <td>
-                                <button onclick="openModal('/popup@{/admin/Check_Version}')" class="btn">[확인]</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>4</td>
-                            <td>0.0.4-SNAPSHOP</td>
-                            <td>chhak0503</td>
-                            <td>2024.10.13 17:12:00</td>
-                            <td>
-                                <button onclick="openModal('/popup@{/admin/Check_Version}')" class="btn">[확인]</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>5</td>
-                            <td>0.0.5-SNAPSHOP</td>
-                            <td>chhak0503</td>
-                            <td>2024.10.13 17:12:00</td>
-                            <td>
-                                <button>[확인]</button>
-                            </td>
-                        </tr>
                         </thead>
+                        <tbody>
+                        <tr th:each="ver : ${versions}">
+                            <td><input type="checkbox" name="selectedIds" th:value="${ver.versionId}"></td>
+                            <td th:text="${ver.versionId}">1</td>
+                            <td th:text="${ver.versionName}">버전명</td>
+                            <td th:text="${ver.user.uid}"></td>
+                            <td th:text="${#temporals.format(ver.rdate, 'yyyy-MM-dd HH:mm:ss')}">등록일</td>
+                            <td th:text="${ver.changeHistory}" style="display: none"></td>
+                            <td>
+                                <button class="btn">[확인]</button>
+                            </td>
+                        </tr>
+                        </tbody>
                     </table>
                 </div>
                 <div class="click">
                     <button class="select-delete button">선택삭제</button>
-                    <button onclick="openModal('/popup@{/admin/Register_Version}')" class="banner-register button btn">
-                        등록
-                    </button>
+                    <button class="banner-register button btn">버전등록</button>
                 </div>
-                <div class="modal-overlay" id="modalOverlay">
-                    <div class="modal">
-                        <iframe id="modalFrame"></iframe>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
 </main>
+
+<div class="modal-overlay register-modal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title"><span>■</span>버전등록</div>
+            <button class="modal-button" onclick="closeModal()">X</button>
+        </div>
+
+        <div class="modal-table">
+            <table>
+                <tr>
+                    <td class="label">버전</td>
+                    <td><input type="text" class="text" placeholder="버전입력하기"></td>
+                </tr>
+                <tr>
+                    <td class="label">변경내역</td>
+                    <td><textarea placeholder="변경내역 작성하기"></textarea></td>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="submit-btn" onclick="submitCoupon()">등록</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay info-modal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title"><span>■</span>버전확인</div>
+            <button class="modal-button" onclick="closeModal()">X</button>
+        </div>
+
+
+        <table class="info-table">
+            <tr>
+                <td class="label">버전</td>
+                <td id="modalversionid"></td>
+            </tr>
+            <tr>
+                <td class="label">변경내역</td>
+                <td id="modalchangehistory"></td>
+            </tr>
+        </table>
+
+        <div class="modal-footer">
+            <button onclick="closeModal()">닫기</button>
+        </div>
+    </div>
+</div>
 <th:block th:include="/common/_admin_footer"/>
 </body>
 </html>

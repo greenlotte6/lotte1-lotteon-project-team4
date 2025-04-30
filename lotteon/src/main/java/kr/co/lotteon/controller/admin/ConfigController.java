@@ -2,8 +2,10 @@ package kr.co.lotteon.controller.admin;
 
 import kr.co.lotteon.dto.TermsDTO;
 import kr.co.lotteon.entity.Terms;
+import kr.co.lotteon.entity.Version;
 import kr.co.lotteon.repository.TermsRepository;
 import kr.co.lotteon.service.admin.ConfigService;
+import kr.co.lotteon.service.admin.VersionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,26 +18,29 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 @Controller
+@RequestMapping("/admin/config")
 public class ConfigController {
 
     private final ConfigService configService;
+    private final VersionService versionService;
 
-    @GetMapping("/admin/config/banner")
+
+    @GetMapping("/banner")
     public String banner() {
         return "/admin/config/banner";
     }
 
-    @GetMapping("/admin/config/basic")
+    @GetMapping("/basic")
     public String basic() {
         return "/admin/config/basic";
     }
 
-    @GetMapping("/admin/config/category")
+    @GetMapping("/category")
     public String category() {
         return "/admin/config/category";
     }
 
-    @GetMapping("/admin/config/policy")
+    @GetMapping("/policy")
     public String policy(Model model) {
 
         TermsDTO termsDTO = configService.findById(1);
@@ -63,7 +68,7 @@ public class ConfigController {
         return "/admin/config/policy";
     }
 
-    @PostMapping("/admin/config/policy")
+    @PostMapping("/policy")
     public String policy(@ModelAttribute TermsDTO termsDTO) {
 
         configService.policy(termsDTO);
@@ -71,8 +76,10 @@ public class ConfigController {
         return "redirect:/admin/config/policy";
     }
 
-    @GetMapping("/admin/config/version")
-    public String version() {
+    @GetMapping("/version")
+    public String version(Model model) {
+        List<Version> versions = versionService.getAllVersions();
+        model.addAttribute("versions", versions);
         return "/admin/config/version";
     }
 
