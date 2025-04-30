@@ -101,8 +101,8 @@
                                     <td>[[${shop.biz_num}]]</td>
                                     <td>[[${shop.osn}]]</td>
                                     <td>[[${shop.number}]]</td>
-                                    <td class="green">[[${shop.operation}]]</td>
-                                    <td>[[${shop.mgmt}]]</td>
+                                    <td th:classappend="${shop.statusClass}"></td>
+                                    <td th:text="${shop.operationText}"></td>
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(pageResponseDTO.dtoList)}">
                                     <td colspan="12" class="no-results">검색 결과가 없습니다.</td>
