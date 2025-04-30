@@ -30,6 +30,24 @@
             }).open();
         }
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('.login-form');
+
+            form.addEventListener('submit', function (e) {
+                const id = form.id.value.trim();
+                const password = form.password.value.trim();
+
+                if (id === '' || password === '') {
+                    e.preventDefault();
+                    alert('아이디와 비밀번호를 모두 입력해 주세요.');
+                    return false;
+                }
+
+                // 서버로 전송 (백엔드 처리 필요)
+            });
+        });
+    </script>
     <script src="/js/member/validateRegister.js"></script>
 </head>
 <body>
@@ -73,6 +91,12 @@
                             <td>
                                 <input class="register" type="text" name="uname" placeholder="이름 입력" />
                                 <span class="nameResult ex"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>생년월일</th>
+                            <td>
+                                <input class="register" type="date" name="birth" placeholder="날짜선택" >
                             </td>
                         </tr>
 

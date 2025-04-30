@@ -131,8 +131,8 @@
                         <button type="button" id="btnSendIdCode" style="margin-top: 10px; width:100px; height: 35px;">인증번호 요청</button>
 
                         <div class="auth-id" style="display: none; margin-top: 10px;">
-                            <input type="text" name="authCodeId" placeholder="인증번호 입력">
-                            <button type="button" id="btnVerifyIdCode">인증 확인</button>
+                            <input type="text" name="authCodeId" style="width: 150px; height: 8px;" placeholder="인증번호 입력">
+                            <button type="button" id="btnVerifyIdCode" style="margin-top: 10px; width:100px; height: 35px;">인증 확인</button>
                             <span class="emailIdResult" style="display: block; margin-top: 5px; font-size: 13px;"></span>
                         </div>
                     </div>
@@ -224,6 +224,61 @@
         return true;
     };
 
+</script>
+
+<script>
+    let isIdEmailOk = false;
+
+    document.getElementById('btnSendIdCode').addEventListener('click', async function () {
+        const email = document.getElementById('id-phone').value;
+
+        if (!email || !email.includes('@')) {
+            alert('유효한 이메일을 입력해 주세요.');
+            return;
+        }
+
+        const response = await fetch('/user/email/find/' + email);
+        const data = await response.json();
+
+        if (data.count === 0) {
+            document.querySelector('.auth-id').style.display = 'block';
+            document.querySelector('.emailIdResult').innerText = '인증번호가 발송되었습니다.';
+            document.querySelector('.emailIdResult').style.color = 'green';
+        } else {
+            document.querySelector('.emailIdResult').innerText = '이미 가입된 이메일입니다.';
+            document.querySelector('.emailIdResult').style.color = 'red';
+        }
+    });
+
+    document.getElementById('btnVerifyIdCode').addEventListener('click', async function () {
+        const code = document.querySelector('input[name="authCodeId"]').value;
+
+        const response = await fetch('/user/email/auth', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ authCode: code })
+        });
+
+        const data = await response.json();
+
+        if (data) {
+            document.querySelector('.emailIdResult').innerText = '이메일 인증이 완료되었습니다.';
+            document.querySelector('.emailIdResult').style.color = 'green';
+            isIdEmailOk = true;
+        } else {
+            document.querySelector('.emailIdResult').innerText = '인증번호가 틀렸습니다.';
+            document.querySelector('.emailIdResult').style.color = 'red';
+            isIdEmailOk = false;
+        }
+    });
+
+    // 폼 제출 시 인증 여부 확인
+    document.getElementById('findIdForm').addEventListener('submit', function (e) {
+        if (!isIdEmailOk) {
+            e.preventDefault();
+            alert('이메일 인증을 완료해 주세요.');
+        }
+    });
 </script>
 </body>
 
