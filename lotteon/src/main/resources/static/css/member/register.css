@@ -74,7 +74,8 @@
     background-color: #2a54a0;
 }
 .border-top{
-    border-top: 2px solid  #ccc; 
+    border-top: 2px solid  #ccc;
+
 }
 
 .border-bottom{
@@ -86,6 +87,12 @@
     position: relative;
     top: -1px;
 }
+
+.table th {
+    align-content: center;
+    text-align: center;
+}
+
 
 .checkbox {
     margin-right: 5px;
@@ -106,6 +113,10 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+
+.auth {
+    margin-top: 5px;
 }
 
 .zipcode-btn {

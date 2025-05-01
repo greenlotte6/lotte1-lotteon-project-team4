@@ -104,8 +104,8 @@
                             <th>성별</th>
                             <td>
                                 <div class="gender-options">
-                                    <label><input type="radio" name="gender"> 남</label>
-                                    <label><input type="radio" name="gender"> 여</label>
+                                    <label><input type="radio" name="gender" value="male"> 남</label>
+                                    <label><input type="radio" name="gender" value="female"> 여</label>
                                 </div>
                             </td>
                         </tr>
@@ -114,10 +114,10 @@
                             <th>EMAIL</th>
                             <td>
                                 <input class="register" type="email" name="email" placeholder="이메일 입력" />
-                                <button type="button" class="auth-btn" id="btnSendEmail">이메일 인증</button>
+                                <button type="button" class="auth-btn " id="btnSendEmail">이메일 인증</button>
                                 <div class="auth" style="display:none;">
-                                    <input type="text" name="auth" placeholder="인증번호 입력" />
-                                    <button type="button" id="btnAuthEmail">인증 확인</button>
+                                    <input class="register" type="text" name="auth" placeholder="인증번호 입력" />
+                                    <button type="button"  class="auth-btn" id="btnAuthEmail">인증 확인</button>
                                 </div>
                                 <span class="emailResult ex"></span>
                             </td>
@@ -136,11 +136,8 @@
                             <th>주소</th>
                             <td>
                                 <div class="address-container">
-
-                                    <input class="register zip" type="text" name="zip" id="zip" placeholder="우편번호" readonly />
-
                                     <button type="button" onclick="postcode()" class="zipcode-btn">우편번호 선택</button>
-
+                                    <input class="register zip" type="text" name="zip" id="zip" placeholder="우편번호" readonly />
                                     <input class="register zip" type="text" name="addr1" id="addr1" placeholder="기본주소 선택" readonly />
                                     <input class="register zip" type="text" name="addr2" id="addr2" placeholder="상세주소 입력" />
                                 </div>

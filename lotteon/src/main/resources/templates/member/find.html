@@ -140,6 +140,9 @@
                     <div class="submit-btn">
                         <button type="submit">확인</button>
                     </div>
+                    <div class="submit-btn">
+                        <button type="submit" style="margin-top: -15px; background-color:darkgray;">취소</button>
+                    </div>
                 </form>
 
                 <p class="note">· 소셜 간편회원은 비밀번호 설정이 제공되지 않습니다. <br> 각 소셜 서비스를 통해 확인 부탁드립니다.</p>
@@ -167,7 +170,12 @@
                     <div class="submit-btn">
                         <button type="submit">확인</button>
                     </div>
+                    <div class="submit-btn">
+                        <button type="submit" style="margin-top: -15px; background-color:darkgray;" >취소</button>
+                    </div>
                 </form>
+
+                <p class="note">· 소셜 간편회원은 비밀번호 설정이 제공되지 않습니다. <br> 각 소셜 서비스를 통해 확인 부탁드립니다.</p>
 
             </div>
         </article>
@@ -291,77 +299,56 @@
 </script>
 
 <script>
-    let isPwEmailVerified = false;
+    let pwEmailVerified = false;
 
-    document.getElementById('btnSendPwCode').addEventListener('click', async function () {
-        const uid = document.getElementById('pw-id').value.trim();
-        const email = document.getElementById('pw-phone').value.trim();
-        const reEmail = /^[0-9a-zA-Z]([\-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([\-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+    document.getElementById('btnSendPwCode').onclick = async function () {
+        const email = document.getElementById('pw-phone').value;
+        const reEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
-        if (!uid || !reEmail.test(email)) {
-            alert("아이디와 올바른 이메일을 입력해 주세요.");
+        if (!reEmail.test(email)) {
+            alert("올바른 이메일 형식을 입력해 주세요.");
             return;
         }
 
-        const res = await fetch('/user/email/find-pw', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({uid: uid, email: email})
-        });
-
+        const res = await fetch(`/user/email/find/${email}`);
         const data = await res.json();
 
-        const resultSpan = document.querySelector('.emailPwResult');
-        if (data.status === 'success') {
+        if (data.count > 0) {
             document.querySelector('.auth-pw').style.display = 'block';
-            resultSpan.textContent = '인증번호가 이메일로 발송되었습니다.';
-            resultSpan.style.color = 'green';
+            alert("인증번호가 이메일로 발송되었습니다.");
         } else {
-            resultSpan.textContent = data.message || '일치하는 회원 정보가 없습니다.';
-            resultSpan.style.color = 'red';
+            alert("해당 이메일로 가입된 계정이 없습니다.");
         }
-    });
+    };
 
-    document.getElementById('btnVerifyPwCode').addEventListener('click', async function () {
-        const code = document.querySelector('input[name="authCodePw"]').value.trim();
-        const resultSpan = document.querySelector('.emailPwResult');
+    document.getElementById('findPwForm').onsubmit = async function (e) {
+        e.preventDefault();
 
-        if (!code) {
-            resultSpan.textContent = '인증번호를 입력해 주세요.';
-            resultSpan.style.color = 'red';
+        if (!pwEmailVerified) {
+            alert("이메일 인증을 완료해 주세요.");
             return;
         }
 
-        const res = await fetch('/user/email/auth', {
+        const uid = document.getElementById('pw-id').value;
+        const email = document.getElementById('pw-phone').value;
+
+        const response = await fetch('/user/email/find-pw', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({authCode: code})
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ uid, email })
         });
 
-        const isValid = await res.json();
+        const data = await response.json();
 
-        if (isValid) {
-            resultSpan.textContent = '인증이 완료되었습니다.';
-            resultSpan.style.color = 'green';
-            isPwEmailVerified = true;
+        if (data.status === 'success') {
+            alert(data.message); // 서버에서 전달된 메시지 표시
+            window.location.href = '/member/updatepw'; // 성공 시 updatepw 페이지로 이동
         } else {
-            resultSpan.textContent = '인증번호가 일치하지 않습니다.';
-            resultSpan.style.color = 'red';
-            isPwEmailVerified = false;
+            alert(data.message || "사용자 정보를 확인할 수 없습니다.");
         }
-    });
+    };
 
-    document.getElementById('findPwForm').addEventListener('submit', function (e) {
-        if (!isPwEmailVerified) {
-            e.preventDefault();
-            alert("이메일 인증을 완료해 주세요.");
-            return false;
-        }
 
-        // 인증 완료 후 페이지 이동
-        e.preventDefault();
-        window.location.href = '/member/updatepw';
-    });
 </script>
 
 

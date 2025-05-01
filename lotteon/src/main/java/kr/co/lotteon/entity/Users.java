@@ -35,9 +35,9 @@ public class Users {
     private String addr1;
     private String addr2;
     private String role;
+    private String birth;
 
-    @DateTimeFormat
-    private LocalDate birth;
+
 
 
 

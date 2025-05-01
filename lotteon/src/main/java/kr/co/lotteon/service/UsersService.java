@@ -42,12 +42,14 @@ public class UsersService {
         Users user = Users.builder()
                 .uid(dto.getUid())
                 .uname(dto.getUname())
+                .gender(dto.getGender())
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .email(dto.getEmail())
                 .hp(dto.getHp())
                 .addr1(dto.getAddr1())
                 .addr2(dto.getAddr2())
                 .zip(dto.getZip())
+                .birth(dto.getBirth())
                 .role("USER")              // 기본값 부여
                 .status("ACTIVE")          // 기본값 부여
                 .grade("basic")            // 등급도 기본 지정 가능
@@ -79,7 +81,7 @@ public class UsersService {
     private final JavaMailSender mailSender;
 
     @Value("${spring.mail.username}")
-    private String sender; // 메일 보내는 사람 (application.properties에서 가져옴)
+    private String sender;
 
     public int countByEmail(String email) {
         return usersRepository.countByEmail(email);
@@ -151,12 +153,13 @@ public class UsersService {
         if (optUser.isPresent()) {
             Users user = optUser.get();
             String encryptedPassword = passwordEncoder.encode(rawPassword);
-            user.setPassword(encryptedPassword);  // 기존 암호화 비번 덮어쓰기
-            usersRepository.save(user);           // DB 저장
+            user.setPassword(encryptedPassword);
+            usersRepository.save(user);
         } else {
             throw new RuntimeException("사용자를 찾을 수 없습니다.");
         }
     }
+
 
 
 

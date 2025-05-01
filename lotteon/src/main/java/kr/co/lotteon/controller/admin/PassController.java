@@ -104,58 +104,65 @@ public class PassController {
 
 
 
-
-    @PostMapping("/updatepw")
-    public String updatePassword(@RequestParam String uid, @RequestParam String password) {
-        Optional<Users> userOpt = usersService.findById(uid);
-        if (userOpt.isPresent()) {
-            Users user = userOpt.get();
-            user.setPassword(new BCryptPasswordEncoder().encode(password));
-            usersService.save(user); // UsersService에 save 메서드 필요
-            return "비밀번호가 성공적으로 변경되었습니다.";
-        } else {
-            return "유효하지 않은 사용자입니다.";
-        }
-    }
-
-    @PostMapping("/email/find-pw")
-    @ResponseBody
-    public Map<String, Object> verifyForPwReset(@RequestBody Map<String, String> param) {
-        String uid = param.get("uid");
-        String email = param.get("email");
+    @PostMapping("/user/email/find-id")
+    public Map<String, Object> findUserForId(@RequestBody Map<String, String> request, HttpSession session) {
+        String uid = request.get("uid");
+        String email = request.get("email");
+        Optional<Users> user = usersService.findByUidAndEmail(uid, email);
 
         Map<String, Object> result = new HashMap<>();
-        Optional<Users> userOpt = usersService.findById(uid)
-                .filter(user -> user.getEmail().equals(email));
-
-        if (userOpt.isPresent()) {
-            usersService.sendEmailCode(email);
+        if (user.isPresent()) {
+            session.setAttribute("verifiedUid", uid); // ✅ 서버 세션에 저장
             result.put("status", "success");
         } else {
             result.put("status", "fail");
-            result.put("message", "아이디와 이메일이 일치하는 회원이 없습니다.");
+            result.put("message", "사용자 정보를 찾을 수 없습니다.");
+        }
+        return result;
+    }
+
+    @PostMapping("/user/email/find-pw")
+    @ResponseBody
+    public Map<String, Object> findUserForPw(@RequestBody Map<String, String> requestBody, HttpSession session) {
+        String uid = requestBody.get("uid");
+        String email = requestBody.get("email");
+
+        Optional<Users> userOpt = usersService.findByUidAndEmail(uid, email);
+
+        Map<String, Object> result = new HashMap<>();
+        if (userOpt.isPresent()) {
+            session.setAttribute("verifiedUid", uid); // ✅ 세션 저장
+            result.put("status", "success");
+        } else {
+            result.put("status", "fail");
+            result.put("message", "아이디 또는 이메일이 올바르지 않습니다.");
         }
 
         return result;
     }
 
-    @PostMapping("/user/updatepw")
+
+    @GetMapping("/member/updatepw")
+    public String updatepwPage() {
+        return "/member/updatepw";  // updatepw.html
+    }
+
+    // 비밀번호 변경 로직 처리 (POST)
+    @PostMapping("/member/updatepw")
     @ResponseBody
     public Map<String, String> updatePassword(@RequestBody Map<String, String> param, HttpSession session) {
         String uid = (String) session.getAttribute("verifiedUid");
         String password = param.get("password");
 
         Map<String, String> result = new HashMap<>();
-
         try {
             usersService.updatePassword(uid, password);
-            session.removeAttribute("verifiedUid"); // 인증 후 제거
+            session.removeAttribute("verifiedUid");
             result.put("status", "success");
         } catch (Exception e) {
             result.put("status", "fail");
             result.put("message", e.getMessage());
         }
-
         return result;
     }
 

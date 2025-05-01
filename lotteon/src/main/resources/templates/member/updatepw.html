@@ -71,17 +71,6 @@
     </script>
 
     <script>
-        function showModal() {
-            const modal = document.getElementById('modal');
-            modal.classList.remove('hide');
-        }
-
-        function hideModal() {
-            const modal = document.getElementById('modal');
-            modal.classList.add('hide');
-        }
-    </script>
-    <script>
         document.querySelector('.pw-tab .submit-btn button').addEventListener('click', async function() {
             const uid = document.getElementById('pw-id').value;
             const email = document.getElementById('pw-phone').value;
@@ -179,10 +168,7 @@
             </div>
         </article>
 
-        <div id="modal" class="top-modal hide">
-            <span>비밀번호가 성공적으로 변경되었습니다.</span>
-            <button class="close-btn" onclick="hideModal()">×</button>
-        </div>
+
     </main>
 
 
