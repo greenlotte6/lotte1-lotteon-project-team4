@@ -5,9 +5,11 @@ import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.dto.NoticeDTO;
 import kr.co.lotteon.dto.QnaDTO;
 import kr.co.lotteon.entity.Notice;
+import kr.co.lotteon.security.MyUserDetails;
 import kr.co.lotteon.service.MainService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,26 +24,46 @@ public class MainController {
     private final MainService mainService;
 
     @GetMapping("/")
-    public String index() {
+    public String index(@AuthenticationPrincipal MyUserDetails userDetails) {
+        if (userDetails != null) {
+            System.out.println("로그인한 사용자 ID: " + userDetails.getUsername());
+        }
         return "/index";
     }
 
     @GetMapping("/admin/index")
-    public String adminIndex(HttpSession session, Model model) {
-        Users user = (Users) session.getAttribute("user");
-
-//        if (user == null || !"ADMIN".equals(user.getRole())) {
-//            return "redirect:/admin/index";
+    public String adminIndex(@AuthenticationPrincipal MyUserDetails userDetails, Model model) {
+//        if (userDetails == null ||
+//                !userDetails.getAuthorities().stream()
+//                        .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+//            return "redirect:/member/login?unauthorized";
 //        }
-
-        List<NoticeDTO> noticeDTOList = mainService.findAll();
-        List<QnaDTO> qnaDTOList = mainService.findAllQna();
-
-        model.addAttribute("noticeList", noticeDTOList);
-        model.addAttribute("qnaList", qnaDTOList);
+//
+//        List<NoticeDTO> noticeDTOList = mainService.findAll();
+//        List<QnaDTO> qnaDTOList = mainService.findAllQna();
+//
+//        model.addAttribute("noticeList", noticeDTOList);
+//        model.addAttribute("qnaList", qnaDTOList);
 
         return "/admin/index";
     }
+
+//    @GetMapping("/admin/index")
+//    public String adminIndex(HttpSession session, Model model) {
+//        Users user = (Users) session.getAttribute("user");
+//
+//        if (user == null || !"ADMIN".equals(user.getRole())) {
+//            return "redirect:/admin/index";
+//        }
+//
+//        List<NoticeDTO> noticeDTOList = mainService.findAll();
+//        List<QnaDTO> qnaDTOList = mainService.findAllQna();
+//
+//        model.addAttribute("noticeList", noticeDTOList);
+//        model.addAttribute("qnaList", qnaDTOList);
+//
+//        return "/admin/index";
+//    }
 
     @GetMapping("/cs/index")
     public String cs() {

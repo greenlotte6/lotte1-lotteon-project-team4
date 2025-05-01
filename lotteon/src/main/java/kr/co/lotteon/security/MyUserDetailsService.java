@@ -27,7 +27,7 @@ public class MyUserDetailsService implements UserDetailsService { // DB에서 se
         // 아이디와 비밀번호로 인증하는 것이 끝나고 이 단계가 실행
         Optional<Users> optUser = usersRepository.findById(uid);
 
-        if(optUser.isPresent()) {
+        if (optUser.isPresent()) {
 
             // Security 사용자 인증 객체 생성
             MyUserDetails myUserDetails = MyUserDetails.builder()
@@ -38,7 +38,7 @@ public class MyUserDetailsService implements UserDetailsService { // DB에서 se
             return myUserDetails;
         }
 
-        return null;
+        throw new UsernameNotFoundException("해당 아이디를 찾을 수 없습니다: " + uid);
     }
 
 
