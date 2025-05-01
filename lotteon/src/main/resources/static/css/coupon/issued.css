@@ -348,6 +348,7 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #e45450;
 }
 
 .modal-header span {
@@ -437,7 +438,7 @@ footer {
 }
 
 .modal-footer button {
-    background: #009944;
+    background-color: #d3514a;
     width: 106px;
     color: white;
     border: none;
@@ -553,7 +554,7 @@ select{
 }
 
 .submit-btn {
-    background-color: #009944;
+    background-color: #d3514a;
     color: white;
     padding: 10px 30px;
     font-size: 14px;

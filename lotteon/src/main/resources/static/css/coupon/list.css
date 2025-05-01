@@ -247,7 +247,7 @@ table td {
 button {
     width: 80px;
     height: 41px;
-    background-color: #8eb4e3;
+    background-color: #d3514a;
     border: none;
     color: #ffffff;
     font-weight: 700;
@@ -336,7 +336,7 @@ footer {
 }
 
 .modal-header {
-    background: #3b3b3b;
+    background-color: #e45450;
     color: white;
     padding: 10px 15px;
     font-size: 16px;
@@ -401,7 +401,7 @@ footer {
 }
 
 .modal-footer button {
-    background: #009944;
+    background-color: #d3514a;
     width: 106px;
     color: white;
     border: none;
@@ -433,7 +433,7 @@ footer {
 }
 
 .modal-header {
-    background: #3b3b3b;
+    background-color: #e45450;
     color: white;
     padding: 10px 15px;
     display: flex;
@@ -540,7 +540,7 @@ select{
 }
 
 .submit-btn {
-    background: #009944;
+    background-color: #d3514a;
     color: white;
 }
 
