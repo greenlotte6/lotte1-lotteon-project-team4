@@ -38,6 +38,23 @@
             checkboxes.forEach(cb => cb.checked = this.checked);
         });
     });
+
+    // 모달 열기 함수
+    function openModal(className) {
+        document.querySelector(`.${className}`).style.display = 'flex';
+    }
+
+    // 모달 닫기 함수
+    window.closeModal = function () {
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.style.display = 'none';
+        });
+    };
+
+    //등록 버튼 클릭 시 등록 모달 열기
+    document.querySelector(".banner-register").addEventListener('click', () => {
+        openModal('register-modal');
+    });
 </script>
 
 <body>
@@ -58,7 +75,7 @@
             <div class="line"></div>
             <div class="container">
                 <form th:action="@{/admin/shop/searchShop}">
-                <div class="search">
+                    <div class="search">
                         <select name="searchType">
                             <option value="company">상호명</option>
                             <option value="ced">대표자</option>
@@ -101,7 +118,7 @@
                                     <td>[[${shop.biz_num}]]</td>
                                     <td>[[${shop.osn}]]</td>
                                     <td>[[${shop.number}]]</td>
-                                    <td th:classappend="${shop.statusClass}"></td>
+                                    <td th:classappend="${shop.statusClass}" th:text="${shop.operation}"></td>
                                     <td th:text="${shop.operationText}"></td>
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(pageResponseDTO.dtoList)}">
@@ -113,34 +130,99 @@
 
                         <div class="click">
                             <button class="select-delete button" type="submit">선택삭제</button>
-                            <button type="button" onclick="openModal('/popup@{/admin/shop_Register}')"
+                            <button type="button" onclick="openModal('register-modal')"
                                     class="banner-register button btn">상점등록
                             </button>
                         </div>
                     </form>
-                        <div class="page" th:if="${pageResponseDTO.total > 0}">
-                            <th:block th:if="${pageResponseDTO.prev}">
-                                <a th:href="@{/admin/shop/list(pg=${pageResponseDTO.start-1})}" class="page-move">이전</a>
-                            </th:block>
+                    <div class="page" th:if="${pageResponseDTO.total > 0}">
+                        <th:block th:if="${pageResponseDTO.prev}">
+                            <a th:href="@{/admin/shop/list(pg=${pageResponseDTO.start-1})}" class="page-move">이전</a>
+                        </th:block>
 
-                            <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
-                                <a th:href="@{/admin/shop/list(pg=${num})}" th:class="${num == pageResponseDTO.pg} ? 'current' : 'num'">&#91;[[${num}]]&#93;</a>
-                            </th:block>
+                        <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
+                            <a th:href="@{/admin/shop/list(pg=${num})}"
+                               th:class="${num == pageResponseDTO.pg} ? 'current' : 'num'">&#91;[[${num}]]&#93;</a>
+                        </th:block>
 
-                            <th:block th:if="${pageResponseDTO.next}">
-                                <a th:href="@{/admin/shop/list(pg=${pageResponseDTO.end+1})}" class="page-move">다음</a>
-                            </th:block>
-                        </div>
-                    <div class="modal-overlay" id="modalOverlay">
-                        <div class="modal">
-                            <iframe id="modalFrame"></iframe>
-                        </div>
+                        <th:block th:if="${pageResponseDTO.next}">
+                            <a th:href="@{/admin/shop/list(pg=${pageResponseDTO.end+1})}" class="page-move">다음</a>
+                        </th:block>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
+<!-- 모달 -->
+<div class="modal-overlay register-modal">
+    <div class="container modal">
+        <div class="title">
+            <h2>상점등록</h2>
+            <button class="X modal-button" onclick="closeModal()">X</button>
+        </div>
+        <form th:action="@{/admin/shop/registerShop}" method="post">
+            <div class="content">
+                <div class="form">
+                    <table>
+                        <tr>
+                            <td>아이디</td>
+                            <td><input type="text" name="aid">영문, 숫자 4~12자</td>
+                        </tr>
+                        <tr>
+                            <td>비밀번호</td>
+                            <td><input type="text" name="password1">영문, 숫자, 특수문자 8~12자</td>
+                        </tr>
+                        <tr>
+                            <td>비밀번호 확인</td>
+                            <td><input type="text" name="password2"></td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td>상호명</td>
+                            <td><input type="text" name="company" placeholder="상호명 입력 예) (주)LotteON"></td>
+                        </tr>
+                        <tr>
+                            <td>대표</td>
+                            <td><input type="text" name="ceo" placeholder="이름 입력"></td>
+                        </tr>
+                        <tr>
+                            <td>사업자등록번호</td>
+                            <td><input type="text" name="biz_num" placeholder="사업자등록번호입력">- &nbsp;포함 12자리 입력</td>
+                        </tr>
+                        <tr>
+                            <td>통신판매업번호</td>
+                            <td><input type="text" name="osn" placeholder="통신판매업번호 입력">- &nbsp;포함 12자리 입력
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>전화번호</td>
+                            <td><input type="text" name="number" placeholder="전화번호 입력">- &nbsp;포함 12자리 입력</td>
+                        </tr>
+                        <tr>
+                            <td>팩스</td>
+                            <td><input type="text" name="fax" placeholder="팩스번호 입력">- &nbsp;포함 입력</td>
+                        </tr>
+                        <tr>
+                            <td>주소</td>
+                            <td class="addr-wrapper">
+                                <div>
+                                    <button type="button">우편번호 검색</button>
+                                </div>
+                                <div><input type="text" name="addr1" placeholder="기본주소"></div>
+                                <div><input type="text" name="addr2" placeholder="상세주소"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="button">
+                <button type="submit" class="register submit-btn" onclick="submitCoupon()">등록하기</button>
+            </div>
+        </form>
+    </div>
+</div>
 <th:block th:include="/common/_admin_footer"/>
 </body>
 

@@ -1,9 +1,6 @@
 package kr.co.lotteon.controller.admin;
 
-import kr.co.lotteon.dto.PageRequestDTO;
-import kr.co.lotteon.dto.PageResponseDTO;
-import kr.co.lotteon.dto.SalesDTO;
-import kr.co.lotteon.dto.ShopDTO;
+import kr.co.lotteon.dto.*;
 import kr.co.lotteon.service.admin.ShopService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -66,6 +63,14 @@ public class ShopController {
         model.addAttribute(pageResponseDTO);
 
         return "/admin/shop/list";
+    }
+
+    @PostMapping("/admin/shop/registerShop")
+    public String registerShop(SellerDTO sellerDTO) {
+
+        shopService.registerShop(sellerDTO);
+
+        return "redirect:/admin/shop/list";
     }
 
 }

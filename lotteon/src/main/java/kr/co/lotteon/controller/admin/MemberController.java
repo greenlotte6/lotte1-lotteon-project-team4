@@ -72,32 +72,29 @@ public class  MemberController {
         return "/admin/member/point";
     }
 
-    // 수정
-//    @GetMapping("/admin/member/postModify")
-//    public String modifyUsers(Model model) {
-//
-//        List<UsersDTO> userList = usersService.findAll();
-//        model.addAttribute("userList", userList);
-//
-//        log.info("userList : {}", userList);
-//
-//        return "/admin/member/list";
-//    }
-
     @PostMapping("/admin/member/postModify")
-    public String modifyUsers(@ModelAttribute UsersDTO usersDTO,
-                              @RequestParam("selectedUsers") List<String> selectedUsers,
-                              @RequestParam("grades") List<String> grades) {
+    public String modifyUsers(UsersDTO usersDTO) {
+        memberService.modify(usersDTO);
 
-            usersDTO.setUid(usersDTO.getUid());  // 유저의 uid 설정
-            usersDTO.setGrade(usersDTO.getGrade());  // 유저의 grade 설정
+        log.info("usersDTO 확인 : {}", usersDTO);
 
-            // 해당 유저의 등급 수정
-            memberService.modify(usersDTO);
-
-        // 수정 후, 리스트 페이지로 리다이렉트
         return "redirect:/admin/member/list";
     }
+
+//    @PostMapping("/admin/member/postModify")
+//    public String modifyUsers(@ModelAttribute UsersDTO usersDTO,
+//                              @RequestParam("selectedUsers") List<String> selectedUsers,
+//                              @RequestParam("grades") List<String> grades) {
+//
+//            usersDTO.setUid(usersDTO.getUid());  // 유저의 uid 설정
+//            usersDTO.setGrade(usersDTO.getGrade());  // 유저의 grade 설정
+//
+//            // 해당 유저의 등급 수정
+//            memberService.modify(usersDTO);
+//
+//        // 수정 후, 리스트 페이지로 리다이렉트
+//        return "redirect:/admin/member/list";
+//    }
 
     @PostMapping("/admin/member/delete")
     public String delete(@RequestParam("point_id") List<Integer> point_id) {

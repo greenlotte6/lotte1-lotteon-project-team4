@@ -1,5 +1,6 @@
 package kr.co.lotteon.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,10 @@ public class Shop {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_aid")
     private Seller seller;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private SystemStatus status;
 
 
 }
