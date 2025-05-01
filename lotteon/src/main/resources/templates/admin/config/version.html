@@ -14,93 +14,131 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>admin basic</title>
+    <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
+    <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
 </head>
 <script src="/js/modal.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    function submitCoupon() {
+        const versionInput = document.querySelector('.register-modal input[type="text"]');
+        const changeHistoryInput = document.querySelector('.register-modal textarea');
 
-        $('.hover').click(function (e) {
-            $(this).parent().toggleClass('active');
-        })
+        const version = versionInput.value.trim();
+        const changeHistory = changeHistoryInput.value.trim();
 
-        // 모달 열기 함수
-        function openModal(className) {
-            document.querySelector(`.${className}`).style.display = 'flex';
+        if (!version || !changeHistory) {
+            alert("모든 항목을 입력해주세요.");
+            return;
         }
 
-        // 모달 닫기 함수
-        window.closeModal = function () {
-            document.querySelectorAll('.modal-overlay').forEach(modal => {
-                modal.style.display = 'none';
+        fetch('/admin/config/version', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                versionName: version,
+                changeHistory: changeHistory
+            })
+        })
+            .then(res => res.text())
+            .then(result => {
+                if (result === 'success') {
+                    alert("버전이 등록되었습니다.");
+                    location.reload(); // 새로고침
+                } else {
+                    alert("등록에 실패했습니다.");
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("서버 오류가 발생했습니다.");
             });
-        };
+    }
 
-        //등록 버튼 클릭 시 등록 모달 열기
+    // 모달 열기 함수
+    function openModal(className) {
+        document.querySelector(`.${className}`).style.display = 'flex';
+    }
+
+    // 모달 닫기 함수 (window에 등록)
+    window.closeModal = function () {
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.style.display = 'none';
+        });
+    };
+
+    // DOM이 모두 로딩된 이후 실행
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // hover 메뉴 토글
+        $('.hover').click(function () {
+            $(this).parent().toggleClass('active');
+        });
+
+        // 등록 모달 열기
         document.querySelector(".banner-register").addEventListener('click', () => {
             openModal('register-modal');
         });
 
-        document.querySelectorAll("table tr td:last-child").forEach(td => {
-            td.style.cursor = 'pointer';
-            td.addEventListener('click', (event) => {
+        // 상세 모달 열기
+        document.querySelectorAll("table tr td:last-child .btn").forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.stopPropagation(); // td 클릭 막기
+
                 const row = event.target.closest('tr');
                 const versionId = row.children[2]?.textContent.trim() || '';
                 const changeHistory = row.children[5]?.textContent.trim() || '';
 
-                console.log('버전 ID:', versionId);
-                console.log('변경내역:', changeHistory);
-
-                // 모달에 데이터 넣기
                 document.getElementById('modalversionid').innerText = versionId;
                 document.getElementById('modalchangehistory').innerText = changeHistory;
 
-
-                openModal('info-modal'); // 모달 열기
+                openModal('info-modal');
             });
-
-            document.getElementById("selectAll").addEventListener("change", function () {
-                const checked = this.checked;
-                document.querySelectorAll(".rowCheckbox").forEach(cb => {
-                    cb.checked = checked;
-                });
-            });
-
-            function deleteSelected() {
-                const selected = Array.from(document.querySelectorAll(".rowCheckbox:checked"))
-                    .map(cb => cb.value);
-
-                if (selected.length === 0) {
-                    alert("삭제할 항목을 선택해주세요.");
-                    return;
-                }
-
-                fetch('/admin/config/version/delete', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(selected)
-                })
-                    .then(res => res.text())
-                    .then(result => {
-                        if (result === 'success') {
-                            alert("삭제되었습니다.");
-                            location.reload();
-                        } else {
-                        }
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        alert("서버 오류 발생");
-                    });
-            }
-
-            // 버튼 이벤트 연결
-            document.querySelector(".select-delete").addEventListener("click", deleteSelected);
-
         });
 
+        // 전체 선택 체크박스
+        document.getElementById("selectAll").addEventListener("change", function () {
+            const checked = this.checked;
+            document.querySelectorAll(".rowCheckbox").forEach(cb => {
+                cb.checked = checked;
+            });
+        });
+
+        // 선택 삭제 기능
+        function deleteSelected() {
+            const selected = Array.from(document.querySelectorAll(".rowCheckbox:checked"))
+                .map(cb => cb.value);
+
+            if (selected.length === 0) {
+                alert("삭제할 항목을 선택해주세요.");
+                return;
+            }
+
+            fetch('/admin/config/version/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(selected)
+            })
+                .then(res => res.text())
+                .then(result => {
+                    if (result === 'success') {
+                        alert("삭제되었습니다.");
+                        location.reload();
+                    } else {
+                        alert("삭제 실패");
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("서버 오류 발생");
+                });
+        }
+
+        // 삭제 버튼 이벤트 연결
+        document.querySelector(".select-delete").addEventListener("click", deleteSelected);
     });
 </script>
 <body>
@@ -182,7 +220,6 @@
                 <tr>
                     <td class="label">변경내역</td>
                     <td><textarea placeholder="변경내역 작성하기"></textarea></td>
-                    </td>
                 </tr>
             </table>
         </div>

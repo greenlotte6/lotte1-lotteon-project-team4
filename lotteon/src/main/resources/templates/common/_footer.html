@@ -40,7 +40,7 @@
         <div class="footer-bottom"></div>
 
         <div class="info1">
-            <img src="/images/logo/footer_logo.png" alt="LotteON">
+            <img th:src="@{'/uploads/' + ${logo.footerFile}}" alt="푸터 로고">
 
             <div class="info2">
                 <p><span class="span1" th:text="${companyConfig.companyName}"></span></p>

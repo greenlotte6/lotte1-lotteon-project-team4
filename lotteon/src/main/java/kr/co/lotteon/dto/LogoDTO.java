@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -16,9 +17,11 @@ public class LogoDTO {
 
     private int logoId;
 
-    private String header_file;
-
-    private String footer_file;
-
+    private String headerFile;
+    private String footerFile;
     private String favicon;
+
+    private MultipartFile headerFileUpload;
+    private MultipartFile footerFileUpload;
+    private MultipartFile faviconUpload;
 }

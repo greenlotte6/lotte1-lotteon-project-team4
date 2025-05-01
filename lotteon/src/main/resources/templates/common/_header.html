@@ -38,7 +38,7 @@
             <div class="top-header">
                 <div class="inner-top-header">
                     <div class="logo">
-                        <a th:href="@{/}"><img src="/images/logo/logo.png" alt="LotteON 로고"></a>
+                        <a th:href="@{/}"><img th:src="@{'/uploads/' + ${logo.headerFile}}" alt="헤더 로고"></a>
                     </div>
                     <div class="search">
                         <input type="text" placeholder="검색어를 입력하세요">

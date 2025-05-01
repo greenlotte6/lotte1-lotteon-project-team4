@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
+    <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
     <link rel="stylesheet" href="/css/company/story.css" />
 </head>
 <body>

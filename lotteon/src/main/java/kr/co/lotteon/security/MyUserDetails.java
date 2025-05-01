@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 public class MyUserDetails implements UserDetails {  // 인증 객체
 
-    private Users users;
+    private final Users users;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
