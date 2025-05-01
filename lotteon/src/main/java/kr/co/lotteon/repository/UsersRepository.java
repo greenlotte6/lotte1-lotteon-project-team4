@@ -29,8 +29,11 @@ public interface UsersRepository extends JpaRepository<Users, String>, UserRepos
     Page<Users> findByUnameContaining(String keyword, Pageable pageable);
     Page<Users> findByEmailContaining(String keyword, Pageable pageable);
     Page<Users> findByHpContaining(String keyword, Pageable pageable);
+    Page<Users> findByUidContainingAndHpContaining(Users uid, String hp, Pageable pageable);
 
-//    @Query("SELECT u FROM Users u WHERE u.status = :status")
+
+
+    //    @Query("SELECT u FROM Users u WHERE u.status = :status")
 //    List<Users> findByStatus(@Param("status") String status);
 
 }

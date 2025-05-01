@@ -29,15 +29,16 @@
                     <table class="cs-table">
                         <tbody>
                         <tr th:each="qna : ${coupunList}">
-                            <td><a th:href="@{'/admin/cs/qna/detail/' + ${qna.userUid}}" th:text="${qna.title}"></a></td>
                             <td>
-                            <a th:text="'[' + ${qna.qnaType1} + '] ' + ${qna.title}"></a>
+                                <!-- qna.id를 포함한 상세 페이지 링크로 변경 -->
+                                <a th:href="@{/qna/view/{qnaId}(qnaId=${qna.qnaId})}"
+                                   th:text="'[' + ${qna.qnaType2} + '] ' + ${qna.title}"></a>
                             </td>
                             <td>
-                                <span th:class="${qna.status == null or qna.status == '' or qna.status == '검토중' ? 'status checking' : 'status complete'}"
-                                      th:text="${qna.status == null or qna.status == '' or qna.status == '검토중' ? '검토 중' : '답변완료'}"></span>
+        <span th:class="${qna.status == null or qna.status == '' or qna.status == '검토중' ? 'status checking' : 'status complete'}"
+              th:text="${qna.status == null or qna.status == '' or qna.status == '검토중' ? '검토 중' : '답변완료'}"></span>
                             </td>
-                            <td th:text="${qna.writer}"></td>
+                            <td th:text="${qna.user.uid}"></td>
                             <td th:text="${#temporals.format(qna.date, 'yyyy-MM-dd')}"></td>
                         </tr>
                         </tbody>

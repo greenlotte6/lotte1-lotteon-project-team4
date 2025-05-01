@@ -23,7 +23,7 @@ public class Qna {
     private long qnaId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "uid")
+    @JoinColumn(name = "Users_uid")
     private Users user;
 
     @Column(name = "qna_type_1", length = 255, nullable = false)
