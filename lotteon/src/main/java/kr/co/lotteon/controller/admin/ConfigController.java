@@ -1,21 +1,17 @@
 package kr.co.lotteon.controller.admin;
 
+import kr.co.lotteon.dto.LogoDTO;
 import kr.co.lotteon.dto.TermsDTO;
-import kr.co.lotteon.entity.CompanyInfo;
-import kr.co.lotteon.entity.SiteInfo;
-import kr.co.lotteon.entity.Terms;
-import kr.co.lotteon.entity.Version;
-import kr.co.lotteon.repository.TermsRepository;
-import kr.co.lotteon.service.admin.CompanyInfoService;
-import kr.co.lotteon.service.admin.ConfigService;
-import kr.co.lotteon.service.admin.SiteInfoService;
-import kr.co.lotteon.service.admin.VersionService;
+import kr.co.lotteon.entity.*;
+import kr.co.lotteon.service.admin.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +25,8 @@ public class ConfigController {
     private final VersionService versionService;
     private final SiteInfoService siteInfoService;
     private final CompanyInfoService companyInfoService;
+    private final CopyrightService copyrightService;
+    private final SupportService supportService;
 
 
     @GetMapping("/banner")
@@ -40,18 +38,21 @@ public class ConfigController {
     public String basic(Model model) {
         SiteInfo siteInfo = siteInfoService.getInfo(1);
         CompanyInfo companyInfo = companyInfoService.getInfo(1);
+        Copyright copyright = copyrightService.getInfo(1);
+        Support support = supportService.getInfo(1);
 
         model.addAttribute("siteConfig", siteInfo);
         model.addAttribute("companyConfig", companyInfo);
+        model.addAttribute("copyright", copyright);
+        model.addAttribute("support", support);
 
         return "/admin/config/basic";
     }
 
     @PostMapping("/company")
     @ResponseBody
-    public String updateCompany(@ModelAttribute SiteInfo siteInfo) {
-        siteInfo.setId(1);
-        siteInfoService.updateInfo(siteInfo);
+    public String updateCompany(@RequestBody CompanyInfo companyInfo) {
+        companyInfoService.updateInfo(companyInfo);
         return "success";
     }
 
@@ -61,6 +62,51 @@ public class ConfigController {
         siteInfoService.updateInfo(siteInfo);
         return "success";
     }
+    @PostMapping("/copyright")
+    @ResponseBody
+    public String updatecopyright(@RequestBody Copyright copyright) {
+        copyrightService.updateInfo(copyright);
+        return "success";
+    }
+    @PostMapping("/support")
+    @ResponseBody
+    public String updatesupport(@RequestBody Support support) {
+        supportService.updateInfo(support);
+        return "success";
+    }
+
+//    @PostMapping("/imageregister")
+//    @ResponseBody
+//    public String registerimage(LogoDTO logoDTO) {
+//        MultipartFile file = logoDTO.getFile();
+//
+//        if (file != null && !file.isEmpty()) {
+//            // 원본 파일명 추출 (확장자 포함)
+//            String originalFilename = file.getOriginalFilename();
+//            log.info("업로드된 파일명: {}", originalFilename);
+//            // DTO의 파일명 필드에 저장 (예: fileName)
+//            logoDTO.setHeader_file(originalFilename);
+//
+//            try {
+//                String uploadDir = System.getProperty("user.dir") + "/uploads/";
+//                File dir = new File(uploadDir);
+//                if (!dir.exists()) {
+//                    dir.mkdirs();
+//                }
+//                // 파일 저장: 파일명에 확장자가 포함되어 있어야 함
+//                file.transferTo(new File(uploadDir + originalFilename));
+//            } catch (Exception e) {
+//                log.error("파일 업로드 실패", e);
+//            }
+//        } else {
+//            log.warn("업로드된 파일이 없습니다.");
+//            logoDTO.setFileName(null);
+//        }
+//
+//        collegeService.registerCollege(collegeDTO);
+//        log.info("collegeDTO: {}", collegeDTO);
+//        return "redirect:/Management/ManageDepartRegist";
+//    }
 
 
     @GetMapping("/category")

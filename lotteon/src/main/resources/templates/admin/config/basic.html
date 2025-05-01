@@ -51,23 +51,90 @@
             });
         });
 
-        $(document).ready(function () {
-            $('#companyForm').submit(function (e) {
-                e.preventDefault();
+        document.getElementById('CompanyForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // 기본 폼 제출 막기
 
-                const formData = $(this).serialize();
+            const formData = new FormData(this);
+            const data = {
+                companyName: formData.get("companyName"),
+                ceo: formData.get("ceo"),
+                companyNumber: formData.get("companyNumber"),
+                ecommerceReg: formData.get("ecommerceReg"),
+                addr1: formData.get("addr1"),
+                addr2: formData.get("addr2")
+            };
 
-                $.ajax({
-                    url: '/admin/config/company',
-                    method: 'POST',
-                    data: formData,
-                    success: function () {
-                        alert('수정되었습니다.');
-                    },
-                    error: function () {
-                        alert('수정 중 오류가 발생했습니다.');
-                    }
-                });
+            fetch('/admin/config/company', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(res => {
+                if (res.ok) {
+                    alert('수정되었습니다.');
+                    location.reload(); // 새로고침해서 적용된 값 반영
+                } else {
+                    alert('수정에 실패했습니다.');
+                }
+            }).catch(err => {
+                console.error(err);
+                alert('서버 오류가 발생했습니다.');
+            });
+        });
+        document.getElementById('copyrightForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // 기본 폼 제출 막기
+
+            const formData = new FormData(this);
+            const data = {
+                content: formData.get("content")
+            };
+
+            fetch('/admin/config/copyright', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(res => {
+                if (res.ok) {
+                    alert('수정되었습니다.');
+                    location.reload(); // 새로고침해서 적용된 값 반영
+                } else {
+                    alert('수정에 실패했습니다.');
+                }
+            }).catch(err => {
+                console.error(err);
+                alert('서버 오류가 발생했습니다.');
+            });
+        });
+        document.getElementById('SupportForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // 기본 폼 제출 막기
+
+            const formData = new FormData(this);
+            const data = {
+                phone: formData.get("phone"),
+                hours: formData.get("hours"),
+                email: formData.get("email"),
+                dispute: formData.get("dispute")
+            };
+
+            fetch('/admin/config/support', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(res => {
+                if (res.ok) {
+                    alert('수정되었습니다.');
+                    location.reload(); // 새로고침해서 적용된 값 반영
+                } else {
+                    alert('수정에 실패했습니다.');
+                }
+            }).catch(err => {
+                console.error(err);
+                alert('서버 오류가 발생했습니다.');
             });
         });
     });
@@ -118,7 +185,8 @@
                                 </tr>
                                 <tr>
                                     <td>부제</td>
-                                    <td><input type="text" name="siteSubtitle" th:value="${siteConfig.siteSubtitle}"></td>
+                                    <td><input type="text" name="siteSubtitle" th:value="${siteConfig.siteSubtitle}">
+                                    </td>
                                 </tr>
                             </table>
                         </div>
@@ -155,7 +223,7 @@
                     </div>
                 </div>
 
-                <form id="companyForm">
+                <form id="CompanyForm" method="post" th:action="@{/admin/config/company}" th:object="${companyConfig}">
                     <div class="company-info">
                         <h2>기업 정보</h2>
                         <div class="company-info-text p-div">
@@ -165,7 +233,8 @@
                             <table>
                                 <tr>
                                     <td>상호명</td>
-                                    <td><input type="text" name="companyName" th:value="${companyConfig.companyName}"></td>
+                                    <td><input type="text" name="companyName" th:value="${companyConfig.companyName}">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>대표이사</td>
@@ -173,19 +242,21 @@
                                 </tr>
                                 <tr>
                                     <td>사업자등록번호</td>
-                                    <td><input type="text" name="businessNumber" th:value="${companyConfig.companyNumber}"></td>
+                                    <td><input type="text" name="companyNumber"
+                                               th:value="${companyConfig.companyNumber}"></td>
                                 </tr>
                                 <tr>
                                     <td>통신판매업신고</td>
-                                    <td><input type="text" name="commerceNumber" th:value="${companyConfig.ecommerceReg}"></td>
+                                    <td><input type="text" name="ecommerceReg" th:value="${companyConfig.ecommerceReg}">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>기본주소</td>
-                                    <td><input type="text" name="address1" th:value="${companyConfig.addr1}"></td>
+                                    <td><input type="text" name="addr1" th:value="${companyConfig.addr1}"></td>
                                 </tr>
                                 <tr>
                                     <td>상세주소</td>
-                                    <td><input type="text" name="address2" th:value="${companyConfig.addr2}"></td>
+                                    <td><input type="text" name="addr2" th:value="${companyConfig.addr2}"></td>
                                 </tr>
                             </table>
                         </div>
@@ -195,55 +266,58 @@
                     </div>
                 </form>
 
+                <form id="SupportForm" method="post" th:action="@{/admin/config/support}" th:object="${support}">
+                    <div class="support-info">
+                        <h2>고객센터 정보</h2>
+                        <div class="support-info-text p-div">
+                            <p>푸터에 노출되는 고객센터 정보입니다.</p>
+                        </div>
+                        <div class="support-info-view">
+                            <table>
+                                <tr>
+                                    <td>전화번호</td>
+                                    <td><input type="text" name="phone" th:value="${support.phone}"></td>
+                                </tr>
+                                <tr>
+                                    <td>업무시간</td>
+                                    <td><input type="text" name="hours" th:value="${support.hours}"></td>
+                                </tr>
+                                <tr>
+                                    <td>이메일</td>
+                                    <td><input type="email" name="email" th:value="${support.email}"></td>
+                                </tr>
+                                <tr>
+                                    <td>전자금융거래 분쟁담당</td>
+                                    <td><input type="text" name="dispute" th:value="${support.dispute}"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modify">
+                            <button>수정하기</button>
+                        </div>
+                    </div>
+                </form>
 
-                <div class="support-info">
-                    <h2>고객센터 정보</h2>
-                    <div class="support-info-text p-div">
-                        <p>푸터에 노출되는 고객센터 정보입니다.</p>
+                <form id="copyrightForm" method="post" th:action="@{/admin/config/copyright}" th:object="${copyright}">
+                    <div class="copyright-info">
+                        <h2>카피라이트</h2>
+                        <div class="copyright-info-text p-div">
+                            <p>푸터에 노출되는 카피라이트 정보입니다.</p>
+                        </div>
+                        <div class="copyright-info-view">
+                            <table>
+                                <tr>
+                                    <td>카피라이트</td>
+                                    <td><input type="text" name="content"
+                                               th:value="${copyright.content}"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modify">
+                            <button>수정하기</button>
+                        </div>
                     </div>
-                    <div class="support-info-view">
-                        <table>
-                            <tr>
-                                <td>전화번호</td>
-                                <td><input type="text" name="call" value="02-1234-5678"></td>
-                            </tr>
-                            <tr>
-                                <td>업무시간</td>
-                                <td><input type="text" name="work-hour" value="평일 09:00 ~ 18:00"></td>
-                            </tr>
-                            <tr>
-                                <td>이메일</td>
-                                <td><input type="email" name="email" value="lotteon@lotte.net"></td>
-                            </tr>
-                            <tr>
-                                <td>전자금융거래 분쟁담당</td>
-                                <td><input type="text" name="dispute-officer" value="1234-1234"></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="modify">
-                        <button>수정하기</button>
-                    </div>
-                </div>
-
-                <div class="copyright-info">
-                    <h2>카피라이트</h2>
-                    <div class="copyright-info-text p-div">
-                        <p>푸터에 노출되는 카피라이트 정보입니다.</p>
-                    </div>
-                    <div class="copyright-info-view">
-                        <table>
-                            <tr>
-                                <td>카피라이트</td>
-                                <td><input type="text" name="copyright"
-                                           value="Copyright © LOTTESHOPPING Co., LTD. All rights reserved"></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="modify">
-                        <button>수정하기</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
