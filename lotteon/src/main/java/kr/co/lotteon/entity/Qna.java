@@ -22,13 +22,9 @@ public class Qna {
     @Column(name = "qna_id")
     private long qnaId;
 
-
-    @Column(name = "Users_uid", length = 12, nullable = false)
-    private String userUid;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Users_uid", insertable = false, updatable = false)
-    private Users users;
+    @JoinColumn(name = "uid")
+    private Users user;
 
     @Column(name = "qna_type_1", length = 255, nullable = false)
     private String qnaType1;
@@ -44,10 +40,6 @@ public class Qna {
 
     @CreationTimestamp
     @Column(nullable = false)
-    private LocalDate creationDate;
-
-    @CreationTimestamp
-    @Column(nullable = false)
     private LocalDateTime date;
 
     @Column(length = 255, nullable = false)
@@ -59,8 +51,8 @@ public class Qna {
     private String writer;
 
     @PrePersist
-    public void prePersist(){
-        if(this.status == null){
+    public void prePersist() {
+        if (this.status == null) {
             this.status = "검토중";
         }
     }

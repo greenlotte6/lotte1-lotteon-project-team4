@@ -1,6 +1,7 @@
 package kr.co.lotteon.service;
 
 import kr.co.lotteon.entity.Qna;
+import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.repository.QnaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,11 @@ import java.util.List;
 public class QnaService {
 
 
-
     // Qna 객체를 생성하는 메소드
-    public void createQna(String userUid, String qnaType1, String qnaType2, String title, String content, String writer, LocalDateTime date) {
+    public void createQna(Users uid, String qnaType1, String qnaType2, String title, String content, String writer, LocalDateTime date) {
         // Qna 엔티티 빌더를 사용하여 Qna 객체 생성
         Qna qna = Qna.builder()
-                .userUid(userUid)  // 사용자의 UID
+                .user(uid) // 사용자의 UID
                 .qnaType1(qnaType1)
                 .qnaType2(qnaType2)
                 .title(title)
@@ -46,16 +46,17 @@ public class QnaService {
         // "쿠폰/혜택/이벤트" 타입에 해당하는 Qna 리스트를 Pageable 방식으로 반환
         return qnaRepository.findByQnaType1(type, pageable);
     }
-    public Page<Qna> getQnaListByTypeAndUser(String type, String userUid, Pageable pageable) {
-        return qnaRepository.findByQnaType1AndUserUidOrderByDateDesc(type, userUid, pageable);
+
+    public Page<Qna> getQnaListByTypeAndUser(String type, Users uid, Pageable pageable) {
+        return qnaRepository.findByQnaType1AndUserOrderByDateDesc(type,uid,pageable);
     }
+
     @Autowired
     private QnaRepository qnaRepository;
 
     public List<Qna> getQnaList() {
         return qnaRepository.findAll();  // 모든 Qna 데이터를 가져옵니다.
     }
-
 }
 
 
