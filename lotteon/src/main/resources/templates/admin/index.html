@@ -105,7 +105,7 @@
 </script>
 
 <body>
-<th:block th:include="/common/_admin_header.html"/>
+<th:block th:include="/common/_admin_header"/>
 <main>
     <div class="main-wrapper">
         <th:block th:include="/common/_admin_aside"/>
@@ -203,7 +203,7 @@
                         <table>
                             <tr th:each="qna : ${qnaList}">
                                 <td><a href="#" th:text="${qna.title}"></a></td>
-                                <td th:text="${qna.getUname()}">chh**</td>
+                                <td th:text="${qna.user.uname}">chh**</td>
                                 <td th:text="${qna.date}">22.10.31</td>
                             </tr>
                         </table>
@@ -213,7 +213,7 @@
         </div>
     </div>
 </main>
-<th:block th:include="/common/_admin_footer.html"/>
+<th:block th:include="/common/_admin_footer"/>
 </body>
 
 </html>

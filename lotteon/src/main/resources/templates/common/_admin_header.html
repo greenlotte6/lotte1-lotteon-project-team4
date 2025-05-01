@@ -1,10 +1,14 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <header>
     <div class="wrapper">
         <div class="wrapper-suv">
             <div class="user-nav">
                 <ul>
                     <li><a th:href="@{/admin/index}">홈</a></li>
-                    <li><a th:href="@{/admin/index}">로그아웃</a></li>
+                    <li><a th:href="@{/member/login}" sec:authorize="isAnonymous()">로그인</a></li>
+                    <li><a th:href="@{/logout}" sec:authorize="isAuthenticated()">로그아웃</a></li>
                     <li><a th:href="@{/admin/cs/notice/list}">고객센터</a></li>
                 </ul>
             </div>

@@ -42,6 +42,7 @@ public class LoginController {
             session.setAttribute("user", user);
             return "redirect:/";
         }
+        System.out.println("세션 user: " + session.getAttribute("user"));
 
         // 2. 일반회원 로그인 실패 → 판매자 로그인 시도
         Seller seller = sellerService.loginSeller(id, password);
@@ -49,10 +50,14 @@ public class LoginController {
             session.setAttribute("seller", seller);
             return "redirect:/";
         }
+        System.out.println("세션 seller: " + session.getAttribute("seller"));
 
         // 3. 모두 실패
         model.addAttribute("error", "아이디 또는 비밀번호를 확인하세요.");
         return "/member/login";
+
+
+
     }
     private final UsersService usersService;
 
