@@ -25,7 +25,7 @@ public class CompanyInfoService {
     }
 
     public void updateInfo(CompanyInfo info) {
-        info.setId(1); // 기본 id 고정이라면
+        info.setId(1);
         companyInfoRepository.save(info);
     }
 }
