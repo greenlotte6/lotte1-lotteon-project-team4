@@ -92,37 +92,78 @@ public class MemberService {
 
     }
 
-    public List<PointDTO> selectPoint() {
+    // 포인트 목록 조회
+    public PageResponseDTO<PointDTO> selectPoint(PageRequestDTO pageRequestDTO) {
+        Pageable pageable = pageRequestDTO.getPageable("no");
 
-        return memberMapper.selectPoint();
+        Page<Tuple> tuplePage = pointRepository.selectPoint(pageable);
+
+        List<PointDTO> pointDTOList = tuplePage.getContent().stream().map(tuple -> {
+
+            Point point = tuple.get(0, Point.class);
+            String uid = tuple.get(1, String.class);
+            String uname = tuple.get(2, String.class);
+
+            PointDTO pointDTO = modelMapper.map(point, PointDTO.class);
+            pointDTO.setUid(uid);
+            pointDTO.setUname(uname);
+
+            log.info("pointDTO: {}", pointDTO);
+            log.info("pointDTO: {}", pointDTO);
+            log.info("pointDTO: {}", pointDTO);
+
+            return pointDTO;
+        }).toList();
+
+
+        // 전체 게시물 갯수
+        int total = (int) tuplePage.getTotalElements();
+
+        return PageResponseDTO
+                .<PointDTO>builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(pointDTOList)
+                .total(total)
+                .build();
 
     }
 
+    // 포인트 목록 검색
+    public PageResponseDTO<PointDTO> searchPoint(PageRequestDTO pageRequestDTO) {
+
+        Pageable pageable = pageRequestDTO.getPageable("no");
+
+        Page<Tuple> tuplePage = pointRepository.searchPoint(pageRequestDTO, pageable);
+
+        List<PointDTO> pointDTOList = tuplePage.getContent().stream().map(tuple -> {
+            Point point = tuple.get(0, Point.class);
+            String uid = tuple.get(1, String.class);
+            String uname = tuple.get(2, String.class);
+
+            PointDTO pointDTO = modelMapper.map(point, PointDTO.class);
+            pointDTO.setUid(uid);
+            pointDTO.setUname(uname);
+
+            return pointDTO;
+
+        }).toList();
+
+        // 전체 게시물 갯수
+        int total = (int) tuplePage.getTotalElements();
+
+        return PageResponseDTO
+                .<PointDTO>builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(pointDTOList)
+                .total(total)
+                .build();
+    }
+
+    // 포인트 삭제
     public void delete(List<Integer> point_id) {
 
         memberMapper.deletePoint(point_id);
     }
-
-
-    public List<PointDTO> searchPoint(PointDTO pointDTO) {
-        List<Point> pointList = new ArrayList<>();
-
-        switch (pointDTO.getSearchType()) {
-            case "uid" -> pointList = pointRepository.findByUsersUidContaining(pointDTO.getKeyword());
-            case "uname" -> pointList = pointRepository.findByUsersUnameContaining(pointDTO.getKeyword());
-            case "email" -> pointList = pointRepository.findByUsersEmailContaining(pointDTO.getKeyword());
-            case "hp" -> pointList = pointRepository.findByUsersHpContaining(pointDTO.getKeyword());
-        }
-
-        return pointList.stream()
-                .map(point -> {
-                    PointDTO dto = modelMapper.map(point, PointDTO.class);
-                    dto.setUid(point.getUsers().getUid());
-                    dto.setUname(point.getUsers().getUname());
-                    return dto;
-                }).collect(Collectors.toList());
-    }
-
 
 //    public PageResponseDTO searchAll(PageRequestDTO pageRequestDTO) {
 //
@@ -148,23 +189,46 @@ public class MemberService {
 //                .build();
 //    }
 
-    // 회원 수정
-    public void modify(UsersDTO usersDTO) {
+//    // 회원 등급 선택 수정
+//    public void modify(UsersDTO usersDTO) {
+//
+//        Optional<Users> optUsers = usersRepository.findById(usersDTO.getUid());
+//
+//        Users users;
+//        if (optUsers.isPresent()) {
+//            users = optUsers.get();
+//
+//            users.setGrade(usersDTO.getGrade());
+//
+//            usersRepository.save(users);
+//
+//            log.info("users 확인 : {}", users);
+//        }
+//
+//
+//    }
 
+    // 회원 정보 전체 수정
+    public void modifyModal(UsersDTO usersDTO) {
         Optional<Users> optUsers = usersRepository.findById(usersDTO.getUid());
 
-        Users users;
         if (optUsers.isPresent()) {
-            users = optUsers.get();
-
+            Users users = optUsers.get();
+            users.setUname(usersDTO.getUname());
+            users.setGender(usersDTO.getGender());
             users.setGrade(usersDTO.getGrade());
+            users.setStatus(usersDTO.getStatus());
+            users.setEmail(usersDTO.getEmail());
+            users.setHp(usersDTO.getHp());
+            users.setZip(usersDTO.getZip());
+            users.setAddr1(usersDTO.getAddr1());
+            users.setAddr2(usersDTO.getAddr2());
+            users.setU_created_at(usersDTO.getU_created_at());
+            users.setU_last_login(usersDTO.getU_last_login());
 
             usersRepository.save(users);
-
-            log.info("users 확인 : {}", users);
         }
-
-
     }
+
 
 }

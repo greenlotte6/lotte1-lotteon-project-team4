@@ -45,44 +45,15 @@ public class  MemberController {
         return "/admin/member/list";
     }
 
-    // 포인트 목록 검색
-    @GetMapping("/admin/member/pointSearch")
-    public String searchPoint(@RequestParam("searchType") String searchType,
-                              @RequestParam("keyword") String keyword,
-                              Model model) {
-
-        PointDTO dto = new PointDTO();
-        dto.setSearchType(searchType);
-        dto.setKeyword(keyword);
-
-        List<PointDTO> pointList = memberService.searchPoint(dto);
-
-        model.addAttribute("points", pointList);
-        model.addAttribute("searchType", searchType);
-        model.addAttribute("keyword", keyword);
-
-        return "/admin/member/point";
-    }
-
-    @GetMapping("/admin/member/point")
-    public String point(Model model) {
-
-        List<PointDTO> points = memberService.selectPoint();
-        model.addAttribute("points", points);
-
-        //log.info("point: {}", points);
-
-        return "/admin/member/point";
-    }
-
-    @PostMapping("/admin/member/postModify")
-    public String modifyUsers(UsersDTO usersDTO) {
-        memberService.modify(usersDTO);
-
-        log.info("usersDTO 확인 : {}", usersDTO);
-
-        return "redirect:/admin/member/list";
-    }
+//    // 회원 등급 선택 수정
+//    @PostMapping("/admin/member/postModify")
+//    public String modifyUsers(UsersDTO usersDTO) {
+//        memberService.modify(usersDTO);
+//
+//        log.info("usersDTO 확인 : {}", usersDTO);
+//
+//        return "redirect:/admin/member/list";
+//    }
 
 //    @PostMapping("/admin/member/postModify")
 //    public String modifyUsers(@ModelAttribute UsersDTO usersDTO,
@@ -99,6 +70,41 @@ public class  MemberController {
 //        return "redirect:/admin/member/list";
 //    }
 
+    // 회원 정보 전체 수정
+    @PostMapping("/admin/member/modifyModal")
+    public String modifyModal(@ModelAttribute UsersDTO usersDTO) {
+
+        memberService.modifyModal(usersDTO);
+
+        return "redirect:/admin/member/list";
+    }
+
+    // 포인트 목록 조회
+    @GetMapping("/admin/member/point")
+    public String point(Model model, PageRequestDTO pageRequestDTO) {
+
+        PageResponseDTO<PointDTO> pageResponseDTO = memberService.selectPoint(pageRequestDTO);
+        model.addAttribute(pageResponseDTO);
+
+        //log.info("point: {}", points);
+
+        return "/admin/member/point";
+    }
+
+    // 포인트 목록 검색
+    @GetMapping("/admin/member/pointSearch")
+    public String searchPoint(PageRequestDTO pageRequestDTO, Model model) {
+
+        PageResponseDTO<PointDTO> pageResponseDTO = memberService.searchPoint(pageRequestDTO);
+
+        log.info("pageResponseDTO {}", pageResponseDTO);
+
+        model.addAttribute(pageResponseDTO);
+
+        return "/admin/member/point";
+    }
+
+    // 포인트 삭제
     @PostMapping("/admin/member/delete")
     public String delete(@RequestParam("point_id") List<Integer> point_id) {
         // 서비스에서 삭제 처리
@@ -109,16 +115,5 @@ public class  MemberController {
         // 삭제 후 포인트 목록 페이지로 리다이렉트
         return "redirect:/admin/member/point";
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }

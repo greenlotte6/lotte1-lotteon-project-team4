@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -30,6 +31,6 @@ public class Point {
     private String details;
 
     @CreationTimestamp
-    private LocalDateTime given_date;
+    private LocalDate given_date;
 
 }

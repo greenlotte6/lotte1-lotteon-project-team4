@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -21,7 +22,7 @@ public class PointDTO {
     private int given;
     private int balance;
     private String details;
-    private LocalDateTime given_date;
+    private LocalDate given_date;
 
     // 사용자 정보
     private String uname;
