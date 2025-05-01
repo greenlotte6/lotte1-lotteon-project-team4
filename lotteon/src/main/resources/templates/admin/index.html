@@ -16,6 +16,7 @@
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle} +'관리자'">기본 제목</title>
+    <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
 </head>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>

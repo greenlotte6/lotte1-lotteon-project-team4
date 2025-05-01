@@ -43,7 +43,6 @@ public class SecurityConfig {
 
 
        */
-      
         //인가 설정
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/").permitAll()
