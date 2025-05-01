@@ -121,11 +121,6 @@ public class LoginController {
 
     }
 
-    @GetMapping("/member/updatepw")
-    public String updatepw () {
-
-        return "/member/updatepw";
-    }
 
     @GetMapping("/member/resultid")
     public String resultid() {

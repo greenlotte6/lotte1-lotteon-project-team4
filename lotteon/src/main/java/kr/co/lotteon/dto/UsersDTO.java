@@ -37,9 +37,9 @@ public class UsersDTO {
     private LocalDateTime u_last_login;
     private String mgmt;
     private String other;
+    private String birth;
 
-    @DateTimeFormat
-    private LocalDateTime birth;
+
 
     // 추가 필드
     private int point_id;
