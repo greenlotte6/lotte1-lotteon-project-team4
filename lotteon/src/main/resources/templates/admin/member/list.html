@@ -95,7 +95,7 @@
                                         <td>[[${user.uname}]]</td>
                                         <td>[[${user.gender}]]</td>
                                         <td>
-                                            <select name="grades[${user.uid}]" th:value="${user.grade}">
+                                            <select name="grade" th:value="${user.grade}">
                                                 <option value="VVIP" th:selected="${user.grade == 'VVIP'}">VVIP</option>
                                                 <option value="VIP" th:selected="${user.grade == 'VIP'}">VIP</option>
                                                 <option value="GOLD" th:selected="${user.grade == 'GOLD'}">GOLD</option>

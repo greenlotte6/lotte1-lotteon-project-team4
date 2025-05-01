@@ -148,23 +148,22 @@ public class MemberService {
 //                .build();
 //    }
 
-    public UsersDTO modify(UsersDTO usersDTO) {
+    // 회원 수정
+    public void modify(UsersDTO usersDTO) {
 
         Optional<Users> optUsers = usersRepository.findById(usersDTO.getUid());
 
-        Users users = null;
+        Users users;
         if (optUsers.isPresent()) {
             users = optUsers.get();
 
             users.setGrade(usersDTO.getGrade());
 
             usersRepository.save(users);
+
+            log.info("users 확인 : {}", users);
         }
 
-        log.info("아이디 확인 : {}", usersDTO.getUid());
-        log.info("등급 확인 : {}", usersDTO.getGrade());
-
-        return modelMapper.map(users, UsersDTO.class);
 
     }
 

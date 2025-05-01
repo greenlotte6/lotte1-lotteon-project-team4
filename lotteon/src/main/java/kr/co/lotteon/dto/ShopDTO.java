@@ -56,6 +56,7 @@ public class ShopDTO {
         this.osn = shop.getSeller().getOsn();
         this.number = shop.getSeller().getNumber();
         this.seller_aid = shop.getSeller().getAid();
+        this.status = shop.getStatus();
     }
 
 }

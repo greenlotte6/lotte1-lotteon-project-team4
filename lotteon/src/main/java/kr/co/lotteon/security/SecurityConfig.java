@@ -20,13 +20,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
-        //로그인 설정
-        http.formLogin(login -> login
-                .loginPage("/member/login")
-                .defaultSuccessUrl("/")
-                .failureUrl("/member/login?code=100")
-                .usernameParameter("uid")
-                .passwordParameter("password"));
+//        //로그인 설정
+//        http.formLogin(login -> login
+//                .loginPage("/member/login")
+//                .defaultSuccessUrl("/")
+//                .failureUrl("/member/login?code=100")
+//                .usernameParameter("uid")
+//                .passwordParameter("password"));
 
 
         //로그아웃 설정
@@ -61,18 +61,10 @@ public class SecurityConfig {
         return http.build();
     }
 
-   // @Bean
-    //public PasswordEncoder passwordEncoder() {
-        //Security 암호화 인코더 설정
-    //    return new BCryptPasswordEncoder();
-    //}
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
 
 
 }

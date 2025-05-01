@@ -113,14 +113,16 @@ public class UsersService {
     public void saveSeller(SellerDTO dto) {
         Seller seller = Seller.builder()
                 .aid(dto.getAid())
-                .password(passwordEncoder.encode(dto.getPassword())) // 비밀번호 암호화!!
+                .password1(passwordEncoder.encode(dto.getPassword1())) // 비밀번호 암호화!!
+                .password2(passwordEncoder.encode(dto.getPassword2()))
                 .company(dto.getCompany())
                 .ceo(dto.getCeo())
                 .biz_num(dto.getBiz_num())
                 .osn(dto.getOsn())
                 .number(dto.getNumber())
                 .fax(dto.getFax())
-                .addr(dto.getAddr())
+                .addr1(dto.getAddr1())
+                .addr2(dto.getAddr2())
                 .role("SELLER") // 판매자 역할 지정
                 .build();
 

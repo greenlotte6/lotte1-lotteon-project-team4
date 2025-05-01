@@ -8,6 +8,7 @@ import kr.co.lotteon.entity.Seller;
 import kr.co.lotteon.entity.Shop;
 import kr.co.lotteon.entity.SystemStatus;
 import kr.co.lotteon.repository.SalesRepository;
+import kr.co.lotteon.repository.SellerRepository;
 import kr.co.lotteon.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -28,10 +30,10 @@ public class ShopService {
 
     private final SalesRepository salesRepository;
     private final ShopRepository shopRepository;
-    private final ShopMapper shopMapper;
+    private final SellerRepository sellerRepository;
     private final ModelMapper modelMapper;
 
-    // 글 목록 조회
+    // 상점 목록 조회
     public PageResponseDTO<ShopDTO> findShopList(PageRequestDTO pageRequestDTO) {
 
         // 페이징 처리를 위한 pageable 객체 생성
@@ -81,7 +83,7 @@ public class ShopService {
 
     }
 
-    // 글 목록 검색
+    // 상점 목록 검색
     public PageResponseDTO<ShopDTO> searchShop(PageRequestDTO pageRequestDTO) {
 
         // 페이징 처리를 위한 pageable 객체 생성
@@ -105,6 +107,28 @@ public class ShopService {
             shopDTO.setOsn(osn);
             shopDTO.setNumber(number);
 
+            SystemStatus status = shopDTO.getStatus();
+
+            if (status != null) {
+                switch (status) {
+                    case OPERATING:
+                        shopDTO.setOperationText("[운영중]");
+                        shopDTO.setStatusClass("green");
+                        break;
+                    case READY:
+                        shopDTO.setOperationText("[운영준비]");
+                        shopDTO.setStatusClass("blue");
+                        break;
+                    case STOPPED:
+                        shopDTO.setOperationText("[운영중지]");
+                        shopDTO.setStatusClass("red");
+                        break;
+                }
+            } else {
+                shopDTO.setOperationText("[운영준비]");
+                shopDTO.setStatusClass("blue");
+            }
+
             return shopDTO;
         }).toList();
 
@@ -117,6 +141,64 @@ public class ShopService {
                 .dtoList(shopDTOList)
                 .total(total)
                 .build();
+    }
+
+
+
+    // 상점 등록
+    public void registerShop(SellerDTO sellerDTO) {
+        Optional<Seller> optSeller = sellerRepository.findById(sellerDTO.getAid());
+
+        log.info("AID {}", sellerDTO.getAid());
+
+        Seller seller;
+        if (optSeller.isPresent()) {
+            seller = optSeller.get();
+
+            seller.setAid(sellerDTO.getAid());
+            seller.setPassword1(sellerDTO.getPassword1());
+            seller.setPassword2(sellerDTO.getPassword2());
+            seller.setCompany(sellerDTO.getCompany());
+            seller.setCeo(sellerDTO.getCeo());
+            seller.setBiz_num(sellerDTO.getBiz_num());
+            seller.setOsn(sellerDTO.getOsn());
+            seller.setNumber(sellerDTO.getNumber());
+            seller.setFax(sellerDTO.getFax());
+            seller.setAddr1(sellerDTO.getAddr1());
+            seller.setAddr2(sellerDTO.getAddr2());
+            String role = sellerDTO.getRole();
+            if(role == null) {
+                role = "SELLER";
+            }
+            seller.setRole(role);
+
+            log.info("seller {}", seller);
+
+        }else {
+            // 상점이 없다면 새로운 상점 등록
+            seller = new Seller();
+            seller.setAid(sellerDTO.getAid());
+            seller.setPassword1(sellerDTO.getPassword1());
+            seller.setPassword2(sellerDTO.getPassword2());
+            seller.setCompany(sellerDTO.getCompany());
+            seller.setCeo(sellerDTO.getCeo());
+            seller.setBiz_num(sellerDTO.getBiz_num());
+            seller.setOsn(sellerDTO.getOsn());
+            seller.setNumber(sellerDTO.getNumber());
+            seller.setFax(sellerDTO.getFax());
+            seller.setAddr1(sellerDTO.getAddr1());
+            seller.setAddr2(sellerDTO.getAddr2());
+            String role = sellerDTO.getRole();
+            if(role == null) {
+                role = "SELLER";
+            }
+            seller.setRole(role);
+
+            log.info("seller {}", seller);
+        }
+        sellerRepository.save(seller);
+
+
     }
 
     public void delete(List<String> seller_aid) {
