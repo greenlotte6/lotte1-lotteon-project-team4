@@ -17,17 +17,13 @@ import java.time.LocalTime;
 @Builder
 public class QnaDTO {
     private long qnaid;
-    private String userUid;
+    private Users uid;
     private String qnaType1;
     private String qnaType2;
     private String title;
     private String content;
-    private LocalDate creationDate;
     private LocalDateTime date;
     private String status;
     private String answer;
     private String writer;
-
-    // 추가 필드
-    private String uname;
 }
