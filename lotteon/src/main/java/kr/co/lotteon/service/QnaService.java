@@ -4,25 +4,29 @@ import kr.co.lotteon.entity.Qna;
 import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.repository.QnaRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class QnaService {
 
+    @Autowired
+    private QnaRepository qnaRepository;
 
     // Qna 객체를 생성하는 메소드
-    public void createQna(Users uid, String qnaType1, String qnaType2, String title, String content, String writer, LocalDateTime date) {
-        // Qna 엔티티 빌더를 사용하여 Qna 객체 생성
+    public void createQna(Users user, String qnaType1, String qnaType2, String title, String content, String writer, LocalDateTime date) {
         Qna qna = Qna.builder()
-                .user(uid) // 사용자의 UID
+                .user(user)
                 .qnaType1(qnaType1)
                 .qnaType2(qnaType2)
                 .title(title)
@@ -32,31 +36,31 @@ public class QnaService {
                 .status("검토중")
                 .build();
 
-        // Qna 엔티티를 데이터베이스에 저장
+        log.info(user.getUid());
+
         qnaRepository.save(qna);
     }
 
-    // qnaType1에 해당하는 Qna 목록을 조회
+    // qnaType1에 해당하는 Qna 목록 조회 (전체 리스트)
     public List<Qna> getQnaListByType(String qnaType1) {
         return qnaRepository.findByQnaType1(qnaType1);
     }
 
-    // 페이지네이션을 적용한 Qna 목록 조회
-    public Page<Qna> getQnaListByType(String type, Pageable pageable) {
-        // "쿠폰/혜택/이벤트" 타입에 해당하는 Qna 리스트를 Pageable 방식으로 반환
+    // qnaType1에 해당하는 Qna 목록 조회 (페이지네이션 적용)
+    public Page<Qna> getQnaListByType(String type, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "date"));
         return qnaRepository.findByQnaType1(type, pageable);
     }
 
-    public Page<Qna> getQnaListByTypeAndUser(String type, Users uid, Pageable pageable) {
-        return qnaRepository.findByQnaType1AndUserOrderByDateDesc(type,uid,pageable);
+    // qnaType1 + uid 기준 목록 조회 (페이지네이션 + 최신순)
+    public Page<Qna> getQnaListByTypeAndUser(String type, Users uid, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "date"));
+        return qnaRepository.findByQnaType1AndUserOrderByDateDesc(type, uid, pageable);
     }
 
-    @Autowired
-    private QnaRepository qnaRepository;
-
+    // 전체 Qna 조회
     public List<Qna> getQnaList() {
-        return qnaRepository.findAll();  // 모든 Qna 데이터를 가져옵니다.
+        return qnaRepository.findAll();
     }
+
 }
-
-

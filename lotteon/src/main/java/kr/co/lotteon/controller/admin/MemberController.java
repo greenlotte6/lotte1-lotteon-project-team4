@@ -1,5 +1,6 @@
 package kr.co.lotteon.controller.admin;
 
+import jakarta.servlet.http.HttpSession;
 import kr.co.lotteon.dto.PageRequestDTO;
 import kr.co.lotteon.dto.PageResponseDTO;
 import kr.co.lotteon.dto.PointDTO;
@@ -12,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller

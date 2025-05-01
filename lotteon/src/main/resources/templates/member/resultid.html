@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/css/member/resultid.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
+    <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -81,22 +82,26 @@
                 <table class="result-table">
                     <tr>
                         <th>이름</th>
-                        <td>홍길동</td>
+                        <td th:text="${user.uname}">홍길동</td>
                     </tr>
                     <tr>
                         <th>아이디</th>
-                        <td>hong@naver.com</td>
+                        <td th:text="${user.uid}">honggildong</td>
                     </tr>
                     <tr>
-                        <th>가입일자</th>
-                        <td>2025-04-10</td>
+                        <th>이메일</th>
+                        <td th:text="${user.email}">honggildong@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <th>가입일</th>
+                        <td th:text="${#temporals.format(user.u_created_at, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     </tr>
                 </table>
             </div>
 
             <div class="result-buttons">
-                <button class="reset-btn">비밀번호 재설정</button>
-                <button class="login-btn">로그인하기</button>
+                <button th:href="@{/member/find}" class="reset-btn">비밀번호 재설정</button>
+                <button th:href="@{/member/login}" class="login-btn">로그인하기</button>
             </div>
         </article>
     </main>

@@ -7,13 +7,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+            rel="stylesheet">
     <link rel="stylesheet" href="/css/common/_header.css">
     <link rel="stylesheet" href="/css/common/_footer.css">
     <link rel="stylesheet" href="/css/cs/qna/list.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
+    <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <script>
@@ -68,112 +69,62 @@
 </head>
 
 <body>
-    <div id="wrapper">
-        <th:block th:include="/common/_header"/>
+<div id="wrapper">
+    <th:block th:include="/common/_header"/>
+    <main>
 
-        <main>
-
-            <div class="notice-wrapper">
-                <div class="notice-path">
-                    <span>홈</span> &gt; <strong>문의하기</strong>
-                </div>
-
-
-                <div class="cs-container">
-                    <th:block th:include="/common/_cs_qna_aside.html"/>
-
-                    <section class="cs-content">
-                        <h3 class="cs-title">주문 / 결제</h3>
-                        <p class="cs-desc">주문 / 결제 관련 문의내용 입니다.</p>
-
-                        <table class="cs-table">
-                            <tbody>
-                                <tr>
-                                    <td><a href="#">[가입] 가입문의내용</a></td>
-                                    <td><span class="status checking">검토 중</span></td>
-                                    <td>chh***</td>
-                                    <td>24.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[가입] 가입문의내용</a></td>
-                                    <td><span class="status complete">답변완료</span></td>
-                                    <td>chh***</td>
-                                    <td>24.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[가입] 가입문의내용</a></td>
-                                    <td><span class="status complete">답변완료</span></td>
-                                    <td>chh***</td>
-                                    <td>24.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[가입] 가입문의내용</a></td>
-                                    <td><span class="status checking">검토 중</span></td>
-                                    <td>chh***</td>
-                                    <td>24.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[가입] 가입문의내용</a></td>
-                                    <td><span class="status checking">검토 중</span></td>
-                                    <td>chh***</td>
-                                    <td>24.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[가입] 가입문의내용</a></td>
-                                    <td><span class="status checking">검토 중</span></td>
-                                    <td>chh***</td>
-                                    <td>24.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[가입] 가입문의내용</a></td>
-                                    <td><span class="status complete">답변완료</span></td>
-                                    <td>chh***</td>
-                                    <td>24.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[가입] 가입문의내용</a></td>
-                                    <td><span class="status checking">검토 중</span></td>
-                                    <td>chh***</td>
-                                    <td>24.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[가입] 가입문의내용</a></td>
-                                    <td><span class="status complete">답변완료</span></td>
-                                    <td>chh***</td>
-                                    <td>24.01.01</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">[가입] 가입문의내용</a></td>
-                                    <td><span class="status complete">답변완료</span></td>
-                                    <td>chh***</td>
-                                    <td>24.01.01</td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-
-                        <div class="qna-button">
-                            <button onclick="location.href='/cs/qna/write.html'">문의하기</button>
-                        </div>
-
-                        <div class="pagination">
-                            <a href="#">이전</a>
-                            <a class="active" href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">다음</a>
-                        </div>
-
-                        
-                    </section>
-                </div>
+        <div class="notice-wrapper">
+            <div class="notice-path">
+                <span>홈</span> &gt; <strong>문의하기</strong>
             </div>
-        </main>
 
-        <th:block th:include="/common/_footer"/>
-    </div>
+
+            <div class="cs-container">
+                <th:block th:include="/common/_cs_qna_aside.html"/>
+
+                <section class="cs-content">
+                    <h3 class="cs-title">주문/결제</h3>
+                    <p class="cs-desc">주문/결제 문의내용 입니다.</p>
+
+                    <table class="cs-table">
+                        <tbody>
+                        <tr th:each="qna : ${orderList}">
+                            <td>
+                                <!-- qna.id를 포함한 상세 페이지 링크로 변경 -->
+                                <a th:href="@{/qna/view/{qnaId}(qnaId=${qna.qnaId})}"
+                                   th:text="'[' + ${qna.qnaType2} + '] ' + ${qna.title}"></a>
+                            </td>
+                            <td>
+                                <span th:class="${qna.status == null or qna.status == '' or qna.status == '검토중' ? 'status checking' : 'status complete'}"
+                                      th:text="${qna.status == null or qna.status == '' or qna.status == '검토중' ? '검토 중' : '답변완료'}"></span>
+                            </td>
+                            <td th:text="${qna.writer}"></td>
+                            <td th:text="${#temporals.format(qna.date, 'yyyy-MM-dd')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="qna-button">
+                        <button>
+                            <a th:href="@{/qna/write}">문의하기</a>
+                        </button>
+                    </div>
+                    <div class="pagination">
+                        <a th:if="${currentPage > 0}" th:href="@{/qna/order-list(page=${currentPage - 1})}">이전</a>
+                        <th:block th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
+                            <a th:classappend="${pageNum - 1 == currentPage} ? 'active'"
+                               th:href="@{/qna/order-list(page=${pageNum - 1})}"
+                               th:text="${pageNum}">1</a>
+                        </th:block>
+                        <a th:if="${currentPage < totalPages - 1}" th:href="@{/qna/order-list(page=${currentPage + 1})}">다음</a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <th:block th:include="/common/_footer"/>
+</div>
 </body>
 
 </html>

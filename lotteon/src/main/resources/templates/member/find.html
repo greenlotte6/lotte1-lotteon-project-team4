@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/css/member/find.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
+    <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -119,7 +120,7 @@
             </div>
 
             <div class="tab-content id-tab active">
-                <form action="/member/such" method="post" id="findIdForm">
+                <form action="/member/resultid" method="post" id="findIdForm">
                     <div class="form-group">
                         <label for="id-name">이름</label>
                         <input type="text" id="id-name" name="uname" placeholder="이름을 입력해 주세요" required />
@@ -141,7 +142,9 @@
                         <button type="submit">확인</button>
                     </div>
                     <div class="submit-btn">
-                        <button type="submit" style="margin-top: -15px; background-color:darkgray;">취소</button>
+                        <div class="submit-btn">
+                            <button type="button" onclick="location.href='/member/login'" style="margin-top: -15px; background-color:darkgray;">취소</button>
+                        </div>
                     </div>
                 </form>
 
@@ -149,7 +152,7 @@
             </div>
 
             <div class="tab-content pw-tab">
-                <form id="findPwForm">
+                <form action="/member/updatepw" method="post" id="findIdForms">
                     <div class="form-group">
                         <label for="pw-id">아이디</label>
                         <input type="text" id="pw-id" name="uid" placeholder="아이디를 입력해 주세요" required />
@@ -171,7 +174,7 @@
                         <button type="submit">확인</button>
                     </div>
                     <div class="submit-btn">
-                        <button type="submit" style="margin-top: -15px; background-color:darkgray;" >취소</button>
+                        <button type="button" onclick="location.href='/member/login'" style="margin-top: -15px; background-color:darkgray;">취소</button>
                     </div>
                 </form>
 
@@ -186,89 +189,37 @@
 </div>
 
 <script>
-    let idEmailVerified = false;
+    let isIdEmailOk = false;
 
-    document.getElementById('btnSendIdCode').onclick = async function () {
-        const email = document.getElementById('id-phone').value;
+    document.getElementById('btnSendIdCode').addEventListener('click', async function () {
+        const emailInput = document.getElementById('id-phone');
+        const email = emailInput.value;
         const reEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+        const resultSpan = document.querySelector('.emailIdResult');
+        const authCodeContainer = document.querySelector('.auth-id');
 
         if (!reEmail.test(email)) {
             alert("올바른 이메일 형식을 입력해 주세요.");
             return;
         }
 
-
-        const res = await fetch(`/user/email/${email}`);
-        const data = await res.json();
-
-        if (data.count > 0) {
-            document.querySelector('.auth-id').style.display = 'block';
-            alert("인증번호가 이메일로 발송되었습니다.");
-        } else {
-            alert("해당 이메일로 가입된 계정이 없습니다.");
-        }
-    };
-
-    document.getElementById('btnVerifyIdCode').onclick = async function () {
-        const code = document.querySelector('[name="authCodeId"]').value;
-        const res = await fetch('/user/email/auth', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({authCode: code})
-        });
-
-        const result = await res.json();
-        const resultSpan = document.querySelector('.emailIdResult');
-
-        if (result) {
-            resultSpan.textContent = '인증 성공!';
-            resultSpan.style.color = 'green';
-            idEmailVerified = true;
-        } else {
-            resultSpan.textContent = '인증번호가 일치하지 않습니다.';
-            resultSpan.style.color = 'red';
-            idEmailVerified = false;
-        }
-    };
-
-    // 폼 제출 전에 인증 여부 검사
-    document.getElementById('findIdForm').onsubmit = function (e) {
-        if (!idEmailVerified) {
-            e.preventDefault();
-            alert("이메일 인증을 완료해 주세요.");
-            return false;
-        }
-        return true;
-    };
-
-</script>
-
-<script>
-    let isIdEmailOk = false;
-
-    document.getElementById('btnSendIdCode').addEventListener('click', async function () {
-        const email = document.getElementById('id-phone').value;
-
-        if (!email || !email.includes('@')) {
-            alert('유효한 이메일을 입력해 주세요.');
-            return;
-        }
-
-        const response = await fetch('/user/email/find/' + email);
+        const response = await fetch(`/user/email/find/${email}`);
         const data = await response.json();
 
-        if (data.count === 0) {
-            document.querySelector('.auth-id').style.display = 'block';
-            document.querySelector('.emailIdResult').innerText = '인증번호가 발송되었습니다.';
-            document.querySelector('.emailIdResult').style.color = 'green';
+        if (data.count > 0) {
+            authCodeContainer.style.display = 'block';
+            resultSpan.innerText = '인증번호가 발송되었습니다.';
+            resultSpan.style.color = 'green';
         } else {
-            document.querySelector('.emailIdResult').innerText = '이미 가입된 이메일입니다.';
-            document.querySelector('.emailIdResult').style.color = 'red';
+            resultSpan.innerText = '해당 이메일로 가입된 계정이 없습니다.';
+            resultSpan.style.color = 'red';
+            authCodeContainer.style.display = 'none'; // 인증 코드 입력란 숨김
         }
     });
 
     document.getElementById('btnVerifyIdCode').addEventListener('click', async function () {
         const code = document.querySelector('input[name="authCodeId"]').value;
+        const resultSpan = document.querySelector('.emailIdResult');
 
         const response = await fetch('/user/email/auth', {
             method: 'POST',
@@ -279,12 +230,12 @@
         const data = await response.json();
 
         if (data) {
-            document.querySelector('.emailIdResult').innerText = '이메일 인증이 완료되었습니다.';
-            document.querySelector('.emailIdResult').style.color = 'green';
+            resultSpan.innerText = '이메일 인증이 완료되었습니다.';
+            resultSpan.style.color = 'green';
             isIdEmailOk = true;
         } else {
-            document.querySelector('.emailIdResult').innerText = '인증번호가 틀렸습니다.';
-            document.querySelector('.emailIdResult').style.color = 'red';
+            resultSpan.innerText = '인증번호가 틀렸습니다.';
+            resultSpan.style.color = 'red';
             isIdEmailOk = false;
         }
     });
@@ -297,7 +248,6 @@
         }
     });
 </script>
-
 <script>
     let pwEmailVerified = false;
 
