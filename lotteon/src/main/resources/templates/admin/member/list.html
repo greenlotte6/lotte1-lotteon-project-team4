@@ -34,6 +34,23 @@
             });
         });
 
+        // 모달 열기 함수
+        function openModal(className) {
+            document.querySelector(`.${className}`).style.display = 'flex';
+        }
+
+        // 모달 닫기 함수
+        window.closeModal = function () {
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.style.display = 'none';
+            });
+        };
+
+        //등록 버튼 클릭 시 등록 모달 열기
+        document.querySelector(".banner-register").addEventListener('click', () => {
+            openModal('register-modal');
+        });
+
     });
 </script>
 <body>
@@ -66,7 +83,7 @@
                             <button type="submit">검색</button>
                         </div>
                     </form>
-                    <form th:action="@{/admin/member/postModify}" method="post">
+                    <form action="#">
                         <div class="table-wrapper">
                             <div class="table">
                                 <table>
@@ -95,7 +112,7 @@
                                         <td>[[${user.uname}]]</td>
                                         <td>[[${user.gender}]]</td>
                                         <td>
-                                            <select name="grade" th:value="${user.grade}">
+                                            <select name="grades[${user.uid}]" th:value="${user.grade}">
                                                 <option value="VVIP" th:selected="${user.grade == 'VVIP'}">VVIP</option>
                                                 <option value="VIP" th:selected="${user.grade == 'VIP'}">VIP</option>
                                                 <option value="GOLD" th:selected="${user.grade == 'GOLD'}">GOLD</option>
@@ -111,8 +128,8 @@
                                         <td>[[${user.u_created_at}]]</td>
                                         <td>[[${user.status}]]</td>
                                         <td>
-                                            <div><a href="#" onclick="openModal('/popup@{/admin/shop_Register-modal}')"
-                                                    class="btn">[수정]</a>
+                                            <div><a href="#" onclick="openModal('register-modal')"
+                                                    class="btn banner-register">[수정]</a>
                                             </div>
                                             <div><a href="#">[중지]</a></div>
                                         </td>
@@ -124,29 +141,23 @@
                                 </table>
                             </div>
                             <div class="click">
-                                <button onclick="openModal('/popup@{/admin/shop_Register}')"
-                                        class="select-delete button btn">
-                                    선택수정
-                                </button>
+                                <button class="select-delete button btn">선택수정</button>
                             </div>
                         </div>
                     </form>
-                    <div class="modal-overlay" id="modalOverlay">
-                        <div class="modal">
-                            <iframe id="modalFrame"></iframe>
-                        </div>
-                    </div>
                     <div class="page" th:if="${pageResponseDTO.total > 0}">
                         <th:block th:if="${pageResponseDTO.prev}">
                             <a th:href="@{/admin/member/list(pg=${pageResponseDTO.start-1})}" class="prev">이전</a>
                         </th:block>
 
                         <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
-                            <a th:href="@{/admin/member/list(pg=${num})}" class="page-move" th:class="${num == pageResponseDTO.pg} ? 'currnt':'num'">[[${num}]]</a>
+                            <a th:href="@{/admin/member/list(pg=${num})}" class="page-move"
+                               th:class="${num == pageResponseDTO.pg} ? 'currnt':'num'">[[${num}]]</a>
                         </th:block>
 
                         <th:block th:if="${pageResponseDTO.next}">
-                            <a th:href="@{/admin/member/list(pg=${pageResponseDTO.end+1})}" class="page-move next">다음</a>
+                            <a th:href="@{/admin/member/list(pg=${pageResponseDTO.end+1})}"
+                               class="page-move next">다음</a>
                         </th:block>
                     </div>
                 </div>
@@ -154,6 +165,79 @@
         </div>
     </div>
 </main>
+<div class="modal-overlay register-modal">
+    <div class="container modal">
+        <div class="title">
+            <h2>회원수정</h2>
+            <button class="X close-btn" onclick="closeModal()">X
+            </button>
+        </div>
+        <div class="content">
+            <div class="form">
+                <form th:action="@{/admin/member/modifyModal}" method="post">
+                    <table>
+                        <tr>
+                            <td>아이디</td>
+                            <td><input type="text" name="uid" readonly>[[${usersDTO.uid}]]</td>
+                        </tr>
+                        <tr>
+                            <td>이름</td>
+                            <td><input type="text" name="uname" th:value="${usersDTO.uname}"></td>
+                        </tr>
+                        <tr>
+                            <td>성별</td>
+                            <td class="gender-select">
+                                <input type="radio" name="gender" value="M" th:checked="${usersDTO.gender == 'M'}">남
+                                <input type="radio" name="gender" value="F" th:checked="${usersDTO.gender == 'F'}">여
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>등급</td>
+                            <td><input type="text" name="grade" value="FAMILY" readonly>[[${usersDTO.grade}]]</td>
+                        </tr>
+                        <tr>
+                            <td>상태</td>
+                            <td><input type="text" name="status" class="green" th:value="${usersDTO.status}" readonly></td>
+                        </tr>
+                        <tr>
+                            <td>EMAIL</td>
+                            <td><input type="text" name="email" value="asd1234@gmail.com">[[${usersDTO.email}]]</td>
+                        </tr>
+                        <tr>
+                            <td>휴대폰</td>
+                            <td><input type="text" name="hp" value="010-1234-1234">[[${usersDTO.hp}]]</td>
+                        </tr>
+                        <tr>
+                            <td>우편번호</td>
+                            <td><input type="text" name="zip" value="12345">
+                                <button type="button" class="addr-button">[[${usersDTO.zip}]]</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>기본주소</td>
+                            <td><input type="text" name="addr1" value="부산광역시 진구 부전동 123">[[${usersDTO.addr1}]]</td>
+                        </tr>
+                        <tr>
+                            <td>상세주소</td>
+                            <td><input type="text" name="addr2" value="00아파트 1층 101호">[[${usersDTO.addr2}]]</td>
+                        </tr>
+                        <tr>
+                            <td>가입일</td>
+                            <td name="u_created_at" readonly>[[${usersDTO.u_created_at}]]</td>
+                        </tr>
+                        <tr>
+                            <td>최근 로그인</td>
+                            <td name="u_last_login" readonly>[[${usersDTO.u_last_login}]]</td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="button">
+            <button type="button" class="register" onclick="submitCoupon()">수정하기</button>
+        </div>
+    </div>
+</div>
 <th:block th:include="/common/_admin_footer"/>
 </body>
 </html>

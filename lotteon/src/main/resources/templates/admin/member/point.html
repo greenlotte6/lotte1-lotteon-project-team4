@@ -59,7 +59,7 @@
             </div>
             <div class="line"></div>
             <div class="container">
-                <form action="/admin/member/pointSearch">
+                <form th:action="@{/admin/member/pointSearch}">
                     <div class="search">
                         <select name="searchType">
                             <option value="uid">아이디</option>
@@ -73,49 +73,57 @@
                 </form>
                 <form th:action="@{/admin/member/delete}" method="post" onsubmit="return validateDelete()">
                     <div class="table-wrapper">
-                            <div class="table">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th><input type="checkbox" id="checkAll"></th>
-                                        <th>번호</th>
-                                        <th>아이디</th>
-                                        <th>이름</th>
-                                        <th>지급 포인트</th>
-                                        <th>잔여 포인트</th>
-                                        <th>지급 내용</th>
-                                        <th>지급 날짜</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="point : ${points}">
-                                        <td><input type="checkbox" name="point_id" th:value="${point.point_id}"
+                        <div class="table">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="checkAll"></th>
+                                    <th>번호</th>
+                                    <th>아이디</th>
+                                    <th>이름</th>
+                                    <th>지급 포인트</th>
+                                    <th>잔여 포인트</th>
+                                    <th>지급 내용</th>
+                                    <th>지급 날짜</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="point, i:${pageResponseDTO.dtoList}">
+                                    <td><input type="checkbox" name="point_id" th:value="${point.point_id}"
                                                class="checkItem"></td>
-                                        <td th:text="${point.no}"></td>
-                                        <td th:text="${point.uid}"></td>
-                                        <td th:text="${point.uname}"></td>
-                                        <td th:text="${point.given}"></td>
-                                        <td th:text="${point.balance}"></td>
-                                        <td th:text="${point.details}"></td>
-                                        <td th:text="${point.given_date}"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <button class="select-delete button click" type="submit">선택삭제</button>
-                        <div class="page">
-                            <button class="page-move">이전</button>
-                            <button>[1]</button>
-                            <button>[2]</button>
-                            <button>[3]</button>
-                            <button>[4]</button>
-                            <button>[5]</button>
-                            <button class="page-move">다음</button>
+                                    <td>[[${point.no}]]</td>
+                                    <td>[[${point.uid}]]</td>
+                                    <td>[[${point.uname}]]</td>
+                                    <td>[[${point.given}]]</td>
+                                    <td>[[${point.balance}]]</td>
+                                    <td>[[${point.details}]]</td>
+                                    <td>[[${point.given_date}]]</td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(pageResponseDTO.dtoList)}">
+                                    <td colspan="12" class="no-results">검색 결과가 없습니다.</td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                    <button class="select-delete button click" type="submit">선택삭제</button>
                 </form>
+                <div class="page">
+                    <th:block th:if="${pageResponseDTO.prev}">
+                        <a th:href="@{/admin/member/point(pg=${pageResponseDTO.start-1})}" class="page-move">이전</a>
+                    </th:block>
+
+                    <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
+                        <a th:href="@{/admin/member/point(pg=${num})}" th:class="${num == pageResponseDTO.pg} ? 'current':'num'">[[${num}]]</a>
+                    </th:block>
+
+                    <th:block th:if="${pageResponseDTO.next}">
+                        <a th:href="@{/admin/member/point(pg=${pageResponseDTO.end+1})}" class="page-move">다음</a>
+                    </th:block>
+                </div>
             </div>
         </div>
+    </div>
     </div>
 </main>
 <th:block th:include="/common/_admin_footer"/>

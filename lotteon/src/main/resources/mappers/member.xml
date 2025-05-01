@@ -8,17 +8,10 @@
 
     <select id="selectPoint" resultType="kr.co.lotteon.dto.PointDTO">
         SELECT
-            p.no,
-            p.point_id,
-            u.uid,
-            u.uname,
-            p.given,
-            p.balance,
-            p.details,
-            p.given_date
-        FROM point p
-        JOIN Users u
-        ON p.point_id = u.uid;
+        p.*,
+        u.uid,
+        u.uname
+        FROM point p JOIN Users u ON p.uid = u.uid;
     </select>
 
     <!-- 여러 개의 point_id를 받아서 삭제하는 쿼리 -->
