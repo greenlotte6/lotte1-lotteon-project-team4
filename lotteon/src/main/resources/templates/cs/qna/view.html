@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/common/_header.css">
     <link rel="stylesheet" href="/css/common/_footer.css">
     <link rel="stylesheet" href="/css/cs/qna/view.css" />
@@ -18,7 +16,6 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <script>
-
         document.addEventListener('DOMContentLoaded', function () {
             const bar = document.querySelector('.bar');
             const barcate = document.querySelector('.bar-cate');
@@ -35,10 +32,6 @@
             rank.addEventListener('mouseleave', () => {
                 ranknav.classList.remove('rank-show');
             });
-            /*
-            const rankitem = document.getElementsByClassName('rank-item')[0];
-            let currentIndex = 0;
-            */
 
             bar.addEventListener('click', () => {
                 barcate.classList.toggle('show');
@@ -55,70 +48,58 @@
             all.addEventListener('mouseleave', () => {
                 fullmenu.classList.remove('menu');
             });
-
-            /*
-            function showNextItem() {
-                currentIndex = (currentIndex + 1) % rankitem.length;
-                ranklist.style.transform = `translateY(-${currentIndex * 100}%)`;
-            }
-
-            setInterval(showNextItem, 3000);
-            */
         });
     </script>
 </head>
 
 <body>
-    <div id="wrapper">
-        <th:block th:include="/common/_header"/>
+<div id="wrapper">
+    <th:block th:include="/common/_header"/>
 
-        <main>
+    <main>
 
-            <div class="notice-wrapper">
-                <div class="notice-path">
-                    <span>홈</span> &gt; <strong>문의하기</strong>
-                </div>
-
-
-                <div class="cs-container">
-                    <th:block th:include="/common/_cs_qna_aside.html"/>
-
-                    <section class="cs-content">
-                        <h3 class="cs-title">회원</h3>
-                        <p class="cs-desc">회원 관련 문의내용 입니다.</p>
-
-                        <div class="qna-view">
-                            <div class="qna-question">
-                                <div class="qna-meta">
-                                    <span class="qna-title">[가입] 가입문의내용</span>
-                                    <span class="qna-user">chh***</span>
-                                    <span class="qna-date">2022-11-21</span>
-                                </div>
-                                <div class="qna-question-content">
-                                    회원가입하고 싶은데요. 어떻게 해야하나요 ?
-                                </div>
-                            </div>
-
-                            <div class="qna-answer">
-                                <div class="qna-answer-title">[답변] 가입문의내용</div>
-                                <div class="qna-answer-content">
-                                    안녕하세요. 회원님의 회원가입안내입니다.
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="list-button">
-                            <button onclick="location.href='/cs/qna/member-list.html'">목록</button>
-                        </div>
-
-                    </section>
-                </div>
+        <div class="notice-wrapper">
+            <div class="notice-path">
+                <span>홈</span> &gt; <strong>문의하기</strong>
             </div>
-        </main>
 
-        <th:block th:include="/common/_footer"/>
-    </div>
+            <div class="cs-container">
+                <th:block th:include="/common/_cs_qna_aside.html"/>
+
+                <section class="cs-content">
+                    <h3 class="cs-title">회원</h3>
+                    <p class="cs-desc">회원 관련 문의내용 입니다.</p>
+
+                    <div class="qna-view">
+                        <div class="qna-question">
+                            <div class="qna-meta">
+                                <span class="qna-title" th:text="${qna.title}">[가입] 가입문의내용</span>
+                                <span class="qna-user" th:text="${qna.user.uid}">chh***</span>
+                                <span class="qna-date" th:text="${#temporals.format(qna.date, 'yyyy-MM-dd')}">2022-11-21</span>
+                            </div>
+                            <div class="qna-question-content" th:text="${qna.content}">회원가입하고 싶은데요. 어떻게 해야하나요 ?</div>
+                        </div>
+
+                        <div class="qna-answer">
+                            <div class="qna-answer-title" th:text="'[답변] ' + ${qna.title}">[답변] 가입문의내용</div>
+                            <div class="qna-answer-content">
+                                <span th:if="${qna.answer != null}" th:text="${qna.answer}">답변 내용</span>
+                                <span th:if="${qna.answer == null}">답변이 없습니다.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="list-button">
+                        <button onclick="history.back()">목록</button>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <th:block th:include="/common/_footer"/>
+</div>
 </body>
 
 </html>

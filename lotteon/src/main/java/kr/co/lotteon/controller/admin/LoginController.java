@@ -81,6 +81,11 @@ public class LoginController {
         return "redirect:/member/login";
     }
 
+    @GetMapping("/member/updatepw")
+    public String updatepwPage() {
+        return "/member/updatepw";  // updatepw.html
+    }
+
 
 
     private final PolicyService policyService;
@@ -128,18 +133,14 @@ public class LoginController {
     }
 
 
-    @GetMapping("/member/such")
-    public String such() {
-        return "/member/such";
-    }
 
-    @PostMapping("/member/such")
+    @PostMapping("/member/resultid")
     public String findId(@RequestParam String uname, @RequestParam String email, Model model) {
         Optional<Users> userOpt = usersService.findByNameAndEmail(uname, email);
 
         if (userOpt.isPresent()) {
             model.addAttribute("user", userOpt.get());
-            return "/member/such"; // such.html 로 이동
+            return "/member/resultid";
         } else {
             model.addAttribute("error", "일치하는 회원이 없습니다.");
             return "/member/find"; // 다시 찾기 페이지

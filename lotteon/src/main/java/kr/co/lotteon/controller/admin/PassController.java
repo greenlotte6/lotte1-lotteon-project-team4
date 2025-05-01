@@ -79,14 +79,14 @@ public class PassController {
         Optional<Users> userOpt = usersService.findByNameAndEmail(uname, email);
 
         if (userOpt.isPresent()) {
-            usersService.sendEmailCode(email);
+            usersService.sendEmailCode(email); // 인증코드 전송
             result.put("status", "success");
         } else {
             result.put("status", "fail");
         }
-
         return result;
     }
+
 
     @GetMapping("/email/find/{email}")
     public Map<String, Integer> sendEmailCodeForFind(@PathVariable String email) {
@@ -142,13 +142,8 @@ public class PassController {
     }
 
 
-    @GetMapping("/member/updatepw")
-    public String updatepwPage() {
-        return "/member/updatepw";  // updatepw.html
-    }
-
     // 비밀번호 변경 로직 처리 (POST)
-    @PostMapping("/member/updatepw")
+    @PostMapping("/updatepw")
     @ResponseBody
     public Map<String, String> updatePassword(@RequestBody Map<String, String> param, HttpSession session) {
         String uid = (String) session.getAttribute("verifiedUid");

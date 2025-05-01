@@ -10,11 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface QnaRepository extends JpaRepository<Qna, Integer> {
+public interface QnaRepository extends JpaRepository<Qna, Long> {  // Integer에서 Long으로 변경
     List<Qna> findByQnaType1(String qnaType1);
-    // Qna 엔티티에 대해 필요한 추가적인 메서드를 작성할 수 있습니다
     Page<Qna> findByQnaType1(String qnaType1, Pageable pageable);
-
-    // qnaType1과 uid에 해당하는 Qna 리스트 반환 (페이지네이션 적용, 최신글 먼저)
     Page<Qna> findByQnaType1AndUserOrderByDateDesc(String qnaType1, Users uid, Pageable pageable);
 }
