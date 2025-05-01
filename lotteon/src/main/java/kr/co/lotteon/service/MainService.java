@@ -45,7 +45,7 @@ public class MainService {
                 .map(qna -> {
                     QnaDTO qnaDTO = modelMapper.map(qna, QnaDTO.class);
 
-                    qnaDTO.setUid(qna.getUser());
+                    qnaDTO.setUid(qna.getUser().getUid());
 
                     return qnaDTO;
                 })
