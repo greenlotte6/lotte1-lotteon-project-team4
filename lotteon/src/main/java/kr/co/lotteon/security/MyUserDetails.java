@@ -22,7 +22,7 @@ public class MyUserDetails implements UserDetails {  // 인증 객체
 
         // 권한 목록 생성 = 리소스 권한 목록
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(users.getRole())); // 사용자의 role(계정 권한) 앞에 ROLE_ 접두어를 반드시 붙여야 됨. ★안 붙였을 경우 인가 설정 안됨.★
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + users.getRole()));
         return authorities;
     }
 

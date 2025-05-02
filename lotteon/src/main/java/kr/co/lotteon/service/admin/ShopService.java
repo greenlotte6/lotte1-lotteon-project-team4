@@ -156,8 +156,7 @@ public class ShopService {
             seller = optSeller.get();
 
             seller.setAid(sellerDTO.getAid());
-            seller.setPassword1(sellerDTO.getPassword1());
-            seller.setPassword2(sellerDTO.getPassword2());
+            seller.setPassword(sellerDTO.getPassword());
             seller.setCompany(sellerDTO.getCompany());
             seller.setCeo(sellerDTO.getCeo());
             seller.setBiz_num(sellerDTO.getBiz_num());
@@ -178,8 +177,7 @@ public class ShopService {
             // 상점이 없다면 새로운 상점 등록
             seller = new Seller();
             seller.setAid(sellerDTO.getAid());
-            seller.setPassword1(sellerDTO.getPassword1());
-            seller.setPassword2(sellerDTO.getPassword2());
+            seller.setPassword(sellerDTO.getPassword());
             seller.setCompany(sellerDTO.getCompany());
             seller.setCeo(sellerDTO.getCeo());
             seller.setBiz_num(sellerDTO.getBiz_num());
