@@ -91,6 +91,24 @@ public class LoginController {
         return "/member/updatepw";  // updatepw.html
     }
 
+    @PostMapping("/member/updatepw")
+    @ResponseBody
+    public Map<String, String> updatePassword(@RequestBody Map<String, String> param, HttpSession session) {
+        String uid = (String) session.getAttribute("verifiedUid");  // 인증된 사용자 ID
+        String password = param.get("password");
+
+        Map<String, String> result = new HashMap<>();
+        try {
+            usersService.updatePassword(uid, password);
+            session.removeAttribute("verifiedUid");
+            result.put("status", "success");
+        } catch (Exception e) {
+            result.put("status", "fail");
+            result.put("message", "비밀번호 변경 중 오류 발생");
+        }
+        return result;
+    }
+
 
 
     private final PolicyService policyService;
@@ -151,6 +169,11 @@ public class LoginController {
             return "/member/find"; // 다시 찾기 페이지
         }
     }
+
+
+
+
+
 
 
 

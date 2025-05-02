@@ -143,7 +143,7 @@
                 <h3 class="pw-title">비밀번호 재설정</h3>
                 <p class="pw-desc">새로운 비밀번호를 설정해 주세요.</p>
 
-                <form class="pw-form">
+                <form class="pw-form" id="pwUpdateForm">
                     <div class="form-group">
                         <label for="new-password">새 비밀번호</label>
                         <div class="input-wrapper">
@@ -163,7 +163,7 @@
                     </div>
 
                     <div class="submit-btn">
-                        <button type="button" onclick="showModal()">변경하기</button>
+                        <button type="submit">변경하기</button>
                     </div>
                 </form>
             </div>
@@ -197,7 +197,7 @@
             }
 
             try {
-                const response = await fetch('/user/member/updatepw', {
+                const response = await fetch('/member/updatepw', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

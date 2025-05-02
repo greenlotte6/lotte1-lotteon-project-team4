@@ -121,7 +121,7 @@ public class PassController {
         return result;
     }
 
-    @PostMapping("/user/email/find-pw")
+    @PostMapping("/email/find-pw")
     @ResponseBody
     public Map<String, Object> findUserForPw(@RequestBody Map<String, String> requestBody, HttpSession session) {
         String uid = requestBody.get("uid");
@@ -131,7 +131,7 @@ public class PassController {
 
         Map<String, Object> result = new HashMap<>();
         if (userOpt.isPresent()) {
-            session.setAttribute("verifiedUid", uid); // ✅ 세션 저장
+            session.setAttribute("verifiedUid", uid); //
             result.put("status", "success");
         } else {
             result.put("status", "fail");
@@ -142,24 +142,8 @@ public class PassController {
     }
 
 
-    // 비밀번호 변경 로직 처리 (POST)
-    @PostMapping("/updatepw")
-    @ResponseBody
-    public Map<String, String> updatePassword(@RequestBody Map<String, String> param, HttpSession session) {
-        String uid = (String) session.getAttribute("verifiedUid");
-        String password = param.get("password");
 
-        Map<String, String> result = new HashMap<>();
-        try {
-            usersService.updatePassword(uid, password);
-            session.removeAttribute("verifiedUid");
-            result.put("status", "success");
-        } catch (Exception e) {
-            result.put("status", "fail");
-            result.put("message", e.getMessage());
-        }
-        return result;
-    }
+
 
 
 
