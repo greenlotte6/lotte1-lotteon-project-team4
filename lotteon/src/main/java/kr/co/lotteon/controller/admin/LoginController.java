@@ -133,7 +133,7 @@ public class LoginController {
 
     @PostMapping("/member/registerSeller")
     public String registerSeller(@ModelAttribute("sellerDTO") SellerDTO sellerDTO) {
-        usersService.saveSeller(sellerDTO);
+        sellerService.saveSeller(sellerDTO);
         return "redirect:/member/login";
     }
 
@@ -169,12 +169,5 @@ public class LoginController {
             return "/member/find"; // 다시 찾기 페이지
         }
     }
-
-
-
-
-
-
-
 
 }

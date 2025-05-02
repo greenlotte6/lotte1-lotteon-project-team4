@@ -30,5 +30,5 @@ public class Seller {
     private String addr1;
     private String addr2;
     private String role;
-    private String seller_id;
+
 }

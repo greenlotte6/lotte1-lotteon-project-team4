@@ -110,29 +110,7 @@ public class UsersService {
         }
     }
 
-    public void saveSeller(SellerDTO dto) {
-        Seller seller = Seller.builder()
-                .aid(dto.getAid())
-                .password(passwordEncoder.encode(dto.getPassword()))
-                .company(dto.getCompany())
-                .ceo(dto.getCeo())
-                .biz_num(dto.getBiz_num())
-                .osn(dto.getOsn())
-                .number(dto.getNumber())
-                .fax(dto.getFax())
-                .zip(dto.getZip())
-                .addr1(dto.getAddr1())
-                .addr2(dto.getAddr2())
-                .role("SELLER") // 판매자 역할 지정
-                .build();
 
-        sellerRepository.save(seller);
-    }
-
-
-    public long countByAid(String aid) {
-        return sellerRepository.countByAid(aid);
-    }
 
     // UsersService
     public Optional<Users> findByNameAndEmail(String uname, String email) {
@@ -161,12 +139,6 @@ public class UsersService {
             throw new RuntimeException("사용자를 찾을 수 없습니다.");
         }
     }
-
-
-
-
-
-
 
 }
 
