@@ -122,7 +122,6 @@
                 <div class="cs-box">
                     <div class="cs-title">
                         <h3>자주하는질문</h3>
-                        <a href="#" class="cs-more">전체보기 ▶</a>
                     </div>
                     <div class="faq-icons">
                         <div class="faq-item">
@@ -132,24 +131,34 @@
                             </a>
                         </div>
                         <div class="faq-item">
-                            <img src="/images/cs/coupon.png" alt="쿠폰/이벤트">
-                            <p>쿠폰 / 이벤트</p>
+                            <a th:href="@{/faq/coupon-list}">
+                                <img src="/images/cs/coupon.png" alt="쿠폰/이벤트">
+                                <p>쿠폰 / 이벤트</p>
+                            </a>
                         </div>
                         <div class="faq-item">
-                            <img src="/images/cs/order.png" alt="주문/결제">
-                            <p>주문 / 결제</p>
+                            <a th:href="@{/faq/order-list}">
+                                <img src="/images/cs/order.png" alt="주문/결제">
+                                <p>주문 / 결제</p>
+                            </a>
                         </div>
                         <div class="faq-item">
-                            <img src="/images/cs/delivery.png" alt="배송">
-                            <p>배송</p>
+                            <a th:href="@{/faq/delivery}">
+                                <img src="/images/cs/delivery.png" alt="배송">
+                                <p>배송</p>
+                            </a>
                         </div>
                         <div class="faq-item">
-                            <img src="/images/cs/money-back.png" alt="취소/반품/교환">
-                            <p>취소 / 반품 / 교환</p>
+                            <a th:href="@{/faq/return-list}">
+                                <img src="/images/cs/money-back.png" alt="취소/반품/교환">
+                                <p>취소 / 반품 / 교환</p>
+                            </a>
                         </div>
                         <div class="faq-item">
-                            <img src="/images/cs/safty.png" alt="안전결제">
-                            <p>안전결제</p>
+                            <a th:href="@{/faq/safy}">
+                                <img src="/images/cs/safty.png" alt="안전결제">
+                                <p>안전결제</p>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -157,7 +166,7 @@
                 <div class="cs-box">
                     <div class="cs-title">
                         <h3>문의하기</h3>
-                        <a href="#" class="cs-more">전체보기 ▶</a>
+                        <a th:href="@{/qna/member-list}" class="cs-more">전체보기 ▶</a>
                     </div>
                     <table class="inquiry-table">
                         <tbody>
@@ -191,7 +200,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <a href="#" class="write-link">문의글 작성 <span>▶</span></a>
+                    <a th:href="@{/qna/write}" class="write-link">문의글 작성 <span>▶</span></a>
                 </div>
 
                 <div class="cs-box">
