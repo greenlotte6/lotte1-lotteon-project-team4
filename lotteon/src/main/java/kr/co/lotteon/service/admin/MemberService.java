@@ -214,17 +214,21 @@ public class MemberService {
 
         if (optUsers.isPresent()) {
             Users users = optUsers.get();
-            users.setUname(usersDTO.getUname());
-            users.setGender(usersDTO.getGender());
-            users.setGrade(usersDTO.getGrade());
-            users.setStatus(usersDTO.getStatus());
-            users.setEmail(usersDTO.getEmail());
-            users.setHp(usersDTO.getHp());
-            users.setZip(usersDTO.getZip());
-            users.setAddr1(usersDTO.getAddr1());
-            users.setAddr2(usersDTO.getAddr2());
-            users.setU_created_at(usersDTO.getU_created_at());
-            users.setU_last_login(usersDTO.getU_last_login());
+
+            users.updateDTO(usersDTO);
+//            users.setUname(usersDTO.getUname());
+//            users.setGender(usersDTO.getGender());
+//            users.setGrade(usersDTO.getGrade());
+//            users.setStatus(usersDTO.getStatus());
+//            users.setEmail(usersDTO.getEmail());
+//            users.setHp(usersDTO.getHp());
+//            users.setZip(usersDTO.getZip());
+//            users.setAddr1(usersDTO.getAddr1());
+//            users.setAddr2(usersDTO.getAddr2());
+//            users.setU_created_at(usersDTO.getU_created_at());
+//            users.setU_last_login(usersDTO.getU_last_login());
+
+            log.info("users {}", users);
 
             usersRepository.save(users);
         }
