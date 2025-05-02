@@ -20,6 +20,11 @@ public class LogoService {
     public void registerLogo(LogoDTO dto) throws IOException {
         String uploadPath = System.getProperty("user.dir") + "/uploads/";
 
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs(); // 폴더가 없으면 생성
+        }
+
         // 1. 기존 로고 정보 가져오기 (없으면 새로 생성)
         Logo logo = logoRepository.findById(1).orElse(new Logo());
         logo.setLogoId(1);
