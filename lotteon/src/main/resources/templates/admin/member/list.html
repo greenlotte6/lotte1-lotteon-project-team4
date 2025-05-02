@@ -130,8 +130,7 @@
                                         <td>[[${user.u_created_at}]]</td>
                                         <td>[[${user.status}]]</td>
                                         <td>
-                                            <div><a href="#" onclick="openModal('register-modal')"
-                                                    class="btn banner-register">[수정]</a>
+                                            <div><a href="#" class="btn banner-register">[수정]</a>
                                             </div>
                                             <div><a href="#">[중지]</a></div>
                                         </td>
@@ -180,7 +179,7 @@
                     <table>
                         <tr>
                             <td>아이디</td>
-                            <td><input type="text" name="uid" readonly>[[${usersDTO.uid}]]</td>
+                            <td><input type="text" name="uid" th:value="${usersDTO.uid}" readonly></td>
                         </tr>
                         <tr>
                             <td>이름</td>
@@ -195,7 +194,7 @@
                         </tr>
                         <tr>
                             <td>등급</td>
-                            <td><input type="text" name="grade" value="FAMILY" readonly>[[${usersDTO.grade}]]</td>
+                            <td><input type="text" name="grade" th:value="${usersDTO.grade}" readonly></td>
                         </tr>
                         <tr>
                             <td>상태</td>
@@ -203,33 +202,33 @@
                         </tr>
                         <tr>
                             <td>EMAIL</td>
-                            <td><input type="text" name="email" value="asd1234@gmail.com">[[${usersDTO.email}]]</td>
+                            <td><input type="text" name="email" th:value="${usersDTO.email}"></td>
                         </tr>
                         <tr>
                             <td>휴대폰</td>
-                            <td><input type="text" name="hp" value="010-1234-1234">[[${usersDTO.hp}]]</td>
+                            <td><input type="text" name="hp" th:value="${usersDTO.hp}"></td>
                         </tr>
                         <tr>
                             <td>우편번호</td>
-                            <td><input type="text" name="zip" value="12345">
-                                <button type="button" class="addr-button">[[${usersDTO.zip}]]</button>
+                            <td><input type="text" name="zip" th:value="${usersDTO.zip}">
+                                <button type="button" class="addr-button"></button>
                             </td>
                         </tr>
                         <tr>
                             <td>기본주소</td>
-                            <td><input type="text" name="addr1" value="부산광역시 진구 부전동 123">[[${usersDTO.addr1}]]</td>
+                            <td><input type="text" name="addr1" th:value="${usersDTO.addr1}"></td>
                         </tr>
                         <tr>
                             <td>상세주소</td>
-                            <td><input type="text" name="addr2" value="00아파트 1층 101호">[[${usersDTO.addr2}]]</td>
+                            <td><input type="text" name="addr2" th:value="${usersDTO.addr2}"></td>
                         </tr>
                         <tr>
                             <td>가입일</td>
-                            <td name="u_created_at" readonly>[[${usersDTO.u_created_at}]]</td>
+                            <td><span th:text="${usersDTO.u_created_at}"></span></td>
                         </tr>
                         <tr>
                             <td>최근 로그인</td>
-                            <td name="u_last_login" readonly>[[${usersDTO.u_last_login}]]</td>
+                            <td><span th:text="${usersDTO.u_last_login}"></span></td>
                         </tr>
                     </table>
                 </form>

@@ -1,6 +1,7 @@
 package kr.co.lotteon.entity;
 
 import jakarta.persistence.*;
+import kr.co.lotteon.dto.UsersDTO;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.modelmapper.internal.bytebuddy.asm.Advice;
@@ -37,10 +38,6 @@ public class Users {
     private String role;
     private String birth;
 
-
-
-
-
     @CreationTimestamp
     private LocalDateTime u_created_at;
 
@@ -52,5 +49,21 @@ public class Users {
     private String mgmt;
     private String other;
 
+    public void updateDTO(UsersDTO usersDTO) {
+        this.uid = usersDTO.getUid();
+        this.no = usersDTO.getNo();
+        this.uname = usersDTO.getUname();
+        this.password = usersDTO.getPassword();
+        this.gender = usersDTO.getGender();
+        this.grade = usersDTO.getGrade();
+        this.point = usersDTO.getPoint();
+        this.email = usersDTO.getEmail();
+        this.hp = usersDTO.getHp();
+        this.zip = usersDTO.getZip();
+        this.addr1 = usersDTO.getAddr1();
+        this.addr2 = usersDTO.getAddr2();
+        this.role = usersDTO.getRole();
+        this.birth = usersDTO.getBirth();
+    }
 
 }
