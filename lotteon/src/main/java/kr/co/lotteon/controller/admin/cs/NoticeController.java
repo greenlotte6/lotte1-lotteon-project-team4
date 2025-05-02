@@ -44,7 +44,6 @@ public class NoticeController {
             noticePage = noticeRepository.findByNoticeType(type, pageable);
         }
 
-
         model.addAttribute("noticeList", noticePage.getContent());
         model.addAttribute("page", noticePage);
         if (type != null) {

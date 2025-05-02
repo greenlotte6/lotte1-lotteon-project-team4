@@ -89,12 +89,12 @@
 
                         <table class="cs-table">
                             <tbody>
-                            <tr th:each="notice : ${noticeList}">
+                            <tr th:each="notice : ${noticesList}">
                                 <td th:text="${notice.noticeId}"></td>
                                 <td>
                                     <a th:href="@{'/notice/' + ${notice.noticeId}}" th:text="${notice.title}"></a>
                                 </td>
-                                <td th:text="${#temporals.format(notice.upload_at, 'yy.MM.dd')}"></td>
+                                <td th:text="${#temporals.format(notice.uploadAt, 'yy.MM.dd')}"></td>
                             </tr>
                             </tbody>
                         </table>

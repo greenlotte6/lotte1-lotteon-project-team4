@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-public class CsQnaController {
+public class  CsQnaController {
 
     private final QnaService qnaService;
     private final QnaRepository qnaRepository;
