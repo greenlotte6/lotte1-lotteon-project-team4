@@ -6,6 +6,11 @@
     font-family: 'Noto Sans KR', sans-serif;
 }
 
+a {
+    text-decoration: none;
+    color: #111;
+}
+
 .content {
     max-width: 1400px;
     margin: 0 auto;
