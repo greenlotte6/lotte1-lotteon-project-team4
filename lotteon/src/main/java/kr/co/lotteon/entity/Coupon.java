@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Setter
@@ -29,7 +30,7 @@ public class Coupon {
     private String benefit;
 
     @Column(name = "valid_from")
-    private String validFrom;
+    private LocalDate validFrom;
 
     @Column(name = "valid_to")
     private String validTo;

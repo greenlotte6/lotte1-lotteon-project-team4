@@ -20,7 +20,7 @@
 
                     <!-- 로그인 상태 (일반, 판매자) -->
                     <li sec:authorize="isAuthenticated()">
-                        <span th:text="'환영합니다, ' + ${#authentication.principal.username} + '님&nbsp;&nbsp;&nbsp;&nbsp;'"></span>
+                        <span th:text="${#authentication.principal.username} + '님&nbsp;&nbsp;환영합니다 ' + '&nbsp;&nbsp;'"></span>
                         <a th:href="@{/logout}">로그아웃</a>
                     </li>
 

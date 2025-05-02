@@ -18,14 +18,14 @@ public class SellerService {
     public void saveSeller(SellerDTO dto) {
         Seller seller = Seller.builder()
                 .aid(dto.getAid())
-                .password1(passwordEncoder.encode(dto.getPassword1()))
-                .password2(passwordEncoder.encode(dto.getPassword2()))
+                .password(passwordEncoder.encode(dto.getPassword()))
                 .company(dto.getCompany())
                 .ceo(dto.getCeo())
                 .biz_num(dto.getBiz_num())
                 .osn(dto.getOsn())
                 .number(dto.getNumber())
                 .fax(dto.getFax())
+                .zip(dto.getZip())
                 .addr1(dto.getAddr1())
                 .addr2(dto.getAddr2())
                 .role("SELLER")
@@ -36,7 +36,7 @@ public class SellerService {
 
     public Seller loginSeller(String aid, String password) {
         return sellerRepository.findById(aid)
-                .filter(seller -> passwordEncoder.matches(password, seller.getPassword1()))
+                .filter(seller -> passwordEncoder.matches(password, seller.getPassword()))
                 .orElse(null);
     }
 

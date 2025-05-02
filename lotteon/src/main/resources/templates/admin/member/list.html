@@ -149,7 +149,7 @@
                     </form>
                     <div class="page" th:if="${pageResponseDTO.total > 0}">
                         <th:block th:if="${pageResponseDTO.prev}">
-                            <a th:href="@{/admin/member/list(pg=${pageResponseDTO.start-1})}" class="prev">이전</a>
+                            <a th:href="@{/admin/member/list(pg=${pageResponseDTO.start - 1})}" class="prev">이전</a>
                         </th:block>
 
                         <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">

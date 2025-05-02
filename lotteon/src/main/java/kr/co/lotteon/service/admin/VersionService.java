@@ -1,6 +1,5 @@
 package kr.co.lotteon.service.admin;
 
-import kr.co.lotteon.entity.Coupon;
 import kr.co.lotteon.entity.Version;
 import kr.co.lotteon.repository.VersionRepository;
 import lombok.RequiredArgsConstructor;

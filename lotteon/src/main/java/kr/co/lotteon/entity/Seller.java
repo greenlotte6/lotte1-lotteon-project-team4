@@ -19,14 +19,14 @@ public class Seller {
     @Id
     private String aid;
 
-    private String password1;
-    private String password2;
+    private String password;
     private String company;
     private String ceo;
     private String biz_num;
     private String osn;
     private String number;
     private String fax;
+    private String zip;
     private String addr1;
     private String addr2;
     private String role;
