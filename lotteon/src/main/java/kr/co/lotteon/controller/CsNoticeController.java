@@ -38,7 +38,7 @@ public class CsNoticeController {
             noticePage = noticeService.getNoticePageByType(type, pageable);
         }
 
-        model.addAttribute("noticeList", noticePage.getContent());
+        model.addAttribute("noticesList", noticePage.getContent());
         model.addAttribute("page", noticePage);
         model.addAttribute("type", type);  // 선택 유지용
         return "/cs/notice/all-list";
@@ -47,18 +47,78 @@ public class CsNoticeController {
 
 
     @GetMapping("/notice/custom-list")
-    public String customlist() {
+    public String custom(@RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "10") int size,
+                       @RequestParam(defaultValue = "고객서비스") String type,
+                       Model model) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("noticeId").descending());
+        Page<Notice> noticePage;
+
+        if (type.equals("고객서비스")) {
+            noticePage = noticeService.getNoticePage(pageable);
+        } else {
+            noticePage = noticeService.getNoticePageByType(type, pageable);
+        }
+
+        model.addAttribute("customList", noticePage.getContent());
+        model.addAttribute("page", noticePage);
+        model.addAttribute("type", type);  // 선택 유지용{
+
         return "/cs/notice/custom-list";
+
     }
 
     @GetMapping("/notice/event-list")
-    public String eventlist() {
+    public String event(@RequestParam(defaultValue = "0") int page,
+                         @RequestParam(defaultValue = "10") int size,
+                         @RequestParam(defaultValue = "이벤트당첨") String type,
+                         Model model) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("noticeId").descending());
+        Page<Notice> noticePage;
+
+        if (type.equals("이벤트당첨")) {
+            noticePage = noticeService.getNoticePage(pageable);
+        } else {
+            noticePage = noticeService.getNoticePageByType(type, pageable);
+        }
+
+        model.addAttribute("eventList", noticePage.getContent());
+        model.addAttribute("page", noticePage);
+        model.addAttribute("type", type);  // 선택 유지용{
+
+
         return "/cs/notice/event-list";
     }
 
     @GetMapping("/notice/harm-list")
-    public String harmlist() {
+    public String harm(@RequestParam(defaultValue = "0") int page,
+                        @RequestParam(defaultValue = "10") int size,
+                        @RequestParam(defaultValue = "위해상품") String type,
+                        Model model) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("noticeId").descending());
+        Page<Notice> noticePage;
+
+        if (type.equals("위해상품")) {
+            noticePage = noticeService.getNoticePage(pageable);
+        } else {
+            noticePage = noticeService.getNoticePageByType(type, pageable);
+        }
+
+        model.addAttribute("harmList", noticePage.getContent());
+        model.addAttribute("page", noticePage);
+        model.addAttribute("type", type);  // 선택 유지용{
+
+
         return "/cs/notice/harm-list";
+
+
+
+
+
+
     }
 
     @GetMapping("/notice/sayty-list")

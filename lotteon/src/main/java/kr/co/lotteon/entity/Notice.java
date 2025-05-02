@@ -25,11 +25,24 @@ public class Notice {
     private String noticeType;
     private String title;
     private String content;
+    private String mgmt;
 
     private int hits;
 
     @Column(name = "upload_at")
-    private LocalDate upload_at;
-//    private String mgmt = "admin";
+    private LocalDate uploadAt;
 
+
+    //    private String mgmt = "admin";
+
+
+    @PrePersist
+    public void prePersist() {
+        if (this.mgmt == null) {
+            this.mgmt = "admin";
+        }
+        if (this.uploadAt == null) {
+            this.uploadAt = LocalDate.now();  // 날짜 자동 설정
+        }
+    }
 }
