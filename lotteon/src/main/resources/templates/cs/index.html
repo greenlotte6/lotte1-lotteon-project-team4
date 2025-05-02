@@ -7,12 +7,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+            rel="stylesheet">
     <link rel="stylesheet" href="/css/common/_header.css">
     <link rel="stylesheet" href="/css/common/_footer.css">
-    <link rel="stylesheet" href="/css/cs/index.css" />
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/css/cs/index.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
     <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -69,161 +69,164 @@
 </head>
 
 <body>
-    <div id="wrapper">
-        <th:block th:include="/common/_header"/>
+<div id="wrapper">
+    <th:block th:include="/common/_header"/>
 
-        <main>
-            <article class="content">
-                <section class="main-content">
-                    <div class="complete">
-                        <span class="heading-title"><span class="highlight">롯데ON</span>이 도와드릴게요!</span>
+    <main>
+        <article class="content">
+            <section class="main-content">
+                <div class="complete">
+                    <span class="heading-title"><span class="highlight">롯데ON</span>이 도와드릴게요!</span>
+                </div>
+                <div class="cs-box">
+                    <div class="cs-title">
+                        <h3>공지사항</h3>
+                        <a th:href="@{/notice/all-list}" class="cs-more">전체보기 ▶</a>
                     </div>
-                    <div class="cs-box">
-                        <div class="cs-title">
-                            <h3>공지사항</h3>
-                            <a href="#" class="cs-more">전체보기 ▶</a>
-                        </div>
-                        <table class="cs-table">
-                            <tbody>
-                                <tr>
-                                    <td class="notice-title">
-                                        <a href="#">[안내] 해외결제사칭 문자주의</a>
-                                    </td>
-                                    <td class="notice-date">22.10.31</td>
-                                </tr>
-                                <tr>
-                                    <td class="notice-title">
-                                        <a href="#">[안내] 해외결제사칭 문자주의</a>
-                                    </td>
-                                    <td class="notice-date">22.10.31</td>
-                                </tr>
-                                <tr>
-                                    <td class="notice-title">
-                                        <a href="#">[안내] 해외결제사칭 문자주의</a>
-                                    </td>
-                                    <td class="notice-date">22.10.31</td>
-                                </tr>
-                                <tr>
-                                    <td class="notice-title">
-                                        <a href="#">[안내] 해외결제사칭 문자주의</a>
-                                    </td>
-                                    <td class="notice-date">22.10.31</td>
-                                </tr>
-                                <tr>
-                                    <td class="notice-title">
-                                        <a href="#">[안내] 해외결제사칭 문자주의</a>
-                                    </td>
-                                    <td class="notice-date">22.10.31</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <table class="cs-table">
+                        <tbody>
+                        <tr>
+                            <td class="notice-title">
+                                <a href="#">[안내] 해외결제사칭 문자주의</a>
+                            </td>
+                            <td class="notice-date">22.10.31</td>
+                        </tr>
+                        <tr>
+                            <td class="notice-title">
+                                <a href="#">[안내] 해외결제사칭 문자주의</a>
+                            </td>
+                            <td class="notice-date">22.10.31</td>
+                        </tr>
+                        <tr>
+                            <td class="notice-title">
+                                <a href="#">[안내] 해외결제사칭 문자주의</a>
+                            </td>
+                            <td class="notice-date">22.10.31</td>
+                        </tr>
+                        <tr>
+                            <td class="notice-title">
+                                <a href="#">[안내] 해외결제사칭 문자주의</a>
+                            </td>
+                            <td class="notice-date">22.10.31</td>
+                        </tr>
+                        <tr>
+                            <td class="notice-title">
+                                <a href="#">[안내] 해외결제사칭 문자주의</a>
+                            </td>
+                            <td class="notice-date">22.10.31</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <div class="cs-box">
-                        <div class="cs-title">
-                            <h3>자주하는질문</h3>
-                            <a href="#" class="cs-more">전체보기 ▶</a>
-                        </div>
-                        <div class="faq-icons">
-                            <div class="faq-item">
+                <div class="cs-box">
+                    <div class="cs-title">
+                        <h3>자주하는질문</h3>
+                        <a href="#" class="cs-more">전체보기 ▶</a>
+                    </div>
+                    <div class="faq-icons">
+                        <div class="faq-item">
+                            <a th:href="@{/faq/member-list}">
                                 <img src="/images/cs/member.png" alt="회원">
                                 <p>회원</p>
-                            </div>
-                            <div class="faq-item">
-                                <img src="/images/cs/coupon.png" alt="쿠폰/이벤트">
-                                <p>쿠폰 / 이벤트</p>
-                            </div>
-                            <div class="faq-item">
-                                <img src="/images/cs/order.png" alt="주문/결제">
-                                <p>주문 / 결제</p>
-                            </div>
-                            <div class="faq-item">
-                                <img src="/images/cs/delivery.png" alt="배송">
-                                <p>배송</p>
-                            </div>
-                            <div class="faq-item">
-                                <img src="/images/cs/money-back.png" alt="취소/반품/교환">
-                                <p>취소 / 반품 / 교환</p>
-                            </div>
-                            <div class="faq-item">
-                                <img src="/images/cs/safty.png" alt="안전결제">
-                                <p>안전결제</p>
-                            </div>
+                            </a>
+                        </div>
+                        <div class="faq-item">
+                            <img src="/images/cs/coupon.png" alt="쿠폰/이벤트">
+                            <p>쿠폰 / 이벤트</p>
+                        </div>
+                        <div class="faq-item">
+                            <img src="/images/cs/order.png" alt="주문/결제">
+                            <p>주문 / 결제</p>
+                        </div>
+                        <div class="faq-item">
+                            <img src="/images/cs/delivery.png" alt="배송">
+                            <p>배송</p>
+                        </div>
+                        <div class="faq-item">
+                            <img src="/images/cs/money-back.png" alt="취소/반품/교환">
+                            <p>취소 / 반품 / 교환</p>
+                        </div>
+                        <div class="faq-item">
+                            <img src="/images/cs/safty.png" alt="안전결제">
+                            <p>안전결제</p>
                         </div>
                     </div>
+                </div>
 
-                    <div class="cs-box">
-                        <div class="cs-title">
-                            <h3>문의하기</h3>
-                            <a href="#" class="cs-more">전체보기 ▶</a>
-                        </div>
-                        <table class="inquiry-table">
-                            <tbody>
-                                <tr>
-                                    <td class="question"><span class="category">[회원]</span> 개인회원과 법인회원에 차이가 있나요?</td>
-                                    <td class="writer">chh**</td>
-                                    <td class="date">22.10.31</td>
-                                </tr>
-                                <tr>
-                                    <td class="question"><span class="category">[쿠폰 / 이벤트]</span> 스마일포인트는 어디에서 사용하나요?
-                                    </td>
-                                    <td class="writer">chh**</td>
-                                    <td class="date">22.10.31</td>
-                                </tr>
-                                <tr>
-                                    <td class="question"><span class="category">[배송]</span> 주문한 상품은 언제 배송되나요?</td>
-                                    <td class="writer">chh**</td>
-                                    <td class="date">22.10.31</td>
-                                </tr>
-                                <tr>
-                                    <td class="question"><span class="category">[주문 / 결제]</span> 신용카드 결제 중 오류가 난 경우 어떻게
-                                        하나요?</td>
-                                    <td class="writer">chh**</td>
-                                    <td class="date">22.10.31</td>
-                                </tr>
-                                <tr>
-                                    <td class="question"><span class="category">[취소 / 반품 / 교환]</span> 주문을 취소하고 싶어요.</td>
-                                    <td class="writer">chh**</td>
-                                    <td class="date">22.10.31</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <a href="#" class="write-link">문의글 작성 <span>▶</span></a>
+                <div class="cs-box">
+                    <div class="cs-title">
+                        <h3>문의하기</h3>
+                        <a href="#" class="cs-more">전체보기 ▶</a>
+                    </div>
+                    <table class="inquiry-table">
+                        <tbody>
+                        <tr>
+                            <td class="question"><span class="category">[회원]</span> 개인회원과 법인회원에 차이가 있나요?</td>
+                            <td class="writer">chh**</td>
+                            <td class="date">22.10.31</td>
+                        </tr>
+                        <tr>
+                            <td class="question"><span class="category">[쿠폰 / 이벤트]</span> 스마일포인트는 어디에서 사용하나요?
+                            </td>
+                            <td class="writer">chh**</td>
+                            <td class="date">22.10.31</td>
+                        </tr>
+                        <tr>
+                            <td class="question"><span class="category">[배송]</span> 주문한 상품은 언제 배송되나요?</td>
+                            <td class="writer">chh**</td>
+                            <td class="date">22.10.31</td>
+                        </tr>
+                        <tr>
+                            <td class="question"><span class="category">[주문 / 결제]</span> 신용카드 결제 중 오류가 난 경우 어떻게
+                                하나요?
+                            </td>
+                            <td class="writer">chh**</td>
+                            <td class="date">22.10.31</td>
+                        </tr>
+                        <tr>
+                            <td class="question"><span class="category">[취소 / 반품 / 교환]</span> 주문을 취소하고 싶어요.</td>
+                            <td class="writer">chh**</td>
+                            <td class="date">22.10.31</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <a href="#" class="write-link">문의글 작성 <span>▶</span></a>
+                </div>
+
+                <div class="cs-box">
+                    <div class="cs-title">
+                        <h3>1:1 상담안내</h3>
                     </div>
 
-                    <div class="cs-box">
-                        <div class="cs-title">
-                            <h3>1:1 상담안내</h3>
+                    <div class="consult-wrapper">
+                        <div class="consult-box">
+                            <h4>이용안내</h4>
+                            <p><span class="sub">일반회원 / 비회원</span><br>
+                                <strong class="phone">1566 - 0001</strong> (평일 09:00 ~ 18:00)
+                            </p>
+                            <p><span class="sub">스마일클럽 전용</span><br>
+                                <strong class="phone">1566 - 0002</strong> (365일 09:00 ~ 18:00)
+                            </p>
                         </div>
-                    
-                        <div class="consult-wrapper">
-                            <div class="consult-box">
-                                <h4>이용안내</h4>
-                                <p><span class="sub">일반회원 / 비회원</span><br>
-                                    <strong class="phone">1566 - 0001</strong> (평일 09:00 ~ 18:00)
-                                </p>
-                                <p><span class="sub">스마일클럽 전용</span><br>
-                                    <strong class="phone">1566 - 0002</strong> (365일 09:00 ~ 18:00)
-                                </p>
-                            </div>
-                    
-                            <div class="consult-box">
-                                <h4>판매상담이용안내</h4>
-                                <p><span class="sub">판매고객</span><br>
-                                    <strong class="phone">1566 - 5700</strong> (평일 09:00 ~ 18:00)
-                                </p>
-                                <p class="bold-note">판매자가입 및 서류접수안내 〉</p>
-                            </div>
+
+                        <div class="consult-box">
+                            <h4>판매상담이용안내</h4>
+                            <p><span class="sub">판매고객</span><br>
+                                <strong class="phone">1566 - 5700</strong> (평일 09:00 ~ 18:00)
+                            </p>
+                            <p class="bold-note">판매자가입 및 서류접수안내 〉</p>
                         </div>
                     </div>
-                    
+                </div>
 
-                </section>
-            </article>
-        </main>
 
-        <th:block th:include="/common/_footer"/>
-    </div>
+            </section>
+        </article>
+    </main>
+
+    <th:block th:include="/common/_footer"/>
+</div>
 </body>
 
 </html>

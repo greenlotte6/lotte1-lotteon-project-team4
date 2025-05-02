@@ -59,9 +59,11 @@ public class ConfigController {
     @PostMapping("/company")
     @ResponseBody
     public String updateCompany(@RequestBody CompanyInfo companyInfo) {
+        System.out.println("받은 값: " + companyInfo);
         companyInfoService.updateInfo(companyInfo);
         return "success";
     }
+
 
     @PostMapping("/site")
     @ResponseBody
@@ -69,6 +71,7 @@ public class ConfigController {
         siteInfoService.updateInfo(siteInfo);
         return "success";
     }
+
     @PostMapping("/copyright")
     @ResponseBody
     public String updatecopyright(@RequestBody Copyright copyright) {
@@ -89,6 +92,7 @@ public class ConfigController {
             logoService.registerLogo(dto);
             return "success";
         } catch (IOException e) {
+            System.err.println("파일 저장 실패: " + e.getMessage());
             e.printStackTrace();
             return "파일 업로드 중 오류 발생";
         }

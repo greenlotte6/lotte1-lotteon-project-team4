@@ -73,6 +73,38 @@
             });
         });
 
+        document.getElementById('CompanyForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            const data = {
+                companyName: formData.get("companyName"),
+                ceo: formData.get("ceo"),
+                companyNumber: formData.get("companyNumber"),
+                ecommerceReg: formData.get("ecommerceReg"),
+                addr1: formData.get("addr1"),
+                addr2: formData.get("addr2")
+            };
+
+            fetch('/admin/config/company', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(res => {
+                if (res.ok) {
+                    alert('수정되었습니다.');
+                    location.reload();
+                } else {
+                    alert('수정에 실패했습니다.');
+                }
+            }).catch(err => {
+                console.error(err);
+                alert('서버 오류가 발생했습니다.');
+            });
+        });
+
 
         document.getElementById('copyrightForm').addEventListener('submit', function (e) {
             e.preventDefault(); // 기본 폼 제출 막기
