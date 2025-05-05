@@ -1,6 +1,8 @@
 package kr.co.lotteon.security;
 
+import kr.co.lotteon.entity.Seller;
 import kr.co.lotteon.entity.Users;
+import kr.co.lotteon.repository.SellerRepository;
 import kr.co.lotteon.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,32 +16,31 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class MyUserDetailsService implements UserDetailsService { // DB에서 select 함, UserDetailsService 재정의
+public class MyUserDetailsService implements UserDetailsService {
 
     private final UsersRepository usersRepository;
+    private final SellerRepository sellerRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String uid) throws UsernameNotFoundException { // AuthenticationProvider에서 username을 조회해서 loadUserByUsername로 넘겨줌
+    public UserDetails loadUserByUsername(String uid) throws UsernameNotFoundException {
+        log.info("로그인 시도 아이디: {}", uid);
 
-        log.info("username : {}", uid);
-
-        // 사용자 조회 - 사용자가 입력한 아이디, 비밀번호는 이전 단계인 AuthenticationProvider 쪽에서(인증) 먼저 수행됨
-        // 아이디와 비밀번호로 인증하는 것이 끝나고 이 단계가 실행
+        // 1. 일반 사용자 먼저 조회
         Optional<Users> optUser = usersRepository.findById(uid);
-
         if (optUser.isPresent()) {
-
-            // Security 사용자 인증 객체 생성
-            MyUserDetails myUserDetails = MyUserDetails.builder()
+            return MyUserDetails.builder()
                     .users(optUser.get())
                     .build();
+        }
 
-            // 리턴되는 myUserDetails는 Security ContextHolder(security에서 사용하는 session)에 저장
-            return myUserDetails;
+        // 2. 판매자 조회
+        Optional<Seller> optSeller = sellerRepository.findById(uid);
+        if (optSeller.isPresent()) {
+            return MyUserDetails.builder()
+                    .seller(optSeller.get())
+                    .build();
         }
 
         throw new UsernameNotFoundException("해당 아이디를 찾을 수 없습니다: " + uid);
     }
-
-
 }

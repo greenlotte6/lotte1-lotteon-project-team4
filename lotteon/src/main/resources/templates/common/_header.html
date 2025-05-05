@@ -37,10 +37,10 @@
 <!--                    </li>-->
 
                     <!-- 판매자 로그인 상태 -->
-<!--                    <li th:if="${session.seller != null}">-->
-<!--                        <span th:text="'환영합니다 판매자님 (' + ${session.seller.aid} + ')'"></span>-->
-<!--                        <a th:href="@{/logout}" sec:authorize="isAuthenticated()">로그아웃</a>-->
-<!--                    </li>-->
+  <!--                  <li th:if="${session.seller != null}">-->
+  <!--                     <span th:text="'환영합니다 판매자님 (' + ${session.seller.aid} + ')'"></span>-->
+   <!--                     <a th:href="@{/logout}" sec:authorize="isAuthenticated()">로그아웃</a>-->
+    <!--               </li> -->
 
                     <!-- 관리자 전용 메뉴 -->
                     <li sec:authorize="hasRole('ADMIN')">
