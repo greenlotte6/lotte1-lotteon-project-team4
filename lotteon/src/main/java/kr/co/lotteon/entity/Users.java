@@ -49,6 +49,14 @@ public class Users {
     private String mgmt;
     private String other;
 
+//    // 구글 로그인
+//    private String provider; // 구글 들어감
+//    private String providerId; // 구글 로그인 한 유저의 고유 ID가 들어감
+//
+//    public enum Role {
+//        USER, ADMIN, SELLER
+//    }
+
     public void updateDTO(UsersDTO usersDTO) {
         this.uid = usersDTO.getUid();
         this.no = usersDTO.getNo();

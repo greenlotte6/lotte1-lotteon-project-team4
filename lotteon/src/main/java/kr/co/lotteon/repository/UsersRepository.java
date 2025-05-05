@@ -31,6 +31,7 @@ public interface UsersRepository extends JpaRepository<Users, String>, UserRepos
     Page<Users> findByHpContaining(String keyword, Pageable pageable);
     Page<Users> findByUidContainingAndHpContaining(Users uid, String hp, Pageable pageable);
 
+    String uid(String uid);
 
 
     //    @Query("SELECT u FROM Users u WHERE u.status = :status")

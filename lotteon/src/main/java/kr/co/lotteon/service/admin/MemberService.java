@@ -1,7 +1,6 @@
 package kr.co.lotteon.service.admin;
 
 import com.querydsl.core.Tuple;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import kr.co.lotteon.dao.MemberMapper;
 import kr.co.lotteon.dto.PageRequestDTO;
 import kr.co.lotteon.dto.PageResponseDTO;
@@ -15,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +41,7 @@ public class MemberService {
                 .map(user -> modelMapper.map(user, UsersDTO.class))
                 .collect(Collectors.toList());
 
-        log.info("users: {}", usersDTOList);
+        log.info("users!!!!!!!!!: {}", usersDTOList);
 
         int total = (int) usersPage.getTotalElements();
 
@@ -78,8 +76,8 @@ public class MemberService {
         }
 
         List<UsersDTO> usersDTOList = usersPage.getContent().stream()
-                                                                .map(user -> modelMapper.map(user, UsersDTO.class))
-                                                                .collect(Collectors.toList());
+                .map(user -> modelMapper.map(user, UsersDTO.class))
+                .collect(Collectors.toList());
 
         int total = (int) usersPage.getTotalElements();
 
@@ -208,14 +206,39 @@ public class MemberService {
 //
 //    }
 
-    // 회원 정보 전체 수정
-    public void modifyModal(UsersDTO usersDTO) {
-        Optional<Users> optUsers = usersRepository.findById(usersDTO.getUid());
+    // 회원 수정 모달창 정보 불러오기
+    public UsersDTO getModifyModal(String uid) {
+        Optional<Users> optUsers = usersRepository.findByUid(uid);
 
         if (optUsers.isPresent()) {
             Users users = optUsers.get();
+            UsersDTO usersDTO = modelMapper.map(users, UsersDTO.class);
+            usersDTO.setUid(users.getUid());
 
-            users.updateDTO(usersDTO);
+            log.info("usersDTO: {}", usersDTO);
+            log.info("usersDTO: {}", usersDTO);
+            log.info("usersDTO: {}", usersDTO);
+
+            return usersDTO;
+
+        } else {
+            throw new IllegalArgumentException("회원 정보를 찾을 수 없습니다.");
+        }
+
+//        return usersRepository.findById(uid)
+//                .map(users -> modelMapper.map(users, UsersDTO.class))
+//                .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
+    }
+
+
+//    // 회원 정보 전체 수정
+//    public void modifyModal(UsersDTO usersDTO) {
+//        Optional<Users> optUsers = usersRepository.findById(usersDTO.getUid());
+//
+//        if (optUsers.isPresent()) {
+//            Users users = optUsers.get();
+//
+//            users.updateDTO(usersDTO);
 //            users.setUname(usersDTO.getUname());
 //            users.setGender(usersDTO.getGender());
 //            users.setGrade(usersDTO.getGrade());
@@ -227,12 +250,12 @@ public class MemberService {
 //            users.setAddr2(usersDTO.getAddr2());
 //            users.setU_created_at(usersDTO.getU_created_at());
 //            users.setU_last_login(usersDTO.getU_last_login());
-
-            log.info("users {}", users);
-
-            usersRepository.save(users);
-        }
-    }
+//
+//            log.info("users {}", users);
+//
+//            usersRepository.save(users);
+//        }
+//    }
 
 
 }

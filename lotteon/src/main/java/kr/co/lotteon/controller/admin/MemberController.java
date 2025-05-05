@@ -70,14 +70,29 @@ public class  MemberController {
 //        return "redirect:/admin/member/list";
 //    }
 
-    // 회원 정보 전체 수정
-    @PostMapping("/admin/member/modifyModal")
-    public String modifyModal(@ModelAttribute UsersDTO usersDTO) {
+    // 회원 수정 모달창 정보 불러오기
+    @ResponseBody
+    @GetMapping("/admin/member/getModifyModal")
+    public UsersDTO getModifyModal(@RequestParam("uid") String uid) {
+        UsersDTO usersDTO = memberService.getModifyModal(uid);
+//        model.addAttribute("usersDTO", usersDTO);  // 조회된 회원 정보 전달
 
-        memberService.modifyModal(usersDTO);
+        log.info("usersDTO@@@@@@@@@@@@@: {}", usersDTO);
+        log.info("usersDTO@@@@@@@@@@@@@: {}", usersDTO);
+        log.info("usersDTO@@@@@@@@@@@@@: {}", usersDTO);
 
-        return "redirect:/admin/member/list";
+        return usersDTO;  // 수정 모달을 띄우는 페이지로 리턴
     }
+
+
+//    // 회원 정보 전체 수정
+//    @PostMapping("/admin/member/modifyModal")
+//    public String modifyModal(@ModelAttribute UsersDTO usersDTO) {
+//
+//        memberService.modifyModal(usersDTO);
+//
+//        return "redirect:/admin/member/list";
+//    }
 
     // 포인트 목록 조회
     @GetMapping("/admin/member/point")
