@@ -85,39 +85,16 @@
                     </div>
                     <table class="cs-table">
                         <tbody>
-                        <tr>
+                        <tr th:each="notice : ${notices}">
                             <td class="notice-title">
-                                <a href="#">[안내] 해외결제사칭 문자주의</a>
+                                <a th:href="@{'/notice/view/' + ${notice.noticeId}}" th:text="${notice.title}">공지 제목</a>
                             </td>
-                            <td class="notice-date">22.10.31</td>
-                        </tr>
-                        <tr>
-                            <td class="notice-title">
-                                <a href="#">[안내] 해외결제사칭 문자주의</a>
-                            </td>
-                            <td class="notice-date">22.10.31</td>
-                        </tr>
-                        <tr>
-                            <td class="notice-title">
-                                <a href="#">[안내] 해외결제사칭 문자주의</a>
-                            </td>
-                            <td class="notice-date">22.10.31</td>
-                        </tr>
-                        <tr>
-                            <td class="notice-title">
-                                <a href="#">[안내] 해외결제사칭 문자주의</a>
-                            </td>
-                            <td class="notice-date">22.10.31</td>
-                        </tr>
-                        <tr>
-                            <td class="notice-title">
-                                <a href="#">[안내] 해외결제사칭 문자주의</a>
-                            </td>
-                            <td class="notice-date">22.10.31</td>
+                            <td class="notice-date" th:text="${#temporals.format(notice.uploadAt, 'yy.MM.dd')}">날짜</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+
 
                 <div class="cs-box">
                     <div class="cs-title">
@@ -170,33 +147,13 @@
                     </div>
                     <table class="inquiry-table">
                         <tbody>
-                        <tr>
-                            <td class="question"><span class="category">[회원]</span> 개인회원과 법인회원에 차이가 있나요?</td>
-                            <td class="writer">chh**</td>
-                            <td class="date">22.10.31</td>
-                        </tr>
-                        <tr>
-                            <td class="question"><span class="category">[쿠폰 / 이벤트]</span> 스마일포인트는 어디에서 사용하나요?
+                        <tr th:each="qna : ${qnas}">
+                            <td class="question">
+                                <span class="category" th:text="'[' + ${qna.qnaType1} + ']'"></span>
+                                <a th:href="@{'/qna/view/' + ${qna.qnaId}}" th:text="${qna.title}">제목</a>
                             </td>
-                            <td class="writer">chh**</td>
-                            <td class="date">22.10.31</td>
-                        </tr>
-                        <tr>
-                            <td class="question"><span class="category">[배송]</span> 주문한 상품은 언제 배송되나요?</td>
-                            <td class="writer">chh**</td>
-                            <td class="date">22.10.31</td>
-                        </tr>
-                        <tr>
-                            <td class="question"><span class="category">[주문 / 결제]</span> 신용카드 결제 중 오류가 난 경우 어떻게
-                                하나요?
-                            </td>
-                            <td class="writer">chh**</td>
-                            <td class="date">22.10.31</td>
-                        </tr>
-                        <tr>
-                            <td class="question"><span class="category">[취소 / 반품 / 교환]</span> 주문을 취소하고 싶어요.</td>
-                            <td class="writer">chh**</td>
-                            <td class="date">22.10.31</td>
+                            <td class="writer" th:text="${#strings.substring(qna.user.uid, 0, 3)} + '**'">작성자</td>
+                            <td class="date" th:text="${#temporals.format(qna.date, 'yy.MM.dd')}">날짜</td>
                         </tr>
                         </tbody>
                     </table>

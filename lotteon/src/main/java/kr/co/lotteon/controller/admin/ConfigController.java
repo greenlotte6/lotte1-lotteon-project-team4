@@ -1,5 +1,6 @@
 package kr.co.lotteon.controller.admin;
 
+import kr.co.lotteon.dto.CategoryDTO;
 import kr.co.lotteon.dto.LogoDTO;
 import kr.co.lotteon.dto.TermsDTO;
 import kr.co.lotteon.entity.*;
@@ -7,6 +8,7 @@ import kr.co.lotteon.security.MyUserDetails;
 import kr.co.lotteon.service.admin.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +34,7 @@ public class ConfigController {
     private final CopyrightService copyrightService;
     private final SupportService supportService;
     private final LogoService logoService;
+    private final CategoryService categoryService;
 
 
     @GetMapping("/banner")
@@ -101,9 +104,20 @@ public class ConfigController {
 
 
     @GetMapping("/category")
-    public String category() {
+    public String category(Model model) {
+        List<Category> all = categoryService.getAllCategories(); // 포함된 1차/2차 모두
+        model.addAttribute("categories", all);
         return "/admin/config/category";
     }
+
+
+    @PostMapping("/category/update")
+    @ResponseBody
+    public ResponseEntity<String> updateCategories(@RequestBody List<CategoryDTO> categories) {
+        categoryService.updateCategoryStructure(categories);
+        return ResponseEntity.ok("success");
+    }
+
 
     @GetMapping("/policy")
     public String policy(Model model) {

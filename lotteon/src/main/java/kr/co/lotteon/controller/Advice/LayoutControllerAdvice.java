@@ -1,16 +1,13 @@
 package kr.co.lotteon.controller.Advice;
 
-import kr.co.lotteon.entity.Copyright;
-import kr.co.lotteon.entity.SiteInfo;
-import kr.co.lotteon.entity.Support;
-import kr.co.lotteon.entity.Logo;
-import kr.co.lotteon.service.admin.CopyrightService;
-import kr.co.lotteon.service.admin.SiteInfoService;
-import kr.co.lotteon.service.admin.SupportService;
-import kr.co.lotteon.service.admin.LogoService;
+import kr.co.lotteon.dto.CategoryDTO;
+import kr.co.lotteon.entity.*;
+import kr.co.lotteon.service.admin.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.util.List;
 
 @ControllerAdvice
 @RequiredArgsConstructor
@@ -20,6 +17,7 @@ public class LayoutControllerAdvice {
     private final CopyrightService copyrightService;
     private final SupportService supportService;
     private final LogoService logoService;
+    private final CategoryService categoryService;
 
     @ModelAttribute("siteConfig")
     public SiteInfo appInfo() {
@@ -40,4 +38,11 @@ public class LayoutControllerAdvice {
     public Logo logoInfo() {
         return logoService.getInfo(1); // 로고 추가
     }
+
+    @ModelAttribute("categories")
+    public List<CategoryDTO> categoryList() {
+        return categoryService.getHierarchicalCategories();
+    }
+
+
 }

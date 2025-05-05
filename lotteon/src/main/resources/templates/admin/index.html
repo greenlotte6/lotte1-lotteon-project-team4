@@ -186,28 +186,27 @@
                     <div class="h2">
                         <h2>공지사항</h2>
                     </div>
-                    <form th:action="@{/admin/index/notice}">
-                        <table>
-                            <tr th:each="notice : ${noticeList}">
-                                <td><a href="#" th:text="${notice.title}"></a></td>
-                                <td th:text="${notice.upload_at}"></td>
-                            </tr>
-                        </table>
-                    </form>
+                    <table>
+                        <tr th:each="notice : ${notices}">
+                            <td><a th:href="@{'/notice/view/' + ${notice.noticeId}}" th:text="${notice.title}">공지 제목</a>
+                            </td>
+                            <td th:text="${#temporals.format(notice.uploadAt, 'yy.MM.dd')}">날짜</td>
+                        </tr>
+                    </table>
                 </div>
                 <div class="inqu">
                     <div class="h2">
                         <h2>고객문의</h2>
                     </div>
-                    <form th:action="@{/admin/index/qna}">
-                        <table>
-                            <tr th:each="qna : ${qnaList}">
-                                <td><a href="#" th:text="${qna.title}"></a></td>
-                                <td th:text="${qna.user.uname}">chh**</td>
-                                <td th:text="${qna.date}">22.10.31</td>
-                            </tr>
-                        </table>
-                    </form>
+                    <table>
+                        <tr th:each="qna : ${qnas}">
+                            <td>
+                                <span th:text="'[' + ${qna.qnaType1} + ']'"></span>
+                                <a th:href="@{'/qna/view/' + ${qna.qnaId}}" th:text="${qna.title}">제목</a>
+                            <td class="writer" th:text="${#strings.substring(qna.user.uid, 0, 3)} + '**'">작성자</td>
+                            <td class="date" th:text="${#temporals.format(qna.date, 'yy.MM.dd')}">날짜</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

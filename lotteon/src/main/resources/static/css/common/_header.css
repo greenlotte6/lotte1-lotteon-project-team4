@@ -208,6 +208,7 @@ header {
     border: 1px solid #ef2a23;
     border-top: none;
     box-sizing: border-box;
+    z-index: 999;
 }
 
 .bar-cate li {
@@ -244,14 +245,14 @@ header {
 .bar:hover {
     cursor: pointer;
 }
-/*
+
 .bar-sub-cate {
     position: relative;
 }
 
 .bar-sub-cate a {
     display: block;
-    
+
 }
 
 .sub-cate {
@@ -265,7 +266,21 @@ header {
 .bar-sub-cate:hover .sub-cate {
     display: block;
 }
-*/
+
+.sub-cate li {
+    margin-bottom: 8px;
+}
+
+.sub-cate a {
+    font-size: 14px;
+    color: #333;
+}
+
+.sub-cate a:hover {
+    color: #ef2a23;
+    font-weight: bold;
+}
+
 
 .all {
     position: relative;
@@ -298,6 +313,7 @@ header {
     border: 1px solid #333;
     border-radius: 10px;
     box-sizing: border-box;
+    z-index: 999;
 }
 
 .full-menu li {
