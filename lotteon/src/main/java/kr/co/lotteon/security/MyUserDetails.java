@@ -22,9 +22,10 @@ public class MyUserDetails implements UserDetails, OAuth2User {  // 인증 객�
     private Seller seller;
     private Map<String, Object> attributes;
 
-    public MyUserDetails(Users users, Map<String, Object> attributes) {
+    public MyUserDetails(Users users, Seller seller, Map<String, Object> attributes) {
 
         this.users = users;
+        this.seller = seller;
         this.attributes = attributes;
     }
 
