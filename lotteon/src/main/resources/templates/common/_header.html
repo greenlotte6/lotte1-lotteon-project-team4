@@ -37,10 +37,10 @@
 <!--                    </li>-->
 
                     <!-- 판매자 로그인 상태 -->
-<!--                    <li th:if="${session.seller != null}">-->
-<!--                        <span th:text="'환영합니다 판매자님 (' + ${session.seller.aid} + ')'"></span>-->
-<!--                        <a th:href="@{/logout}" sec:authorize="isAuthenticated()">로그아웃</a>-->
-<!--                    </li>-->
+  <!--                  <li th:if="${session.seller != null}">-->
+  <!--                     <span th:text="'환영합니다 판매자님 (' + ${session.seller.aid} + ')'"></span>-->
+   <!--                     <a th:href="@{/logout}" sec:authorize="isAuthenticated()">로그아웃</a>-->
+    <!--               </li> -->
 
                     <!-- 관리자 전용 메뉴 -->
                     <li sec:authorize="hasRole('ADMIN')">
@@ -98,33 +98,18 @@
                 <div class="bar">
                     <button type="button"><img src="/images/bar.png" alt="전체메뉴"></button>
                     <ul class="bar-cate">
-                        <li class="bar-sub-cate">
-                            <a href="#">뷰티</a>
-                            <!--<ul class="sub-cate">
-                                <li><a href="#">럭셔리 스킨케어</a></li>
-                                <li><a href="#">스킨케어</a></li>
-                                <li><a href="#">메이크업</a></li>
-                                <li><a href="#">향수</a></li>
-                                <li><a href="#">헤어/바디</a></li>
-                                <li><a href="#">남성화장품</a></li>
-                                <li><a href="#">뷰티기기/소품</a></li>
-                                <li><a href="#">네일</a></li>
-                            </ul>-->
+                        <li th:each="cate : ${categories}" class="bar-sub-cate">
+                            <a th:text="${cate.name}" href="#"></a>
+
+                            <ul class="sub-cate" th:if="${cate.children}">
+                                <li th:each="sub : ${cate.children}">
+                                    <a th:text="${sub.name}" href="#"></a>
+                                </li>
+                            </ul>
                         </li>
-                        <li><a href="#">여성패션</a></li>
-                        <li><a href="#">남성패션</a></li>
-                        <li><a href="#">럭셔리</a></li>
-                        <li><a href="#">유아동</a></li>
-                        <li><a href="#">스포츠/레저</a></li>
-                        <li><a href="#">식품</a></li>
-                        <li><a href="#">생활/건강</a></li>
-                        <li><a href="#">컴퓨터/게임/모바일</a></li>
-                        <li><a href="#">가전</a></li>
-                        <li><a href="#">가구/인테리어</a></li>
-                        <li><a href="#">자동차/공구</a></li>
-                        <li><a href="#">반려동물</a></li>
                     </ul>
                 </div>
+
                 <div class="list">
                     <ul>
                         <li><a href="#">주말룩</a></li>

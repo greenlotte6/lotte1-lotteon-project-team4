@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -114,11 +115,6 @@ public class CsNoticeController {
 
         return "/cs/notice/harm-list";
 
-
-
-
-
-
     }
 
     @GetMapping("/notice/sayty-list")
@@ -131,6 +127,12 @@ public class CsNoticeController {
         return "/cs/notice/view";
     }
 
+    @GetMapping("/notice/view/{id}")
+    public String viewNotice(@PathVariable("id") int id, Model model) {
+        Notice notice = noticeService.getNoticeById(id);
+        model.addAttribute("notice", notice);
+        return "/cs/notice/view"; // resources/templates/notice/view.html
+    }
 
 
 

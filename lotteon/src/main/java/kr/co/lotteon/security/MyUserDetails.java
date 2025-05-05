@@ -1,5 +1,6 @@
 package kr.co.lotteon.security;
 
+import kr.co.lotteon.entity.Seller;
 import kr.co.lotteon.entity.Users;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,7 @@ import java.util.Map;
 public class MyUserDetails implements UserDetails, OAuth2User {  // 인증 객체
 
     private final Users users;
+    private Seller seller;
     private Map<String, Object> attributes;
 
     public MyUserDetails(Users users, Map<String, Object> attributes) {
@@ -38,44 +40,29 @@ public class MyUserDetails implements UserDetails, OAuth2User {  // 인증 객�
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        // 권한 목록 생성 = 리소스 권한 목록
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + users.getRole()));
+
+        if (users != null) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + users.getRole()));
+        } else if (seller != null) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + seller.getRole()));
+        }
+
         return authorities;
     }
 
     @Override
-    public String getPassword() { // 사용자 비밀번호
-        return users.getPassword();
+    public String getPassword() {
+        return users != null ? users.getPassword() : seller.getPassword();
     }
 
     @Override
-    public String getUsername() { // 사용자 아이디
-        return users.getUid();
+    public String getUsername() {
+        return users != null ? users.getUid() : seller.getAid();
     }
 
-    @Override
-    public boolean isAccountNonExpired() { // 계정 만료 여부
-        // 계정 만료 여부(true: 만료안됨, false: 만료됨)
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() { // 계정 잠김 여부
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() { // 비밀번호 만료 여부
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() { // 계정 활성화 여부
-        return true;
-    }
-
-
-
+    @Override public boolean isAccountNonExpired() { return true; }
+    @Override public boolean isAccountNonLocked() { return true; }
+    @Override public boolean isCredentialsNonExpired() { return true; }
+    @Override public boolean isEnabled() { return true; }
 }

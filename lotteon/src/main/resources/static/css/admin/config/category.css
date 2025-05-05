@@ -215,6 +215,10 @@ a {
     display: none;
 }
 
+li.active > .sub {
+    display: block;
+}
+
 .acodion-menu > li.active > ul {
     display: block;
 }
@@ -242,4 +246,7 @@ a {
 
 .in-ul li a:hover {
     text-decoration: underline;
+}
+.click {
+    cursor: move;
 }

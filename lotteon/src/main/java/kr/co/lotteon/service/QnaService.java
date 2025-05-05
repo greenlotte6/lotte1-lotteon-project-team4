@@ -63,4 +63,9 @@ public class QnaService {
         return qnaRepository.findAll();
     }
 
+    public List<Qna> getRecentQnas(int limit) {
+        Pageable pageable = PageRequest.of(0, limit, Sort.by(Sort.Direction.DESC, "date"));
+        return qnaRepository.findAll(pageable).getContent();
+    }
+
 }

@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .passwordParameter("password"));
 
 
+
         //로그아웃 설정
         http.logout(logout -> logout.logoutUrl("/member/logout")
                 .invalidateHttpSession(true)

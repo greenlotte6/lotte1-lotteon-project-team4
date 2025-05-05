@@ -67,9 +67,7 @@ public class ShopController {
 
     @PostMapping("/admin/shop/registerShop")
     public String registerShop(SellerDTO sellerDTO) {
-
         shopService.registerShop(sellerDTO);
-
         return "redirect:/admin/shop/list";
     }
 

@@ -2,6 +2,7 @@ package kr.co.lotteon.service;
 
 import kr.co.lotteon.entity.Notice;
 import kr.co.lotteon.repository.NoticeRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -61,6 +62,11 @@ public class NoticeService {
 
     public void deleteNoticesByIds(List<Integer> ids) {
         noticeRepository.deleteAllById(ids);
+    }
+
+    public List<Notice> getRecentNotices(int limit) {
+        Pageable pageable = PageRequest.of(0, limit, Sort.by(Sort.Direction.DESC, "uploadAt"));
+        return noticeRepository.findAll(pageable).getContent();
     }
 
 

@@ -17,6 +17,7 @@
     <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
 </head>
 <script src="/js/modal.js"></script>
+<script src="/js/validationShop.js"></script>
 <script>
     // 선택 확인 후 제출
     function validateDelete() {
@@ -105,6 +106,29 @@
                 document.getElementById("addr2").focus();
             }
         }).open();
+    }
+</script>
+
+<script>
+    function formatBizNum(el) {
+        el.value = el.value
+            .replace(/[^0-9]/g, '')
+            .replace(/^(\d{3})(\d{2})(\d{0,5})$/, '$1-$2-$3')
+            .replace(/(-)$/, ''); // 맨 끝 하이픈 제거
+    }
+
+    function formatPhone(el) {
+        el.value = el.value
+            .replace(/[^0-9]/g, '')
+            .replace(/^(\d{2,3})(\d{3,4})(\d{0,4})$/, '$1-$2-$3')
+            .replace(/(-)$/, '');
+    }
+
+    function formatFax(el) {
+        el.value = el.value
+            .replace(/[^0-9]/g, '')
+            .replace(/^(\d{2,3})(\d{2,3})(\d{0,4})$/, '$1-$2-$3')
+            .replace(/(-)$/, '');
     }
 </script>
 
@@ -212,21 +236,28 @@
             <h2>상점등록</h2>
             <button class="X modal-button" onclick="closeModal()">X</button>
         </div>
-        <form th:action="@{/admin/shop/registerShop}" method="post">
+        <form name="formRegister" method="post" action="/admin/shop/registerShop">
             <div class="content">
                 <div class="form">
                     <table>
                         <tr>
                             <td>아이디</td>
-                            <td><input type="text" name="aid">영문, 숫자 4~12자</td>
+                            <td>
+                                <input type="text" id="aid" name="aid" placeholder="아이디 입력" />
+                                <button type="button" id="btnCheckUid" style="width: 65px; height: 30px;">중복확인</button>
+                                <span class="uidResult"></span>
+                            </td>
                         </tr>
                         <tr>
                             <td>비밀번호</td>
-                            <td><input type="text" name="password1">영문, 숫자, 특수문자 8~12자</td>
+                            <td><input type="password" id="password" name="password" placeholder="비밀번호 입력" />영문, 숫자, 특수문자 8~12자</td>
                         </tr>
                         <tr>
                             <td>비밀번호 확인</td>
-                            <td><input type="text" name="password2"></td>
+                            <td>
+                                <input type="password" id="password_confirm" name="password_confirm" placeholder="비밀번호 입력 확인" />
+                                <span class="passResult"></span> <!-- 결과 메시지 표시용 -->
+                            </td>
                         </tr>
                     </table>
                     <table>
@@ -240,26 +271,25 @@
                         </tr>
                         <tr>
                             <td>사업자등록번호</td>
-                            <td><input type="text" name="biz_num" placeholder="사업자등록번호입력">- &nbsp;포함 12자리 입력</td>
+                            <td><input type="text" maxlength="12" name="biz_num" placeholder="사업자등록번호 입력" oninput="formatBizNum(this)"/>- &nbsp;포함 12자리 입력</td>
                         </tr>
                         <tr>
                             <td>통신판매업번호</td>
-                            <td><input type="text" name="osn" placeholder="통신판매업번호 입력">- &nbsp;포함 12자리 입력
-                            </td>
+                            <td><input type="text" maxlength="6" name="osn" placeholder="통신판매업번호 입력"></td>
                         </tr>
                         <tr>
                             <td>전화번호</td>
-                            <td><input type="text" name="number" placeholder="전화번호 입력">- &nbsp;포함 12자리 입력</td>
+                            <td><input type="tel" maxlength="13" name="number" placeholder="전화번호 입력" oninput="formatPhone(this)"/>- &nbsp;포함 12자리 입력</td>
                         </tr>
                         <tr>
                             <td>팩스</td>
-                            <td><input type="text" name="fax" placeholder="팩스번호 입력">- &nbsp;포함 입력</td>
+                            <td><input type="text" maxlength="12" name="fax" placeholder="팩스번호 입력" oninput="formatFax(this)"/>- &nbsp;포함 입력</td>
                         </tr>
                         <tr>
                             <td>주소</td>
                             <td class="addr-wrapper">
                                 <div>
-                                    <input type="hidden" id="zip" placeholder="우편번호">
+                                    <input type="hidden" id="zip" name="zip" placeholder="우편번호">
                                     <button type="button" onclick="postcode()">우편번호 검색</button>
                                 </div>
                                 <div><input type="text" id="addr1" name="addr1" placeholder="기본주소"></div>
@@ -270,7 +300,8 @@
                 </div>
             </div>
             <div class="button">
-                <button type="submit" class="register submit-btn" onclick="submitCoupon()">등록하기</button>
+                <button type="submit" class="register submit-btn">등록하기</button>
+                <!--<button type="submit" class="register submit-btn" onclick="submitCoupon()">등록하기</button>-->>
             </div>
         </form>
     </div>

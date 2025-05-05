@@ -65,8 +65,7 @@
                 <th:block th:include="/common/_faq_aside.html"/>
 
                 <section class="notice-detail">
-                    <div class="notice-title">회원</div>
-                    <div class="notice-desc">회원관련 자주 묻는 질문 입니다.</div>
+                    <div class="notice-title" th:text="${faq.type1}"></div>
 
                     <article class="notice-article">
                         <div class="article-title">
