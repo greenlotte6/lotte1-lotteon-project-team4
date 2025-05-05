@@ -23,91 +23,183 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         $(document).ready(function () {
-            $('.hover').click(function () {
+            // 1차 카테고리 드래그 정렬 (맨 마지막 추가 버튼 제외)
+            $('.acodion-menu').sortable({
+                items: '> li:not(:has(.add-1depth))',
+                handle: '.click',
+                placeholder: 'ui-state-highlight',
+                cancel: 'button, input'
+            });
+
+            // 2차 카테고리 드래그 정렬
+            $('.sub').sortable({
+                connectWith: '.sub',
+                placeholder: "ui-state-highlight",
+                items: '> li:not(:has(.add-2depth))',
+                containment: "parent"
+            });
+
+            // 삭제 버튼
+            $(document).on('click', '.delete', function () {
+                if (confirm("정말 삭제하시겠습니까?")) {
+                    $(this).closest('li').remove();
+                    alert("카테고리가 삭제되었습니다.\n※ '수정하기' 버튼을 눌러야 실제 반영됩니다.");
+                }
+            });
+
+
+            // 1차 카테고리 토글
+            $(document).on('click', '.click', function (e) {
+                e.preventDefault();
                 $(this).closest('li').toggleClass('active');
             });
 
-            $('.sub').sortable({
-                placeholder: "ui-state-highlight"
+            // 1차 카테고리 추가 버튼 클릭
+            $(document).on('click', '.add-1depth', function (e) {
+                e.preventDefault();
+                const $li = $(this).closest('li');
+                $li.html(`
+                    <input type="text" placeholder="새 카테고리명">
+                    <button class="add-category">추가</button>
+                    <button class="delete">취소</button>
+                `);
             });
 
-            // 1차 카테고리 추가 버튼 클릭 시
-            $('.acodion-menu > li:last-child > a').click(function (e) {
-                e.preventDefault(); // 링크 이동 막기
-                let $li = $(this).parent();
-                $li.html('<input type="text" placeholder="새 카테고리명"><button class="add-category">추가</button><button class="delete">삭제</button>');
+            // 1차 카테고리 최종 추가
+            $(document).on('click', '.add-category', function () {
+                const newName = $(this).prev('input').val().trim();
+                const $li = $(this).closest('li');
 
-                // 새로운 1차 카테고리 추가 버튼 클릭 시
-                $li.find('.add-category').click(function () {
-                    let newCategoryName = $(this).prev('input').val();
-                    if (newCategoryName.trim() !== "") {
-                        let newLi = `
+                if (!newName) {
+                    alert("카테고리명을 입력해주세요.");
+                    return;
+                }
+
+                const newCategory = `
                     <li>
-                        <a href="#" class="click">▼ ${newCategoryName}</a><button class="delete">삭제</button>
+                        <a href="#" class="click">▼ ${newName}</a>
+                        <button class="delete">삭제</button>
                         <ul class="sub">
-                            <li><a href="#">➕ 추가</a><button class="delete">삭제</button></li>
+                            ${getAdd2depthTemplate()}
                         </ul>
                     </li>
                 `;
-                        $li.before(newLi);
-                        // 이벤트 리바인딩
-                        bindCategoryEvents();
-                    } else {
-                        alert("카테고리명을 입력해주세요.");
-                    }
-                });
 
-                // 삭제 버튼 이벤트 (동적으로 생성된 요소에 이벤트 바인딩)
-                $li.on('click', '.delete', function () {
-                    $(this).parent().remove();
-                });
-            });
-
-            // 2차 카테고리 추가 버튼 클릭 시
-            $('.acodion-menu').on('click', '.sub > li:last-child > a', function (e) {
-                e.preventDefault(); // 링크 이동 막기
-                let $li = $(this).parent();
-                $li.html('<input type="text" placeholder="새 하위 카테고리명"><button class="add-subcategory">추가</button><button class="delete">삭제</button>');
-
-                // 새로운 2차 카테고리 추가 버튼 클릭 시
-                $li.find('.add-subcategory').click(function () {
-                    let newSubcategoryName = $(this).prev('input').val();
-                    if (newSubcategoryName.trim() !== "") {
-                        let newLi = `<li><a href="#">${newSubcategoryName}</a><button class="delete">삭제</button></li>`;
-                        $li.before(newLi);
-                        // 이벤트 리바인딩 (sortable 때문에 필요)
-                        $('.sub').sortable('refresh');
-                    } else {
-                        alert("하위 카테고리명을 입력해주세요.");
-                    }
-                });
-
-                // 삭제 버튼 이벤트 (동적으로 생성된 요소에 이벤트 바인딩)
-                $li.on('click', '.delete', function () {
-                    $(this).parent().remove();
-                });
-            });
-
-            // 동적으로 생성된 요소에 이벤트 바인딩하는 함수
-            function bindCategoryEvents() {
-                $('.click').off('click').on('click', function (e) {
-                    $(this).parent().toggleClass('active');
-                });
-                $('.delete').off('click').on('click', function () {
-                    $(this).parent().remove();
-                });
+                $li.replaceWith(newCategory + getAdd1depthTemplate());
                 $('.sub').sortable('refresh');
+            });
+
+            // 2차 카테고리 추가 클릭
+            $(document).on('click', '.add-2depth', function (e) {
+                e.preventDefault();
+                const $li = $(this).closest('li');
+                $li.html(`
+                    <input type="text" placeholder="새 하위 카테고리명">
+                    <button class="add-subcategory">추가</button>
+                    <button class="delete">취소</button>
+                `);
+            });
+
+            // 2차 카테고리 최종 추가
+            $(document).on('click', '.add-subcategory', function () {
+                const newName = $(this).prev('input').val().trim();
+                const $li = $(this).closest('li');
+
+                if (!newName) {
+                    alert("하위 카테고리명을 입력해주세요.");
+                    return;
+                }
+
+                const newSub = `
+                    <li>
+                        <a href="#">${newName}</a>
+                        <button class="delete">삭제</button>
+                    </li>
+                `;
+
+                $li.replaceWith(newSub + getAdd2depthTemplate());
+                $('.sub').sortable('refresh');
+            });
+
+            // 수정하기 (순서 저장 포함)
+            document.querySelector('.modify').addEventListener('click', () => {
+                const data = [];
+
+                $('.acodion-menu > li').not(':has(.add-1depth)').each(function (i) {
+                    const parentName = $(this).find('> a.click').text().replace(/▼|\+/g, '').trim();
+                    const parentId = $(this).data('id');
+
+                    if (!parentName) return;
+
+                    const parent = {
+                        id: parentId || null,
+                        name: parentName,
+                        sortOrder: i + 1,
+                        children: []
+                    };
+
+                    $(this).find('.sub > li').not(':has(.add-2depth)').each(function (j) {
+                        const childName = $(this).find('a').text().replace('+', '').trim();
+                        const childId = $(this).data('id');
+
+                        if (!childName) return;
+
+                        parent.children.push({
+                            id: childId || null,
+                            name: childName,
+                            sortOrder: j + 1
+                        });
+                    });
+
+                    data.push(parent);
+                });
+
+                // JSON 전송
+                fetch('/admin/config/category/update', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                })
+                    .then(res => res.text())
+                    .then(result => {
+                        if (result === "success") {
+                            alert("카테고리가 저장되었습니다.");
+                            location.reload();
+                        } else {
+                            alert("저장 실패");
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert("서버 오류");
+                    });
+            });
+
+            function getAdd1depthTemplate() {
+                return `
+                    <li>
+                        <a href="#" class="add-1depth">➕ 1차 카테고리 추가</a>
+                        <button class="delete">삭제</button>
+                        <ul class="sub">
+                            ${getAdd2depthTemplate()}
+                        </ul>
+                    </li>
+                `;
             }
 
-            // 초기 삭제 버튼 이벤트 바인딩
-            $('.delete').on('click', function () {
-                $(this).parent().remove();
-            });
+            function getAdd2depthTemplate() {
+                return `
+                    <li>
+                        <a href="#" class="add-2depth">➕ 2차 카테고리 추가</a>
+                        <button class="delete">삭제</button>
+                    </li>
+                `;
+            }
         });
-
-
     });
 </script>
+
+
 <body>
 <th:block th:include="/common/_admin_header"/>
 <main>
@@ -132,54 +224,41 @@
                     </div>
                     <div class="category">
                         <ul class="acodion-menu">
-                            <li>
-                                <a href="#" class="click">▼ 뷰티</a>
-                                <button>삭제</button>
-                                <ul class="sub">
-                                    <li><a href="#">럭셔리 스킨케어</a>
-                                        <button>삭제</button>
-                                    </li>
-                                    <li><a href="#">클렌징</a>
-                                        <button>삭제</button>
-                                    </li>
-                                    <li><a href="#">스킨/토너</a>
-                                        <button>삭제</button>
-                                    </li>
-                                    <li><a href="#">➕ 2차 카테고리 추가</a>
-                                        <button>삭제</button>
-                                    </li>
-                                </ul>
-                            </li>
+                            <th:block th:each="parent : ${categories}">
+                                <li th:if="${parent.parent == null}" th:data-id="${parent.cateId}">
+                                    <a href="#" class="click">▼ [[${parent.cateName}]]</a>
+                                    <button class="delete">삭제</button>
+
+                                    <ul class="sub">
+                                        <th:block th:each="child : ${categories}">
+                                            <li th:if="${child.parent != null and child.parent.cateId == parent.cateId}"
+                                                th:data-id="${child.cateId}">
+                                                <a href="#">[[${child.cateName}]]</a>
+                                                <button class="delete">삭제</button>
+                                            </li>
+                                        </th:block>
+
+                                        <li>
+                                            <a href="#" class="add-2depth">➕ 2차 카테고리 추가</a>
+                                            <button class="delete">삭제</button>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </th:block>
 
                             <li>
-                                <a href="#" class="click">▼ 메이크업</a>
-                                <button>삭제</button>
+                                <a href="#" class="add-1depth">➕ 1차 카테고리 추가</a>
+                                <button class="delete">삭제</button>
                                 <ul class="sub">
-                                    <li><a href="#">베이스 메이크업</a>
-                                        <button>삭제</button>
-                                    </li>
-                                    <li><a href="#">립 메이크업</a>
-                                        <button>삭제</button>
-                                    </li>
-                                    <li><a href="#">아이 메이크업</a>
-                                        <button>삭제</button>
-                                    </li>
-                                    <li><a href="#">➕ 2차 카테고리 추가</a>
-                                        <button>삭제</button>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a href="#" class="click">➕ 1차 카테고리 추가</a>
-                                <button>삭제</button>
-                                <ul class="sub">
-                                    <li><a href="#">➕ 2차 카테고리 추가</a>
-                                        <button>삭제</button>
+                                    <li>
+                                        <a href="#" class="add-2depth">➕ 2차 카테고리 추가</a>
+                                        <button class="delete">삭제</button>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
+
+
                     </div>
                 </div>
                 <div class="cate-info">

@@ -67,8 +67,7 @@
                 <th:block th:include="/common/_cs_qna_aside.html"/>
 
                 <section class="cs-content">
-                    <h3 class="cs-title">회원</h3>
-                    <p class="cs-desc">회원 관련 문의내용 입니다.</p>
+                    <h3 class="cs-title" th:text="${qna.qnaType1}"></h3>
 
                     <div class="qna-view">
                         <div class="qna-question">
