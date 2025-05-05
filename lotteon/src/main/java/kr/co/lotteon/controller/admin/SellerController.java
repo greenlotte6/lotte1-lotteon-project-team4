@@ -29,7 +29,7 @@ public class SellerController {
     }
 
     @PostMapping("/login")
-    public String loginSeller(@RequestParam("id") String aid,
+    public String loginSeller(@RequestParam("userType") String aid,
                               @RequestParam("password") String password,
                               HttpSession session,
                               Model model) {
