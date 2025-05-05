@@ -53,6 +53,35 @@
             openModal('register-modal');
         });
 
+        // 수정 모달을 열 때 서버에서 데이터를 가져오는 함수
+        function openModifyModal(uid) {
+            // AJAX로 서버에서 회원 정보를 가져오기
+            fetch(`/admin/member/getModifyModal?uid=${uid}`)
+                .then(response => response.json()) // 서버가 JSON 응답을 보낸다고 가정
+                .then(data => {
+                    console.log(data);
+                    console.log("data");
+                    // 가져온 데이터로 모달의 입력 필드 채우기
+                    document.getElementById("uid").value = data.uid;
+                    document.getElementById("uname").value = data.uname;
+                    document.getElementById("gender").value = data.gender;
+
+                    // 성별 처리: 받은 값이 'M'이면 남성, 'F'이면 여성으로 radio button 체크
+                    document.querySelector(`input[name="gender"][value="${data.gender}"]`).checked = true;
+
+                    // 나머지 필드 채우기
+                    document.getElementById("email").value = data.email;
+                    document.getElementById("hp").value = data.hp;
+                    document.getElementById("zip").value = data.zip;
+                    document.getElementById("addr1").value = data.addr1;
+                    document.getElementById("addr2").value = data.addr2;
+                    document.getElementById("u_created_at").value = data.u_created_at;
+                    document.getElementById("u_last_login").value = data.u_last_login;
+
+                })
+                .catch(error => console.error('Error fetching user data:', error));
+        }
+
     });
 </script>
 <body>
@@ -170,72 +199,69 @@
     <div class="container modal">
         <div class="title">
             <h2>회원수정</h2>
-            <button class="X close-btn" onclick="closeModal()">X
-            </button>
+            <button class="X close-btn" onclick="closeModal()">X</button>
         </div>
         <div class="content">
             <div class="form">
-                <form th:action="@{/admin/member/modifyModal}" method="post">
+                <form action="#">
                     <table>
                         <tr>
                             <td>아이디</td>
-                            <td><input type="text" name="uid" th:value="${usersDTO.uid}" readonly></td>
+                            <td><input type="text" id="uid" name="uid" readonly></td>
                         </tr>
                         <tr>
                             <td>이름</td>
-                            <td><input type="text" name="uname" th:value="${usersDTO.uname}"></td>
+                            <td><input type="text" id="uname" name="uname"></td>
                         </tr>
                         <tr>
                             <td>성별</td>
                             <td class="gender-select">
-                                <input type="radio" name="gender" value="M" th:checked="${usersDTO.gender == 'M'}">남
-                                <input type="radio" name="gender" value="F" th:checked="${usersDTO.gender == 'F'}">여
+                                <input type="radio" id="genderM" name="gender" value="M">남
+                                <input type="radio" id="genderF" name="gender" value="F">여
                             </td>
                         </tr>
                         <tr>
                             <td>등급</td>
-                            <td><input type="text" name="grade" th:value="${usersDTO.grade}" readonly></td>
+                            <td><input type="text" id="grade" name="grade" readonly></td>
                         </tr>
                         <tr>
                             <td>상태</td>
-                            <td><input type="text" name="status" class="green" th:value="${usersDTO.status}" readonly></td>
+                            <td><input type="text" id="status" name="status" readonly></td>
                         </tr>
                         <tr>
                             <td>EMAIL</td>
-                            <td><input type="text" name="email" th:value="${usersDTO.email}"></td>
+                            <td><input type="text" id="email" name="email"></td>
                         </tr>
                         <tr>
                             <td>휴대폰</td>
-                            <td><input type="text" name="hp" th:value="${usersDTO.hp}"></td>
+                            <td><input type="text" id="hp" name="hp"></td>
                         </tr>
                         <tr>
                             <td>우편번호</td>
-                            <td><input type="text" name="zip" th:value="${usersDTO.zip}">
-                                <button type="button" class="addr-button"></button>
-                            </td>
+                            <td><input type="text" id="zip" name="zip"></td>
                         </tr>
                         <tr>
                             <td>기본주소</td>
-                            <td><input type="text" name="addr1" th:value="${usersDTO.addr1}"></td>
+                            <td><input type="text" id="addr1" name="addr1"></td>
                         </tr>
                         <tr>
                             <td>상세주소</td>
-                            <td><input type="text" name="addr2" th:value="${usersDTO.addr2}"></td>
+                            <td><input type="text" id="addr2" name="addr2"></td>
                         </tr>
                         <tr>
                             <td>가입일</td>
-                            <td><span th:text="${usersDTO.u_created_at}"></span></td>
+                            <td><input type="text" id="u_created_at" readonly></td>
                         </tr>
                         <tr>
                             <td>최근 로그인</td>
-                            <td><span th:text="${usersDTO.u_last_login}"></span></td>
+                            <td><input type="text" id="u_last_login" readonly></td>
                         </tr>
                     </table>
                 </form>
             </div>
         </div>
         <div class="button">
-            <button type="button" class="register" onclick="submitCoupon()">수정하기</button>
+            <button type="button" class="register">수정하기</button>
         </div>
     </div>
 </div>

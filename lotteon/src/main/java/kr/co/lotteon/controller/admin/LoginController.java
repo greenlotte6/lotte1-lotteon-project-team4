@@ -9,6 +9,7 @@ import kr.co.lotteon.service.PolicyService;
 import kr.co.lotteon.service.SellerService;
 import kr.co.lotteon.service.UsersService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
