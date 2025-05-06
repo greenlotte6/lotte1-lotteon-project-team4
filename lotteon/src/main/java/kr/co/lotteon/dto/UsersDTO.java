@@ -39,11 +39,13 @@ public class UsersDTO {
     private String other;
     private String birth;
 
-
-
     // 추가 필드
     private int point_id;
     private boolean selected;
+
+    // OAuth2 로그인
+    private String provider;
+    private String providerId;
 
     public Users toEntity() {
         return Users.builder()

@@ -22,6 +22,11 @@
 </head>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+
+        $('.hover').click(function (e) {
+            $(this).parent().toggleClass('active');
+        })
+
         $(document).ready(function () {
             // 1차 카테고리 드래그 정렬 (맨 마지막 추가 버튼 제외)
             $('.acodion-menu').sortable({

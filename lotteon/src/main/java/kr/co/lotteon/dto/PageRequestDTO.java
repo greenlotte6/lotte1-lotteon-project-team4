@@ -34,4 +34,8 @@ public class PageRequestDTO {
         return PageRequest.of(this.pg - 1, this.size, Sort.by(sort).descending());
     }
 
+    // 정렬 없이 사용하는 Pageable
+    public Pageable getPageableNotSort() {
+        return PageRequest.of(this.pg - 1, this.size);
+    }
 }
