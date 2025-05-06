@@ -1,25 +1,3 @@
-/* 전체 스타일 */
-* {
-    margin: 0;
-    padding: 0;
-    font-family: "Gothic A1", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 12px;
-}
-a {
-    text-decoration: none;
-}
-ul,
-li {
-    list-style: none;
-}
-
-h2 {
-    font-size: 20px;
-    font-weight: 500;
-}
-
 /* main */
 .container {
     width: 800px;

@@ -55,7 +55,7 @@ public class SecurityConfig {
         //인가 설정
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/").permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
+//                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/product/cart/**", "/product/order/**", "/product/complete/**", "/qna/write/**", "/myaccount/**").authenticated()
                 .anyRequest().permitAll()
         );
