@@ -87,20 +87,6 @@
                 .replace(/(-)$/, ''); // 맨 끝 하이픈 제거
         }
 
-        function formatBuy(el) {
-            let value = el.value.replace(/[^a-zA-Z가-힣0-9]/g, '');
-
-            const match = value.match(/^(\d{4})([a-zA-Z가-힣]+)?(\d{0,4})?$/);
-
-            if (match) {
-                let formatted = match[1];
-                if (match[2]) formatted += '-' + match[2];
-                if (match[3]) formatted += '-' + match[3];
-                el.value = formatted;
-            } else {
-                el.value = value; // 포맷이 안 맞을 경우, 원본 유지
-            }
-        }
 
         function formatPhone(el) {
             el.value = el.value
