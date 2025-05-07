@@ -219,8 +219,9 @@ public class ProductService {
 //
 //            productRepository.save(products);
 //
-//            ProductOption productOption =
-
+//            List<ProductOption> productOptions = productOptionRepository.findByOption_id((long) option_id);
+//
+//
 //        }
 
     }
