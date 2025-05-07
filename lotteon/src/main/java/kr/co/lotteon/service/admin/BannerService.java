@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -34,16 +35,31 @@ public class BannerService {
                 .bannerName(dto.getBannerName())
                 .size(dto.getSize())
                 .backgroundColor(dto.getBackgroundColor())
-                .imageUrl(filePath) // null도 가능
+                .imageUrl(filePath)
                 .link(dto.getLink())
                 .position(dto.getPosition())
                 .startDay(dto.getStartDay())
                 .closeDay(dto.getCloseDay())
                 .startAt(dto.getStartAt())
                 .closeAt(dto.getCloseAt())
-                .active("활동중")
+                .active("활성")
                 .build();
 
+        bannerRepository.save(banner);
+    }
+
+    public List<Banner> getAllBanners() {
+        return bannerRepository.findAll(); // 전체 배너 반환
+    }
+
+    public void deleteBannersByIds(List<Integer> ids) {
+        bannerRepository.deleteAllById(ids);
+    }
+
+    public void updateActiveStatus(int bannerId, String active) {
+        Banner banner = bannerRepository.findById(bannerId)
+                .orElseThrow(() -> new IllegalArgumentException("배너가 존재하지 않습니다."));
+        banner.setActive(active);
         bannerRepository.save(banner);
     }
 }

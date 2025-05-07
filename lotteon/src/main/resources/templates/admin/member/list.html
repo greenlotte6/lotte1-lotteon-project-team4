@@ -20,7 +20,6 @@
 </head>
 <script src="/js/modal.js"></script>
 <script>
-
     document.addEventListener('DOMContentLoaded', function () {
 
         $('.hover').click(function (e) {
@@ -81,6 +80,51 @@
                 })
                 .catch(error => console.error('Error fetching user data:', error));
         }
+        document.querySelector('.select-delete').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const userRows = document.querySelectorAll('tbody tr');
+            const payload = [];
+
+            userRows.forEach(row => {
+                const checkbox = row.querySelector('input[type="checkbox"].userCheckbox');
+                if (checkbox && checkbox.checked) {
+                    const uid = checkbox.value;
+                    const gradeSelect = row.querySelector(select[name^="grades"]);
+                    const grade = gradeSelect?.value;
+
+                    if (uid && grade) {
+                        payload.push({uid, grade});
+                    }
+                }
+            });
+
+            if (payload.length === 0) {
+                alert('수정할 회원을 선택하세요.');
+                return;
+            }
+
+            fetch('/admin/member/update-grade', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+                .then(res => res.text())
+                .then(result => {
+                    if (result === 'success') {
+                        alert('등급이 수정되었습니다.');
+                        location.reload();
+                    } else {
+                        alert('수정에 실패했습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('서버 오류가 발생했습니다.');
+                });
+        });
 
     });
 </script>
@@ -143,7 +187,7 @@
                                         <td>[[${user.uname}]]</td>
                                         <td>[[${user.gender}]]</td>
                                         <td>
-                                            <select name="grades[${user.uid}]" th:value="${user.grade}">
+                                            <select name="grade" data-uid="[[${user.uid}]]" th:value="${user.grade}">
                                                 <option value="VVIP" th:selected="${user.grade == 'VVIP'}">VVIP</option>
                                                 <option value="VIP" th:selected="${user.grade == 'VIP'}">VIP</option>
                                                 <option value="GOLD" th:selected="${user.grade == 'GOLD'}">GOLD</option>
@@ -156,7 +200,7 @@
                                         <td>[[${user.point}]]</td>
                                         <td>[[${user.email}]]</td>
                                         <td>[[${user.hp}]]</td>
-                                        <td>[[${user.u_created_at}]]</td>
+                                        <td>[[${#temporals.format(user.u_created_at, 'yyyy-MM-dd HH:mm:ss')}]]</td>
                                         <td>[[${user.status}]]</td>
                                         <td>
                                             <div><a href="#" class="btn banner-register">[수정]</a>
@@ -203,61 +247,59 @@
         </div>
         <div class="content">
             <div class="form">
-                <form action="#">
-                    <table>
-                        <tr>
-                            <td>아이디</td>
-                            <td><input type="text" id="uid" name="uid" readonly></td>
-                        </tr>
-                        <tr>
-                            <td>이름</td>
-                            <td><input type="text" id="uname" name="uname"></td>
-                        </tr>
-                        <tr>
-                            <td>성별</td>
-                            <td class="gender-select">
-                                <input type="radio" id="genderM" name="gender" value="M">남
-                                <input type="radio" id="genderF" name="gender" value="F">여
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>등급</td>
-                            <td><input type="text" id="grade" name="grade" readonly></td>
-                        </tr>
-                        <tr>
-                            <td>상태</td>
-                            <td><input type="text" id="status" name="status" readonly></td>
-                        </tr>
-                        <tr>
-                            <td>EMAIL</td>
-                            <td><input type="text" id="email" name="email"></td>
-                        </tr>
-                        <tr>
-                            <td>휴대폰</td>
-                            <td><input type="text" id="hp" name="hp"></td>
-                        </tr>
-                        <tr>
-                            <td>우편번호</td>
-                            <td><input type="text" id="zip" name="zip"></td>
-                        </tr>
-                        <tr>
-                            <td>기본주소</td>
-                            <td><input type="text" id="addr1" name="addr1"></td>
-                        </tr>
-                        <tr>
-                            <td>상세주소</td>
-                            <td><input type="text" id="addr2" name="addr2"></td>
-                        </tr>
-                        <tr>
-                            <td>가입일</td>
-                            <td><input type="text" id="u_created_at" readonly></td>
-                        </tr>
-                        <tr>
-                            <td>최근 로그인</td>
-                            <td><input type="text" id="u_last_login" readonly></td>
-                        </tr>
-                    </table>
-                </form>
+                <table>
+                    <tr>
+                        <td>아이디</td>
+                        <td><input type="text" id="uid" name="uid" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>이름</td>
+                        <td><input type="text" id="uname" name="uname"></td>
+                    </tr>
+                    <tr>
+                        <td>성별</td>
+                        <td class="gender-select">
+                            <input type="radio" id="genderM" name="gender" value="M">남
+                            <input type="radio" id="genderF" name="gender" value="F">여
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>등급</td>
+                        <td><input type="text" id="grade" name="grade" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>상태</td>
+                        <td><input type="text" id="status" name="status" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>EMAIL</td>
+                        <td><input type="text" id="email" name="email"></td>
+                    </tr>
+                    <tr>
+                        <td>휴대폰</td>
+                        <td><input type="text" id="hp" name="hp"></td>
+                    </tr>
+                    <tr>
+                        <td>우편번호</td>
+                        <td><input type="text" id="zip" name="zip"></td>
+                    </tr>
+                    <tr>
+                        <td>기본주소</td>
+                        <td><input type="text" id="addr1" name="addr1"></td>
+                    </tr>
+                    <tr>
+                        <td>상세주소</td>
+                        <td><input type="text" id="addr2" name="addr2"></td>
+                    </tr>
+                    <tr>
+                        <td>가입일</td>
+                        <td><input type="text" id="u_created_at" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>최근 로그인</td>
+                        <td><input type="text" id="u_last_login" readonly></td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="button">

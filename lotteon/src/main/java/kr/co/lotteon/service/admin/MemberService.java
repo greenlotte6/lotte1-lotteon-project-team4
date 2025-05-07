@@ -1,6 +1,7 @@
 package kr.co.lotteon.service.admin;
 
 import com.querydsl.core.Tuple;
+import jakarta.transaction.Transactional;
 import kr.co.lotteon.dao.MemberMapper;
 import kr.co.lotteon.dto.PageRequestDTO;
 import kr.co.lotteon.dto.PageResponseDTO;
@@ -30,6 +31,7 @@ public class MemberService {
     private final ModelMapper modelMapper;
     private final PointRepository pointRepository;
     private Users users;
+
 
     // 회원 목록 조회
     public PageResponseDTO<UsersDTO> findAll(PageRequestDTO pageRequestDTO) {
@@ -124,6 +126,16 @@ public class MemberService {
                 .total(total)
                 .build();
 
+    }
+
+    @Transactional
+    public void updateGrade(String uid, String grade) {
+        Users user = usersRepository.findById(uid)
+                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다: " + uid));
+        log.info("변경 전 등급: " + user.getGrade());
+        user.setGrade(grade);
+        log.info("변경 후 등급: " + user.getGrade());
+        usersRepository.save(user);
     }
 
     // 포인트 목록 검색

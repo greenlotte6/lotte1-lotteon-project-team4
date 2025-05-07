@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -42,7 +43,9 @@ public class ConfigController {
 
 
     @GetMapping("/banner")
-    public String banner() {
+    public String banner(Model model) {
+        List<Banner> banners = bannerService.getAllBanners();
+        model.addAttribute("banners", banners);
         return "/admin/config/banner";
     }
 
@@ -58,7 +61,31 @@ public class ConfigController {
         }
     }
 
+    @PostMapping("/banner/delete")
+    @ResponseBody
+    public String deleteBanners(@RequestBody List<Integer> ids) {
+        try {
+            bannerService.deleteBannersByIds(ids);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
 
+    @PostMapping("/banner/updateActive")
+    @ResponseBody
+    public String updateBannerActive(@RequestBody Map<String, String> request) {
+        try {
+            int bannerId = Integer.parseInt(request.get("bannerId"));
+            String active = request.get("active");
+            bannerService.updateActiveStatus(bannerId, active);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
 
     @GetMapping("/basic")
     public String basic(Model model) {
