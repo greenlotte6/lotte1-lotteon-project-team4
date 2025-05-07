@@ -49,9 +49,9 @@ public class Users {
     private String mgmt;
     private String other;
 
-//    // 구글 로그인
-//    private String provider; // 구글 들어감
-//    private String providerId; // 구글 로그인 한 유저의 고유 ID가 들어감
+    // OAuth2 로그인
+    private String provider;
+    private String providerId;
 //
 //    public enum Role {
 //        USER, ADMIN, SELLER

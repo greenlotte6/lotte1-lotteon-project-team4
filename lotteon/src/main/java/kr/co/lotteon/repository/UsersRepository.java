@@ -1,5 +1,6 @@
 package kr.co.lotteon.repository;
 
+import kr.co.lotteon.entity.OAuth2;
 import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.repository.custom.UserRepositoryCustom;
 import org.springframework.data.domain.Page;
@@ -32,6 +33,8 @@ public interface UsersRepository extends JpaRepository<Users, String>, UserRepos
     Page<Users> findByUidContainingAndHpContaining(Users uid, String hp, Pageable pageable);
 
     String uid(String uid);
+
+    Optional<Users> findByEmailAndProviderId(String email, String providerId);
 
 
     //    @Query("SELECT u FROM Users u WHERE u.status = :status")

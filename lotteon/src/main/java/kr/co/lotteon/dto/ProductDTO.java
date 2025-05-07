@@ -18,7 +18,6 @@ public class ProductDTO {
     private String img_file_2;
     private String img_file_3;
     private String detaile_file_1;
-    private int pcode;
     private String pname;
     private String description;
     private int price;
@@ -35,7 +34,8 @@ public class ProductDTO {
     private String maker;
     private int delivery_free;
     private int category_cate_id;
-    private int poiont_rate;
+    private int point_rate;
     private int cart_item_item_id;
+    private int productCompliance_compliance_id;
 
 }

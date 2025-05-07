@@ -77,6 +77,15 @@ public class CategoryService {
         return result;
     }
 
+    // 1차 카테고리 목록 조회
+    public List<Category> getCategories1() {
+        return categoryRepository.findByParentIsNull();
+    }
+
+    // 2차 카테고리 목록 조회
+    public List<Category> getCategories2(Category parent) {
+        return categoryRepository.findByParent(parent);
+    }
 
 
 

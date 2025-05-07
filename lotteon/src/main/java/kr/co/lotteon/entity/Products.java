@@ -1,13 +1,16 @@
 package kr.co.lotteon.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -17,13 +20,13 @@ import java.time.LocalDate;
 public class Products {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pid;
 
     private String img_file_1;
     private String img_file_2;
     private String img_file_3;
     private String detaile_file_1;
-    private int pcode;
     private String pname;
     private String description;
     private int price;
@@ -35,12 +38,35 @@ public class Products {
     private String mgmt;
     private int category_id;
     private String brand;
+
+    @CreationTimestamp
     private LocalDate p_created_at;
+    @UpdateTimestamp
     private LocalDate p_updates_at;
+
     private String maker;
     private int delivery_free;
-    private int category_cate_id;
-    private int poiont_rate;
-    private int cart_item_item_id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_cate_id")
+    private Category category;
+
+    private int point_rate;
+
+    // 양방향 1:1 관계 매핑
+    @OneToOne(mappedBy = "products", orphanRemoval = true)
+    private ProductCompliance productCompliance;
+
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "cart_item_item_id")
+//    private CartItem cartItem;
+//
+//    @OneToOne(mappedBy = "Products", cascade = CascadeType.ALL)
+//    @JoinColumn(name = "productCompliance_compliance_id")
+//    private ProductCompliance productCompliance;
+//
+//    @OneToMany(mappedBy = "Products", cascade = CascadeType.ALL)
+//    private List<ProductOption> productOption;
 
 }
