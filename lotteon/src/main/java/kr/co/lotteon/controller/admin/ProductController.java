@@ -8,6 +8,7 @@ import kr.co.lotteon.entity.Category;
 import kr.co.lotteon.service.admin.CategoryService;
 import kr.co.lotteon.service.admin.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class ProductController {
@@ -34,18 +36,20 @@ public class ProductController {
     // 상품 목록 검색
     @GetMapping("/admin/product/searchList")
     private String searchList(PageRequestDTO pageRequestDTO, Model model) {
-        PageResponseDTO<ProductDTO> pageResponseDTO = productService.productList(pageRequestDTO);
+        PageResponseDTO<ProductDTO> pageResponseDTO = productService.searchList(pageRequestDTO);
         model.addAttribute(pageResponseDTO);
+
+        log.info("page : {}", pageResponseDTO);
 
         return "/admin/product/list";
     }
 
     // 상품 선택 삭제
     @PostMapping("/admin/product/deleteProduct")
-    private String deleteProduct(@RequestParam(value = "pid", required = false) List<Integer> pid) {
+    private String deleteProduct(@RequestParam("pid") List<Integer> pid) {
 
         if(pid == null || pid.isEmpty()) {
-            return "redirect:/admin/product/list";
+            return "redirect:/admin/product/list?error=noProductsSelected";
         }
         productService.deleteProduct(pid);
 
@@ -74,5 +78,11 @@ public class ProductController {
         Category parentCategory = Category.builder().cateId(parentId).build();
         List<Category> categories2 = categoryService.getCategories2(parentCategory);
         return categories2; // JSON 형태 반환
+    }
+
+    // 상품 수정
+    @PostMapping("/admin/product/modifyProduct")
+    public String modifyProduct(@ModelAttribute ProductFormDTO form) {
+        return "redirect:/admin/product/list";
     }
 }

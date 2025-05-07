@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -56,7 +57,20 @@ public class ProductService {
     public PageResponseDTO<ProductDTO> searchList(PageRequestDTO pageRequestDTO) {
         Pageable pageable = pageRequestDTO.getPageableNotSort();
 
-        Page<Products> pageProduct = productRepository.findAll(pageable);
+        String keyword = pageRequestDTO.getKeyword();
+        String searchType = pageRequestDTO.getSearchType();
+
+        Page<Products> pageProduct;
+
+        if ("pid".equals(searchType)) {
+            pageProduct = productRepository.findByPidContaining(keyword, pageable);
+        } else if ("pname".equals(searchType)) {
+            pageProduct = productRepository.findByPnameContaining(keyword, pageable);
+        } else if ("company".equals(searchType)) {
+            pageProduct = productRepository.findByCompanyContaining(keyword, pageable);
+        } else {
+            pageProduct = productRepository.findAll(pageable);
+        }
 
         List<ProductDTO> productDTOList = pageProduct.getContent().stream()
                 .map(product -> modelMapper.map(product, ProductDTO.class))
@@ -77,6 +91,8 @@ public class ProductService {
     @Transactional
     public void deleteProduct(List<Integer> pid) {
         productComplianceRepository.deleteByProductsPidIn(pid);
+
+        log.info("productComplianceRepository : {}", pid);
         productRepository.deleteAllByIdInBatch(pid);
     }
 
@@ -171,42 +187,40 @@ public class ProductService {
         File destFile = new File(baseDir, fileName);
         file.transferTo(destFile);
         return fileName;
-//        if (file == null || file.isEmpty()) {
-//            return null; // 파일이 없으면 null 반환
-//        }
-//        String uuid = UUID.randomUUID().toString();
-//        String fileName = uuid + "_" + file.getOriginalFilename();
-//        File destFile = new File(baseDir, fileName);
-//        file.transferTo(destFile);
-//        return fileName;
+
     }
 
-//            Products products = Products.builder()
-//                    .pid(productDTO.getPid())
-//                    .img_file_1(productDTO.getImg_file_1())
-//                    .img_file_2(productDTO.getImg_file_2())
-//                    .img_file_3(productDTO.getImg_file_3())
-//                    .detaile_file_1(productDTO.getDetaile_file_1())
-//                    .pcode(productDTO.getPcode())
-//                    .pname(productDTO.getPname())
-//                    .description(productDTO.getDescription())
-//                    .price(productDTO.getPrice())
-//                    .discount(productDTO.getDiscount())
-//                    .point(productDTO.getPoint())
-//                    .stock(productDTO.getStock())
-//                    .company(productDTO.getCompany())
-//                    .hits(productDTO.getHits())
-//                    .mgmt(productDTO.getMgmt())
-//                    .category_id(productDTO.getCategory_id())
-//                    .brand(productDTO.getBrand())
-//                    .p_created_at(LocalDate.now())
-//                    .p_updates_at(LocalDate.now())
-//                    .maker(productDTO.getMaker())
-//                    .delivery_free(productDTO.getDelivery_free())
-//                    .category(productDTO.getCategory_cate_id())
-//                    .poiont_rate(productDTO.getPoiont_rate())
-//                    .cart_item_item_id(productDTO.getCart_item_item_id())
-//                    .build();
-//
-//            productRepository.save(products);
+    // 상품 수정
+    private void modifyProduct(ProductFormDTO productFormDTO) {
+
+        Optional<Products> optProduct = productRepository.findById(productFormDTO.getPid());
+
+        if(optProduct.isPresent()) {
+            Products products = optProduct.get();
+            products.setPname(productFormDTO.getPname());
+            products.setDescription(productFormDTO.getDescription());
+            products.setCompany(productFormDTO.getCompany());
+            products.setPrice(productFormDTO.getPrice());
+            products.setDiscount(productFormDTO.getDiscount());
+            products.setPoint(productFormDTO.getPoint());
+            products.setStock(productFormDTO.getStock());
+            products.setDelivery_free(productFormDTO.getDelivery_free());
+            products.setBrand(productFormDTO.getBrand());
+            products.setImg_file_1(String.valueOf(productFormDTO.getImg_file_1()));
+            products.setImg_file_2(String.valueOf(productFormDTO.getImg_file_2()));
+            products.setImg_file_3(String.valueOf(productFormDTO.getImg_file_2()));
+            products.setDetaile_file_1(String.valueOf(productFormDTO.getDetaile_file_1()));
+
+            productRepository.save(products);
+
+            Category category = optProduct.get().getCategory();
+            category.setCateId((long) productFormDTO.getCategory_id());
+
+            categoryRepository.save(category);
+
+
+        }
+
+    }
+
 }

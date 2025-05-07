@@ -75,7 +75,7 @@
                     </div>
                 </form>
                 <div class="table-wrapper">
-                    <form th:action="@{/admin/product/deleteProduct}" method="post">
+                    <form id="deleteForm" th:action="@{/admin/product/deleteProduct}" method="post">
                         <div class="table">
                             <table>
                                 <thead>
@@ -107,7 +107,7 @@
                                     <td>[[${product.hits}]]</td>
                                     <td>
                                         <div>
-                                            <button type="button" class="delete">[삭제]</button>
+                                            <button type="submit" name="pid" th:value="${product.pid}" class="delete">[삭제]</button>
                                         </div>
                                         <div>
                                             <button type="button" class="modify">[수정]</button>
