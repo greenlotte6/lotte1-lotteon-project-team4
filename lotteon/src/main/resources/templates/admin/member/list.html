@@ -20,6 +20,27 @@
 </head>
 <script src="/js/modal.js"></script>
 <script>
+    // 전역 함수로 정의
+    function openModifyModal(uid) {
+        fetch(`/admin/member/getModifyModal?uid=${uid}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("uid").value = data.uid;
+                document.getElementById("uname").value = data.uname;
+                document.querySelector(`input[name="gender"][value="${data.gender}"]`).checked = true;
+                document.getElementById("email").value = data.email;
+                document.getElementById("hp").value = data.hp;
+                document.getElementById("zip").value = data.zip;
+                document.getElementById("addr1").value = data.addr1;
+                document.getElementById("addr2").value = data.addr2;
+                document.getElementById("u_created_at").value = data.u_created_at;
+                document.getElementById("u_last_login").value = data.u_last_login;
+
+                openModal('register-modal'); // 모달 열기
+            })
+            .catch(error => console.error('Error fetching user data:', error));
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
 
         $('.hover').click(function (e) {
@@ -52,50 +73,31 @@
             openModal('register-modal');
         });
 
-        // 수정 모달을 열 때 서버에서 데이터를 가져오는 함수
-        function openModifyModal(uid) {
-            // AJAX로 서버에서 회원 정보를 가져오기
-            fetch(`/admin/member/getModifyModal?uid=${uid}`)
-                .then(response => response.json()) // 서버가 JSON 응답을 보낸다고 가정
-                .then(data => {
-                    console.log(data);
-                    console.log("data");
-                    // 가져온 데이터로 모달의 입력 필드 채우기
-                    document.getElementById("uid").value = data.uid;
-                    document.getElementById("uname").value = data.uname;
-                    document.getElementById("gender").value = data.gender;
 
-                    // 성별 처리: 받은 값이 'M'이면 남성, 'F'이면 여성으로 radio button 체크
-                    document.querySelector(`input[name="gender"][value="${data.gender}"]`).checked = true;
 
-                    // 나머지 필드 채우기
-                    document.getElementById("email").value = data.email;
-                    document.getElementById("hp").value = data.hp;
-                    document.getElementById("zip").value = data.zip;
-                    document.getElementById("addr1").value = data.addr1;
-                    document.getElementById("addr2").value = data.addr2;
-                    document.getElementById("u_created_at").value = data.u_created_at;
-                    document.getElementById("u_last_login").value = data.u_last_login;
+        document.querySelectorAll('select[name="grade"]').forEach(select => {
+            select.addEventListener('change', function () {
+                const row = select.closest('tr');
+                const checkbox = row.querySelector('.userCheckbox');
+                if (checkbox) checkbox.checked = true;
+            });
+        });
 
-                })
-                .catch(error => console.error('Error fetching user data:', error));
-        }
         document.querySelector('.select-delete').addEventListener('click', function (e) {
             e.preventDefault();
 
-            const userRows = document.querySelectorAll('tbody tr');
             const payload = [];
 
-            userRows.forEach(row => {
-                const checkbox = row.querySelector('input[type="checkbox"].userCheckbox');
-                if (checkbox && checkbox.checked) {
-                    const uid = checkbox.value;
-                    const gradeSelect = row.querySelector(select[name^="grades"]);
-                    const grade = gradeSelect?.value;
+            // 체크된 사용자만 대상
+            const checkedBoxes = document.querySelectorAll('.userCheckbox:checked');
+            checkedBoxes.forEach(cb => {
+                const uid = cb.value;
+                const row = cb.closest('tr');
+                const gradeSelect = row.querySelector('select[name="grade"]');
+                const grade = gradeSelect?.value;
 
-                    if (uid && grade) {
-                        payload.push({uid, grade});
-                    }
+                if (uid && grade) {
+                    payload.push({uid, grade});
                 }
             });
 
@@ -126,6 +128,40 @@
                 });
         });
 
+        document.querySelector('.register').addEventListener('click', function () {
+            const data = {
+                uid: document.getElementById("uid").value,
+                uname: document.getElementById("uname").value,
+                gender: document.querySelector('input[name="gender"]:checked').value,
+                email: document.getElementById("email").value,
+                hp: document.getElementById("hp").value,
+                zip: document.getElementById("zip").value,
+                addr1: document.getElementById("addr1").value,
+                addr2: document.getElementById("addr2").value
+            };
+
+            fetch('/admin/member/update-info', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(res => res.text())
+                .then(result => {
+                    if (result === 'success') {
+                        alert('회원 정보가 수정되었습니다.');
+                        closeModal();
+                        location.reload();
+                    } else {
+                        alert('수정에 실패했습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('서버 오류가 발생했습니다.');
+                });
+        });
     });
 </script>
 <body>
@@ -203,7 +239,7 @@
                                         <td>[[${#temporals.format(user.u_created_at, 'yyyy-MM-dd HH:mm:ss')}]]</td>
                                         <td>[[${user.status}]]</td>
                                         <td>
-                                            <div><a href="#" class="btn banner-register">[수정]</a>
+                                            <div><a href="#" class="btn banner-register" onclick="openModifyModal('[[${user.uid}]]')">[수정]</a>
                                             </div>
                                             <div><a href="#">[중지]</a></div>
                                         </td>
