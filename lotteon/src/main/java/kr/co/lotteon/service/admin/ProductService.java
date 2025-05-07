@@ -214,7 +214,7 @@ public class ProductService {
             productRepository.save(products);
 
             Category category = optProduct.get().getCategory();
-            category.setCateId((long) productFormDTO.getCategory_id());
+            category.setCateId((long) productFormDTO.getCategory_id()); 
 
             categoryRepository.save(category);
 
