@@ -273,29 +273,188 @@ button:hover {
 .modal-overlay {
     display: none;
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 .modal {
-    margin: 0 auto;
     width: 800px;
-    height: auto;
-    border-radius: 10px;
-}
-
-iframe {
-    width: 800px;
-    height: 100%;
-    margin: 10% auto;
-    border: none;
+    background: white;
+    border-radius: 3px;
     overflow: hidden;
+    margin: 0 auto; /* 중앙 정렬을 위해 추가 */
+    max-width: 100%; /* 화면 크기에 맞춰 모달 크기 조절 */
+    box-sizing: border-box; /* 여백을 포함하여 크기 계산 */
 }
 
-.btn {
-    width: 100px;
-    padding: 10px 20px;
+.modal-header {
+    background-color: #e45450;
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
     cursor: pointer;
+}
+
+
+.modal-footer {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.modal-footer button {
+    color: #fff;
+    background-color: #d3514a;
+    width: 106px;
+    border: none;
+    padding: 10px 30px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.modal-overlay register-modal {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    color: #fff;
+    background-color: #e45450;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.label {
+    background: #f5f5f5;
+    font-weight: bold;
+    width: 150px;
+    white-space: nowrap;
+}
+
+.modal-table tr {
+    height: 50px;
+    border-top: 1px solid #b7b7b7;
+    border-bottom: 1px solid #e0e0e0;
+    box-sizing: border-box;
+}
+.modal-table{
+    margin-top: 20px;
+}
+
+.modal-table td {
+    width: 50px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.modal-table td:nth-of-type(1) {
+    background-color: #f3f3f3;
+}
+
+.modal-table td:nth-of-type(2) {
+    text-align: left;
+    padding-left: 15px;
+}
+
+.modal-table input {
+    width: 250px;
+    height: 30px;
+    padding-left: 5px;
+    font-size: 14px;
+    color: #696969;
+    border: 1px solid #b7b7b7;
+    box-sizing: border-box;
+}
+
+td.label {
+    text-align: center;
+}
+
+.text, textarea {
+    width: 80%;
+    padding: 5px;
+    font-size: 14px;
+    resize: none;
+}
+
+textarea {
+    height: 100px;
+}
+
+select{
+    width: 180px;
+    height: 30px;
+    padding-left: 7px;
+    color: #696969;
+    border: 1px solid #b7b7b7;
+    box-sizing: border-box;
+}
+
+.date-inputs {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-top: 5px;
+}
+
+input[type="time"] {
+    width:190px;
+}
+
+input.input[type = "file"] {
+    height: 30px;
+    padding-top: 1px;
+}
+
+.mo
+
+.modal-footer {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.modal-footer button {
+    padding: 10px 30px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 2px;
+    border: none;
+}
+
+.cancel-btn {
+    background: #ccc;
+    color: #333;
+    margin-right: 10px;
+}
+
+.submit-btn {
+    color: #fff;
+    background-color: #d3514a;
 }

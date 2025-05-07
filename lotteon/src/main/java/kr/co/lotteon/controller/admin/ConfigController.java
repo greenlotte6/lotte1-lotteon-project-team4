@@ -1,5 +1,6 @@
 package kr.co.lotteon.controller.admin;
 
+import kr.co.lotteon.dto.BannerDTO;
 import kr.co.lotteon.dto.CategoryDTO;
 import kr.co.lotteon.dto.LogoDTO;
 import kr.co.lotteon.dto.TermsDTO;
@@ -17,7 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,12 +38,27 @@ public class ConfigController {
     private final SupportService supportService;
     private final LogoService logoService;
     private final CategoryService categoryService;
+    private final BannerService bannerService;
 
 
     @GetMapping("/banner")
     public String banner() {
         return "/admin/config/banner";
     }
+
+    @PostMapping("/banner/register")
+    @ResponseBody
+    public String registerBanner(@ModelAttribute BannerDTO dto) {
+        try {
+            bannerService.registerBanner(dto);
+            return "success";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+
+
 
     @GetMapping("/basic")
     public String basic(Model model) {
@@ -81,6 +99,7 @@ public class ConfigController {
         copyrightService.updateInfo(copyright);
         return "success";
     }
+
     @PostMapping("/support")
     @ResponseBody
     public String updatesupport(@RequestBody Support support) {
@@ -100,7 +119,6 @@ public class ConfigController {
             return "파일 업로드 중 오류 발생";
         }
     }
-
 
 
     @GetMapping("/category")

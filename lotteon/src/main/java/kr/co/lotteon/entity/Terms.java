@@ -20,9 +20,18 @@ public class Terms {
     @Column(name = "terms_id")
     private int termsId;
 
+    @Column(columnDefinition = "TEXT")
     private String purchaseTerms;
+
+    @Column(columnDefinition = "TEXT")
     private String sellerTerms;
+
+    @Column(columnDefinition = "TEXT")
     private String electronicTerms;
+
+    @Column(columnDefinition = "TEXT")
     private String locationTerms;
+
+    @Column(columnDefinition = "TEXT")
     private String privacyPolicy;
 }
