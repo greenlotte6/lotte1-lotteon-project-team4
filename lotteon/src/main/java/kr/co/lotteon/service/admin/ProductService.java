@@ -193,31 +193,33 @@ public class ProductService {
     // 상품 수정
     private void modifyProduct(ProductFormDTO productFormDTO) {
 
-        Optional<Products> optProduct = productRepository.findById(productFormDTO.getPid());
-
-        if(optProduct.isPresent()) {
-            Products products = optProduct.get();
-            products.setPname(productFormDTO.getPname());
-            products.setDescription(productFormDTO.getDescription());
-            products.setCompany(productFormDTO.getCompany());
-            products.setPrice(productFormDTO.getPrice());
-            products.setDiscount(productFormDTO.getDiscount());
-            products.setPoint(productFormDTO.getPoint());
-            products.setStock(productFormDTO.getStock());
-            products.setDelivery_free(productFormDTO.getDelivery_free());
-            products.setBrand(productFormDTO.getBrand());
-            products.setImg_file_1(String.valueOf(productFormDTO.getImg_file_1()));
-            products.setImg_file_2(String.valueOf(productFormDTO.getImg_file_2()));
-            products.setImg_file_3(String.valueOf(productFormDTO.getImg_file_2()));
-            products.setDetaile_file_1(String.valueOf(productFormDTO.getDetaile_file_1()));
-
-            productRepository.save(products);
-
-            Category category = optProduct.get().getCategory();
-            category.setCateId((long) productFormDTO.getCategory_id()); 
-
-            categoryRepository.save(category);
-
+//        Optional<Products> optProduct = productRepository.findById(productFormDTO.getPid());
+//
+//        if(optProduct.isPresent()) {
+//
+//            Category category = optProduct.get().getCategory();
+//            category.setCateId((long) productFormDTO.getCategory_id());
+//
+//            categoryRepository.save(category);
+//
+//            Products products = optProduct.get();
+//            products.setPname(productFormDTO.getPname());
+//            products.setDescription(productFormDTO.getDescription());
+//            products.setCompany(productFormDTO.getCompany());
+//            products.setPrice(productFormDTO.getPrice());
+//            products.setDiscount(productFormDTO.getDiscount());
+//            products.setPoint(productFormDTO.getPoint());
+//            products.setStock(productFormDTO.getStock());
+//            products.setDelivery_free(productFormDTO.getDelivery_free());
+//            products.setBrand(productFormDTO.getBrand());
+//            products.setImg_file_1(String.valueOf(productFormDTO.getImg_file_1()));
+//            products.setImg_file_2(String.valueOf(productFormDTO.getImg_file_2()));
+//            products.setImg_file_3(String.valueOf(productFormDTO.getImg_file_2()));
+//            products.setDetaile_file_1(String.valueOf(productFormDTO.getDetaile_file_1()));
+//
+//            productRepository.save(products);
+//
+//            ProductOption productOption =
 
         }
 
