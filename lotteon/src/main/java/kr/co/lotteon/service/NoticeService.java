@@ -69,6 +69,10 @@ public class NoticeService {
         return noticeRepository.findAll(pageable).getContent();
     }
 
+    public Page<Notice> findByNoticeType(Pageable pageable, String type) {
+        return noticeRepository.findByNoticeType(type, pageable);
+    }
+
 
 
 }

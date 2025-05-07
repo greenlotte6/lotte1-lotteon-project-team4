@@ -118,7 +118,24 @@ public class CsNoticeController {
     }
 
     @GetMapping("/notice/sayty-list")
-    public String saytylist() {
+    public String notice(@RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "10") int size,
+                       @RequestParam(defaultValue = "안전거래") String type,
+                       Model model) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("noticeId").descending());
+        Page<Notice> noticePage;
+
+        if (type.equals("안전거래")) {
+            noticePage = noticeService.getNoticePage(pageable);
+        } else {
+            noticePage = noticeService.getNoticePageByType(type, pageable);
+        }
+
+        model.addAttribute("saytyList", noticePage.getContent());
+        model.addAttribute("page", noticePage);
+        model.addAttribute("type", type);  // 선택 유지용{
+
         return "/cs/notice/sayty-list";
     }
 
@@ -131,10 +148,8 @@ public class CsNoticeController {
     public String viewNotice(@PathVariable("id") int id, Model model) {
         Notice notice = noticeService.getNoticeById(id);
         model.addAttribute("notice", notice);
-        return "/cs/notice/view"; // resources/templates/notice/view.html
+        return "/cs/notice/view";
     }
-
-
 
 
 
