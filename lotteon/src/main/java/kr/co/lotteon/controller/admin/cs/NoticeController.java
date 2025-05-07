@@ -12,9 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Formatter;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +35,7 @@ public class NoticeController {
         Pageable pageable = PageRequest.of(page, 10, Sort.by("noticeId").descending());
         Page<Notice> noticePage;
 
+
         if (type == null || type.isBlank() || type.equals("전체")) {
             noticePage = noticeRepository.findAll(pageable);
         } else {
@@ -54,8 +52,6 @@ public class NoticeController {
         return "/admin/cs/notice/list";
     }
 
-
-
     @GetMapping("/admin/cs/notice/modify")
     public String showModifyPage(@RequestParam("id") int id, Model model) {
         Notice notice = noticeService.getNoticeById(id);
@@ -69,7 +65,6 @@ public class NoticeController {
         return "redirect:/admin/cs/notice/view?id=" + notice.getNoticeId();
     }
 
-
     @GetMapping("/admin/cs/notice/view")
     public String view(@RequestParam("id") int id, Model model) {
         Notice notice = noticeService.findById(id);
@@ -81,7 +76,6 @@ public class NoticeController {
     public String write() {
         return "/admin/cs/notice/write";
     }
-
 
     @PostMapping("/admin/cs/notice/write")
     public String submitNotice(@ModelAttribute Notice notice) {
@@ -102,6 +96,4 @@ public class NoticeController {
         }
         return "redirect:/admin/cs/notice/list";
     }
-
-
 }

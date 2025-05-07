@@ -56,7 +56,7 @@ public class FaqService {
     }
 
     // 수정: getFilteredFaqs → LIKE 검색으로 변경
-    public List<Faq> getFilteredFaqs(String type1, String type2) {
+    public List<Faq>getFilteredFaqs(String type1, String type2) {
         if (type1 != null && !type1.isEmpty() && type2 != null && !type2.isEmpty()) {
             return faqRepository.findByType1AndType2Like(type1, type2);
         } else if (type1 != null && !type1.isEmpty()) {

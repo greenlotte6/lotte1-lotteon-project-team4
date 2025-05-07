@@ -88,10 +88,10 @@
 
                         <table class="cs-table">
                             <tbody>
-                            <tr th:each="notice : ${customList}">
+                            <tr th:each="notice : ${customList}" th:if="${notice.noticeType} == '고객서비스'">
                                 <td th:text="${notice.noticeId}"></td>
                                 <td>
-                                    <a th:href="@{'/notice/' + ${notice.noticeId}}" th:text="${notice.title}"></a>
+                                    <a th:href="@{/notice/view/{id}(id=${notice.noticeId})}" th:text="${notice.title}"></a>
                                 </td>
                                 <td th:text="${#temporals.format(notice.uploadAt,'yy.MM.dd')}"></td>
                             </tr>

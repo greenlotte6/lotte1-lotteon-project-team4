@@ -59,16 +59,15 @@
             <div class="line"></div>
             <div class="container">
                 <form th:action="@{/admin/cs/notice/list}" method="get">
-                    <select class="notice" name="type" id="noticenum"
-                            style="margin-top: 12px; margin-left: 5px; margin-bottom: 15px;"
-                            onchange="this.form.submit()">
+                    <select class="notice" name="type" id="noticenum" style="margin-top: 12px; margin-left: 5px; margin-bottom: 15px;" onchange="this.form.submit()">
                         <option>선택</option>
-                        <option th:value="전체" th:selected="${param.type} == null or param.type == ''">전체</option>
+                        <option th:value="전체" th:selected="${param.type} == '전체'">전체</option>
                         <option th:value="고객서비스" th:selected="${param.type} == '고객서비스'">고객서비스</option>
                         <option th:value="안전거래" th:selected="${param.type} == '안전거래'">안전거래</option>
                         <option th:value="위해상품" th:selected="${param.type} == '위해상품'">위해상품</option>
                         <option th:value="이벤트당첨" th:selected="${param.type} == '이벤트당첨'">이벤트당첨</option>
                     </select>
+
                 </form>
 
 
@@ -103,11 +102,6 @@
                             <button class="btn" type="submit">선택삭제</button>
                             <a th:href="@{/admin/cs/notice/write}" class="btn2">작성하기</a>
                         </div>
-
-
-
-
-
                     </form>
                     <div class="pagination">
                         <a th:if="${page.hasPrevious()}"
@@ -122,13 +116,9 @@
                         <a th:if="${page.hasNext()}"
                            th:href="@{/admin/cs/notice/list(page=${page.number + 1})}">다음</a>
                     </div>
-
-
                 </div>
             </div>
         </div>
-
-    </div>
     </div>
 </main>
 <th:block th:include="/common/_admin_footer"/>
