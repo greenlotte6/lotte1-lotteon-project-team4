@@ -1,10 +1,7 @@
 package kr.co.lotteon.controller.admin;
 
 import jakarta.servlet.http.HttpSession;
-import kr.co.lotteon.dto.PageRequestDTO;
-import kr.co.lotteon.dto.PageResponseDTO;
-import kr.co.lotteon.dto.PointDTO;
-import kr.co.lotteon.dto.UsersDTO;
+import kr.co.lotteon.dto.*;
 import kr.co.lotteon.service.UsersService;
 import kr.co.lotteon.service.admin.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -45,30 +42,21 @@ public class  MemberController {
         return "/admin/member/list";
     }
 
-//    // 회원 등급 선택 수정
-//    @PostMapping("/admin/member/postModify")
-//    public String modifyUsers(UsersDTO usersDTO) {
-//        memberService.modify(usersDTO);
-//
-//        log.info("usersDTO 확인 : {}", usersDTO);
-//
-//        return "redirect:/admin/member/list";
-//    }
+    @PostMapping("/admin/member/update-grade")
+    @ResponseBody
+    public String updateUserGrades(@RequestBody List<UserGradeDTO> dtos) {
+        log.info("받은 등급 리스트: {}", dtos);
+        try {
+            for (UserGradeDTO dto : dtos) {
+                memberService.updateGrade(dto.getUid(), dto.getGrade());
+            }
+            return "success";
+        } catch (Exception e) {
+            log.error("등급 수정 실패", e);
+            return "fail";
+        }
+    }
 
-//    @PostMapping("/admin/member/postModify")
-//    public String modifyUsers(@ModelAttribute UsersDTO usersDTO,
-//                              @RequestParam("selectedUsers") List<String> selectedUsers,
-//                              @RequestParam("grades") List<String> grades) {
-//
-//            usersDTO.setUid(usersDTO.getUid());  // 유저의 uid 설정
-//            usersDTO.setGrade(usersDTO.getGrade());  // 유저의 grade 설정
-//
-//            // 해당 유저의 등급 수정
-//            memberService.modify(usersDTO);
-//
-//        // 수정 후, 리스트 페이지로 리다이렉트
-//        return "redirect:/admin/member/list";
-//    }
 
     // 회원 수정 모달창 정보 불러오기
     @ResponseBody

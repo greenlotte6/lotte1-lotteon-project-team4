@@ -36,7 +36,7 @@ public class LayoutControllerAdvice {
 
     @ModelAttribute("logo")
     public Logo logoInfo() {
-        return logoService.getInfo(1); // 로고 추가
+        return logoService.getInfo(1);
     }
 
     @ModelAttribute("categories")

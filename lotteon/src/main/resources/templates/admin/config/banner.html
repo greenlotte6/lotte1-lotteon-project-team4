@@ -20,6 +20,35 @@
 </head>
 <script th:src="@{/js/modal.js}"></script>
 <script>
+    function deleteSelectedBanners() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"][data-id]:checked');
+        const idsToDelete = Array.from(checkboxes).map(cb => cb.getAttribute("data-id"));
+
+        if (idsToDelete.length === 0) {
+            alert("삭제할 배너를 선택해주세요.");
+            return;
+        }
+
+        if (!confirm("정말 삭제하시겠습니까?")) return;
+
+        fetch("/admin/config/banner/delete", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(idsToDelete)
+        })
+            .then(res => res.text())
+            .then(result => {
+                if (result === 'success') {
+                    alert("삭제 완료");
+                    location.reload();
+                } else {
+                    alert("삭제 실패");
+                }
+            });
+    }
+
     function submitCoupon() {
         const formData = new FormData(document.getElementById("bannerForm"));
 
@@ -89,7 +118,42 @@
             openModal('register-modal');
         });
 
+        const positions = ['MAIN1', 'MAIN2', 'PRODUCT1', 'MEMBER1', 'MY1'];
 
+        positions.forEach(pos => {
+            const selectAllCheckbox = document.getElementById(`selectAll-${pos}`);
+            const checkboxes = document.querySelectorAll(`.checkbox-${pos}`);
+
+            if (selectAllCheckbox) {
+                selectAllCheckbox.addEventListener('change', function () {
+                    checkboxes.forEach(cb => cb.checked = selectAllCheckbox.checked);
+                });
+            }
+        });
+
+        document.querySelectorAll(".update-active").forEach(button => {
+            button.addEventListener("click", function () {
+                const bannerId = this.getAttribute("data-id");
+                const newStatus = this.getAttribute("data-status");
+
+                fetch("/admin/config/banner/updateActive", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ bannerId: bannerId, active: newStatus })
+                })
+                    .then(res => res.text())
+                    .then(result => {
+                        if (result === "success") {
+                            alert("상태가 변경되었습니다.");
+                            location.reload();
+                        } else {
+                            alert("변경 실패");
+                        }
+                    });
+            });
+        });
     });
 </script>
 <body>
@@ -125,7 +189,7 @@
                         <table>
                             <thead>
                             <tr>
-                                <th><input type="checkbox" id="selectAll1"></th>
+                                <th><input type="checkbox" id="selectAll-MAIN1"></th>
                                 <th>번호</th>
                                 <th>이미지</th>
                                 <th>배너 정보</th>
@@ -138,56 +202,34 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>1</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
+                            <tr th:each="banner : ${banners}" th:if="${banner.position} == 'MAIN1'">
+                                <td><input type="checkbox" class="checkbox-MAIN1" th:attr="data-id=${banner.bannerId}"></td>
+                                <td th:text="${banner.bannerId}">1</td>
+                                <td><img th:src="@{${banner.imageUrl}}" alt="이미지 미리보기" style="width: 120px;"></td>
                                 <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
+                                    배너 명: <span th:text="${banner.bannerName}"></span><br>
+                                    크기: <span th:text="${banner.size}"></span><br>
+                                    배경색: <span th:text="${banner.backgroundColor}"></span><br>
+                                    배너 링크: <span th:text="${banner.link}"></span>
                                 </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
+                                <td th:text="${banner.position}">MAIN1</td>
+                                <td th:text="${banner.startDay}"></td>
+                                <td th:text="${banner.closeDay}"></td>
+                                <td th:text="${banner.startAt}"></td>
+                                <td th:text="${banner.closeAt}"></td>
                                 <td>
                                     <div>
-                                        <button type="button">[활성]</button>
+                                        <button type="button"
+                                                class="update-active"
+                                                th:attr="data-id=${banner.bannerId}, data-status='활성'">[활성]</button>
                                     </div>
                                     <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>1</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
+                                        <button type="button"
+                                                class="update-active"
+                                                th:attr="data-id=${banner.bannerId}, data-status='비활성'">[비활성]</button>
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -200,7 +242,7 @@
                         <table>
                             <thead>
                             <tr>
-                                <th><input type="checkbox" id="selectAll2"></th>
+                                <th><input type="checkbox" id="selectAll-MAIN2"></th>
                                 <th>번호</th>
                                 <th>이미지</th>
                                 <th>배너 정보</th>
@@ -213,80 +255,35 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>2</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
+                            <tr th:each="banner : ${banners}" th:if="${banner.position} == 'MAIN2'">
+                                <td><input type="checkbox" class="checkbox-MAIN2" th:attr="data-id=${banner.bannerId}"></td>
+                                <td th:text="${banner.bannerId}">1</td>
+                                <td><img th:src="@{${banner.imageUrl}}" alt="이미지 미리보기" style="width: 120px;"></td>
                                 <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
+                                    배너 명: <span th:text="${banner.bannerName}"></span><br>
+                                    크기: <span th:text="${banner.size}"></span><br>
+                                    배경색: <span th:text="${banner.backgroundColor}"></span><br>
+                                    배너 링크: <span th:text="${banner.link}"></span>
                                 </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>2</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
+                                <td th:text="${banner.position}">MAIN1</td>
+                                <td th:text="${banner.startDay}"></td>
+                                <td th:text="${banner.closeDay}"></td>
+                                <td th:text="${banner.startAt}"></td>
+                                <td th:text="${banner.closeAt}"></td>
                                 <td>
                                     <div>
-                                        <button type="button">[활성]</button>
+                                        <button type="button"
+                                                class="update-active"
+                                                th:attr="data-id=${banner.bannerId}, data-status='활성'">[활성]</button>
                                     </div>
                                     <div>
-                                        <button type="button">[비활성]</button>
+                                        <button type="button"
+                                                class="update-active"
+                                                th:attr="data-id=${banner.bannerId}, data-status='비활성'">[비활성]</button>
                                     </div>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>2</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
 
-
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -299,7 +296,7 @@
                         <table>
                             <thead>
                             <tr>
-                                <th><input type="checkbox" id="selectAll3"></th>
+                                <th><input type="checkbox" id="selectAll-PRODUCT1"></th>
                                 <th>번호</th>
                                 <th>이미지</th>
                                 <th>배너 정보</th>
@@ -312,56 +309,35 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>3</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
+                            <tr th:each="banner : ${banners}" th:if="${banner.position} == 'PRODUCT1'">
+                                <td><input type="checkbox" class="checkbox-PRODUCT1" th:attr="data-id=${banner.bannerId}"></td>
+                                <td th:text="${banner.bannerId}">1</td>
+                                <td><img th:src="@{${banner.imageUrl}}" alt="이미지 미리보기" style="width: 120px;"></td>
                                 <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
+                                    배너 명: <span th:text="${banner.bannerName}"></span><br>
+                                    크기: <span th:text="${banner.size}"></span><br>
+                                    배경색: <span th:text="${banner.backgroundColor}"></span><br>
+                                    배너 링크: <span th:text="${banner.link}"></span>
                                 </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>3</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
+                                <td th:text="${banner.position}">MAIN1</td>
+                                <td th:text="${banner.startDay}"></td>
+                                <td th:text="${banner.closeDay}"></td>
+                                <td th:text="${banner.startAt}"></td>
+                                <td th:text="${banner.closeAt}"></td>
                                 <td>
                                     <div>
-                                        <button type="button">[활성]</button>
+                                        <button type="button"
+                                                class="update-active"
+                                                th:attr="data-id=${banner.bannerId}, data-status='활성'">[활성]</button>
                                     </div>
                                     <div>
-                                        <button type="button">[비활성]</button>
+                                        <button type="button"
+                                                class="update-active"
+                                                th:attr="data-id=${banner.bannerId}, data-status='비활성'">[비활성]</button>
                                     </div>
                                 </td>
-                            </tr>
 
-
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -374,7 +350,7 @@
                         <table>
                             <thead>
                             <tr>
-                                <th><input type="checkbox" id="selectAll4"></th>
+                                <th><input type="checkbox" id="selectAll-MEMBER1"></th>
                                 <th>번호</th>
                                 <th>이미지</th>
                                 <th>배너 정보</th>
@@ -387,51 +363,31 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>4</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
+                            <tr th:each="banner : ${banners}" th:if="${banner.position} == 'MEMBER1'">
+                                <td><input type="checkbox" class="checkbox-MEMBER1" th:attr="data-id=${banner.bannerId}"></td>
+                                <td th:text="${banner.bannerId}">1</td>
+                                <td><img th:src="@{${banner.imageUrl}}" alt="이미지 미리보기" style="width: 120px;"></td>
                                 <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
+                                    배너 명: <span th:text="${banner.bannerName}"></span><br>
+                                    크기: <span th:text="${banner.size}"></span><br>
+                                    배경색: <span th:text="${banner.backgroundColor}"></span><br>
+                                    배너 링크: <span th:text="${banner.link}"></span>
                                 </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
+                                <td th:text="${banner.position}">MAIN1</td>
+                                <td th:text="${banner.startDay}"></td>
+                                <td th:text="${banner.closeDay}"></td>
+                                <td th:text="${banner.startAt}"></td>
+                                <td th:text="${banner.closeAt}"></td>
                                 <td>
                                     <div>
-                                        <button type="button">[활성]</button>
+                                        <button type="button"
+                                                class="update-active"
+                                                th:attr="data-id=${banner.bannerId}, data-status='활성'">[활성]</button>
                                     </div>
                                     <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>4</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
+                                        <button type="button"
+                                                class="update-active"
+                                                th:attr="data-id=${banner.bannerId}, data-status='비활성'">[비활성]</button>
                                     </div>
                                 </td>
                             </tr>
@@ -447,7 +403,7 @@
                         <table>
                             <thead>
                             <tr>
-                                <th><input type="checkbox" id="selectAll5"></th>
+                                <th><input type="checkbox" id="selectAll-MY1"></th>
                                 <th>번호</th>
                                 <th>이미지</th>
                                 <th>배너 정보</th>
@@ -460,51 +416,31 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>5</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
+                            <tr th:each="banner : ${banners}" th:if="${banner.position} == 'MY1'">
+                                <td><input type="checkbox" class="checkbox-MY1" th:attr="data-id=${banner.bannerId}"></td>
+                                <td th:text="${banner.bannerId}">1</td>
+                                <td><img th:src="@{${banner.imageUrl}}" alt="이미지 미리보기" style="width: 120px;"></td>
                                 <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
+                                    배너 명: <span th:text="${banner.bannerName}"></span><br>
+                                    크기: <span th:text="${banner.size}"></span><br>
+                                    배경색: <span th:text="${banner.backgroundColor}"></span><br>
+                                    배너 링크: <span th:text="${banner.link}"></span>
                                 </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
+                                <td th:text="${banner.position}">MAIN1</td>
+                                <td th:text="${banner.startDay}"></td>
+                                <td th:text="${banner.closeDay}"></td>
+                                <td th:text="${banner.startAt}"></td>
+                                <td th:text="${banner.closeAt}"></td>
                                 <td>
                                     <div>
-                                        <button type="button">[활성]</button>
+                                        <button type="button"
+                                                class="update-active"
+                                                th:attr="data-id=${banner.bannerId}, data-status='활성'">[활성]</button>
                                     </div>
                                     <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>5</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
+                                        <button type="button"
+                                                class="update-active"
+                                                th:attr="data-id=${banner.bannerId}, data-status='비활성'">[비활성]</button>
                                     </div>
                                 </td>
                             </tr>
@@ -513,7 +449,7 @@
                     </div>
                 </div>
                 <div class="click">
-                    <button class="select-delete button">선택삭제</button>
+                    <button class="select-delete button" onclick="deleteSelectedBanners()">선택삭제</button>
                     <button class="banner-register button btn">배너등록</button>
                 </div>
             </div>
