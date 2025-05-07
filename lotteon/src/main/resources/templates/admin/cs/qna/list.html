@@ -115,7 +115,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="qna : ${qnaList}">
-                        <td><input type="checkbox" th:value="${qna.userUid}"></td>
+                        <td><input type="checkbox" th:value="${qna.user.uid}"></td>
                         <td th:text="${qna.qnaId}"></td>
                         <td th:text="${qna.qnaType1}"></td>
                         <td th:text="${qna.qnaType2}"></td>

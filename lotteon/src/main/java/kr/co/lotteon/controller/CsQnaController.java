@@ -6,6 +6,7 @@ import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.repository.QnaRepository;
 import kr.co.lotteon.repository.UsersRepository;
 import kr.co.lotteon.service.QnaService;
+import kr.co.lotteon.dto.QnaDTO;  // QnaDTO를 import 해야 함
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -21,7 +22,7 @@ import java.time.LocalDateTime;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-public class  CsQnaController {
+public class CsQnaController {
 
     private final QnaService qnaService;
     private final QnaRepository qnaRepository;
@@ -30,7 +31,7 @@ public class  CsQnaController {
     // 쿠폰/혜택/이벤트 리스트
     @GetMapping("/qna/coupun-list")
     public String getQnaList(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
-        Page<Qna> qnaPage = qnaService.getQnaListByType("쿠폰/혜택/이벤트", page, 10);
+        Page<QnaDTO> qnaPage = qnaService.getQnaListByType("쿠폰/혜택/이벤트", page, 10);  // 수정된 부분
         model.addAttribute("coupunList", qnaPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", qnaPage.getTotalPages());
@@ -40,7 +41,7 @@ public class  CsQnaController {
     // 배송 리스트
     @GetMapping("/qna/delivery-list")
     public String deliveryList(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
-        Page<Qna> qnaPage = qnaService.getQnaListByType("배송", page, 10);
+        Page<QnaDTO> qnaPage = qnaService.getQnaListByType("배송", page, 10);  // 수정된 부분
         model.addAttribute("deliveryList", qnaPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", qnaPage.getTotalPages());
@@ -50,7 +51,7 @@ public class  CsQnaController {
     // 회원 리스트
     @GetMapping("/qna/member-list")
     public String memberList(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
-        Page<Qna> qnaPage = qnaService.getQnaListByType("회원", page, 10);
+        Page<QnaDTO> qnaPage = qnaService.getQnaListByType("회원", page, 10);  // 수정된 부분
         model.addAttribute("memberList", qnaPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", qnaPage.getTotalPages());
@@ -60,7 +61,7 @@ public class  CsQnaController {
     // 주문/결제 리스트
     @GetMapping("/qna/order-list")
     public String orderList(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
-        Page<Qna> qnaPage = qnaService.getQnaListByType("주문/결제", page, 10);
+        Page<QnaDTO> qnaPage = qnaService.getQnaListByType("주문/결제", page, 10);  // 수정된 부분
         model.addAttribute("orderList", qnaPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", qnaPage.getTotalPages());
@@ -70,7 +71,7 @@ public class  CsQnaController {
     // 취소/반품/교환 리스트
     @GetMapping("/qna/return-list")
     public String returnList(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
-        Page<Qna> qnaPage = qnaService.getQnaListByType("취소/반품/교환", page, 10);
+        Page<QnaDTO> qnaPage = qnaService.getQnaListByType("취소/반품/교환", page, 10);  // 수정된 부분
         model.addAttribute("returnList", qnaPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", qnaPage.getTotalPages());
@@ -80,7 +81,7 @@ public class  CsQnaController {
     // 여행/숙박/항공 리스트
     @GetMapping("/qna/trip-list")
     public String tripList(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
-        Page<Qna> qnaPage = qnaService.getQnaListByType("여행/숙박/항공", page, 10);
+        Page<QnaDTO> qnaPage = qnaService.getQnaListByType("여행/숙박/항공", page, 10);  // 수정된 부분
         model.addAttribute("tripList", qnaPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", qnaPage.getTotalPages());
@@ -90,7 +91,7 @@ public class  CsQnaController {
     // 안전거래 리스트
     @GetMapping("/qna/safy-list")
     public String safyList(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
-        Page<Qna> qnaPage = qnaService.getQnaListByType("안전거래", page, 10);
+        Page<QnaDTO> qnaPage = qnaService.getQnaListByType("안전거래", page, 10);  // 수정된 부분
         model.addAttribute("safyList", qnaPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", qnaPage.getTotalPages());
@@ -98,18 +99,13 @@ public class  CsQnaController {
     }
 
     // QnA 보기
-    // QnA 상세 페이지
-    // QnA 상세 페이지
     @GetMapping("/qna/view/{qnaId}")
     public String viewQna(@PathVariable long qnaId, Model model) {
         Qna qna = qnaRepository.findById(qnaId)
                 .orElseThrow(() -> new RuntimeException("QnA를 찾을 수 없습니다."));
-
         model.addAttribute("qna", qna);
-        return "/cs/qna/view"; // 상세 페이지를 위한 뷰
+        return "/cs/qna/view";  // 상세 페이지를 위한 뷰
     }
-
-
 
     // QnA 작성 폼
     @GetMapping("/qna/write")
