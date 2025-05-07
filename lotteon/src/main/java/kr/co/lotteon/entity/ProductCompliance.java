@@ -3,6 +3,8 @@ package kr.co.lotteon.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.awt.*;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,8 +19,8 @@ public class ProductCompliance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int compliance_id;
 
-    @OneToOne
-    @JoinColumn(name = "Products_pid")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pid")
     private Products products;
 
     private String status;

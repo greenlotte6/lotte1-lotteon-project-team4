@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class ProductComplianceDTO {
 
     private int compliance_id;
-    private int Products_pid;
+    private int pid;
     private String status;
     private String tax;
     private String receipt;
