@@ -20,6 +20,23 @@
 </head>
 <script th:src="@{/js/modal.js}"></script>
 <script>
+    function submitCoupon() {
+        const formData = new FormData(document.getElementById("bannerForm"));
+
+        fetch('/admin/config/banner/register', {
+            method: 'POST',
+            body: formData
+        }).then(res => res.text())
+            .then(result => {
+                if (result === 'success') {
+                    alert('배너가 등록되었습니다.');
+                    location.reload();
+                } else {
+                    alert('등록 실패');
+                }
+            });
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
 
         $('.hover').click(function (e) {
@@ -54,6 +71,23 @@
                 }
             });
         }
+
+        // 모달 열기 함수
+        function openModal(className) {
+            document.querySelector(`.${className}`).style.display = 'flex';
+        }
+
+        // 모달 닫기 함수
+        window.closeModal = function () {
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.style.display = 'none';
+            });
+        };
+
+        //등록 버튼 클릭 시 등록 모달 열기
+        document.querySelector(".banner-register").addEventListener('click', () => {
+            openModal('register-modal');
+        });
 
 
     });
@@ -91,7 +125,7 @@
                         <table>
                             <thead>
                             <tr>
-                                <th><input type="checkbox"></th>
+                                <th><input type="checkbox" id="selectAll1"></th>
                                 <th>번호</th>
                                 <th>이미지</th>
                                 <th>배너 정보</th>
@@ -153,77 +187,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><input type="checkbox"></td>
-                                <td>1</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>1</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>1</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -236,7 +200,7 @@
                         <table>
                             <thead>
                             <tr>
-                                <th><input type="checkbox"></th>
+                                <th><input type="checkbox" id="selectAll2"></th>
                                 <th>번호</th>
                                 <th>이미지</th>
                                 <th>배너 정보</th>
@@ -321,54 +285,8 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>2</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>2</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
+
+
                             </tbody>
                         </table>
                     </div>
@@ -381,7 +299,7 @@
                         <table>
                             <thead>
                             <tr>
-                                <th><input type="checkbox"></th>
+                                <th><input type="checkbox" id="selectAll3"></th>
                                 <th>번호</th>
                                 <th>이미지</th>
                                 <th>배너 정보</th>
@@ -442,78 +360,8 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>3</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>3</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>3</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
+
+
                             </tbody>
                         </table>
                     </div>
@@ -526,7 +374,7 @@
                         <table>
                             <thead>
                             <tr>
-                                <th><input type="checkbox"></th>
+                                <th><input type="checkbox" id="selectAll4"></th>
                                 <th>번호</th>
                                 <th>이미지</th>
                                 <th>배너 정보</th>
@@ -539,78 +387,6 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>4</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>4</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>4</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
                             <tr>
                                 <td><input type="checkbox"></td>
                                 <td>4</td>
@@ -671,7 +447,7 @@
                         <table>
                             <thead>
                             <tr>
-                                <th><input type="checkbox"></th>
+                                <th><input type="checkbox" id="selectAll5"></th>
                                 <th>번호</th>
                                 <th>이미지</th>
                                 <th>배너 정보</th>
@@ -732,97 +508,78 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>5</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>5</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>5</td>
-                                <td><img th:src="@{/images/bar.png}" alt="이미지 미리보기"></td>
-                                <td>
-                                    배너 명: [배너 명]<br>
-                                    크기: 1200 x 80<br>
-                                    배경색: #ffff00<br>
-                                    배너 링크: [배너 링크]
-                                </td>
-                                <td>MAINT</td>
-                                <td>2023/01/01</td>
-                                <td>2023/01/07</td>
-                                <td>13:00</td>
-                                <td>15:00</td>
-                                <td>
-                                    <div>
-                                        <button type="button">[활성]</button>
-                                    </div>
-                                    <div>
-                                        <button type="button">[비활성]</button>
-                                    </div>
-                                </td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="click">
                     <button class="select-delete button">선택삭제</button>
-                    <button onclick="openModal('/popup@{/admin/banner_Management}')" class="banner-register button btn">
-                        배너등록
-                    </button>
-                </div>
-                <div class="modal-overlay" id="modalOverlay">
-                    <div class="modal">
-                        <iframe id="modalFrame"></iframe>
-                    </div>
+                    <button class="banner-register button btn">배너등록</button>
                 </div>
             </div>
         </div>
     </div>
 </main>
+
+<div class="modal-overlay register-modal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">배너등록</div>
+            <button class="modal-button" onclick="closeModal()">X</button>
+        </div>
+
+        <div class="modal-table">
+            <form id="bannerForm" enctype="multipart/form-data" method="post">
+                <table>
+                    <tr>
+                        <td>배너이름</td>
+                        <td><input type="text" name="bannerName" placeholder="배너명 입력"></td>
+                    </tr>
+                    <tr>
+                        <td>배너크기</td>
+                        <td><input type="text" name="size" placeholder="배너 크기 입력"></td>
+                    </tr>
+                    <tr>
+                        <td>배경색</td>
+                        <td><input type="text" name="backgroundColor" placeholder="배너 배경색 입력"></td>
+                    </tr>
+                    <tr>
+                        <td>배너링크</td>
+                        <td><input type="text" name="link" placeholder="배너 링크 입력"></td>
+                    </tr>
+                    <tr>
+                        <td>배너위치</td>
+                        <td>
+                            <select name="position">
+                                <option value="" hidden>배너위치 선택</option>
+                                <option value="MAIN1">MAIN1 : 메인 최상단</option>
+                                <option value="MAIN2">MAIN2 : 메인 슬라이더</option>
+                                <option value="PRODUCT1">PRODUCT1 : 상품보기</option>
+                                <option value="MEMBER1">MEMBER1 : 로그인</option>
+                                <option value="MY1">MY1 : 마이페이지</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>노출날짜</td>
+                        <td><input type="date" name="startDay"> &nbsp;~&nbsp; <input type="date" name="closeDay"></td>
+                    </tr>
+                    <tr>
+                        <td>노출시간</td>
+                        <td><input type="time" name="startAt"> &nbsp;~&nbsp; <input type="time" name="closeAt"></td>
+                    </tr>
+                    <tr>
+                        <td>배너파일</td>
+                        <td><input type="file" name="imageFileUpload" class="input">&nbsp;&nbsp;노출 위치에 맞는 크기 권장</td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="submit-btn" onclick="submitCoupon()">등록</button>
+        </div>
+    </div>
+</div>
 <th:block th:include="/common/_admin_footer"/>
 </body>
 </html>

@@ -200,16 +200,26 @@ header {
 .bar-cate {
     display: none;
     position: absolute;
-    margin-top: 57px;
     width: 200px;
     max-height: 500px;
-    overflow-y: auto;
+    top: 58px;
+    left: 0;
     background-color: #fff;
     border: 1px solid #ef2a23;
     border-top: none;
     box-sizing: border-box;
     z-index: 999;
 }
+
+.bar-cate.show {
+    display: block;
+}
+
+.bar-sub-cate {
+    position: relative;
+}
+
+
 
 .bar-cate li {
     margin: 15px 0 15px 10px;
@@ -224,10 +234,6 @@ header {
 .bar-cate li a:hover {
     color: #ef2a23;
     font-weight: 600;
-}
-
-.bar-cate.show {
-    display: block;
 }
 
 .bar button {
@@ -246,21 +252,22 @@ header {
     cursor: pointer;
 }
 
-.bar-sub-cate {
-    position: relative;
-}
-
-.bar-sub-cate a {
+.bar-sub-cate > a {
     display: block;
+    font-size: 15px;
 
 }
 
 .sub-cate {
     display: none;
     position: absolute;
+    top: 0;
     left: 100%;
-    width: 800px;
+    width: 200px;
     background-color: #fff;
+    border: 1px solid #ddd;
+    z-index: 1000;
+    padding: 10px 0;
 }
 
 .bar-sub-cate:hover .sub-cate {
@@ -420,7 +427,7 @@ header {
 .up {
     color: #ef2a23;
 }
-  
+
 .down {
     color: grey;
 }

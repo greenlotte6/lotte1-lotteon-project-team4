@@ -7,7 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
@@ -24,4 +26,5 @@ public class LogoDTO {
     private MultipartFile headerFileUpload;
     private MultipartFile footerFileUpload;
     private MultipartFile faviconUpload;
+
 }
