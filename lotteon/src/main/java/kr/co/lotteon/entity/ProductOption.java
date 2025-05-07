@@ -23,7 +23,7 @@ public class ProductOption {
     private Products products;
 
     private String option_name;
-//
+
 //    @OneToMany(mappedBy = "product_option", cascade = CascadeType.ALL)
 //    private List<ProductOptionItem> optionItems;
 }
