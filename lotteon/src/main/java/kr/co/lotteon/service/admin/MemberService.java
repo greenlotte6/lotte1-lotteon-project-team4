@@ -138,6 +138,20 @@ public class MemberService {
         usersRepository.save(user);
     }
 
+    @Transactional
+    public void updateUserInfo(UsersDTO dto) {
+        Users user = usersRepository.findById(dto.getUid())
+                .orElseThrow(() -> new IllegalArgumentException("회원 없음: " + dto.getUid()));
+        user.setUname(dto.getUname());
+        user.setGender(dto.getGender());
+        user.setEmail(dto.getEmail());
+        user.setHp(dto.getHp());
+        user.setZip(dto.getZip());
+        user.setAddr1(dto.getAddr1());
+        user.setAddr2(dto.getAddr2());
+        usersRepository.save(user);
+    }
+
     // 포인트 목록 검색
     public PageResponseDTO<PointDTO> searchPoint(PageRequestDTO pageRequestDTO) {
 

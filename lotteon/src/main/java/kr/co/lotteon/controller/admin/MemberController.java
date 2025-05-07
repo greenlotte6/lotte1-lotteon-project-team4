@@ -57,6 +57,18 @@ public class  MemberController {
         }
     }
 
+    @PostMapping("/admin/member/update-info")
+    @ResponseBody
+    public String updateUserInfo(@RequestBody UsersDTO dto) {
+        try {
+            memberService.updateUserInfo(dto);
+            return "success";
+        } catch (Exception e) {
+            log.error("회원 수정 실패", e);
+            return "fail";
+        }
+    }
+
 
     // 회원 수정 모달창 정보 불러오기
     @ResponseBody
