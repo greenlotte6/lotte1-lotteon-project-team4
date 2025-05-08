@@ -17,29 +17,59 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
     <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
-<script src="/js/modal.js"></script>
 <script>
-    // 전역 함수로 정의
+        function postcode() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                document.getElementById('zip').value = data.zonecode; // 우편번호
+                document.getElementById('addr1').value = data.roadAddress; // 주소
+                document.getElementById('addr2').focus(); // 상세주소로 포커스 이동
+            }
+        }).open();
+    }
+
+    function openModal(className) {
+        document.querySelector(`.${className}`).style.display = 'flex';
+    }
+
     function openModifyModal(uid) {
+        console.log('openModifyModal 호출됨: ', uid);
+
         fetch(`/admin/member/getModifyModal?uid=${uid}`)
             .then(response => response.json())
             .then(data => {
+                console.log("받은 데이터: ", data);
                 document.getElementById("uid").value = data.uid;
                 document.getElementById("uname").value = data.uname;
                 document.querySelector(`input[name="gender"][value="${data.gender}"]`).checked = true;
+                document.getElementById("grade").value = data.grade;
                 document.getElementById("email").value = data.email;
                 document.getElementById("hp").value = data.hp;
                 document.getElementById("zip").value = data.zip;
                 document.getElementById("addr1").value = data.addr1;
                 document.getElementById("addr2").value = data.addr2;
-                document.getElementById("u_created_at").value = data.u_created_at;
-                document.getElementById("u_last_login").value = data.u_last_login;
+                document.getElementById("u_created_at").value = data.u_created_at.replace('T', ' ');
+                document.getElementById("u_last_login").value = data.u_last_login.replace('T', ' ');
 
-                openModal('register-modal'); // 모달 열기
+                const statusText = document.getElementById("statusText");
+                statusText.textContent = data.status;
+                statusText.classList.remove('status-normal', 'status-stopped', 'status-gray');
+
+                if (data.status === '정상') {
+                    statusText.classList.add('status-normal');
+                } else if (data.status === '중지') {
+                    statusText.classList.add('status-stopped');
+                } else if (data.status === '휴먼' || data.status === '탈퇴') {
+                    statusText.classList.add('status-gray');
+                }
+
+                openModal('register-modal');
             })
             .catch(error => console.error('Error fetching user data:', error));
     }
+
 
     document.addEventListener('DOMContentLoaded', function () {
 
@@ -56,10 +86,6 @@
             });
         });
 
-        // 모달 열기 함수
-        function openModal(className) {
-            document.querySelector(`.${className}`).style.display = 'flex';
-        }
 
         // 모달 닫기 함수
         window.closeModal = function () {
@@ -67,12 +93,6 @@
                 modal.style.display = 'none';
             });
         };
-
-        //등록 버튼 클릭 시 등록 모달 열기
-        document.querySelector(".banner-register").addEventListener('click', () => {
-            openModal('register-modal');
-        });
-
 
 
         document.querySelectorAll('select[name="grade"]').forEach(select => {
@@ -133,6 +153,8 @@
                 uid: document.getElementById("uid").value,
                 uname: document.getElementById("uname").value,
                 gender: document.querySelector('input[name="gender"]:checked').value,
+                status: document.getElementById("status").value,
+                grade: document.getElementById("grade").value,
                 email: document.getElementById("email").value,
                 hp: document.getElementById("hp").value,
                 zip: document.getElementById("zip").value,
@@ -161,6 +183,38 @@
                     console.error(error);
                     alert('서버 오류가 발생했습니다.');
                 });
+        });
+
+        document.querySelectorAll('.status-toggle').forEach(button => {
+            button.addEventListener('click', function () {
+                const uid = this.getAttribute('data-uid');
+                const newStatus = this.getAttribute('data-status');
+
+                const confirmMsg = newStatus === '중지'
+                    ? `정말로 ${uid} 회원을 중지시키겠습니까?`
+                    : `정말로 ${uid} 회원을 정상으로 활성화하시겠습니까?`;
+
+                if (!confirm(confirmMsg)) return;
+
+                fetch('/admin/member/update-status', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({uid, status: newStatus})
+                })
+                    .then(res => res.text())
+                    .then(result => {
+                        if (result === 'success') {
+                            alert(`회원 상태가 ${newStatus}로 변경되었습니다.`);
+                            location.reload();
+                        } else {
+                            alert('상태 변경에 실패했습니다.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert('서버 오류가 발생했습니다.');
+                    });
+            });
         });
     });
 </script>
@@ -237,11 +291,31 @@
                                         <td>[[${user.email}]]</td>
                                         <td>[[${user.hp}]]</td>
                                         <td>[[${#temporals.format(user.u_created_at, 'yyyy-MM-dd HH:mm:ss')}]]</td>
-                                        <td>[[${user.status}]]</td>
                                         <td>
-                                            <div><a href="#" class="btn banner-register" onclick="openModifyModal('[[${user.uid}]]')">[수정]</a>
+                                            <span class="" th:text="${user.status}" th:classappend="
+                                            ${user.status} == '정상' ? 'status-normal' :
+                                            (${user.status} == '중지' ? 'status-stopped' :
+                                            (${user.status} == '휴먼' ? 'status-gray' :
+                                            (${user.status} == '탈퇴' ? 'status-gray' : '')))">
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            <div>
+                                                <a href="javascript:void(0);"
+                                                   th:attr="onclick=|openModifyModal('${user.uid}')|">[수정]</a>
                                             </div>
-                                            <div><a href="#">[중지]</a></div>
+                                            <div>
+                                                <a href="javascript:void(0);"
+                                                   th:if="${user.status == '정상'}"
+                                                   th:attr="data-uid=${user.uid}, data-status='중지'"
+                                                   class="status-toggle">[중지]</a>
+
+                                                <a href="javascript:void(0);"
+                                                   th:if="${user.status == '중지'}"
+                                                   th:attr="data-uid=${user.uid}, data-status='정상'"
+                                                   class="status-toggle">[재게]</a>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr th:if="${#lists.isEmpty(pageResponseDTO.dtoList)}">
@@ -305,15 +379,15 @@
                     </tr>
                     <tr>
                         <td>상태</td>
-                        <td><input type="text" id="status" name="status" readonly></td>
+                        <td><span id="statusText"></span></td>
                     </tr>
                     <tr>
                         <td>EMAIL</td>
-                        <td><input type="text" id="email" name="email"></td>
+                        <td><input type="email" id="email" name="email"></td>
                     </tr>
                     <tr>
                         <td>휴대폰</td>
-                        <td><input type="text" id="hp" name="hp"></td>
+                        <td><input type="tel" id="hp" name="hp"></td>
                     </tr>
                     <tr>
                         <td>우편번호</td>
@@ -321,7 +395,9 @@
                     </tr>
                     <tr>
                         <td>기본주소</td>
-                        <td><input type="text" id="addr1" name="addr1"></td>
+                        <td><input type="text" id="addr1" name="addr1">
+                            <button type="button" onclick="postcode()" class="zipcode-btn">검색</button>
+                        </td>
                     </tr>
                     <tr>
                         <td>상세주소</td>

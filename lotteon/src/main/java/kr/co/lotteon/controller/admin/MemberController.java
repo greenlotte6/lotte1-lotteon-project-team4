@@ -2,6 +2,8 @@ package kr.co.lotteon.controller.admin;
 
 import jakarta.servlet.http.HttpSession;
 import kr.co.lotteon.dto.*;
+import kr.co.lotteon.entity.Users;
+import kr.co.lotteon.repository.UsersRepository;
 import kr.co.lotteon.service.UsersService;
 import kr.co.lotteon.service.admin.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ import java.util.Map;
 public class  MemberController {
 
     private final MemberService memberService;
+    private final UsersRepository usersRepository;
 
     // 회원 목록 조회
     @GetMapping("/admin/member/list")
@@ -74,14 +77,34 @@ public class  MemberController {
     @ResponseBody
     @GetMapping("/admin/member/getModifyModal")
     public UsersDTO getModifyModal(@RequestParam("uid") String uid) {
-        UsersDTO usersDTO = memberService.getModifyModal(uid);
-//        model.addAttribute("usersDTO", usersDTO);  // 조회된 회원 정보 전달
+        Users user = usersRepository.findById(uid)
+                .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
+        return UsersDTO.builder()
+                .uid(user.getUid())
+                .uname(user.getUname())
+                .gender(user.getGender())
+                .status(user.getStatus())
+                .email(user.getEmail())
+                .grade(user.getGrade())
+                .hp(user.getHp())
+                .zip(user.getZip())
+                .addr1(user.getAddr1())
+                .addr2(user.getAddr2())
+                .u_created_at(user.getU_created_at())
+                .u_last_login(user.getU_last_login())
+                .build(); // 수정 모달을 띄우는 페이지로 리턴
+    }
 
-        log.info("usersDTO@@@@@@@@@@@@@: {}", usersDTO);
-        log.info("usersDTO@@@@@@@@@@@@@: {}", usersDTO);
-        log.info("usersDTO@@@@@@@@@@@@@: {}", usersDTO);
-
-        return usersDTO;  // 수정 모달을 띄우는 페이지로 리턴
+    @ResponseBody
+    @PostMapping("/admin/member/update-status")
+    public String updateUserStatus(@RequestBody Map<String, String> request) {
+        try {
+            memberService.updateStatus(request.get("uid"), request.get("status"));
+            return "success";
+        } catch (Exception e) {
+            log.error("회원 상태 변경 실패", e);
+            return "fail";
+        }
     }
 
 

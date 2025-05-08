@@ -17,13 +17,16 @@
     <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="/js/login.js"></script>
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-        let error = [[${error}]];
-        if (error) {
-            alert(error);
-        }
-        /*]]>*/
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const error = params.get('error');
+            const message = params.get('message');
+
+            if (error === 'true' && message) {
+                alert(decodeURIComponent(message));
+            }
+        });
     </script>
 
 </head>

@@ -51,7 +51,7 @@ public class UsersService {
                 .zip(dto.getZip())
                 .birth(dto.getBirth())
                 .role("USER")              // 기본값 부여
-                .status("ACTIVE")          // 기본값 부여
+                .status("정상")          // 기본값 부여
                 .grade("basic")            // 등급도 기본 지정 가능
                 .point(0)
                 .build();

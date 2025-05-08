@@ -129,6 +129,13 @@ public class MemberService {
     }
 
     @Transactional
+    public void updateStatus(String uid, String status) {
+        Users user = usersRepository.findById(uid)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다: " + uid));
+        user.setStatus(status);
+    }
+
+    @Transactional
     public void updateGrade(String uid, String grade) {
         Users user = usersRepository.findById(uid)
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다: " + uid));

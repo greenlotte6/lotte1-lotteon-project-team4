@@ -1,6 +1,7 @@
 package kr.co.lotteon.controller;
 
 import jakarta.servlet.http.HttpSession;
+import kr.co.lotteon.entity.Banner;
 import kr.co.lotteon.entity.Qna;
 import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.dto.NoticeDTO;
@@ -10,6 +11,7 @@ import kr.co.lotteon.security.MyUserDetails;
 import kr.co.lotteon.service.MainService;
 import kr.co.lotteon.service.NoticeService;
 import kr.co.lotteon.service.QnaService;
+import kr.co.lotteon.service.admin.BannerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -27,12 +30,18 @@ public class MainController {
     private final MainService mainService;
     private final NoticeService noticeService;
     private final QnaService qnaService;
+    private final BannerService bannerService;
 
     @GetMapping("/")
-    public String index(@AuthenticationPrincipal MyUserDetails userDetails) {
+    public String index(@AuthenticationPrincipal MyUserDetails userDetails, Model model) {
         if (userDetails != null) {
             System.out.println("로그인한 사용자 ID: " + userDetails.getUsername());
         }
+
+        List<Banner> main2Banners = bannerService.getBannersByPosition("MAIN2").stream()
+                .filter(b -> "활성".equals(b.getActive()))
+                .collect(Collectors.toList());
+        model.addAttribute("main2Banners", main2Banners);
         return "/index";
     }
 
