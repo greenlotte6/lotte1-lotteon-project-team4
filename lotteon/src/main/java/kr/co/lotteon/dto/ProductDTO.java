@@ -27,7 +27,6 @@ public class ProductDTO {
     private String company;
     private String hits;
     private String mgmt;
-    private int category_id;
     private String brand;
     private LocalDate p_created_at;
     private LocalDate p_updates_at;

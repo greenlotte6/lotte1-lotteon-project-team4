@@ -9,6 +9,7 @@ import kr.co.lotteon.service.admin.CategoryService;
 import kr.co.lotteon.service.admin.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -80,9 +81,11 @@ public class ProductController {
         return categories2; // JSON 형태 반환
     }
 
-    // 상품 수정
-    @PostMapping("/admin/product/modifyProduct")
-    public String modifyProduct(@ModelAttribute ProductFormDTO form) {
-        return "redirect:/admin/product/list";
+    // 상품 수정 수정 폼 조회
+    @GetMapping("/admin/product/modifyView")
+    public ResponseEntity<ProductFormDTO> modifyView(@RequestParam("pid") int pid) {
+        ProductFormDTO productFormDTO = productService.modifyView(pid);
+
+        return ResponseEntity.ok(productFormDTO);
     }
 }

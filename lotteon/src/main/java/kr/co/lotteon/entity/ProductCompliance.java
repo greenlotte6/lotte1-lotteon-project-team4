@@ -28,5 +28,4 @@ public class ProductCompliance {
     private String receipt;
     private String biz_type;
     private String origin;
-
 }
