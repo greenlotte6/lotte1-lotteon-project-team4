@@ -1,6 +1,7 @@
 package kr.co.lotteon.dto;
 
 import jakarta.persistence.Id;
+import kr.co.lotteon.entity.SystemStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +25,12 @@ public class SellerDTO {
     private String addr1;
     private String addr2;
     private String role;
+
+
+    private SystemStatus status; // SystemStatus 필드
+    private String mgmt;
+    private String operationText;
+    private String statusClass;
 
 
 }

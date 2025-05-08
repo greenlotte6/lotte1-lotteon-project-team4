@@ -28,8 +28,7 @@ public class ShopController {
         }
 
         PageResponseDTO<ShopDTO> pageResponseDTO = shopService.findShopList(pageRequestDTO);
-
-        model.addAttribute(pageResponseDTO);
+        model.addAttribute("pageResponseDTO", pageResponseDTO); //
 
         return "/admin/shop/list";
     }
@@ -70,5 +69,9 @@ public class ShopController {
         shopService.registerShop(sellerDTO);
         return "redirect:/admin/shop/list";
     }
+
+
+
+
 
 }

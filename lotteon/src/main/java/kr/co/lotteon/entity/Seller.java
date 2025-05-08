@@ -31,4 +31,9 @@ public class Seller {
     private String addr2;
     private String role;
 
+    private SystemStatus status; // SystemStatus 필드
+    private String mgmt;
+    private String operationText;
+    private String statusClass;
+
 }

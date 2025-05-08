@@ -2,10 +2,16 @@ package kr.co.lotteon.service;
 
 import kr.co.lotteon.dto.SellerDTO;
 import kr.co.lotteon.entity.Seller;
+import kr.co.lotteon.entity.Shop;
+import kr.co.lotteon.entity.SystemStatus;
 import kr.co.lotteon.repository.SellerRepository;
+import kr.co.lotteon.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -14,6 +20,7 @@ public class SellerService {
 
     private final SellerRepository sellerRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final ShopRepository shopRepository;
 
     public void saveSeller(SellerDTO dto) {
         Seller seller = Seller.builder()
@@ -43,6 +50,13 @@ public class SellerService {
     public long countByAid(String aid) {
         return sellerRepository.countByAid(aid);
     }
+
+
+
+
+
+
+
 
 
 }

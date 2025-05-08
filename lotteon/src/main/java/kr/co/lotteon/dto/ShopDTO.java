@@ -3,6 +3,7 @@ package kr.co.lotteon.dto;
 import com.querydsl.core.Tuple;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
+import kr.co.lotteon.entity.Seller;
 import kr.co.lotteon.entity.Shop;
 import kr.co.lotteon.entity.SystemStatus;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,6 @@ public class ShopDTO {
     private int no;
     private String shop_id;
     private String operation;
-    private String mgmt;
     private String seller_aid;
 
     // 추가필드
@@ -31,7 +31,7 @@ public class ShopDTO {
     private String number;
 
     private SystemStatus status; // SystemStatus 필드
-
+    private String mgmt;
     private String operationText;
     private String statusClass;
 
@@ -44,19 +44,18 @@ public class ShopDTO {
 //    }
 
 
-    public ShopDTO(Shop shop) {
-        this.no = shop.getNo();
-        this.shop_id = shop.getShop_id();
-        this.operation = shop.getOperation();
-        this.mgmt = shop.getMgmt();
-        this.aid = shop.getSeller().getAid();
-        this.company = shop.getSeller().getCompany();
-        this.ceo = shop.getSeller().getCeo();
-        this.biz_num = shop.getSeller().getBiz_num();
-        this.osn = shop.getSeller().getOsn();
-        this.number = shop.getSeller().getNumber();
-        this.seller_aid = shop.getSeller().getAid();
-        this.status = shop.getStatus();
+    public ShopDTO(Seller seller) {
+        this.seller_aid = seller.getAid();
+        this.company = seller.getCompany();
+        this.ceo = seller.getCeo();
+        this.biz_num = seller.getBiz_num();
+        this.osn = seller.getOsn();
+        this.number = seller.getNumber();
+
+        // 가상 값 or 설정된 상태
+        this.operation = "운영중"; // or seller.getOperation() 등
+        this.operationText = "운영 중";
+        this.statusClass = "green";
     }
 
 }
