@@ -92,7 +92,7 @@
                             <tr th:each="qna : ${returnList}">
                                 <td>
                                     <!-- qna.id를 포함한 상세 페이지 링크로 변경 -->
-                                    <a th:href="@{/qna/view/{qnaId}(qnaId=${qna.qnaId})}"
+                                    <a th:href="@{/qna/view/{qnaid}(qnaid=${qna.qnaid})}"
                                        th:text="'[' + ${qna.qnaType2} + '] ' + ${qna.title}"></a>
                                 </td>
                                 <td>

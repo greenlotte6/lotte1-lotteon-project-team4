@@ -55,7 +55,7 @@ public class QnaService {
         return qnaRepository.findByQnaType1(qnaType1);
     }
 
-    // ✅ QnaType1 기준 페이지 조회 (DTO 반환)
+    // QnaType1 기준 페이지 조회 (DTO 반환)
     public Page<QnaDTO> getQnaListByType(String type, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "date"));
         Page<Qna> qnaPage = qnaRepository.findByQnaType1(type, pageable);
@@ -127,5 +127,13 @@ public class QnaService {
         qna.setStatus("답변완료");
 
         qnaRepository.save(qna);
+    }
+
+    // 선택삭제 기능
+    public void deleteQnaById(Long qnaId) {
+        Qna qna = qnaRepository.findById(qnaId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 Qna가 존재하지 않습니다."));
+        qnaRepository.delete(qna);
+        log.info("Qna 삭제 완료 - ID: {}", qnaId);
     }
 }

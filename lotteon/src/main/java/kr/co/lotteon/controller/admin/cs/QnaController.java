@@ -24,47 +24,62 @@ public class QnaController {
 
     // Qna 목록 조회 (페이지네이션, qnaType1 필터링)
     @GetMapping("/admin/cs/qna/list")
-    public String getQnaList(@RequestParam(defaultValue = "1") int page,
+    public String getQnaList(@RequestParam(defaultValue = "0") int page,
+                             @RequestParam(defaultValue = "10") int size,
                              @RequestParam(required = false) String qnaType1,
                              Model model) {
-
-        int pageSize = 10;
         Page<QnaDTO> qnaPage;
 
-        // qnaType1이 있을 경우 해당 타입에 맞는 Qna 목록 조회
         if (qnaType1 != null && !qnaType1.isEmpty()) {
-            Pageable pageable = PageRequest.of(page - 1, pageSize);
-            qnaPage = qnaService.getQnaListByType(qnaType1, page - 1, pageSize);  // 수정된 부분
+            qnaPage = qnaService.getQnaListByType(qnaType1, page, size);
+            log.info("🔍 qnaType1 필터 적용: {}", qnaType1);
         } else {
-            // qnaType1이 없을 경우 전체 Qna 목록 조회
-            qnaPage = qnaService.getQnaPage(page - 1, pageSize);
+            qnaPage = qnaService.getQnaPage(page, size);
+            log.info("📄 전체 QnA 목록 조회 - page: {}, size: {}", page, size);
         }
 
-        // 뷰에 전달할 데이터
+        // Qna 리스트 출력 로그
+        for (QnaDTO qna : qnaPage.getContent()) {
+            log.info("📝 QnaID: {}, Title: {}, Type1: {}, Type2: {}, Date: {}, User: {}",
+                    qna.getQnaid(),
+                    qna.getTitle(),
+                    qna.getQnaType1(),
+                    qna.getQnaType2(),
+                    qna.getDate(),
+                    (qna.getUid() != null ? qna.getUid() : "null"));
+        }
+
         model.addAttribute("qnaList", qnaPage.getContent());
-        model.addAttribute("currentPage", page);  // 현재 페이지 번호
-        model.addAttribute("totalPages", qnaPage.getTotalPages());  // 전체 페이지 수
-        model.addAttribute("qnaType1", qnaType1);  // 필터링을 위한 qnaType1 전달
-        return "/admin/cs/qna/list";  // 뷰 이름
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", qnaPage.getTotalPages());
+        model.addAttribute("qnaType1", qnaType1);
+
+        return "/admin/cs/qna/list";
     }
 
-    // Qna 상세 보기 페이지
-    @GetMapping("/admin/cs/qna/write/{qnaId}")
-    public String showQnaDetail(@PathVariable long qnaId, Model model) {
-        QnaDTO qna = qnaService.getQnaById(qnaId);  // Qna ID로 Qna 조회
-        model.addAttribute("qna", qna);  // Qna DTO를 모델에 추가
-        return "/admin/cs/qna/write";  // 상세 보기 페이지로 이동
+    // Qna 상세 조회 (편집 화면)
+    @GetMapping("/admin/cs/qna/write/{qnaid}")
+    public String showQnaDetail(@PathVariable long qnaid, Model model) {
+        QnaDTO qna = qnaService.getQnaById(qnaid);
+        model.addAttribute("qna", qna);
+        return "/admin/cs/qna/write";
     }
 
     // 답변 제출
-    @PostMapping("/admin/cs/qna/answer/{qnaId}")
-    public String submitAnswer(@PathVariable long qnaId, @RequestParam String answer) {
-        // 실제 답변 저장 로직 호출
-        qnaService.answerQna(qnaId, answer); // 이 줄이 반드시 필요합니다!
-
-        log.info("Qna ID: {}, 답변 내용: {}", qnaId, answer);
+    @PostMapping("/admin/cs/qna/answer/{qnaid}")
+    public String submitAnswer(@PathVariable long qnaid, @RequestParam String answer) {
+        // 답변 저장 로직
+        qnaService.answerQna(qnaid, answer);
+        log.info("Qna ID: {}, 답변 내용: {}", qnaid, answer);
         return "redirect:/admin/cs/qna/list";
     }
 
+    // Qna 삭제
+    @PostMapping("/admin/cs/qna/delete/{qnaid}")
+    public String deleteQna(@PathVariable long qnaid) {
+        // Qna 삭제 로직
+        qnaService.deleteQnaById(qnaid);
+        log.info("Qna ID: {} 삭제됨", qnaid);
+        return "redirect:/admin/cs/qna/list";  // 삭제 후 목록으로 리다이렉트
+    }
 }
-
