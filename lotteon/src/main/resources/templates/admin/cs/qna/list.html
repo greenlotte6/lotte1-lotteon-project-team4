@@ -81,10 +81,10 @@
             </div>
             <div class="line"></div>
             <div class="container">
-                <form action="/admin/cs/qna/list" method="GET">
+                <form action="/admin/cs/qna/list">
                     <div class="select-wrapper">
-                        <label for="qndnum">1차유형</label>
-                        <select id="qndnum" name="qndnum" onchange="updateSubCategory(); this.form.submit();" style="padding: 8px;">
+                        <label for="qndnum"></label>
+                        <select id="qndnum" name="qndnum" onchange="updateSubCategory();" style="padding: 8px;">
                             <option value="1차선택">1차 선택</option>
                             <option value="회원" th:selected="${qndnum == '회원'}">회원</option>
                             <option value="주문/결제" th:selected="${qndnum == '주문/결제'}">주문/결제</option>
@@ -95,10 +95,9 @@
                             <option value="여행/숙박/항공" th:selected="${qndnum == '여행/숙박/항공'}">여행/숙박/항공</option>
                         </select>
 
-                        <label for="qnanum2">2차유형</label>
+                        <label for="qnanum2"></label>
                         <select id="qnanum2" name="qnanum2" onchange="this.form.submit();" style="padding: 8px; margin-left: 10px;">
                             <option value="">2차 선택</option>
-                            <!-- 2차유형은 updateSubCategory()에서 동적으로 추가됩니다. -->
                         </select>
                     </div>
                 </form>
@@ -120,7 +119,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="qna : ${qnaList}">
-                            <td><input type="checkbox" name="selectedQnas" value="${qna.qnaid}"></td>
+                            <td><input type="checkbox" name="selectedQnas" value="${qna.qnaid}" th:value="${qna.qnaid}"></td>
                             <td th:text="${qna.qnaid}"></td>
                             <td th:text="${qna.qnaType1}"></td>
                             <td th:text="${qna.qnaType2}"></td>
@@ -137,10 +136,11 @@
                         </tbody>
                     </table>
                     <div class="btn">
-                        <button type="submit">선택삭제</button>
+                        <button type="submit" id="deleteButton">선택삭제</button>
+                        <!-- 전체 삭제 버튼 -->
+                        <button type="submit" name="deleteAll" value="true">전체 삭제</button>
                     </div>
                 </form>
-
                 <!-- 페이징 처리 -->
                 <div class="pagination">
                     <a th:if="${currentPage > 1}" th:href="@{/admin/cs/qna/list(page=${currentPage - 1})}">이전</a>
