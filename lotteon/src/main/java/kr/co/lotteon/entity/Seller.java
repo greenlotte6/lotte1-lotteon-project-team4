@@ -1,8 +1,6 @@
 package kr.co.lotteon.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.modelmapper.internal.bytebuddy.utility.dispatcher.JavaDispatcher;
 
@@ -31,9 +29,14 @@ public class Seller {
     private String addr2;
     private String role;
 
-    private SystemStatus status; // SystemStatus 필드
+
     private String mgmt;
     private String operationText;
     private String statusClass;
+
+    @Enumerated(EnumType.STRING)
+    private SystemStatus status;
+
+
 
 }

@@ -36,7 +36,6 @@ public class Products {
     private String company;
     private String hits;
     private String mgmt;
-    private int category_id;
     private String brand;
 
     @CreationTimestamp

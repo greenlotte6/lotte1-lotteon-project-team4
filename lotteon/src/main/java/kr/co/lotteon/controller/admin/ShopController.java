@@ -70,6 +70,23 @@ public class ShopController {
         return "redirect:/admin/shop/list";
     }
 
+    @PostMapping("/admin/shop/changeMgmt")
+    public String changeMgmt(@RequestParam("aid") String aid) {
+        shopService.toggleMgmtStatus(aid);
+        return "redirect:/admin/shop/list";
+    }
+
+    @PostMapping("/admin/shop/toggleStatus")
+    public String toggleStatus(@RequestParam("aid") String aid) {
+        shopService.toggleStatus(aid);
+        return "redirect:/admin/shop/list";
+    }
+
+    @PostMapping("/admin/shop/toggleMgmt")
+    public String toggleMgmt(@RequestParam("aid") String aid) {
+        shopService.toggleMgmtStatus(aid);
+        return "redirect:/admin/shop/list";
+    }
 
 
 
