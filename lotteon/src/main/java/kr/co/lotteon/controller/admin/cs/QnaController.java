@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Slf4j
 @Controller
 public class QnaController {
@@ -27,7 +29,12 @@ public class QnaController {
     public String getQnaList(@RequestParam(defaultValue = "0") int page,
                              @RequestParam(defaultValue = "10") int size,
                              @RequestParam(required = false) String qnaType1,
+                             @RequestParam(required = false) String qnaType2,
                              Model model) {
+
+        System.out.println(qnaType1);
+        System.out.println(qnaType2);
+
         Page<QnaDTO> qnaPage;
 
         if (qnaType1 != null && !qnaType1.isEmpty()) {
@@ -53,6 +60,7 @@ public class QnaController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", qnaPage.getTotalPages());
         model.addAttribute("qnaType1", qnaType1);
+        model.addAttribute("qnaType2", qnaType1);
 
         return "/admin/cs/qna/list";
     }
@@ -75,11 +83,21 @@ public class QnaController {
     }
 
     // Qna 삭제
-    @PostMapping("/admin/cs/qna/delete/{qnaid}")
-    public String deleteQna(@PathVariable long qnaid) {
-        // Qna 삭제 로직
-        qnaService.deleteQnaById(qnaid);
-        log.info("Qna ID: {} 삭제됨", qnaid);
-        return "redirect:/admin/cs/qna/list";  // 삭제 후 목록으로 리다이렉트
+    @PostMapping("/admin/cs/qna/delete")
+    public String deleteQnas(@RequestParam(value = "selectedQnas", required = false) List<Long> selectedQnas,
+                             @RequestParam(value = "deleteAll", required = false) String deleteAll) {
+        if (deleteAll != null) {
+            // 전체 삭제 처리
+            qnaService.deleteAllQnas();
+            log.info("📤 전체 QnA 삭제");
+        } else if (selectedQnas != null && !selectedQnas.isEmpty()) {
+            // 선택된 항목 삭제 처리
+            qnaService.deleteQnasByIds(selectedQnas);
+            log.info("📤 선택된 QnA 삭제: {}", selectedQnas);
+        } else {
+            log.info("❌ 삭제할 항목이 없습니다.");
+        }
+        return "redirect:/admin/cs/qna/list";
     }
+
 }

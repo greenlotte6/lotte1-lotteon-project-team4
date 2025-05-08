@@ -136,4 +136,20 @@ public class QnaService {
         qnaRepository.delete(qna);
         log.info("Qna 삭제 완료 - ID: {}", qnaId);
     }
+
+    // 전체 삭제 기능
+    public void deleteAllQnas() {
+        qnaRepository.deleteAll();
+        log.info("전체 Qna 삭제 완료");
+    }
+
+    // 여러 Qna 삭제 기능
+    public void deleteQnasByIds(List<Long> qnaIds) {
+        List<Qna> qnas = qnaRepository.findAllById(qnaIds);
+        if (qnas.size() != qnaIds.size()) {
+            throw new IllegalArgumentException("삭제할 Qna ID 중 일부가 존재하지 않습니다.");
+        }
+        qnaRepository.deleteAll(qnas);
+        log.info("선택한 Qna들 삭제 완료 - IDs: {}", qnaIds);
+    }
 }
