@@ -10,8 +10,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface QnaRepository extends JpaRepository<Qna, Long> {  // Integer에서 Long으로 변경
+public interface QnaRepository extends JpaRepository<Qna, Long> {
     List<Qna> findByQnaType1(String qnaType1);
     Page<Qna> findByQnaType1(String qnaType1, Pageable pageable);
     Page<Qna> findByQnaType1AndUserOrderByDateDesc(String qnaType1, Users uid, Pageable pageable);
+    // 선택삭제 기능을 위한 메서드 (ID로 Qna 삭제)
+    void deleteByQnaId(Long qnaId);
 }
