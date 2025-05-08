@@ -221,6 +221,7 @@ public class ProductService {
 
         // ProductFromDTO 채우기
         ProductFormDTO productFormDTO = new ProductFormDTO();
+        productFormDTO.setPid(products.getPid());
         productFormDTO.setPname(products.getPname());
         productFormDTO.setDescription(products.getDescription());
         productFormDTO.setCompany(products.getCompany());
@@ -251,5 +252,4 @@ public class ProductService {
         return productFormDTO;
 
     }
-
 }

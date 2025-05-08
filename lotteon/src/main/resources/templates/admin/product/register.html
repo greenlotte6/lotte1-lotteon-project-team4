@@ -32,13 +32,13 @@
                 const category2Select = $('#category2');
 
                 category2Select.empty();
-                category2Select.append($('<option>', { value: '', text: '2차 분류 선택' }));
+                category2Select.append($('<option>', {value: '', text: '2차 분류 선택'}));
 
                 if (parentId) {
                     $.ajax({
                         url: '/admin/product/categories',
                         type: 'GET',
-                        data: { parent: parentId },
+                        data: {parent: parentId},
                         dataType: 'json',
                         success: function (data) {
                             $.each(data, function (index, category) {
@@ -117,79 +117,108 @@
             });
         });
 
-        // 상품 수정 화면에 불러올 상품 데이터
-        // function loadProductData(pid) {
-        //
-        //     $.ajax({
-        //         url: '/admin/product/modifyView',
-        //         type: 'GET',
-        //         data: {'pid':pid},
-        //         success: function (response) {
-        //             $('input[name="pname"]').val(response.pname);
-        //             $('input[name="description"]').val(response.description);
-        //             $('input[name="company"]').val(response.company);
-        //             $('input[name="price"]').val(response.price);
-        //             $('input[name="discount"]').val(response.discount);
-        //             $('input[name="point"]').val(response.point);
-        //             $('input[name="stock"]').val(response.stock);
-        //             $('input[name="delivery_free"]').val(response.delivery_free);
-        //             $('input[name="brand"]').val(response.brand);
-        //
-        //             // 카테고리 선택
-        //             $('#category1').val(response.category_id);
-        //             loadSubCategories(response.category_id);
-        //
-        //             // 이미지 파일 업데이트
-        //             if (response.img_file_1) {
-        //                 $('#img_file_1').attr('src',' /uploads/' + response.img_file_1);
-        //             }
-        //
-        //             if (response.img_file_2) {
-        //                 $('#img_file_2').attr('src',' /uploads/' + response.img_file_2);
-        //             }
-        //
-        //             if (response.img_file_3) {
-        //                 $('#img_file_3').attr('src',' /uploads/' + response.img_file_3);
-        //             }
-        //
-        //             if (response.detaile_file_1) {
-        //                 $('.detail').attr('src',' /uploads/' + response.detaile_file_1);
-        //             }
-        //
-        //             // 상품 옵션 로드
-        //             loadProductOptions(response.options);
-        //
-        //             // 상품 고시 정보
-        //             $('input[name="status"]').val(response.status);
-        //             $('input[name="tax"]').val(response.tax);
-        //             $('input[name="receipt"]').val(response.receipt);
-        //             $('input[name="biz_type"]').val(response.biz_type);
-        //             $('input[name="origin"]').val(response.origin);
-        //         },
-        //         error: function (xhr, status, error) {
-        //             console.error("상품 데이터를 불러오는 데 실패했습니다.", error);
-        //         }
-        //     });
-        // }
-        //
-        // // 2차 카테고리 불러오기
-        // function loadSubCategories(cateId) {
-        //     $.ajax({
-        //         url: '/admin/product/categories',
-        //         type: 'GET',
-        //         data: {parentCategoryId: cateId},
-        //         success: function (response) {
-        //             let category2Select = $('#category2');
-        //             category2Select.empty(); // 기존 옵션 삭제
-        //             category2Select.append('<option value="">2차 분류 선택</option>');
-        //
-        //             response.forEach(function (category) {
-        //                category2Select.append('<option value="' + category.category_id + '">' + category.cate)
-        //             });
-        //         }
-        //     });
-        // }
+        // 페이지가 로드될 때, `pid`로 상품 데이터 로드
+        $(document).ready(function () {
+           // URL에서 pid값 가져오기
+           let urlParams = new URLSearchParams(window.location.search);
+           let pid = urlParams.get('pid');
 
+           if(pid) {
+               loadProductData(pid);
+           }
+        });
+
+        // 상품 수정 화면에 불러올 상품 데이터
+        function loadProductData(pid) {
+
+            $.ajax({
+                url: '/admin/product/modifyView',
+                type: 'GET',
+                data: {'pid': pid},
+                success: function (response) {
+                    $('input[name="pname"]').val(response.pname);
+                    $('input[name="description"]').val(response.description);
+                    $('input[name="company"]').val(response.company);
+                    $('input[name="price"]').val(response.price);
+                    $('input[name="discount"]').val(response.discount);
+                    $('input[name="point"]').val(response.point);
+                    $('input[name="stock"]').val(response.stock);
+                    $('input[name="delivery_free"]').val(response.delivery_free);
+                    $('input[name="brand"]').val(response.brand);
+
+                    // 카테고리 선택
+                    $('#category1').val(response.category_id);
+                    loadSubCategories(response.category_id);
+
+                    // 이미지 파일 업데이트
+                    if (response.img_file_1) {
+                        $('#img_file_1').attr('src', '/uploads/' + response.img_file_1);
+                    }
+
+                    if (response.img_file_2) {
+                        $('#img_file_2').attr('src', '/uploads/' + response.img_file_2);
+                    }
+
+                    if (response.img_file_3) {
+                        $('#img_file_3').attr('src', '/uploads/' + response.img_file_3);
+                    }
+
+                    if (response.detaile_file_1) {
+                        $('.detail').attr('src', '/uploads/' + response.detaile_file_1);
+                    }
+
+                    // 상품 옵션 로드
+                    loadProductOptions(response.options);
+
+                    // 상품 고시 정보
+                    $('input[name="status"]').val(response.status);
+                    $('input[name="tax"]').val(response.tax);
+                    $('input[name="receipt"]').val(response.receipt);
+                    $('input[name="biz_type"]').val(response.biz_type);
+                    $('input[name="origin"]').val(response.origin);
+                },
+                error: function (xhr, status, error) {
+                    console.error("상품 데이터를 불러오는 데 실패했습니다.", error);
+                }
+            });
+        }
+
+        // 상품 옵션 처리 함수
+        function loadProductOptions(options) {
+            let optionsHtml = '';
+            options.forEach(option => {
+                optionsHtml += `<div class="option-group">
+            <label>${option.option_name}</label>
+            <ul>`;
+                option.item_name.forEach(item => {
+                    optionsHtml += `<li>${item}</li>`;
+                });
+                optionsHtml += `</ul></div>`;
+            });
+            $('#options').html(optionsHtml);
+        }
+
+        // 2차 카테고리 불러오기
+        function loadSubCategories(categoryId) {
+            $.ajax({
+                url: '/api/categories/subcategories',  // 2차 카테고리를 불러올 API
+                type: 'GET',
+                data: {parentCategoryId: categoryId},  // 1차 카테고리 id
+                success: function (response) {
+                    let category2Select = $('#category2');
+                    category2Select.empty();  // 기존 옵션 삭제
+                    category2Select.append('<option value="">2차 분류 선택</option>');  // 기본 옵션 추가
+
+                    // 2차 카테고리 옵션 추가
+                    response.forEach(function (category) {
+                        category2Select.append('<option value="' + category.cateId + '">' + category.cateName + '</option>');
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error('2차 카테고리 정보를 불러오는 데 실패했습니다.', error);
+                }
+            });
+        }
     });
 </script>
 
@@ -285,20 +314,24 @@
                                 <tr>
                                     <td>상품 이미지</td>
                                     <td>
-                                        <div><input type="file" name="img_file_1" class="file" accept="image/*" required>크기
+                                        <div><input type="file" id="img_file_1" name="img_file_1" class="file" accept="image/*"
+                                                    required>크기
                                             190*190, 상품 목록에 출력 될 이미지입니다.
                                         </div>
-                                        <div><input type="file" name="img_file_2" class="file" accept="image/*" required>크기
+                                        <div><input type="file" id="img_file_2" name="img_file_2" class="file" accept="image/*"
+                                                    required>크기
                                             230*230, 상품 메인에 출력 될 이미지입니다.
                                         </div>
-                                        <div><input type="file" name="img_file_3" class="file" accept="image/*" required>크기
+                                        <div><input type="file" id="img_file_3" name="img_file_3" class="file" accept="image/*"
+                                                    required>크기
                                             456*456, 상품 상세에 출력 될 이미지입니다.
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>상품 상세정보</td>
-                                    <td><input type="file" name="detaile_file_1" class="detail" accept="image/*" required>크기 가로
+                                    <td><input type="file" name="detaile_file_1" class="detail" accept="image/*"
+                                               required>크기 가로
                                         940px, 높이 제약없음, 크기 최대 1MB
                                     </td>
                                 </tr>
