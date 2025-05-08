@@ -184,18 +184,20 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="shop, i:${pageResponseDTO.dtoList}">
-                                    <td><input type="checkbox" name="seller_aid" th:value="${shop.seller_aid}"
-                                               class="checkItem"></td>
-                                    <td>[[${pageResponseDTO.startNo - i.index}]]</td>
-                                    <td>[[${shop.company}]]</td>
-                                    <td>[[${shop.ceo}]]</td>
-                                    <td>[[${shop.biz_num}]]</td>
-                                    <td>[[${shop.osn}]]</td>
-                                    <td>[[${shop.number}]]</td>
-                                    <td th:classappend="${shop.statusClass}" th:text="${shop.operation}"></td>
-                                    <td th:text="${shop.operationText}"></td>
+                                <tr th:each="shop, i : ${pageResponseDTO.dtoList}">
+                                    <td><input type="checkbox" name="seller_aid" th:value="${shop.aid}" class="checkItem"></td>
+                                    <td th:text="${pageResponseDTO.startNo - i.index}"></td>
+                                    <td th:text="${shop.company}"></td>
+                                    <td th:text="${shop.ceo}"></td>
+                                    <td th:text="${shop.biz_num}"></td>
+                                    <td th:text="${shop.osn}"></td>
+                                    <td th:text="${shop.number}"></td>
+                                    <td>
+                                        <span th:classappend="${shop.statusClass}" class="status-dot">●</span>
+                                    </td>
+                                    <td th:text="${shop.mgmt}"><span th:text="${shop.operationText}">중단</span></td>
                                 </tr>
+
                                 <tr th:if="${#lists.isEmpty(pageResponseDTO.dtoList)}">
                                     <td colspan="12" class="no-results">검색 결과가 없습니다.</td>
                                 </tr>

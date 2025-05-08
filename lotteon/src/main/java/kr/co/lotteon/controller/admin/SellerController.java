@@ -44,5 +44,6 @@ public class SellerController {
             return "/member/login"; // 로그인 실패 시 다시 로그인 페이지
         }
     }
+
 }
 

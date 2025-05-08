@@ -35,59 +35,27 @@ public class ShopService {
 
     // 상점 목록 조회
     public PageResponseDTO<ShopDTO> findShopList(PageRequestDTO pageRequestDTO) {
+        Pageable pageable = pageRequestDTO.getPageable("aid");
 
-        // 페이징 처리를 위한 pageable 객체 생성
-        Pageable pageable = pageRequestDTO.getPageable("no");
+        Page<Seller> pageSeller = sellerRepository.findAll(pageable);
 
-        Page<Shop> pageShop = shopRepository.findAll(pageable);
-
-//        List<ShopDTO> shopDTOList = pageShop.getContent().stream()
-//                                                            .map(ShopDTO::new)
-//                                                            .collect(Collectors.toList());
-
-        List<ShopDTO> shopDTOList = pageShop.getContent().stream()
-                .map(shop -> {
-                    ShopDTO shopDTO = new ShopDTO(shop);
-
-                    SystemStatus status = shopDTO.getStatus();
-                    if (status != null) {
-                        switch (status) {
-                            case OPERATING:
-                                shopDTO.setOperationText("[운영중]");
-                                shopDTO.setStatusClass("green");
-                                break;
-                            case READY:
-                                shopDTO.setOperationText("[운영준비]");
-                                shopDTO.setStatusClass("blue");
-                                break;
-                            case STOPPED:
-                                shopDTO.setOperationText("[운영중지]");
-                                shopDTO.setStatusClass("red");
-                                break;
-                        }
-                    } else {
-                        shopDTO.setOperationText("[운영준비]");
-                        shopDTO.setStatusClass("blue");
-                    }
-
-                    return shopDTO;
-                }).collect(Collectors.toList());
-
-        int total = (int) pageShop.getTotalElements();
+        List<ShopDTO> dtoList = pageSeller.getContent().stream()
+                .map(ShopDTO::new)
+                .collect(Collectors.toList());
 
         return PageResponseDTO.<ShopDTO>builder()
                 .pageRequestDTO(pageRequestDTO)
-                .dtoList(shopDTOList)
-                .total(total)
+                .dtoList(dtoList)
+                .total((int) pageSeller.getTotalElements())
                 .build();
-
     }
 
     // 상점 목록 검색
     public PageResponseDTO<ShopDTO> searchShop(PageRequestDTO pageRequestDTO) {
 
         // 페이징 처리를 위한 pageable 객체 생성
-        Pageable pageable = pageRequestDTO.getPageable("no");
+        Pageable pageable = pageRequestDTO.getPageable("aid"); // 또는 "company"
+        Page<Seller> pageSeller = sellerRepository.findAll(pageable);
 
         Page<Tuple> pageShop = shopRepository.searchShop(pageRequestDTO, pageable);
 
@@ -260,5 +228,9 @@ public class ShopService {
                 .build();
 
     }
+
+
+
+
 
 }
