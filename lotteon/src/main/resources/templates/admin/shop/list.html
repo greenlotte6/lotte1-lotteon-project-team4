@@ -15,11 +15,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
     <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
+    <style>
+        .btn-blue {
+            background-color: #4a90e2;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .btn-red {
+            background-color: #e94e4e;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <script src="/js/modal.js"></script>
 <script src="/js/validationShop.js"></script>
 <script>
     // 선택 확인 후 제출
+    document.addEventListener('DOMContentLoaded', function () {
+        const registerBtn = document.querySelector(".banner-register");
+        if (registerBtn) {
+            registerBtn.addEventListener('click', () => {
+                openModal('register-modal');
+            });
+        }
+
+        // 기존 코드도 이 안으로 묶는 게 안전합니다
+        const selectDeleteButton = document.querySelector('.select-delete');
+        if (selectDeleteButton) {
+            selectDeleteButton.addEventListener('click', function (event) {
+                if (!validateDelete()) {
+                    event.preventDefault();
+                }
+            });
+        }
+
+        const checkAll = document.getElementById('checkAll');
+        if (checkAll) {
+            checkAll.addEventListener('change', function () {
+                const checkboxes = document.querySelectorAll('.checkItem');
+                checkboxes.forEach(cb => cb.checked = this.checked);
+            });
+        }
+    });
+
     function validateDelete() {
         const selected = document.querySelectorAll('.checkItem:checked');
         if (selected.length === 0) {
@@ -28,19 +70,6 @@
         }
         return confirm('삭제하시겠습니까?');
     }
-
-    document.addEventListener('DOMContentLoaded', function () {
-
-        $('.hover').click(function (e) {
-            $(this).parent().toggleClass('active');
-        })
-
-        // 전체 선택/해제
-        document.getElementById('checkAll').addEventListener('change', function () {
-            const checkboxes = document.querySelectorAll('.checkItem');
-            checkboxes.forEach(cb => cb.checked = this.checked);
-        });
-    });
 
     // 모달 열기 함수
     function openModal(className) {
@@ -131,6 +160,37 @@
             .replace(/(-)$/, '');
     }
 </script>
+<script>
+    function toggleStatus(aid) {
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "/admin/shop/toggleStatus";
+
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "aid";
+        input.value = aid;
+
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    function toggleMgmt(aid) {
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "/admin/shop/toggleMgmt";
+
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "aid";
+        input.value = aid;
+
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
 
 <body>
 <th:block th:include="/common/_admin_header"/>
@@ -193,9 +253,14 @@
                                     <td th:text="${shop.osn}"></td>
                                     <td th:text="${shop.number}"></td>
                                     <td>
-                                        <span th:classappend="${shop.statusClass}" class="status-dot">●</span>
+                                        <button type="button" onclick="toggleStatus([[${shop.aid}]])"
+                                                th:classappend="${shop.statusClass}">●</button>
                                     </td>
-                                    <td th:text="${shop.mgmt}"><span th:text="${shop.operationText}">중단</span></td>
+                                    <td>
+                                        <button type="button" onclick="toggleMgmt([[${shop.aid}]])"
+                                                th:text="${shop.mgmt == '중단' ? '승인' : '중단'}"
+                                                th:classappend="${shop.mgmt == '중단' ? 'btn-blue' : 'btn-red'}"></button>
+                                    </td>
                                 </tr>
 
                                 <tr th:if="${#lists.isEmpty(pageResponseDTO.dtoList)}">
@@ -212,6 +277,7 @@
                             </button>
                         </div>
                     </form>
+
                     <div class="page" th:if="${pageResponseDTO.total > 0}">
                         <th:block th:if="${pageResponseDTO.prev}">
                             <a th:href="@{/admin/shop/list(pg=${pageResponseDTO.start-1})}" class="page-move">이전</a>
