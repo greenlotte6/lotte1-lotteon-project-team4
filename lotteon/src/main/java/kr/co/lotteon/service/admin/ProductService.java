@@ -1,5 +1,6 @@
 package kr.co.lotteon.service.admin;
 
+import jakarta.persistence.EntityNotFoundException;
 import kr.co.lotteon.dto.*;
 import kr.co.lotteon.entity.*;
 import kr.co.lotteon.repository.*;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -190,39 +192,63 @@ public class ProductService {
 
     }
 
-    // 상품 수정
-    private void modifyProduct(ProductFormDTO productFormDTO) {
+    // 상품 수정 폼으로 데이터 불러오기 (조회)
+    public ProductFormDTO modifyView(int pid) {
 
-//        Optional<Products> optProduct = productRepository.findById(productFormDTO.getPid());
-//
-//        if(optProduct.isPresent()) {
-//
-//            Category category = optProduct.get().getCategory();
-//            category.setCateId((long) productFormDTO.getCategory_id());
-//
-//            categoryRepository.save(category);
-//
-//            Products products = optProduct.get();
-//            products.setPname(productFormDTO.getPname());
-//            products.setDescription(productFormDTO.getDescription());
-//            products.setCompany(productFormDTO.getCompany());
-//            products.setPrice(productFormDTO.getPrice());
-//            products.setDiscount(productFormDTO.getDiscount());
-//            products.setPoint(productFormDTO.getPoint());
-//            products.setStock(productFormDTO.getStock());
-//            products.setDelivery_free(productFormDTO.getDelivery_free());
-//            products.setBrand(productFormDTO.getBrand());
-//            products.setImg_file_1(String.valueOf(productFormDTO.getImg_file_1()));
-//            products.setImg_file_2(String.valueOf(productFormDTO.getImg_file_2()));
-//            products.setImg_file_3(String.valueOf(productFormDTO.getImg_file_2()));
-//            products.setDetaile_file_1(String.valueOf(productFormDTO.getDetaile_file_1()));
-//
-//            productRepository.save(products);
-//
-//            List<ProductOption> productOptions = productOptionRepository.findByOption_id((long) option_id);
-//
-//
-//        }
+        Products products = productRepository.findById(pid).orElseThrow(() -> new EntityNotFoundException("상품이 존재하지 않습니다."));
+
+        // 카테고리 정보
+        Category category = products.getCategory();
+
+        // 옵션 + 항목
+        List<ProductOption> options = productOptionRepository.findByProducts(products);
+        List<ProductFormDTO.OptionForm> optionForms = new ArrayList<>();
+
+        for (ProductOption option : options) {
+            List<ProductOptionItem> optionItems = productOptionItemRepository.findByProductOption(option);
+            ProductFormDTO.OptionForm optionForm = new ProductFormDTO.OptionForm();
+            optionForm.setOptionName(option.getOption_name());
+            optionForm.setOptionItems(optionItems.stream().map(ProductOptionItem::getItem_name).toList());
+            optionForms.add(optionForm);
+
+        }
+
+        // 상품 고시 정보
+        ProductCompliance productCompliance = productComplianceRepository.findByProducts(products);
+        if (productCompliance == null) {
+            throw new EntityNotFoundException("해당 데이터를 찾을 수 없습니다.");
+        }
+
+        // ProductFromDTO 채우기
+        ProductFormDTO productFormDTO = new ProductFormDTO();
+        productFormDTO.setPname(products.getPname());
+        productFormDTO.setDescription(products.getDescription());
+        productFormDTO.setCompany(products.getCompany());
+        productFormDTO.setPrice(products.getPrice());
+        productFormDTO.setDiscount(products.getDiscount());
+        productFormDTO.setPoint(products.getPoint());
+        productFormDTO.setStock(products.getStock());
+        productFormDTO.setDelivery_free(products.getDelivery_free());
+        productFormDTO.setBrand(products.getBrand());
+        productFormDTO.setCategory_id(Math.toIntExact(category.getCateId()));
+
+        // 이미지 정보
+        productFormDTO.setImg_file_1(productFormDTO.getImg_file_1());
+        productFormDTO.setImg_file_2(productFormDTO.getImg_file_2());
+        productFormDTO.setImg_file_3(productFormDTO.getImg_file_3());
+        productFormDTO.setDetaile_file_1(productFormDTO.getDetaile_file_1());
+
+        if(productCompliance != null) {
+            productFormDTO.setStatus(productCompliance.getStatus());
+            productFormDTO.setTax(productCompliance.getTax());
+            productFormDTO.setReceipt(productCompliance.getReceipt());
+            productFormDTO.setBiz_type(productCompliance.getBiz_type());
+            productFormDTO.setOrigin(productCompliance.getOrigin());
+        }
+
+        productFormDTO.setOptions(optionForms);
+
+        return productFormDTO;
 
     }
 
