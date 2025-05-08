@@ -31,10 +31,10 @@ header {
 }
 
 .banner {
-    width: 100%;
+    width: 1200px;
     height: 80px;
     margin: 0 auto;
-    background-color: #fff9e0;
+    background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;

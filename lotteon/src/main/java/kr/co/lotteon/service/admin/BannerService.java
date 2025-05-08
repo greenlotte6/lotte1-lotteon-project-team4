@@ -62,4 +62,8 @@ public class BannerService {
         banner.setActive(active);
         bannerRepository.save(banner);
     }
+
+    public List<Banner> getBannersByPosition(String position) {
+        return bannerRepository.findByPositionAndActive(position, "활성");
+    }
 }

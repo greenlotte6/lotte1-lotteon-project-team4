@@ -25,15 +25,16 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+    public SecurityFilterChain configure(HttpSecurity http, CustomLoginFailureHandler failureHandler) throws Exception {
 
         //로그인 설정
         http.formLogin(login -> login
                 .loginPage("/member/login")
+                .failureHandler(failureHandler)
                 .defaultSuccessUrl("/")
-                .failureUrl("/member/login?code=100")
                 .usernameParameter("uid")
                 .passwordParameter("password"));
+
 
 
 
