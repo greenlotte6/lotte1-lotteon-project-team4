@@ -81,7 +81,7 @@
             </div>
             <div class="line"></div>
             <div class="container">
-                <form action="/admin/cs/qna/list">
+                <form action="/admin/cs/qna/list" method="GET">
                     <div class="select-wrapper">
                         <label for="qndnum"></label>
                         <select id="qndnum" name="qndnum" onchange="updateSubCategory();" style="padding: 8px;">
@@ -137,8 +137,7 @@
                     </table>
                     <div class="btn">
                         <button type="submit" id="deleteButton">선택삭제</button>
-                        <!-- 전체 삭제 버튼 -->
-                        <button type="submit" name="deleteAll" value="true">전체 삭제</button>
+
                     </div>
                 </form>
                 <!-- 페이징 처리 -->
