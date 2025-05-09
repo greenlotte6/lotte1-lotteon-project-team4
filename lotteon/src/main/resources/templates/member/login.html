@@ -77,7 +77,13 @@
             </form>
 
             <div class="main_banner">
-                <img src="https://dummyimage.com/480x260" alt="임시배너">
+                <div th:if="${member1Banners != null}">
+                    <div th:each="banner : ${member1Banners}">
+                        <a th:href="${banner.link}">
+                            <img th:src="@{${banner.imageUrl}}" th:alt="${banner.bannerName}" />
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <div class="connection">

@@ -7,6 +7,7 @@ import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.dto.NoticeDTO;
 import kr.co.lotteon.dto.QnaDTO;
 import kr.co.lotteon.entity.Notice;
+import kr.co.lotteon.repository.BannerRepository;
 import kr.co.lotteon.security.MyUserDetails;
 import kr.co.lotteon.service.MainService;
 import kr.co.lotteon.service.NoticeService;
@@ -31,6 +32,7 @@ public class MainController {
     private final NoticeService noticeService;
     private final QnaService qnaService;
     private final BannerService bannerService;
+    private final BannerRepository bannerRepository;
 
     @GetMapping("/")
     public String index(@AuthenticationPrincipal MyUserDetails userDetails, Model model) {
@@ -38,9 +40,7 @@ public class MainController {
             System.out.println("로그인한 사용자 ID: " + userDetails.getUsername());
         }
 
-        List<Banner> main2Banners = bannerService.getBannersByPosition("MAIN2").stream()
-                .filter(b -> "활성".equals(b.getActive()))
-                .collect(Collectors.toList());
+        List<Banner> main2Banners = bannerRepository.findByPositionAndActive("MAIN2", "활성");
         model.addAttribute("main2Banners", main2Banners);
         return "/index";
     }

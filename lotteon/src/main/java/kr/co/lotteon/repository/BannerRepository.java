@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface BannerRepository extends JpaRepository<Banner, Integer> {
     List<Banner> findByPositionAndActive(String position, String active);
+    List<Banner> findByActive(String active);
 
 }
