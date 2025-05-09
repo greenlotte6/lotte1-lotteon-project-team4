@@ -117,108 +117,174 @@
             });
         });
 
-        // 페이지가 로드될 때, `pid`로 상품 데이터 로드
+        // 수정 페이지가 로드될 때, `pid`로 상품 데이터 로드
         $(document).ready(function () {
-           // URL에서 pid값 가져오기
-           let urlParams = new URLSearchParams(window.location.search);
-           let pid = urlParams.get('pid');
+            // URL에서 pid값 가져오기
+            let urlParams = new URLSearchParams(window.location.search);
+            let pid = urlParams.get('pid');
 
-           if(pid) {
-               loadProductData(pid);
-           }
+            if(pid) {
+                $.ajax({
+                    url: `/admin/product/modifyView/${pid}`,
+                    method: "GET",
+                    success: function (data) {
+
+                        $('input[name="pname"]').val(data.pname);
+                        $('input[name="description"]').val(data.description);
+                        $('input[name="company"]').val(data.company);
+                        $('input[name="price"]').val(data.price);
+                        $('input[name="discount"]').val(data.discount);
+                        $('input[name="point"]').val(data.point);
+                        $('input[name="stock"]').val(data.stock);
+                        $('input[name="delivery_free"]').val(data.delivery_free);
+                        $('input[name="brand"]').val(data.brand);
+
+                        // // 카테고리 선택
+                        // $('#category1').val(data.category_id);
+                        // loadSubCategories(data.category_id);
+
+                        // 이미지 파일 업데이트
+                        if (data.img_file_1) {
+                            $('#img_file_1').attr('src', '/uploads/' + data.img_file_1);
+                        }
+
+                        if (data.img_file_2) {
+                            $('#img_file_2').attr('src', '/uploads/' + data.img_file_2);
+                        }
+
+                        if (data.img_file_3) {
+                            $('#img_file_3').attr('src', '/uploads/' + data.img_file_3);
+                        }
+
+                        if (data.detaile_file_1) {
+                            $('.detail').attr('src', '/uploads/' + data.detaile_file_1);
+                        }
+
+                        // 상품 옵션 로드
+                        getOptionData(data.options);
+
+                        // 상품 고시 정보
+                        $('input[name="status"]').val(data.status);
+                        $('input[name="tax"]').val(data.tax);
+                        $('input[name="receipt"]').val(data.receipt);
+                        $('input[name="biz_type"]').val(data.biz_type);
+                        $('input[name="origin"]').val(data.origin);
+                    },
+                    error: function (err) {
+                        console.error("상품 데이터를 불러오지 못했습니다.", err);
+                    }
+                });
+            }
         });
 
-        // 상품 수정 화면에 불러올 상품 데이터
-        function loadProductData(pid) {
-
-            $.ajax({
-                url: '/admin/product/modifyView',
-                type: 'GET',
-                data: {'pid': pid},
-                success: function (response) {
-                    $('input[name="pname"]').val(response.pname);
-                    $('input[name="description"]').val(response.description);
-                    $('input[name="company"]').val(response.company);
-                    $('input[name="price"]').val(response.price);
-                    $('input[name="discount"]').val(response.discount);
-                    $('input[name="point"]').val(response.point);
-                    $('input[name="stock"]').val(response.stock);
-                    $('input[name="delivery_free"]').val(response.delivery_free);
-                    $('input[name="brand"]').val(response.brand);
-
-                    // 카테고리 선택
-                    $('#category1').val(response.category_id);
-                    loadSubCategories(response.category_id);
-
-                    // 이미지 파일 업데이트
-                    if (response.img_file_1) {
-                        $('#img_file_1').attr('src', '/uploads/' + response.img_file_1);
-                    }
-
-                    if (response.img_file_2) {
-                        $('#img_file_2').attr('src', '/uploads/' + response.img_file_2);
-                    }
-
-                    if (response.img_file_3) {
-                        $('#img_file_3').attr('src', '/uploads/' + response.img_file_3);
-                    }
-
-                    if (response.detaile_file_1) {
-                        $('.detail').attr('src', '/uploads/' + response.detaile_file_1);
-                    }
-
-                    // 상품 옵션 로드
-                    loadProductOptions(response.options);
-
-                    // 상품 고시 정보
-                    $('input[name="status"]').val(response.status);
-                    $('input[name="tax"]').val(response.tax);
-                    $('input[name="receipt"]').val(response.receipt);
-                    $('input[name="biz_type"]').val(response.biz_type);
-                    $('input[name="origin"]').val(response.origin);
-                },
-                error: function (xhr, status, error) {
-                    console.error("상품 데이터를 불러오는 데 실패했습니다.", error);
-                }
-            });
-        }
+        // // 상품 수정 화면에 불러올 상품 데이터
+        // function loadProductData(pid) {
+        //
+        //     $.ajax({
+        //         url: `/admin/product/modifyView/${pid}`,
+        //         method: "GET",
+        //         data: {'pid': pid},
+        //         success: function (data) {
+        //             $('input[name="pname"]').val(data.pname);
+        //             $('input[name="description"]').val(data.description);
+        //             $('input[name="company"]').val(data.company);
+        //             $('input[name="price"]').val(data.price);
+        //             $('input[name="discount"]').val(data.discount);
+        //             $('input[name="point"]').val(data.point);
+        //             $('input[name="stock"]').val(data.stock);
+        //             $('input[name="delivery_free"]').val(data.delivery_free);
+        //             $('input[name="brand"]').val(data.brand);
+        //
+        //             // 카테고리 선택
+        //             $('#category1').val(data.category_id);
+        //             loadSubCategories(data.category_id);
+        //
+        //             // 이미지 파일 업데이트
+        //             if (data.img_file_1) {
+        //                 $('#img_file_1').attr('src', '/uploads/' + data.img_file_1);
+        //             }
+        //
+        //             if (data.img_file_2) {
+        //                 $('#img_file_2').attr('src', '/uploads/' + data.img_file_2);
+        //             }
+        //
+        //             if (data.img_file_3) {
+        //                 $('#img_file_3').attr('src', '/uploads/' + data.img_file_3);
+        //             }
+        //
+        //             if (data.detaile_file_1) {
+        //                 $('.detail').attr('src', '/uploads/' + data.detaile_file_1);
+        //             }
+        //
+        //             // 상품 옵션 로드
+        //             loadProductOptions(data.options);
+        //
+        //             // 상품 고시 정보
+        //             $('input[name="status"]').val(data.status);
+        //             $('input[name="tax"]').val(data.tax);
+        //             $('input[name="receipt"]').val(data.receipt);
+        //             $('input[name="biz_type"]').val(data.biz_type);
+        //             $('input[name="origin"]').val(data.origin);
+        //         },
+        //         error: function (xhr, status, error) {
+        //             console.error("상품 데이터를 불러오는 데 실패했습니다.", error);
+        //         }
+        //     });
+        // }
 
         // 상품 옵션 처리 함수
-        function loadProductOptions(options) {
-            let optionsHtml = '';
-            options.forEach(option => {
-                optionsHtml += `<div class="option-group">
-            <label>${option.option_name}</label>
-            <ul>`;
-                option.item_name.forEach(item => {
-                    optionsHtml += `<li>${item}</li>`;
-                });
-                optionsHtml += `</ul></div>`;
-            });
-            $('#options').html(optionsHtml);
-        }
+        function getOptionData() {
+            const table = document.querySelector(".logo-view table");
+            const options = [];
 
-        // 2차 카테고리 불러오기
-        function loadSubCategories(categoryId) {
-            $.ajax({
-                url: '/api/categories/subcategories',  // 2차 카테고리를 불러올 API
-                type: 'GET',
-                data: {parentCategoryId: categoryId},  // 1차 카테고리 id
-                success: function (response) {
-                    let category2Select = $('#category2');
-                    category2Select.empty();  // 기존 옵션 삭제
-                    category2Select.append('<option value="">2차 분류 선택</option>');  // 기본 옵션 추가
+            // 테이블의 각 행을 순회합니다.
+            for (let i = 0; i < table.rows.length; i++) {
+                const row = table.rows[i];
+                // 각 행에서 옵션 이름과 옵션 항목 입력 필드의 값을 가져옵니다.
+                const optionNameInput = row.querySelector('input[name^="options"][name$="optionName"]');
+                const optionItemsInput = row.querySelector('input[name^="options"][name$="optionItems"]');
 
-                    // 2차 카테고리 옵션 추가
-                    response.forEach(function (category) {
-                        category2Select.append('<option value="' + category.cateId + '">' + category.cateName + '</option>');
+                // 입력 필드에 값이 있는 경우에만 처리합니다.
+                if (optionNameInput && optionItemsInput) {
+                    const optionName = optionNameInput.value;
+                    const optionItems = optionItemsInput.value.split(",").map(item => item.trim()); // 쉼표로 구분된 항목을 배열로 만듭니다.
+
+                    // 옵션 이름과 항목 배열을 객체로 만들어 options 배열에 추가합니다.
+                    options.push({
+                        option_name: optionName,
+                        item_name: optionItems
                     });
-                },
-                error: function (xhr, status, error) {
-                    console.error('2차 카테고리 정보를 불러오는 데 실패했습니다.', error);
                 }
-            });
+            }
+
+            return options;
         }
+
+        // // 2차 카테고리 불러오기
+        // function loadSubCategories(categoryId) {
+        //     $.ajax({
+        //         url: '/api/categories/subcategories',  // 2차 카테고리를 불러올 API
+        //         type: 'GET',
+        //         data: { parentCategoryId: categoryId },  // 1차 카테고리 id
+        //         success: function (data) {
+        //             let category2Select = $('#category2');
+        //             category2Select.empty();  // 기존 옵션 삭제
+        //             category2Select.append('<option value="">2차 분류 선택</option>');  // 기본 옵션 추가
+        //
+        //             // 2차 카테고리 옵션 추가
+        //             data.forEach(function (category) {
+        //                 category2Select.append('<option value="' + category.cateId + '">' + category.cateName + '</option>');
+        //             });
+        //             // 수정페이지 로드시 2차 카테고리 선택되게 함
+        //             if(typeof selectedCategory2Id !== 'undefined'){
+        //                 category2Select.val(selectedCategory2Id);
+        //             }
+        //         },
+        //         error: function (xhr, status, error) {
+        //             console.error('2차 카테고리 정보를 불러오는 데 실패했습니다.', error);
+        //         }
+        //     });
+        // }
     });
 </script>
 

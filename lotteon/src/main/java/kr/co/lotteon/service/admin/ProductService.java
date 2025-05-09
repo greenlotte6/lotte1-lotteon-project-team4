@@ -128,10 +128,10 @@ public class ProductService {
 
         // 이미지 파일 처리 및 저장
         String baseDir = System.getProperty("user.dir") + "/uploads/"; // 프로젝트폴더/uploads/
-        String imgFile1 = saveFile(form.getImg_file_1(), baseDir);
-        String imgFile2 = saveFile(form.getImg_file_2(), baseDir);
-        String imgFile3 = saveFile(form.getImg_file_3(), baseDir);
-        String detailFile1 = saveFile(form.getDetaile_file_1(), baseDir);
+        String imgFile1 = saveFile(form.getImgFile_1(), baseDir);
+        String imgFile2 = saveFile(form.getImgFile_2(), baseDir);
+        String imgFile3 = saveFile(form.getImgFile_3(), baseDir);
+        String detailFile1 = saveFile(form.getDetaileFile_1(), baseDir);
 
         product.setImg_file_1(imgFile1);
         product.setImg_file_2(imgFile2);
@@ -234,20 +234,20 @@ public class ProductService {
         productFormDTO.setCategory_id(Math.toIntExact(category.getCateId()));
 
         // 이미지 정보
-        productFormDTO.setImg_file_1(productFormDTO.getImg_file_1());
-        productFormDTO.setImg_file_2(productFormDTO.getImg_file_2());
-        productFormDTO.setImg_file_3(productFormDTO.getImg_file_3());
-        productFormDTO.setDetaile_file_1(productFormDTO.getDetaile_file_1());
+        productFormDTO.setImg_file_1(products.getImg_file_1());
+        productFormDTO.setImg_file_2(products.getImg_file_2());
+        productFormDTO.setImg_file_3(products.getImg_file_3());
+        productFormDTO.setDetaile_file_1(products.getDetaile_file_1());
 
-        if(productCompliance != null) {
-            productFormDTO.setStatus(productCompliance.getStatus());
-            productFormDTO.setTax(productCompliance.getTax());
-            productFormDTO.setReceipt(productCompliance.getReceipt());
-            productFormDTO.setBiz_type(productCompliance.getBiz_type());
-            productFormDTO.setOrigin(productCompliance.getOrigin());
-        }
+        productFormDTO.setStatus(productCompliance.getStatus());
+        productFormDTO.setTax(productCompliance.getTax());
+        productFormDTO.setReceipt(productCompliance.getReceipt());
+        productFormDTO.setBiz_type(productCompliance.getBiz_type());
+        productFormDTO.setOrigin(productCompliance.getOrigin());
 
         productFormDTO.setOptions(optionForms);
+
+        log.info("productFormDTO: {}", productFormDTO);
 
         return productFormDTO;
 

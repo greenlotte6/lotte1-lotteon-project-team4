@@ -34,10 +34,15 @@ public class ProductFormDTO {
     private int category_id; // 2차 카테고리 ID
 
     // 이미지 파일
-    private MultipartFile img_file_1; // 상품 목록 이미지
-    private MultipartFile img_file_2; // 상품 메인 이미지
-    private MultipartFile img_file_3; // 상품 상세 이미지
-    private MultipartFile detaile_file_1; // 상품 상세 설명 이미지
+    private MultipartFile imgFile_1; // 상품 목록 이미지
+    private MultipartFile imgFile_2; // 상품 메인 이미지
+    private MultipartFile imgFile_3; // 상품 상세 이미지
+    private MultipartFile detaileFile_1; // 상품 상세 설명 이미지
+
+    private String img_file_1; // 상품 목록 이미지
+    private String img_file_2; // 상품 메인 이미지
+    private String img_file_3; // 상품 상세 이미지
+    private String detaile_file_1; // 상품 상세 설명 이미지
 
     // 옵션 정보
     private List<OptionForm> options;
