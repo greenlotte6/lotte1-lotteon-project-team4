@@ -81,10 +81,13 @@ public class ProductController {
         return categories2; // JSON 형태 반환
     }
 
-    // 상품 수정 폼 조회
-    @GetMapping("/admin/product/modifyView")
-    public ResponseEntity<ProductFormDTO> modifyView(@RequestParam("pid") int pid) {
+    // 상품 수정 폼 조회 및 수정
+    @GetMapping("/admin/product/modifyView/{pid}")
+    @ResponseBody
+    public ResponseEntity<ProductFormDTO> modifyView(@PathVariable int pid) {
         ProductFormDTO productFormDTO = productService.modifyView(pid);
+
+        log.info("list : {}", productFormDTO);
 
         return ResponseEntity.ok(productFormDTO);
     }
