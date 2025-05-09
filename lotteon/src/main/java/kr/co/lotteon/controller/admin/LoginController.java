@@ -3,8 +3,10 @@ package kr.co.lotteon.controller.admin;
 import jakarta.servlet.http.HttpSession;
 import kr.co.lotteon.dto.SellerDTO;
 import kr.co.lotteon.dto.UsersDTO;
+import kr.co.lotteon.entity.Banner;
 import kr.co.lotteon.entity.Seller;
 import kr.co.lotteon.entity.Users;
+import kr.co.lotteon.repository.BannerRepository;
 import kr.co.lotteon.service.PolicyService;
 import kr.co.lotteon.service.SellerService;
 import kr.co.lotteon.service.UsersService;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -25,11 +28,14 @@ import java.util.Optional;
 public class LoginController {
 
     @GetMapping("/member/login")
-    public String login() {
+    public String login(Model model) {
+        List<Banner> member1Banners = bannerRepository.findByPositionAndActive("MEMBER1", "활성");
+        model.addAttribute("member1Banners", member1Banners);
         return "/member/login";
     }
 
     private final SellerService sellerService;
+    private final BannerRepository bannerRepository;
 
     @PostMapping("/member/login")
     public String login(@RequestParam("id") String id,
@@ -56,8 +62,6 @@ public class LoginController {
         // 3. 모두 실패
         model.addAttribute("error", "아이디 또는 비밀번호를 확인하세요.");
         return "/member/login";
-
-
 
     }
     private final UsersService usersService;

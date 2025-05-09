@@ -4,12 +4,10 @@
     <header>
         <div class="wrapper">
             <div class="banner">
-                <div class="main-top-banner" th:if="${mainTopBanners}">
-                    <div th:each="banner : ${mainTopBanners}">
-                        <a th:href="${banner.link}">
-                            <img th:src="@{${banner.imageUrl}}" th:alt="${banner.bannerName}" />
-                        </a>
-                    </div>
+                <div class="main-top-banner" th:if="${main1Banner != null}">
+                    <a th:href="${main1Banner.link}">
+                        <img th:src="@{${main1Banner.imageUrl}}" th:alt="${main1Banner.bannerName}" />
+                    </a>
                 </div>
             </div>
             <div class="user-nav">

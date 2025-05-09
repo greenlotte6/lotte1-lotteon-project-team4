@@ -4,12 +4,17 @@ import kr.co.lotteon.dto.BannerDTO;
 import kr.co.lotteon.entity.Banner;
 import kr.co.lotteon.repository.BannerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -66,4 +71,28 @@ public class BannerService {
     public List<Banner> getBannersByPosition(String position) {
         return bannerRepository.findByPositionAndActive(position, "활성");
     }
+
+    public void autoDeactivateExpiredBanners() {
+        List<Banner> banners = bannerRepository.findByActive("활성");
+        LocalDateTime now = LocalDateTime.now();
+
+        for (Banner banner : banners) {
+            // 날짜와 시간이 모두 null이 아닌 경우에만 비교 수행
+            if (banner.getStartDay() != null && banner.getStartAt() != null &&
+                    banner.getCloseDay() != null && banner.getCloseAt() != null) {
+
+                LocalDateTime start = LocalDateTime.of(banner.getStartDay(), banner.getStartAt());
+                LocalDateTime end = LocalDateTime.of(banner.getCloseDay(), banner.getCloseAt());
+
+                if (now.isBefore(start) || now.isAfter(end)) {
+                    banner.setActive("비활성");
+                    bannerRepository.save(banner);
+                }
+            }
+        }
+    }
+
+
+
+
 }

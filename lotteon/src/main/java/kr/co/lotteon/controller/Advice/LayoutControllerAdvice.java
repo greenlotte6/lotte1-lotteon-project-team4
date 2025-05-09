@@ -2,6 +2,10 @@ package kr.co.lotteon.controller.Advice;
 
 import kr.co.lotteon.dto.CategoryDTO;
 import kr.co.lotteon.entity.*;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import kr.co.lotteon.service.admin.*;
 import lombok.RequiredArgsConstructor;
@@ -50,16 +54,28 @@ public class LayoutControllerAdvice {
         return categoryService.getHierarchicalCategories();
     }
 
-    @ModelAttribute("mainTopBanners")
-    public List<Banner> getRandomizedMainTopBanners() {
-        List<Banner> banners = bannerService.getBannersByPosition("MAIN1")
-                .stream()
+    @ModelAttribute("main1Banner")
+    public Banner getMain1Banner() {
+        List<Banner> banners = bannerService.getBannersByPosition("MAIN1").stream()
                 .filter(b -> "활성".equals(b.getActive()))
-                .collect(Collectors.toCollection(ArrayList::new));
+                .filter(b -> {
+                    LocalDate today = LocalDate.now();
+                    LocalTime now = LocalTime.now();
+                    return (b.getStartDay() == null || !today.isBefore(b.getStartDay())) &&
+                            (b.getCloseDay() == null || !today.isAfter(b.getCloseDay())) &&
+                            (b.getStartAt() == null || !now.isBefore(b.getStartAt())) &&
+                            (b.getCloseAt() == null || !now.isAfter(b.getCloseAt()));
+                })
+                .toList();
 
-        Collections.shuffle(banners);
-        return banners;
+        if (!banners.isEmpty()) {
+            int randomIndex = ThreadLocalRandom.current().nextInt(banners.size());
+            return banners.get(randomIndex);
+        }
+
+        return null;
     }
+
 
 
 }
