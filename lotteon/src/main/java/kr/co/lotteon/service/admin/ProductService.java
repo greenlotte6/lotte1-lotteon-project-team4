@@ -209,7 +209,6 @@ public class ProductService {
             optionForm.setOptionName(option.getOption_name());
             optionForm.setOptionItems(optionItems.stream().map(ProductOptionItem::getItem_name).toList());
             optionForms.add(optionForm);
-
         }
 
         // 상품 고시 정보

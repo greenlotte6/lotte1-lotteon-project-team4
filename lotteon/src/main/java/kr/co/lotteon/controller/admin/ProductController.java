@@ -92,12 +92,12 @@ public class ProductController {
         return ResponseEntity.ok(productFormDTO);
     }
 
-    // 상품 수정
-    @PostMapping("/admin/product/modifyProduct/{pid}")
-    public String modifyProduct(@PathVariable int pid) {
-
-        productService.modifyProduct(pid);
-        return "redirect:/admin/product/list";
-    }
+//    // 상품 수정
+//    @PostMapping("/admin/product/modifyView/{pid}")
+//    public String modifyProduct(@PathVariable int pid) {
+//
+//        productService.modifyProduct(pid);
+//        return "redirect:/admin/product/list";
+//    }
 
 }
