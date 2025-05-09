@@ -165,6 +165,7 @@ select {
 .green {
     color: rgb(0, 200, 0);
     font-size: 13px;
+    border: none;
 }
 
 .red {
@@ -458,7 +459,7 @@ li {
 }
 
 .modal-overlay .addr-wrapper input {
-    width: 98%;
+    width: 70%;
 }
 
 .modal-overlay .addr-wrapper button {

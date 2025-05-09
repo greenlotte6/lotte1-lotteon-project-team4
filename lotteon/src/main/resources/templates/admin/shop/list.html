@@ -31,8 +31,207 @@
         }
     </style>
 </head>
+
+<body>
+<th:block th:include="/common/_admin_header"/>
+<main>
+    <div class="main-wrapper">
+        <th:block th:include="/common/_admin_aside"/>
+
+        <div class="main">
+            <div class="setting">
+                <h1>상점목록</h1>
+                <ul>
+                    <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/shop/list}">상점관리&nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/shop/list}"><span>상점목록&nbsp;</span></a></li>
+                </ul>
+            </div>
+            <div class="line"></div>
+            <div class="container">
+                <form th:action="@{/admin/shop/searchShop}">
+                    <div class="search">
+                        <select name="searchType">
+                            <option value="company">상호명</option>
+                            <option value="ced">대표자</option>
+                            <option value="biz_num">사업자등록번호</option>
+                            <option value="number">연락처</option>
+                        </select>
+                        <input type="text" name="keyword" placeholder="검색어입력">
+                        <button type="submit">검색</button>
+                    </div>
+                </form>
+                <div class="table-wrapper">
+                    <div class="status">
+                        <p><span class="green">● 운영중</span></p>
+                        <p><span class="red">● 운영중지</span></p>
+                        <p><span class="blue">● 운영준비</span></p>
+                    </div>
+                    <form th:action="@{/admin/shop/delete}" method="post" onsubmit="return validateDelete()">
+                        <div class="table">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="checkAll"></th>
+                                    <th>번호</th>
+                                    <th>상호명</th>
+                                    <th>대표</th>
+                                    <th>사업자등록번호</th>
+                                    <th>통신판매업번호</th>
+                                    <th>연락처</th>
+                                    <th>운영</th>
+                                    <th>관리</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="shop, i : ${pageResponseDTO.dtoList}">
+                                    <td><input type="checkbox" name="seller_aid" th:value="${shop.aid}" class="checkItem"></td>
+                                    <td th:text="${pageResponseDTO.startNo - i.index}"></td>
+                                    <td th:text="${shop.company}"></td>
+                                    <td th:text="${shop.ceo}"></td>
+                                    <td th:text="${shop.biz_num}"></td>
+                                    <td th:text="${shop.osn}"></td>
+                                    <td th:text="${shop.number}"></td>
+                                    <td>
+                                        <button type="button" onclick="toggleStatus([[${shop.aid}]])"
+                                                th:classappend="${shop.statusClass}">●</button>
+                                    </td>
+                                    <td>
+                                        <button type="button"
+                                                th:onclick="|toggleMgmt('${shop.aid}')|"
+                                                th:text="${shop.mgmt == '중단' ? '승인' : '중단'}"
+                                                th:classappend="${shop.mgmt == '중단' ? 'btn-blue' : 'btn-red'}"></button>
+                                    </td>
+                                </tr>
+
+                                <tr th:if="${#lists.isEmpty(pageResponseDTO.dtoList)}">
+                                    <td colspan="12" class="no-results">검색 결과가 없습니다.</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="click">
+                            <button class="select-delete button" type="submit">선택삭제</button>
+                            <button type="button" onclick="openModal('register-modal')"
+                                    class="banner-register button btn">상점등록
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="page" th:if="${pageResponseDTO.total > 0}">
+                        <th:block th:if="${pageResponseDTO.prev}">
+                            <a th:href="@{/admin/shop/list(pg=${pageResponseDTO.start-1})}" class="page-move">이전</a>
+                        </th:block>
+
+                        <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
+                            <a th:href="@{/admin/shop/list(pg=${num})}"
+                               th:class="${num == pageResponseDTO.pg} ? 'current' : 'num'">&#91;[[${num}]]&#93;</a>
+                        </th:block>
+
+                        <th:block th:if="${pageResponseDTO.next}">
+                            <a th:href="@{/admin/shop/list(pg=${pageResponseDTO.end+1})}" class="page-move">다음</a>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- 모달 -->
+<div class="modal-overlay register-modal">
+    <div class="container modal">
+        <div class="title">
+            <h2>상점등록</h2>
+            <button class="X modal-button" onclick="closeModal()">X</button>
+        </div>
+        <form name="formRegister" method="post" action="/admin/shop/registerShop">
+            <div class="content">
+                <div class="form">
+                    <table>
+                        <tr>
+                            <td>아이디</td>
+                            <td>
+                                <input type="text" id="aid" name="aid" placeholder="아이디 입력" />
+                                <button type="button" id="btnCheckUid" style="width: 65px; height: 30px;">중복확인</button>
+                                <span class="uidResult"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>비밀번호</td>
+                            <td><input type="password" id="password" name="password" placeholder="비밀번호 입력" />영문, 숫자, 특수문자 8~12자</td>
+                        </tr>
+                        <tr>
+                            <td>비밀번호 확인</td>
+                            <td>
+                                <input type="password" id="password_confirm" name="password_confirm" placeholder="비밀번호 입력 확인" />
+                                <span class="passResult"></span> <!-- 결과 메시지 표시용 -->
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td>상호명</td>
+                            <td><input type="text" name="company" placeholder="상호명 입력 예) (주)LotteON"></td>
+                        </tr>
+                        <tr>
+                            <td>대표</td>
+                            <td><input type="text" name="ceo" placeholder="이름 입력"></td>
+                        </tr>
+                        <tr>
+                            <td>사업자등록번호</td>
+                            <td><input type="text" maxlength="12" name="biz_num" placeholder="사업자등록번호 입력" oninput="formatBizNum(this)"/>- &nbsp;없이 10자리 입력</td>
+                        </tr>
+                        <tr>
+                            <td>통신판매업번호</td>
+                            <td><input type="text" maxlength="14" name="osn" placeholder="통신판매업번호 입력">- 포함 14자리 입력</td>
+                        </tr>
+                        <tr>
+                            <td>전화번호</td>
+                            <td><input type="tel" maxlength="13" name="number" placeholder="전화번호 입력" oninput="formatPhone(this)"/>- &nbsp;없이 11자리 입력</td>
+                        </tr>
+                        <tr>
+                            <td>팩스</td>
+                            <td><input type="text" maxlength="12" name="fax" placeholder="팩스번호 입력" oninput="formatFax(this)"/>- &nbsp;없이 입력</td>
+                        </tr>
+                        <tr>
+                            <td>주소</td>
+                            <td class="addr-wrapper">
+                                <div><button type="button" onclick="postcode()" class="zipcode-btn">우편번호 검색</button><br></div>
+                                <div><input type="text" id="zip" name="zip" placeholder="우편 번호"></div>
+                                <div><input type="text" id="addr1" name="addr1" placeholder="기본주소"></div>
+                                <div><input type="text" id="addr2" name="addr2" placeholder="상세주소"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="button">
+                <button type="submit" class="register submit-btn">등록하기</button>
+                <!--<button type="submit" class="register submit-btn" onclick="submitCoupon()">등록하기</button>-->>
+            </div>
+        </form>
+    </div>
+</div>
+<th:block th:include="/common/_admin_footer"/>
 <script src="/js/modal.js"></script>
 <script src="/js/validationShop.js"></script>
+<script>
+    function toggleStatus(aid) {
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "/admin/shop/toggleStatus";
+
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "aid";
+        input.value = aid;
+
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
 <script>
     // 선택 확인 후 제출
     document.addEventListener('DOMContentLoaded', function () {
@@ -192,189 +391,6 @@
     }
 </script>
 
-<body>
-<th:block th:include="/common/_admin_header"/>
-<main>
-    <div class="main-wrapper">
-        <th:block th:include="/common/_admin_aside"/>
-
-        <div class="main">
-            <div class="setting">
-                <h1>상점목록</h1>
-                <ul>
-                    <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
-                    <li><a th:href="@{/admin/shop/list}">상점관리&nbsp;>&nbsp;</a></li>
-                    <li><a th:href="@{/admin/shop/list}"><span>상점목록&nbsp;</span></a></li>
-                </ul>
-            </div>
-            <div class="line"></div>
-            <div class="container">
-                <form th:action="@{/admin/shop/searchShop}">
-                    <div class="search">
-                        <select name="searchType">
-                            <option value="company">상호명</option>
-                            <option value="ced">대표자</option>
-                            <option value="biz_num">사업자등록번호</option>
-                            <option value="number">연락처</option>
-                        </select>
-                        <input type="text" name="keyword" placeholder="검색어입력">
-                        <button type="submit">검색</button>
-                    </div>
-                </form>
-                <div class="table-wrapper">
-                    <div class="status">
-                        <p><span class="green">● 운영중</span></p>
-                        <p><span class="red">● 운영중지</span></p>
-                        <p><span class="blue">● 운영준비</span></p>
-                    </div>
-                    <form th:action="@{/admin/shop/delete}" method="post" onsubmit="return validateDelete()">
-                        <div class="table">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th><input type="checkbox" id="checkAll"></th>
-                                    <th>번호</th>
-                                    <th>상호명</th>
-                                    <th>대표</th>
-                                    <th>사업자등록번호</th>
-                                    <th>통신판매업번호</th>
-                                    <th>연락처</th>
-                                    <th>운영</th>
-                                    <th>관리</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="shop, i : ${pageResponseDTO.dtoList}">
-                                    <td><input type="checkbox" name="seller_aid" th:value="${shop.aid}" class="checkItem"></td>
-                                    <td th:text="${pageResponseDTO.startNo - i.index}"></td>
-                                    <td th:text="${shop.company}"></td>
-                                    <td th:text="${shop.ceo}"></td>
-                                    <td th:text="${shop.biz_num}"></td>
-                                    <td th:text="${shop.osn}"></td>
-                                    <td th:text="${shop.number}"></td>
-                                    <td>
-                                        <button type="button" onclick="toggleStatus([[${shop.aid}]])"
-                                                th:classappend="${shop.statusClass}">●</button>
-                                    </td>
-                                    <td>
-                                        <button type="button" onclick="toggleMgmt([[${shop.aid}]])"
-                                                th:text="${shop.mgmt == '중단' ? '승인' : '중단'}"
-                                                th:classappend="${shop.mgmt == '중단' ? 'btn-blue' : 'btn-red'}"></button>
-                                    </td>
-                                </tr>
-
-                                <tr th:if="${#lists.isEmpty(pageResponseDTO.dtoList)}">
-                                    <td colspan="12" class="no-results">검색 결과가 없습니다.</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="click">
-                            <button class="select-delete button" type="submit">선택삭제</button>
-                            <button type="button" onclick="openModal('register-modal')"
-                                    class="banner-register button btn">상점등록
-                            </button>
-                        </div>
-                    </form>
-
-                    <div class="page" th:if="${pageResponseDTO.total > 0}">
-                        <th:block th:if="${pageResponseDTO.prev}">
-                            <a th:href="@{/admin/shop/list(pg=${pageResponseDTO.start-1})}" class="page-move">이전</a>
-                        </th:block>
-
-                        <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
-                            <a th:href="@{/admin/shop/list(pg=${num})}"
-                               th:class="${num == pageResponseDTO.pg} ? 'current' : 'num'">&#91;[[${num}]]&#93;</a>
-                        </th:block>
-
-                        <th:block th:if="${pageResponseDTO.next}">
-                            <a th:href="@{/admin/shop/list(pg=${pageResponseDTO.end+1})}" class="page-move">다음</a>
-                        </th:block>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-<!-- 모달 -->
-<div class="modal-overlay register-modal">
-    <div class="container modal">
-        <div class="title">
-            <h2>상점등록</h2>
-            <button class="X modal-button" onclick="closeModal()">X</button>
-        </div>
-        <form name="formRegister" method="post" action="/admin/shop/registerShop">
-            <div class="content">
-                <div class="form">
-                    <table>
-                        <tr>
-                            <td>아이디</td>
-                            <td>
-                                <input type="text" id="aid" name="aid" placeholder="아이디 입력" />
-                                <button type="button" id="btnCheckUid" style="width: 65px; height: 30px;">중복확인</button>
-                                <span class="uidResult"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>비밀번호</td>
-                            <td><input type="password" id="password" name="password" placeholder="비밀번호 입력" />영문, 숫자, 특수문자 8~12자</td>
-                        </tr>
-                        <tr>
-                            <td>비밀번호 확인</td>
-                            <td>
-                                <input type="password" id="password_confirm" name="password_confirm" placeholder="비밀번호 입력 확인" />
-                                <span class="passResult"></span> <!-- 결과 메시지 표시용 -->
-                            </td>
-                        </tr>
-                    </table>
-                    <table>
-                        <tr>
-                            <td>상호명</td>
-                            <td><input type="text" name="company" placeholder="상호명 입력 예) (주)LotteON"></td>
-                        </tr>
-                        <tr>
-                            <td>대표</td>
-                            <td><input type="text" name="ceo" placeholder="이름 입력"></td>
-                        </tr>
-                        <tr>
-                            <td>사업자등록번호</td>
-                            <td><input type="text" maxlength="12" name="biz_num" placeholder="사업자등록번호 입력" oninput="formatBizNum(this)"/>- &nbsp;포함 12자리 입력</td>
-                        </tr>
-                        <tr>
-                            <td>통신판매업번호</td>
-                            <td><input type="text" name="osn" placeholder="통신판매업번호 입력"></td>
-                        </tr>
-                        <tr>
-                            <td>전화번호</td>
-                            <td><input type="tel" maxlength="13" name="number" placeholder="전화번호 입력" oninput="formatPhone(this)"/>- &nbsp;포함 12자리 입력</td>
-                        </tr>
-                        <tr>
-                            <td>팩스</td>
-                            <td><input type="text" maxlength="12" name="fax" placeholder="팩스번호 입력" oninput="formatFax(this)"/>- &nbsp;포함 입력</td>
-                        </tr>
-                        <tr>
-                            <td>주소</td>
-                            <td class="addr-wrapper">
-                                <div>
-                                    <input type="hidden" id="zip" name="zip" placeholder="우편 번호">
-                                    <button type="button" onclick="postcode()">우편번호 검색</button>
-                                </div>
-                                <div><input type="text" id="addr1" name="addr1" placeholder="기본주소"></div>
-                                <div><input type="text" id="addr2" name="addr2" placeholder="상세주소"></div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="button">
-                <button type="submit" class="register submit-btn">등록하기</button>
-                <!--<button type="submit" class="register submit-btn" onclick="submitCoupon()">등록하기</button>-->>
-            </div>
-        </form>
-    </div>
-</div>
-<th:block th:include="/common/_admin_footer"/>
 </body>
 
 </html>

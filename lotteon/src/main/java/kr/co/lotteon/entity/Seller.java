@@ -34,8 +34,9 @@ public class Seller {
     private String operationText;
     private String statusClass;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private SystemStatus status;
+    private SystemStatus status = SystemStatus.READY;
 
 
 

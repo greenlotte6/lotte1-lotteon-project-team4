@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -32,6 +33,7 @@ public class ShopService {
     private final ShopRepository shopRepository;
     private final SellerRepository sellerRepository;
     private final ModelMapper modelMapper;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     // 상점 목록 조회
     public PageResponseDTO<ShopDTO> findShopList(PageRequestDTO pageRequestDTO) {
@@ -115,65 +117,58 @@ public class ShopService {
 
     // 상점 등록
     public void registerShop(SellerDTO sellerDTO) {
-        if (sellerDTO.getStatus() == null) {
-            sellerDTO.setStatus(SystemStatus.READY); // 기본 설정
-        }
         Optional<Seller> optSeller = sellerRepository.findById(sellerDTO.getAid());
-
-        log.info("AID {}", sellerDTO.getAid());
 
         Seller seller;
         if (optSeller.isPresent()) {
             seller = optSeller.get();
 
-            seller.setAid(sellerDTO.getAid());
-            seller.setPassword(sellerDTO.getPassword());
-            seller.setCompany(sellerDTO.getCompany());
-            seller.setCeo(sellerDTO.getCeo());
-            seller.setBiz_num(sellerDTO.getBiz_num());
-            seller.setOsn(sellerDTO.getOsn());
-            seller.setNumber(sellerDTO.getNumber());
-            seller.setFax(sellerDTO.getFax());
-            seller.setAddr1(sellerDTO.getAddr1());
-            seller.setAddr2(sellerDTO.getAddr2());
-            String role = sellerDTO.getRole();
-            if(role == null) {
-                role = "SELLER";
-            }
-            seller.setRole(role);
+            // 필드 복사
+            copySellerFields(seller, sellerDTO);
 
-            if (sellerDTO.getStatus() == null) {
-                seller.setStatus(SystemStatus.READY); // 기본 상태
-            } else {
-                seller.setStatus(sellerDTO.getStatus());
-            }
-
-            log.info("seller {}", seller);
-
-        }else {
-            // 상점이 없다면 새로운 상점 등록
+        } else {
             seller = new Seller();
-            seller.setAid(sellerDTO.getAid());
-            seller.setPassword(sellerDTO.getPassword());
-            seller.setCompany(sellerDTO.getCompany());
-            seller.setCeo(sellerDTO.getCeo());
-            seller.setBiz_num(sellerDTO.getBiz_num());
-            seller.setOsn(sellerDTO.getOsn());
-            seller.setNumber(sellerDTO.getNumber());
-            seller.setFax(sellerDTO.getFax());
-            seller.setAddr1(sellerDTO.getAddr1());
-            seller.setAddr2(sellerDTO.getAddr2());
-            String role = sellerDTO.getRole();
-            if(role == null) {
-                role = "SELLER";
-            }
-            seller.setRole(role);
-
-            log.info("seller {}", seller);
+            copySellerFields(seller, sellerDTO);
         }
+
+        // ✔ status 설정: null일 경우 READY로 초기화
+        if (seller.getStatus() == null) {
+            seller.setStatus(SystemStatus.READY);
+        }
+
+        // ✔ operationText, statusClass 설정 (뷰 반영용)
+        if (seller.getStatus() == SystemStatus.OPERATING) {
+            seller.setOperationText("[운영중]");
+            seller.setStatusClass("green");
+        } else if (seller.getStatus() == SystemStatus.STOPPED) {
+            seller.setOperationText("[운영중지]");
+            seller.setStatusClass("red");
+        } else {
+            seller.setOperationText("[운영준비]");
+            seller.setStatusClass("blue");
+        }
+
         sellerRepository.save(seller);
+    }
 
-
+    // 필드 복사 메서드 추가 (중복 제거용)
+    private void copySellerFields(Seller seller, SellerDTO dto) {
+        seller.setAid(dto.getAid());
+        if (dto.getPassword() != null && !dto.getPassword().startsWith("$2a$")) {
+            seller.setPassword(passwordEncoder.encode(dto.getPassword()));
+        } else {
+            seller.setPassword(dto.getPassword());
+        }
+        seller.setCompany(dto.getCompany());
+        seller.setCeo(dto.getCeo());
+        seller.setBiz_num(dto.getBiz_num());
+        seller.setOsn(dto.getOsn());
+        seller.setNumber(dto.getNumber());
+        seller.setFax(dto.getFax());
+        seller.setAddr1(dto.getAddr1());
+        seller.setAddr2(dto.getAddr2());
+        seller.setRole(dto.getRole() != null ? dto.getRole() : "SELLER");
+        seller.setStatus(dto.getStatus() != null ? dto.getStatus() : SystemStatus.READY);
     }
 
     public void delete(List<String> seller_aid) {
