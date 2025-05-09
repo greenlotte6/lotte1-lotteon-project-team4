@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -192,8 +191,8 @@ public class ProductService {
 
     }
 
-    // 상품 수정 폼으로 데이터 불러오기 (조회)
-    public ProductFormDTO modifyView(int pid) {
+    // 상품 수정 데이터 조회 및 수정
+    public ProductFormDTO modifyProduct(int pid) {
 
         Products products = productRepository.findById(pid).orElseThrow(() -> new EntityNotFoundException("상품이 존재하지 않습니다."));
 

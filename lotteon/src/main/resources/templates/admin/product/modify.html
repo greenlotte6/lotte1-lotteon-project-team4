@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/common/_admin_header.css}">
+    <link rel="stylesheet" th:href="@{/css/common/_admin_footer.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/product/register.css}">
+    <!-- js -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
+    <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        $('.hover').click(function (e) {
+            $(this).parent().toggleClass('active');
+        })
+
+        $(document).ready(function () {
+            // 1차 카테고리 선택 시 2차 카테고리 동적으로 가져오기
+            $('#category1').change(function () {
+                const parentId = $(this).val();
+                const category2Select = $('#category2');
+
+                category2Select.empty();
+                category2Select.append($('<option>', {value: '', text: '2차 분류 선택'}));
+
+                if (parentId) {
+                    $.ajax({
+                        url: '/admin/product/categories',
+                        type: 'GET',
+                        data: {parent: parentId},
+                        dataType: 'json',
+                        success: function (data) {
+                            $.each(data, function (index, category) {
+                                category2Select.append($('<option>', {
+                                    value: category.cateId,
+                                    text: category.cateName
+                                }));
+                            });
+                        },
+                        error: function (error) {
+                            console.error('Error fetching categories:', error);
+                            alert('2차 카테고리가 없습니다. 생성 후 이용 바랍니다.');
+                        }
+                    });
+                }
+            });
+
+            // 옵션 추가 버튼 클릭 시 동적으로 옵션 필드 추가
+            $(document).ready(function () {
+                $('.plusOption button').click(function () {
+                    let newRow = `
+                <tr>
+                    <td>옵션${$('.logo-view table tr').length + 1}</td>
+                    <td><input type="text" name="option${$('.logo-view table tr').length + 1}"></td>
+                    <td class="option">옵션${$('.logo-view table tr').length + 1} 항목</td>
+                    <td class="detail"><input type="text" name="option${$('.logo-view table tr').length + 1}-detail"></td>
+                </tr>
+            `;
+                    $('.logo-view table').append(newRow);
+                });
+            });
+
+            // 폼 유효성 검사
+            $('form').submit(function (event) {
+                let hasErrors = false;
+                $('.error-message').remove();  // 기존 에러 메시지 제거
+
+                // 필수 입력 필드 검사
+                $(this).find('input[required], select[required], textarea[required]').each(function () {
+                    if (!$(this).val()) {
+                        $(this).addClass('input-error');
+                        $(this).after('<p class="error-message">필수 입력 항목입니다.</p>');
+                        hasErrors = true;
+                    } else {
+                        $(this).removeClass('input-error');
+                    }
+                });
+
+                // 파일 입력 필드 검사 (확장자, 크기 등)
+                $(this).find('input[type="file"]').each(function () {
+                    const file = this.files[0];
+                    if (file) {
+                        const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+                        const extension = file.name.split('.').pop().toLowerCase();
+                        const maxSizeInBytes = 1 * 1024 * 1024;  // 1MB
+
+                        if (allowedExtensions.indexOf(extension) === -1) {
+                            $(this).addClass('input-error');
+                            $(this).after('<p class="error-message">허용되지 않는 파일 형식입니다. (jpg, jpeg, png, gif)</p>');
+                            hasErrors = true;
+                        } else if (file.size > maxSizeInBytes) {
+                            $(this).addClass('input-error');
+                            $(this).after('<p class="error-message">파일 크기가 1MB를 초과합니다.</p>');
+                            hasErrors = true;
+                        } else {
+                            $(this).removeClass('input-error');
+                        }
+                    }
+                });
+
+                if (hasErrors) {
+                    event.preventDefault();  // 폼 제출 방지
+                    return false;
+                }
+                return true;
+            });
+        });
+
+        // 수정 페이지가 로드될 때, `pid`로 상품 데이터 로드
+        $(document).ready(function () {
+            // URL에서 pid값 가져오기
+            let urlParams = new URLSearchParams(window.location.search);
+            let pid = urlParams.get('pid');
+
+            if(pid) {
+                $.ajax({
+                    url: `/admin/product/modifyView/${pid}`,
+                    method: "GET",
+                    success: function (data) {
+
+                        $('input[name="pname"]').val(data.pname);
+                        $('input[name="description"]').val(data.description);
+                        $('input[name="company"]').val(data.company);
+                        $('input[name="price"]').val(data.price);
+                        $('input[name="discount"]').val(data.discount);
+                        $('input[name="point"]').val(data.point);
+                        $('input[name="stock"]').val(data.stock);
+                        $('input[name="delivery_free"]').val(data.delivery_free);
+                        $('input[name="brand"]').val(data.brand);
+
+                        // // 카테고리 선택
+                        // $('#category1').val(data.category_id);
+                        // loadSubCategories(data.category_id);
+
+                        // 이미지 파일 업데이트
+                        if (data.img_file_1) {
+                            $('#img_file_1').attr('src', '/uploads/' + data.img_file_1);
+                        }
+
+                        if (data.img_file_2) {
+                            $('#img_file_2').attr('src', '/uploads/' + data.img_file_2);
+                        }
+
+                        if (data.img_file_3) {
+                            $('#img_file_3').attr('src', '/uploads/' + data.img_file_3);
+                        }
+
+                        if (data.detaile_file_1) {
+                            $('.detail').attr('src', '/uploads/' + data.detaile_file_1);
+                        }
+
+                        // 상품 옵션 로드
+                        getOptionData(data.options);
+
+                        // 상품 고시 정보
+                        $('input[name="status"]').val(data.status);
+                        $('input[name="tax"]').val(data.tax);
+                        $('input[name="receipt"]').val(data.receipt);
+                        $('input[name="biz_type"]').val(data.biz_type);
+                        $('input[name="origin"]').val(data.origin);
+                    },
+                    error: function (err) {
+                        console.error("상품 데이터를 불러오지 못했습니다.", err);
+                    }
+                });
+            }
+        });
+
+        // // 상품 수정 화면에 불러올 상품 데이터
+        // function loadProductData(pid) {
+        //
+        //     $.ajax({
+        //         url: `/admin/product/modifyView/${pid}`,
+        //         method: "GET",
+        //         data: {'pid': pid},
+        //         success: function (data) {
+        //             $('input[name="pname"]').val(data.pname);
+        //             $('input[name="description"]').val(data.description);
+        //             $('input[name="company"]').val(data.company);
+        //             $('input[name="price"]').val(data.price);
+        //             $('input[name="discount"]').val(data.discount);
+        //             $('input[name="point"]').val(data.point);
+        //             $('input[name="stock"]').val(data.stock);
+        //             $('input[name="delivery_free"]').val(data.delivery_free);
+        //             $('input[name="brand"]').val(data.brand);
+        //
+        //             // 카테고리 선택
+        //             $('#category1').val(data.category_id);
+        //             loadSubCategories(data.category_id);
+        //
+        //             // 이미지 파일 업데이트
+        //             if (data.img_file_1) {
+        //                 $('#img_file_1').attr('src', '/uploads/' + data.img_file_1);
+        //             }
+        //
+        //             if (data.img_file_2) {
+        //                 $('#img_file_2').attr('src', '/uploads/' + data.img_file_2);
+        //             }
+        //
+        //             if (data.img_file_3) {
+        //                 $('#img_file_3').attr('src', '/uploads/' + data.img_file_3);
+        //             }
+        //
+        //             if (data.detaile_file_1) {
+        //                 $('.detail').attr('src', '/uploads/' + data.detaile_file_1);
+        //             }
+        //
+        //             // 상품 옵션 로드
+        //             loadProductOptions(data.options);
+        //
+        //             // 상품 고시 정보
+        //             $('input[name="status"]').val(data.status);
+        //             $('input[name="tax"]').val(data.tax);
+        //             $('input[name="receipt"]').val(data.receipt);
+        //             $('input[name="biz_type"]').val(data.biz_type);
+        //             $('input[name="origin"]').val(data.origin);
+        //         },
+        //         error: function (xhr, status, error) {
+        //             console.error("상품 데이터를 불러오는 데 실패했습니다.", error);
+        //         }
+        //     });
+        // }
+
+        // 상품 옵션 처리 함수
+        function getOptionData() {
+            const table = document.querySelector(".logo-view table");
+            const options = [];
+
+            // 테이블의 각 행을 순회합니다.
+            for (let i = 0; i < table.rows.length; i++) {
+                const row = table.rows[i];
+                // 각 행에서 옵션 이름과 옵션 항목 입력 필드의 값을 가져옵니다.
+                const optionNameInput = row.querySelector('input[name^="options"][name$="optionName"]');
+                const optionItemsInput = row.querySelector('input[name^="options"][name$="optionItems"]');
+
+                // 입력 필드에 값이 있는 경우에만 처리합니다.
+                if (optionNameInput && optionItemsInput) {
+                    const optionName = optionNameInput.value;
+                    const optionItems = optionItemsInput.value.split(",").map(item => item.trim()); // 쉼표로 구분된 항목을 배열로 만듭니다.
+
+                    // 옵션 이름과 항목 배열을 객체로 만들어 options 배열에 추가합니다.
+                    options.push({
+                        option_name: optionName,
+                        item_name: optionItems
+                    });
+                }
+            }
+
+            return options;
+        }
+
+        // // 2차 카테고리 불러오기
+        // function loadSubCategories(categoryId) {
+        //     $.ajax({
+        //         url: '/api/categories/subcategories',  // 2차 카테고리를 불러올 API
+        //         type: 'GET',
+        //         data: { parentCategoryId: categoryId },  // 1차 카테고리 id
+        //         success: function (data) {
+        //             let category2Select = $('#category2');
+        //             category2Select.empty();  // 기존 옵션 삭제
+        //             category2Select.append('<option value="">2차 분류 선택</option>');  // 기본 옵션 추가
+        //
+        //             // 2차 카테고리 옵션 추가
+        //             data.forEach(function (category) {
+        //                 category2Select.append('<option value="' + category.cateId + '">' + category.cateName + '</option>');
+        //             });
+        //             // 수정페이지 로드시 2차 카테고리 선택되게 함
+        //             if(typeof selectedCategory2Id !== 'undefined'){
+        //                 category2Select.val(selectedCategory2Id);
+        //             }
+        //         },
+        //         error: function (xhr, status, error) {
+        //             console.error('2차 카테고리 정보를 불러오는 데 실패했습니다.', error);
+        //         }
+        //     });
+        // }
+    });
+</script>
+
+<body>
+<th:block th:include="/common/_admin_header"/>
+<main>
+    <div class="main-wrapper">
+        <th:block th:include="/common/_admin_aside"/>
+
+        <div class="main">
+            <div class="setting">
+                <h1>상품등록</h1>
+                <ul>
+                    <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/product/list}">상품관리&nbsp;>&nbsp;</a></li>
+                    <li><a th:href="@{/admin/product/register}"><span>상품등록&nbsp;</span></a></li>
+                </ul>
+            </div>
+            <div class="line"></div>
+            <form th:action="@{/admin/product/modifyProduct}" method="post" th:enctype="'multipart/form-data'">
+                <div class="info">
+                    <div class="version">
+                        <h2>상품분류</h2>
+                        <div class="version-text p-div">
+                            <p>1차, 2차 카테고리 기본분류는 반드시 선택하셔야 합니다.</p>
+                        </div>
+                        <div class="version-view">
+                            <table>
+                                <tr>
+                                    <td>1차 분류</td>
+                                    <td>
+                                        <select id="category1" name="category_id" required>
+                                            <option value="">1차 분류 선택</option>
+                                            <option th:each="cate1 : ${categories1}" th:value="${cate1.cateId}"
+                                                    th:text="${cate1.cateName}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2차 분류</td>
+                                    <td>
+                                        <select id="category2" name="category_id" required>
+                                            <option value="">2차 분류 선택</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="site">
+                        <h2>기본정보</h2>
+                        <div class="site-text p-div">
+                            <p>기본정보는 반드시 입력하셔야 합니다.</p>
+                        </div>
+                        <div class="site-view">
+                            <table>
+                                <tr>
+                                    <td>상품명</td>
+                                    <td><input type="text" name="pname" required></td>
+                                </tr>
+                                <tr>
+                                    <td>기본설명</td>
+                                    <td><input type="text" name="description" required></td>
+                                </tr>
+                                <tr>
+                                    <td>제조사</td>
+                                    <td><input type="text" name="company" required></td>
+                                </tr>
+                                <tr>
+                                    <td>상품금액</td>
+                                    <td><input type="number" name="price" required>원</td>
+                                </tr>
+                                <tr>
+                                    <td>할인율</td>
+                                    <td><input type="text" name="discount" required>%</td>
+                                </tr>
+                                <tr>
+                                    <td>포인트</td>
+                                    <td><input type="number" name="point" required>원</td>
+                                </tr>
+                                <tr>
+                                    <td>재고수량</td>
+                                    <td><input type="number" name="stock" required>개</td>
+                                </tr>
+                                <tr>
+                                    <td>배송비</td>
+                                    <td><input type="number" name="delivery_free" required>원</td>
+                                </tr>
+                                <tr>
+                                    <td>브랜드</td>
+                                    <td><input type="text" name="brand" required></td>
+                                </tr>
+                                <tr>
+                                    <td>상품 이미지</td>
+                                    <td>
+                                        <div><input type="file" id="img_file_1" name="img_file_1" class="file" accept="image/*"
+                                                    required>크기
+                                            190*190, 상품 목록에 출력 될 이미지입니다.
+                                        </div>
+                                        <div><input type="file" id="img_file_2" name="img_file_2" class="file" accept="image/*"
+                                                    required>크기
+                                            230*230, 상품 메인에 출력 될 이미지입니다.
+                                        </div>
+                                        <div><input type="file" id="img_file_3" name="img_file_3" class="file" accept="image/*"
+                                                    required>크기
+                                            456*456, 상품 상세에 출력 될 이미지입니다.
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>상품 상세정보</td>
+                                    <td><input type="file" name="detaile_file_1" class="detail" accept="image/*"
+                                               required>크기 가로
+                                        940px, 높이 제약없음, 크기 최대 1MB
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="logo">
+                        <h2>상품 선택정보</h2>
+                        <div class="logo-text p-div">
+                            <p>
+                                상품별 선택 정보(옵션) 입력입니다.<br>
+                                예시) 옵션1 : 사이즈, 옵션1 항목 : XXL, XL, L, M, S (, 콤마로 구분)
+                            </p>
+                        </div>
+                        <div class="logo-view">
+                            <table>
+                                <tr>
+                                    <td>옵션1</td>
+                                    <td><input type="text" name="options[0].optionName" required></td>
+                                    <td class="option">옵션1 항목</td>
+                                    <td class="detail"><input type="text" name="options[0].optionItems" required></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modify plusOption">
+                            <button type="button">옵션 추가</button>
+                        </div>
+                    </div>
+                    <div class="company-info">
+                        <h2>상품정보 제공고시</h2>
+                        <div class="company-info-text p-div">
+                            <p>[전자상거래에 관한 상품 정보 제공에 관한 고시] 항목에 의거 등록하는 정보입니다.</p>
+                        </div>
+                        <div class="company-info-view">
+                            <table>
+                                <tr>
+                                    <td>상품상태</td>
+                                    <td><input type="text" name="status" placeholder="예) 새상품" required></td>
+                                </tr>
+                                <tr>
+                                    <td>부가세 면세여부</td>
+                                    <td><input type="text" name="tax" placeholder="예) 과세상품" required></td>
+                                </tr>
+                                <tr>
+                                    <td>영수증 발행</td>
+                                    <td><input type="text" name="receipt" placeholder="예) 신용카드전표, 온라인현금영수증 등" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>사업자구분</td>
+                                    <td><input type="text" name="biz_type" placeholder="예) 사업자판매자" required></td>
+                                </tr>
+                                <tr>
+                                    <td>원산지</td>
+                                    <td><input type="text" name="origin" placeholder="예) 국내산" required></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="register-info">
+                            <p>전자상거래등에서의 상품 등의 정보 제공에 관한 고시에 따라 총 35개 상품군에 대해 상품 특성 등을 양식에 따라
+                                입력할 수 있습니다.</p>
+                        </div>
+                        <div class="modify register">
+                            <button type="submit">수정하기</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<th:block th:include="/common/_admin_footer"/>
+</body>
+
+</html>
