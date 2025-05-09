@@ -51,7 +51,6 @@ public class ShopController {
     @PostMapping("/admin/shop/delete")
     public String delete(@RequestParam("seller_aid") List<String> seller_aid) {
         shopService.delete(seller_aid);
-
         return "redirect:/admin/shop/list";
     }
 

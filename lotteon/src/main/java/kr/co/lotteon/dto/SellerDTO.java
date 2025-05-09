@@ -1,5 +1,6 @@
 package kr.co.lotteon.dto;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
@@ -35,21 +36,13 @@ public class SellerDTO {
     private String operationText;
     private String statusClass;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private SystemStatus status;
+    private SystemStatus status = SystemStatus.READY;
 
 
     public SellerDTO(Seller seller) {
         this.status = seller.getStatus() != null ? seller.getStatus() : SystemStatus.READY;
-        this.aid = seller.getAid();
-        this.company = seller.getCompany();
-        this.ceo = seller.getCeo();
-        this.biz_num = seller.getBiz_num();
-        this.osn = seller.getOsn();
-        this.number = seller.getNumber();
-        this.status = seller.getStatus();
-        this.mgmt = seller.getMgmt();
-
         if (this.status == SystemStatus.OPERATING) {
             this.operationText = "[운영중]";
             this.statusClass = "green";
@@ -60,6 +53,6 @@ public class SellerDTO {
             this.operationText = "[운영준비]";
             this.statusClass = "blue";
         }
-    }
 
+    }
 }

@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const res = await fetch(`/user/uid/${aid}`);
+        const res = await fetch(`/seller/aid/${aid}`);
         const data = await res.json();
 
         if (data.count > 0) {
