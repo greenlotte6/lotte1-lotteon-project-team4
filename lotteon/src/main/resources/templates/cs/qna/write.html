@@ -76,6 +76,26 @@
                     secondary.appendChild(option);
                 });
             });
+
+            const register = document.getElementById('register');
+
+            register.addEventListener("click", function (e) {
+                const primaryValue = document.getElementById('primary').value.trim();
+                const secondaryValue = document.getElementById('secondary').value.trim();
+
+                // 1차 또는 2차 선택이 안 된 경우
+                if (primaryValue === "" || primaryValue === "▼ 1차 선택") {
+                    alert('1차 유형을 선택해주세요.');
+                    e.preventDefault();
+                } else if (secondaryValue === "" || secondaryValue === "▼ 2차 선택") {
+                    alert('2차 유형을 선택해주세요.');
+                    e.preventDefault();
+                } else {
+                    return true;
+                }
+            });
+
+
         });
     </script>
 </head>
@@ -135,7 +155,7 @@
 
                         <div class="qna-write-button">
                             <button type="button" onclick="history.back()">취소하기</button>
-                            <button type="submit">등록하기</button>
+                            <button id="register" type="submit">등록하기</button>
                         </div>
                     </form>
 

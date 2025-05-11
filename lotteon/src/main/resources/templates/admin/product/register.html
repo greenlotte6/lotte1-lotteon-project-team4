@@ -41,10 +41,13 @@
                         data: {parent: parentId},
                         dataType: 'json',
                         success: function (data) {
-                            $.each(data, function (index, category) {
+
+                            console.log("parentId", parentId);
+                            $.each(data, function (index, cate) {
+                                console.log(cate);
                                 category2Select.append($('<option>', {
-                                    value: category.cateId,
-                                    text: category.cateName
+                                    value: cate.cateId,
+                                    text: cate.name
                                 }));
                             });
                         },
@@ -118,147 +121,147 @@
         });
 
         // 수정 페이지가 로드될 때, `pid`로 상품 데이터 로드
-        $(document).ready(function () {
-            // URL에서 pid값 가져오기
-            let urlParams = new URLSearchParams(window.location.search);
-            let pid = urlParams.get('pid');
-
-            if(pid) {
-                $.ajax({
-                    url: `/admin/product/modifyView/${pid}`,
-                    method: "GET",
-                    success: function (data) {
-
-                        $('input[name="pname"]').val(data.pname);
-                        $('input[name="description"]').val(data.description);
-                        $('input[name="company"]').val(data.company);
-                        $('input[name="price"]').val(data.price);
-                        $('input[name="discount"]').val(data.discount);
-                        $('input[name="point"]').val(data.point);
-                        $('input[name="stock"]').val(data.stock);
-                        $('input[name="delivery_free"]').val(data.delivery_free);
-                        $('input[name="brand"]').val(data.brand);
-
-                        // // 카테고리 선택
-                        // $('#category1').val(data.category_id);
-                        // loadSubCategories(data.category_id);
-
-                        // 이미지 파일 업데이트
-                        if (data.img_file_1) {
-                            $('#img_file_1').attr('src', '/uploads/' + data.img_file_1);
-                        }
-
-                        if (data.img_file_2) {
-                            $('#img_file_2').attr('src', '/uploads/' + data.img_file_2);
-                        }
-
-                        if (data.img_file_3) {
-                            $('#img_file_3').attr('src', '/uploads/' + data.img_file_3);
-                        }
-
-                        if (data.detaile_file_1) {
-                            $('.detail').attr('src', '/uploads/' + data.detaile_file_1);
-                        }
-
-                        // 상품 옵션 로드
-                        getOptionData(data.options);
-
-                        // 상품 고시 정보
-                        $('input[name="status"]').val(data.status);
-                        $('input[name="tax"]').val(data.tax);
-                        $('input[name="receipt"]').val(data.receipt);
-                        $('input[name="biz_type"]').val(data.biz_type);
-                        $('input[name="origin"]').val(data.origin);
-                    },
-                    error: function (err) {
-                        console.error("상품 데이터를 불러오지 못했습니다.", err);
-                    }
-                });
-            }
-        });
-
-        // // 상품 수정 화면에 불러올 상품 데이터
-        // function loadProductData(pid) {
+        // $(document).ready(function () {
+        //     // URL에서 pid값 가져오기
+        //     let urlParams = new URLSearchParams(window.location.search);
+        //     let pid = urlParams.get('pid');
         //
-        //     $.ajax({
-        //         url: `/admin/product/modifyView/${pid}`,
-        //         method: "GET",
-        //         data: {'pid': pid},
-        //         success: function (data) {
-        //             $('input[name="pname"]').val(data.pname);
-        //             $('input[name="description"]').val(data.description);
-        //             $('input[name="company"]').val(data.company);
-        //             $('input[name="price"]').val(data.price);
-        //             $('input[name="discount"]').val(data.discount);
-        //             $('input[name="point"]').val(data.point);
-        //             $('input[name="stock"]').val(data.stock);
-        //             $('input[name="delivery_free"]').val(data.delivery_free);
-        //             $('input[name="brand"]').val(data.brand);
+        //     if(pid) {
+        //         $.ajax({
+        //             url: `/admin/product/modifyView/${pid}`,
+        //             method: "GET",
+        //             success: function (data) {
         //
-        //             // 카테고리 선택
-        //             $('#category1').val(data.category_id);
-        //             loadSubCategories(data.category_id);
+        //                 $('input[name="pname"]').val(data.pname);
+        //                 $('input[name="description"]').val(data.description);
+        //                 $('input[name="company"]').val(data.company);
+        //                 $('input[name="price"]').val(data.price);
+        //                 $('input[name="discount"]').val(data.discount);
+        //                 $('input[name="point"]').val(data.point);
+        //                 $('input[name="stock"]').val(data.stock);
+        //                 $('input[name="delivery_free"]').val(data.delivery_free);
+        //                 $('input[name="brand"]').val(data.brand);
         //
-        //             // 이미지 파일 업데이트
-        //             if (data.img_file_1) {
-        //                 $('#img_file_1').attr('src', '/uploads/' + data.img_file_1);
+        //                 // // 카테고리 선택
+        //                 // $('#category1').val(data.category_id);
+        //                 // loadSubCategories(data.category_id);
+        //
+        //                 // 이미지 파일 업데이트
+        //                 if (data.img_file_1) {
+        //                     $('#img_file_1').attr('src', '/uploads/' + data.img_file_1);
+        //                 }
+        //
+        //                 if (data.img_file_2) {
+        //                     $('#img_file_2').attr('src', '/uploads/' + data.img_file_2);
+        //                 }
+        //
+        //                 if (data.img_file_3) {
+        //                     $('#img_file_3').attr('src', '/uploads/' + data.img_file_3);
+        //                 }
+        //
+        //                 if (data.detaile_file_1) {
+        //                     $('.detail').attr('src', '/uploads/' + data.detaile_file_1);
+        //                 }
+        //
+        //                 // 상품 옵션 로드
+        //                 getOptionData(data.options);
+        //
+        //                 // 상품 고시 정보
+        //                 $('input[name="status"]').val(data.status);
+        //                 $('input[name="tax"]').val(data.tax);
+        //                 $('input[name="receipt"]').val(data.receipt);
+        //                 $('input[name="biz_type"]').val(data.biz_type);
+        //                 $('input[name="origin"]').val(data.origin);
+        //             },
+        //             error: function (err) {
+        //                 console.error("상품 데이터를 불러오지 못했습니다.", err);
         //             }
+        //         });
+        //     }
+        // });
         //
-        //             if (data.img_file_2) {
-        //                 $('#img_file_2').attr('src', '/uploads/' + data.img_file_2);
-        //             }
+        // // // 상품 수정 화면에 불러올 상품 데이터
+        // // function loadProductData(pid) {
+        // //
+        // //     $.ajax({
+        // //         url: `/admin/product/modifyView/${pid}`,
+        // //         method: "GET",
+        // //         data: {'pid': pid},
+        // //         success: function (data) {
+        // //             $('input[name="pname"]').val(data.pname);
+        // //             $('input[name="description"]').val(data.description);
+        // //             $('input[name="company"]').val(data.company);
+        // //             $('input[name="price"]').val(data.price);
+        // //             $('input[name="discount"]').val(data.discount);
+        // //             $('input[name="point"]').val(data.point);
+        // //             $('input[name="stock"]').val(data.stock);
+        // //             $('input[name="delivery_free"]').val(data.delivery_free);
+        // //             $('input[name="brand"]').val(data.brand);
+        // //
+        // //             // 카테고리 선택
+        // //             $('#category1').val(data.category_id);
+        // //             loadSubCategories(data.category_id);
+        // //
+        // //             // 이미지 파일 업데이트
+        // //             if (data.img_file_1) {
+        // //                 $('#img_file_1').attr('src', '/uploads/' + data.img_file_1);
+        // //             }
+        // //
+        // //             if (data.img_file_2) {
+        // //                 $('#img_file_2').attr('src', '/uploads/' + data.img_file_2);
+        // //             }
+        // //
+        // //             if (data.img_file_3) {
+        // //                 $('#img_file_3').attr('src', '/uploads/' + data.img_file_3);
+        // //             }
+        // //
+        // //             if (data.detaile_file_1) {
+        // //                 $('.detail').attr('src', '/uploads/' + data.detaile_file_1);
+        // //             }
+        // //
+        // //             // 상품 옵션 로드
+        // //             loadProductOptions(data.options);
+        // //
+        // //             // 상품 고시 정보
+        // //             $('input[name="status"]').val(data.status);
+        // //             $('input[name="tax"]').val(data.tax);
+        // //             $('input[name="receipt"]').val(data.receipt);
+        // //             $('input[name="biz_type"]').val(data.biz_type);
+        // //             $('input[name="origin"]').val(data.origin);
+        // //         },
+        // //         error: function (xhr, status, error) {
+        // //             console.error("상품 데이터를 불러오는 데 실패했습니다.", error);
+        // //         }
+        // //     });
+        // // }
         //
-        //             if (data.img_file_3) {
-        //                 $('#img_file_3').attr('src', '/uploads/' + data.img_file_3);
-        //             }
+        // // 상품 옵션 처리 함수
+        // function getOptionData() {
+        //     const table = document.querySelector(".logo-view table");
+        //     const options = [];
         //
-        //             if (data.detaile_file_1) {
-        //                 $('.detail').attr('src', '/uploads/' + data.detaile_file_1);
-        //             }
+        //     // 테이블의 각 행을 순회합니다.
+        //     for (let i = 0; i < table.rows.length; i++) {
+        //         const row = table.rows[i];
+        //         // 각 행에서 옵션 이름과 옵션 항목 입력 필드의 값을 가져옵니다.
+        //         const optionNameInput = row.querySelector('input[name^="options"][name$="optionName"]');
+        //         const optionItemsInput = row.querySelector('input[name^="options"][name$="optionItems"]');
         //
-        //             // 상품 옵션 로드
-        //             loadProductOptions(data.options);
+        //         // 입력 필드에 값이 있는 경우에만 처리합니다.
+        //         if (optionNameInput && optionItemsInput) {
+        //             const optionName = optionNameInput.value;
+        //             const optionItems = optionItemsInput.value.split(",").map(item => item.trim()); // 쉼표로 구분된 항목을 배열로 만듭니다.
         //
-        //             // 상품 고시 정보
-        //             $('input[name="status"]').val(data.status);
-        //             $('input[name="tax"]').val(data.tax);
-        //             $('input[name="receipt"]').val(data.receipt);
-        //             $('input[name="biz_type"]').val(data.biz_type);
-        //             $('input[name="origin"]').val(data.origin);
-        //         },
-        //         error: function (xhr, status, error) {
-        //             console.error("상품 데이터를 불러오는 데 실패했습니다.", error);
+        //             // 옵션 이름과 항목 배열을 객체로 만들어 options 배열에 추가합니다.
+        //             options.push({
+        //                 option_name: optionName,
+        //                 item_name: optionItems
+        //             });
         //         }
-        //     });
+        //     }
+        //
+        //     return options;
         // }
-
-        // 상품 옵션 처리 함수
-        function getOptionData() {
-            const table = document.querySelector(".logo-view table");
-            const options = [];
-
-            // 테이블의 각 행을 순회합니다.
-            for (let i = 0; i < table.rows.length; i++) {
-                const row = table.rows[i];
-                // 각 행에서 옵션 이름과 옵션 항목 입력 필드의 값을 가져옵니다.
-                const optionNameInput = row.querySelector('input[name^="options"][name$="optionName"]');
-                const optionItemsInput = row.querySelector('input[name^="options"][name$="optionItems"]');
-
-                // 입력 필드에 값이 있는 경우에만 처리합니다.
-                if (optionNameInput && optionItemsInput) {
-                    const optionName = optionNameInput.value;
-                    const optionItems = optionItemsInput.value.split(",").map(item => item.trim()); // 쉼표로 구분된 항목을 배열로 만듭니다.
-
-                    // 옵션 이름과 항목 배열을 객체로 만들어 options 배열에 추가합니다.
-                    options.push({
-                        option_name: optionName,
-                        item_name: optionItems
-                    });
-                }
-            }
-
-            return options;
-        }
 
         // // 2차 카테고리 불러오기
         // function loadSubCategories(categoryId) {
@@ -319,7 +322,7 @@
                                         <select id="category1" name="category_id" required>
                                             <option value="">1차 분류 선택</option>
                                             <option th:each="cate1 : ${categories1}" th:value="${cate1.cateId}"
-                                                    th:text="${cate1.cateName}"></option>
+                                                    th:text="${cate1.name}"></option>
                                         </select>
                                     </td>
                                 </tr>
@@ -416,9 +419,9 @@
                             <table>
                                 <tr>
                                     <td>옵션1</td>
-                                    <td><input type="text" name="options[0].optionName" required></td>
+                                    <td><input type="text" name="optionName" required></td>
                                     <td class="option">옵션1 항목</td>
-                                    <td class="detail"><input type="text" name="options[0].optionItems" required></td>
+                                    <td class="detail"><input type="text" name="optionItems" required></td>
                                 </tr>
                             </table>
                         </div>

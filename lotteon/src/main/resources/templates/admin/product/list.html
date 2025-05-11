@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,21 +54,25 @@
     //     loadProductData(pid);  // 데이터 로드 함수 호출
     // }
 
-    function loadProduct(button) {
-
-        const pid = button.getAttribute("data-pid");
-
-        $.ajax({
-           url: `/admin/product/modifyView/${pid}`,
-           method: "GET",
-           success: function (data) {
-               // 데이터를 수정 화면으로 전달
-               window.location.href=`/admin/product/register?pid=${pid}`;
-           },
-            error:function (err) {
-               console.error("상품 데이터를 불러오지 못했습니다.", err);
-           }
-        });
+    // function loadProduct(button) {
+    //
+    //     const pid = button.getAttribute("data-pid");
+    //
+    //     $.ajax({
+    //        url: `/admin/product/modifyView/${pid}`,
+    //        method: "GET",
+    //        success: function (data) {
+    //            // 데이터를 수정 화면으로 전달
+    //            window.location.href=`/admin/product/modifyView?pid=${pid}`;
+    //        },
+    //         error:function (err) {
+    //            console.error("상품 데이터를 불러오지 못했습니다.", err);
+    //        }
+    //     });
+    // }
+    function modify(button) {
+        let pid = button.getAttribute('data-pid');
+        window.location.href=`/admin/product/modifyView/${pid}`;
     }
 
 </script>
@@ -134,7 +140,10 @@
                                             <button type="submit" name="pid" th:value="${product.pid}" class="delete">[삭제]</button>
                                         </div>
                                         <div>
-                                            <button type="button" th:data-pid="${product.pid}" onclick="loadProduct(this)" class="modify">[수정]</button>
+<!--                                            <a th:href="@{/admin/product/modifyView(pid=${product.pid})}">-->
+<!--                                                <button type="button" th:value="${product.pid}" class="modify">[수정]</button>-->
+<!--                                            </a>-->
+                                            <button type="button" th:data-pid="${product.pid}" onclick="modify(this)" class="modify">[수정]</button>
                                         </div>
                                     </td>
                                 </tr>
