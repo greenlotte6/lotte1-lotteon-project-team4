@@ -8,6 +8,8 @@ import kr.co.lotteon.entity.CompanyInfo;
 import kr.co.lotteon.repository.CategoryRepository;
 import kr.co.lotteon.repository.CompanyInfoRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +17,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final ModelMapper modelMapper;
 
     public List<Category> getAllCategories() {
         return categoryRepository.findAll(Sort.by("sortOrder"));
@@ -78,13 +83,32 @@ public class CategoryService {
     }
 
     // 1차 카테고리 목록 조회
-    public List<Category> getCategories1() {
-        return categoryRepository.findByParentIsNull();
+    public List<CategoryDTO> getCategories1() {
+
+        List<Category> categoryList = categoryRepository.findByParentIsNull();
+
+        return categoryList.stream()
+                .map(cate -> CategoryDTO.builder()
+                        .cateId(cate.getCateId())
+                        .name(cate.getCateName())
+                        .sortOrder(cate.getSortOrder())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     // 2차 카테고리 목록 조회
-    public List<Category> getCategories2(Category parent) {
-        return categoryRepository.findByParent(parent);
+    public List<CategoryDTO> getCategories2(Category parent) {
+
+        List<Category> categoryList = categoryRepository.findByParent(parent);
+
+        return categoryList.stream()
+                .map(cate -> CategoryDTO.builder()
+                        .cateId(cate.getCateId())
+                        .name(cate.getCateName())
+                        .parent(cate.getParent() != null ? cate.getParent().getCateId() : null)
+                        .sortOrder(cate.getSortOrder())
+                        .build())
+                .collect(Collectors.toList());
     }
 
 

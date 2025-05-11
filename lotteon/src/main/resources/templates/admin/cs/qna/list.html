@@ -19,6 +19,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+
+            $('.hover').click(function (e) {
+                $(this).parent().toggleClass('active');
+            })
+
             // 전체 선택/해제 기능
             $('#selectAll').click(function () {
                 $('input[name="selectedQnas"]').prop('checked', this.checked);

@@ -15,8 +15,10 @@ import java.util.List;
 @Builder
 public class CategoryDTO {
     private Long id;
+    private Long cateId;
     private String name;
     private int sortOrder;
+    private Long parent;
     private List<CategoryDTO> children = new ArrayList<>();
 
     public CategoryDTO(Long id, String name, int sortOrder) {

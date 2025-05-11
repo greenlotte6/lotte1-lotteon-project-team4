@@ -113,8 +113,8 @@
                             <a th:if="${currentPage > 0}" th:href="@{/qna/delivery-list(page=${currentPage - 1})}">이전</a>
                             <th:block th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
                                 <a th:classappend="${pageNum - 1 == currentPage} ? 'active'"
-                                   th:href="@{/qna/delivery-list(page=${pageNum - 1})}"
-                                   th:text="${pageNum}">1</a>
+                                   th:href="@{/qna/delivery-list(page=${pageNum - 1})}">
+                                   </a>
                             </th:block>
                             <a th:if="${currentPage < totalPages - 1}" th:href="@{/qna/delivery-list(page=${currentPage + 1})}">다음</a>
                         </div>

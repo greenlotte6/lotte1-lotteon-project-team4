@@ -117,148 +117,149 @@
             });
         });
 
-        // 수정 페이지가 로드될 때, `pid`로 상품 데이터 로드
-        $(document).ready(function () {
-            // URL에서 pid값 가져오기
-            let urlParams = new URLSearchParams(window.location.search);
-            let pid = urlParams.get('pid');
-
-            if(pid) {
-                $.ajax({
-                    url: `/admin/product/modifyView/${pid}`,
-                    method: "GET",
-                    success: function (data) {
-
-                        $('input[name="pname"]').val(data.pname);
-                        $('input[name="description"]').val(data.description);
-                        $('input[name="company"]').val(data.company);
-                        $('input[name="price"]').val(data.price);
-                        $('input[name="discount"]').val(data.discount);
-                        $('input[name="point"]').val(data.point);
-                        $('input[name="stock"]').val(data.stock);
-                        $('input[name="delivery_free"]').val(data.delivery_free);
-                        $('input[name="brand"]').val(data.brand);
-
-                        // // 카테고리 선택
-                        // $('#category1').val(data.category_id);
-                        // loadSubCategories(data.category_id);
-
-                        // 이미지 파일 업데이트
-                        if (data.img_file_1) {
-                            $('#img_file_1').attr('src', '/uploads/' + data.img_file_1);
-                        }
-
-                        if (data.img_file_2) {
-                            $('#img_file_2').attr('src', '/uploads/' + data.img_file_2);
-                        }
-
-                        if (data.img_file_3) {
-                            $('#img_file_3').attr('src', '/uploads/' + data.img_file_3);
-                        }
-
-                        if (data.detaile_file_1) {
-                            $('.detail').attr('src', '/uploads/' + data.detaile_file_1);
-                        }
-
-                        // 상품 옵션 로드
-                        getOptionData(data.options);
-
-                        // 상품 고시 정보
-                        $('input[name="status"]').val(data.status);
-                        $('input[name="tax"]').val(data.tax);
-                        $('input[name="receipt"]').val(data.receipt);
-                        $('input[name="biz_type"]').val(data.biz_type);
-                        $('input[name="origin"]').val(data.origin);
-                    },
-                    error: function (err) {
-                        console.error("상품 데이터를 불러오지 못했습니다.", err);
-                    }
-                });
-            }
-        });
-
-        // // 상품 수정 화면에 불러올 상품 데이터
-        // function loadProductData(pid) {
+        // // 수정 페이지가 로드될 때, `pid`로 상품 데이터 로드
+        // $(document).ready(function () {
+        //     // URL에서 pid값 가져오기
+        //     let urlParams = new URLSearchParams(window.location.search);
+        //     let pid = urlParams.get('pid');
         //
-        //     $.ajax({
-        //         url: `/admin/product/modifyView/${pid}`,
-        //         method: "GET",
-        //         data: {'pid': pid},
-        //         success: function (data) {
-        //             $('input[name="pname"]').val(data.pname);
-        //             $('input[name="description"]').val(data.description);
-        //             $('input[name="company"]').val(data.company);
-        //             $('input[name="price"]').val(data.price);
-        //             $('input[name="discount"]').val(data.discount);
-        //             $('input[name="point"]').val(data.point);
-        //             $('input[name="stock"]').val(data.stock);
-        //             $('input[name="delivery_free"]').val(data.delivery_free);
-        //             $('input[name="brand"]').val(data.brand);
+        //     if(pid) {
+        //         $.ajax({
+        //             url: `/admin/product/modifyView/${pid}`,
+        //             method: "GET",
+        //             success: function (data) {
         //
-        //             // 카테고리 선택
-        //             $('#category1').val(data.category_id);
-        //             loadSubCategories(data.category_id);
+        //                 console.log(data);
         //
-        //             // 이미지 파일 업데이트
-        //             if (data.img_file_1) {
-        //                 $('#img_file_1').attr('src', '/uploads/' + data.img_file_1);
+        //                 $('input[name="pname"]').val(data.pname);
+        //                 $('input[name="description"]').val(data.description);
+        //                 $('input[name="company"]').val(data.company);
+        //                 $('input[name="price"]').val(data.price);
+        //                 $('input[name="discount"]').val(data.discount);
+        //                 $('input[name="point"]').val(data.point);
+        //                 $('input[name="stock"]').val(data.stock);
+        //                 $('input[name="delivery_free"]').val(data.delivery_free);
+        //                 $('input[name="brand"]').val(data.brand);
+        //
+        //                 // // 카테고리 선택
+        //                 // $('#category1').val(data.category_id);
+        //                 // loadSubCategories(data.category_id);
+        //
+        //                 // 이미지 파일 업데이트
+        //                 if (data.img_file_1) {
+        //                     $('#img_file_1').attr('src', '/uploads/' + data.img_file_1);
+        //                 }
+        //
+        //                 if (data.img_file_2) {
+        //                     $('#img_file_2').attr('src', '/uploads/' + data.img_file_2);
+        //                 }
+        //
+        //                 if (data.img_file_3) {
+        //                     $('#img_file_3').attr('src', '/uploads/' + data.img_file_3);
+        //                 }
+        //
+        //                 if (data.detaile_file_1) {
+        //                     $('.detail').attr('src', '/uploads/' + data.detaile_file_1);
+        //                 }
+        //
+        //                 // 상품 옵션 로드
+        //                 getOptionData(data.options);
+        //
+        //                 // 상품 고시 정보
+        //                 $('input[name="status"]').val(data.status);
+        //                 $('input[name="tax"]').val(data.tax);
+        //                 $('input[name="receipt"]').val(data.receipt);
+        //                 $('input[name="biz_type"]').val(data.biz_type);
+        //                 $('input[name="origin"]').val(data.origin);
+        //             },
+        //             error: function (err) {
+        //                 console.error("상품 데이터를 불러오지 못했습니다.", err);
         //             }
+        //         });
+        //     }
+        // });
         //
-        //             if (data.img_file_2) {
-        //                 $('#img_file_2').attr('src', '/uploads/' + data.img_file_2);
-        //             }
+        // // // 상품 수정 화면에 불러올 상품 데이터
+        // // function loadProductData(pid) {
+        // //
+        // //     $.ajax({
+        // //         url: `/admin/product/modifyView/${pid}`,
+        // //         method: "GET",
+        // //         data: {'pid': pid},
+        // //         success: function (data) {
+        // //             $('input[name="pname"]').val(data.pname);
+        // //             $('input[name="description"]').val(data.description);
+        // //             $('input[name="company"]').val(data.company);
+        // //             $('input[name="price"]').val(data.price);
+        // //             $('input[name="discount"]').val(data.discount);
+        // //             $('input[name="point"]').val(data.point);
+        // //             $('input[name="stock"]').val(data.stock);
+        // //             $('input[name="delivery_free"]').val(data.delivery_free);
+        // //             $('input[name="brand"]').val(data.brand);
+        // //
+        // //             // 카테고리 선택
+        // //             $('#category1').val(data.category_id);
+        // //             loadSubCategories(data.category_id);
+        // //
+        // //             // 이미지 파일 업데이트
+        // //             if (data.img_file_1) {
+        // //                 $('#img_file_1').attr('src', '/uploads/' + data.img_file_1);
+        // //             }
+        // //
+        // //             if (data.img_file_2) {
+        // //                 $('#img_file_2').attr('src', '/uploads/' + data.img_file_2);
+        // //             }
+        // //
+        // //             if (data.img_file_3) {
+        // //                 $('#img_file_3').attr('src', '/uploads/' + data.img_file_3);
+        // //             }
+        // //
+        // //             if (data.detaile_file_1) {
+        // //                 $('.detail').attr('src', '/uploads/' + data.detaile_file_1);
+        // //             }
+        // //
+        // //             // 상품 옵션 로드
+        // //             loadProductOptions(data.options);
+        // //
+        // //             // 상품 고시 정보
+        // //             $('input[name="status"]').val(data.status);
+        // //             $('input[name="tax"]').val(data.tax);
+        // //             $('input[name="receipt"]').val(data.receipt);
+        // //             $('input[name="biz_type"]').val(data.biz_type);
+        // //             $('input[name="origin"]').val(data.origin);
+        // //         },
+        // //         error: function (xhr, status, error) {
+        // //             console.error("상품 데이터를 불러오는 데 실패했습니다.", error);
+        // //         }
+        // //     });
+        // // }
         //
-        //             if (data.img_file_3) {
-        //                 $('#img_file_3').attr('src', '/uploads/' + data.img_file_3);
-        //             }
+        // // 상품 옵션 처리 함수
+        // function getOptionData() {
+        //     const table = document.querySelector(".logo-view table");
+        //     const options = [];
         //
-        //             if (data.detaile_file_1) {
-        //                 $('.detail').attr('src', '/uploads/' + data.detaile_file_1);
-        //             }
+        //     for (let i = 0; i < table.rows.length; i++) {
+        //         const row = table.rows[i];
         //
-        //             // 상품 옵션 로드
-        //             loadProductOptions(data.options);
+        //         const optionNameInput = row.querySelector('input[name^="options"][name$="optionName"]');
+        //         const optionItemsInput = row.querySelector('input[name^="options"][name$="optionItems"]');
         //
-        //             // 상품 고시 정보
-        //             $('input[name="status"]').val(data.status);
-        //             $('input[name="tax"]').val(data.tax);
-        //             $('input[name="receipt"]').val(data.receipt);
-        //             $('input[name="biz_type"]').val(data.biz_type);
-        //             $('input[name="origin"]').val(data.origin);
-        //         },
-        //         error: function (xhr, status, error) {
-        //             console.error("상품 데이터를 불러오는 데 실패했습니다.", error);
+        //         // 입력 필드에 값이 있는 경우에만 처리
+        //         if (optionNameInput && optionItemsInput) {
+        //             const optionName = optionNameInput.value;
+        //             const optionItems = optionItemsInput.value.split(",").map(item => item.trim()); // 쉼표로 구분된 항목을 배열로 만듭니다.
+        //
+        //             // 옵션 이름과 항목 배열을 객체로 만들어 options 배열에 추가
+        //             options.push({
+        //                 option_name: optionName,
+        //                 item_name: optionItems
+        //             });
         //         }
-        //     });
+        //     }
+        //
+        //     return options;
         // }
-
-        // 상품 옵션 처리 함수
-        function getOptionData() {
-            const table = document.querySelector(".logo-view table");
-            const options = [];
-
-            // 테이블의 각 행을 순회합니다.
-            for (let i = 0; i < table.rows.length; i++) {
-                const row = table.rows[i];
-                // 각 행에서 옵션 이름과 옵션 항목 입력 필드의 값을 가져옵니다.
-                const optionNameInput = row.querySelector('input[name^="options"][name$="optionName"]');
-                const optionItemsInput = row.querySelector('input[name^="options"][name$="optionItems"]');
-
-                // 입력 필드에 값이 있는 경우에만 처리합니다.
-                if (optionNameInput && optionItemsInput) {
-                    const optionName = optionNameInput.value;
-                    const optionItems = optionItemsInput.value.split(",").map(item => item.trim()); // 쉼표로 구분된 항목을 배열로 만듭니다.
-
-                    // 옵션 이름과 항목 배열을 객체로 만들어 options 배열에 추가합니다.
-                    options.push({
-                        option_name: optionName,
-                        item_name: optionItems
-                    });
-                }
-            }
-
-            return options;
-        }
 
         // // 2차 카테고리 불러오기
         // function loadSubCategories(categoryId) {
@@ -286,6 +287,7 @@
         //     });
         // }
     });
+
 </script>
 
 <body>
@@ -296,15 +298,15 @@
 
         <div class="main">
             <div class="setting">
-                <h1>상품등록</h1>
+                <h1>상품수정</h1>
                 <ul>
                     <li><a th:href="@{/admin/index}">HOME&nbsp;>&nbsp;</a></li>
                     <li><a th:href="@{/admin/product/list}">상품관리&nbsp;>&nbsp;</a></li>
-                    <li><a th:href="@{/admin/product/register}"><span>상품등록&nbsp;</span></a></li>
+                    <li><a th:href="@{/admin/product/modify}"><span>상품수정&nbsp;</span></a></li>
                 </ul>
             </div>
             <div class="line"></div>
-            <form th:action="@{/admin/product/modifyProduct}" method="post" th:enctype="'multipart/form-data'">
+            <form th:action="@{/admin/product/modifyView(pid=${pid})}" method="post" th:enctype="'multipart/form-data'">
                 <div class="info">
                     <div class="version">
                         <h2>상품분류</h2>
@@ -316,7 +318,7 @@
                                 <tr>
                                     <td>1차 분류</td>
                                     <td>
-                                        <select id="category1" name="category_id" required>
+                                        <select id="category1" name="category_id" >
                                             <option value="">1차 분류 선택</option>
                                             <option th:each="cate1 : ${categories1}" th:value="${cate1.cateId}"
                                                     th:text="${cate1.cateName}"></option>
@@ -326,7 +328,7 @@
                                 <tr>
                                     <td>2차 분류</td>
                                     <td>
-                                        <select id="category2" name="category_id" required>
+                                        <select id="category2" name="category_id" >
                                             <option value="">2차 분류 선택</option>
                                         </select>
                                     </td>
@@ -343,52 +345,52 @@
                             <table>
                                 <tr>
                                     <td>상품명</td>
-                                    <td><input type="text" name="pname" required></td>
+                                    <td><input type="text" th:value="${productFormDTO.pname}" name="pname" required></td>
                                 </tr>
                                 <tr>
                                     <td>기본설명</td>
-                                    <td><input type="text" name="description" required></td>
+                                    <td><input type="text" th:value="${productFormDTO.description}" name="description" required></td>
                                 </tr>
                                 <tr>
                                     <td>제조사</td>
-                                    <td><input type="text" name="company" required></td>
+                                    <td><input type="text" th:value="${productFormDTO.company}" name="company" required></td>
                                 </tr>
                                 <tr>
                                     <td>상품금액</td>
-                                    <td><input type="number" name="price" required>원</td>
+                                    <td><input type="number" th:value="${productFormDTO.price}" name="price" required>원</td>
                                 </tr>
                                 <tr>
                                     <td>할인율</td>
-                                    <td><input type="text" name="discount" required>%</td>
+                                    <td><input type="text" th:value="${productFormDTO.discount}" name="discount" required>%</td>
                                 </tr>
                                 <tr>
                                     <td>포인트</td>
-                                    <td><input type="number" name="point" required>원</td>
+                                    <td><input type="number" th:value="${productFormDTO.point}" name="point" required>원</td>
                                 </tr>
                                 <tr>
                                     <td>재고수량</td>
-                                    <td><input type="number" name="stock" required>개</td>
+                                    <td><input type="number" th:value="${productFormDTO.stock}" name="stock" required>개</td>
                                 </tr>
                                 <tr>
                                     <td>배송비</td>
-                                    <td><input type="number" name="delivery_free" required>원</td>
+                                    <td><input type="number" th:value="${productFormDTO.delivery_free}" name="delivery_free" required>원</td>
                                 </tr>
                                 <tr>
                                     <td>브랜드</td>
-                                    <td><input type="text" name="brand" required></td>
+                                    <td><input type="text" th:value="${productFormDTO.brand}" name="brand" required></td>
                                 </tr>
                                 <tr>
                                     <td>상품 이미지</td>
                                     <td>
-                                        <div><input type="file" id="img_file_1" name="img_file_1" class="file" accept="image/*"
+                                        <div><input type="file" id="img_file_1" th:value="${productFormDTO.img_file_1}" name="img_file_1" class="file" accept="image/*"
                                                     required>크기
                                             190*190, 상품 목록에 출력 될 이미지입니다.
                                         </div>
-                                        <div><input type="file" id="img_file_2" name="img_file_2" class="file" accept="image/*"
+                                        <div><input type="file" id="img_file_2" th:value="${productFormDTO.img_file_2}" name="img_file_2" class="file" accept="image/*"
                                                     required>크기
                                             230*230, 상품 메인에 출력 될 이미지입니다.
                                         </div>
-                                        <div><input type="file" id="img_file_3" name="img_file_3" class="file" accept="image/*"
+                                        <div><input type="file" id="img_file_3" th:value="${productFormDTO.img_file_3}" name="img_file_3" class="file" accept="image/*"
                                                     required>크기
                                             456*456, 상품 상세에 출력 될 이미지입니다.
                                         </div>
@@ -396,7 +398,7 @@
                                 </tr>
                                 <tr>
                                     <td>상품 상세정보</td>
-                                    <td><input type="file" name="detaile_file_1" class="detail" accept="image/*"
+                                    <td><input type="file" th:value="${productFormDTO.detaile_file_1}" name="detaile_file_1" class="detail" accept="image/*"
                                                required>크기 가로
                                         940px, 높이 제약없음, 크기 최대 1MB
                                     </td>
@@ -435,24 +437,24 @@
                             <table>
                                 <tr>
                                     <td>상품상태</td>
-                                    <td><input type="text" name="status" placeholder="예) 새상품" required></td>
+                                    <td><input type="text" th:value="${productFormDTO.status}" name="status" placeholder="예) 새상품" required></td>
                                 </tr>
                                 <tr>
                                     <td>부가세 면세여부</td>
-                                    <td><input type="text" name="tax" placeholder="예) 과세상품" required></td>
+                                    <td><input type="text" th:value="${productFormDTO.tax}" name="tax" placeholder="예) 과세상품" required></td>
                                 </tr>
                                 <tr>
                                     <td>영수증 발행</td>
-                                    <td><input type="text" name="receipt" placeholder="예) 신용카드전표, 온라인현금영수증 등" required>
+                                    <td><input type="text" th:value="${productFormDTO.receipt}" name="receipt" placeholder="예) 신용카드전표, 온라인현금영수증 등" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>사업자구분</td>
-                                    <td><input type="text" name="biz_type" placeholder="예) 사업자판매자" required></td>
+                                    <td><input type="text" th:value="${productFormDTO.biz_type}" name="biz_type" placeholder="예) 사업자판매자" required></td>
                                 </tr>
                                 <tr>
                                     <td>원산지</td>
-                                    <td><input type="text" name="origin" placeholder="예) 국내산" required></td>
+                                    <td><input type="text" th:value="${productFormDTO.origin}" name="origin" placeholder="예) 국내산" required></td>
                                 </tr>
                             </table>
                         </div>
