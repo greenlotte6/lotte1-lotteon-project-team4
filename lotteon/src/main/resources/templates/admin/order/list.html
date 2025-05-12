@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +10,8 @@
     <link rel="stylesheet" th:href="@{/css/common/_admin_header.css}">
     <link rel="stylesheet" th:href="@{/css/common/_admin_footer.css}">
     <link rel="stylesheet" th:href="@{/css/admin/order/list.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/order/order_details_popup.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/order/shipping_register_popup.css}">
     <!-- js -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Font Awesome CDN -->
@@ -15,7 +19,6 @@
     <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
     <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
 </head>
-<script src="/js/modal.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
 
@@ -23,8 +26,32 @@
             $(this).parent().toggleClass('active');
         })
 
+        // 모달 열기 함수
+        function openModal(className) {
+            document.querySelector(`.${className}`).style.display = 'flex';
+        }
+
+        // 모달 닫기 함수
+        window.closeModal = function () {
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.style.display = 'none';
+            });
+        };
+
+        //등록 버튼 클릭 시 주문상세 모달 열기
+        document.querySelector(".detail-btn").addEventListener('click', () => {
+            openModal('detail-modal');
+        });
+
+        //등록 버튼 클릭 시 배송입력 모달 열기
+        document.querySelector(".delivery-btn").addEventListener('click', () => {
+            openModal('delivery-modal');
+        });
+
 
     });
+
+
 </script>
 <body>
 <th:block th:include="/common/_admin_header"/>
@@ -72,7 +99,7 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <button onclick="openModal('/popup@{/admin/Order_Details}')" class="btn">10121211341
+                                    <button onclick="openModal()" class="btn detail-btn">10121211341
                                     </button>
                                 </td>
                                 <td>asd1234</td>
@@ -84,80 +111,12 @@
                                 <td class="green">결제완료</td>
                                 <td>0000-00-00<br>00:00:00</td>
                                 <td>
-                                    <button onclick="openModal('/popup@{/admin/shipping_Register}')" class="btn">배송정보입력
+                                    <button type="button" onclick="openModal()" class="btn delivery-btn">배송정보입력
                                     </button>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button onclick="openModal('/popup@{/admin/Order_Details}')" class="btn">10121211341
-                                    </button>
-                                </td>
-                                <td>asd1234</td>
-                                <td>김유신</td>
-                                <td>000000000</td>
-                                <td>2</td>
-                                <td>21,210</td>
-                                <td>계좌이체</td>
-                                <td class="light-green">결제대기</td>
-                                <td>0000-00-00<br>00:00:00</td>
-                                <td>결제대기</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button onclick="openModal('/popup@{/admin/Order_Details}')" class="btn">10121211341
-                                    </button>
-                                </td>
-                                <td>asd1234</td>
-                                <td>김유신</td>
-                                <td>000000000</td>
-                                <td>2</td>
-                                <td>102,900</td>
-                                <td>신용카드</td>
-                                <td class="green">결제완료</td>
-                                <td>0000-00-00<br>00:00:00</td>
-                                <td>
-                                    <button onclick="openModal('/popup@{/admin/shipping_Register}')" class="btn">배송정보입력
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button onclick="openModal('/popup@{/admin/Order_Details}')" class="btn">10121211341
-                                    </button>
-                                </td>
-                                <td>asd1234</td>
-                                <td>김유신</td>
-                                <td>000000000</td>
-                                <td>2</td>
-                                <td>102,900</td>
-                                <td>휴대폰</td>
-                                <td class="red">주문취소</td>
-                                <td>0000-00-00<br>00:00:00</td>
-                                <td>주문취소</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button onclick="openModal('/popup@{/admin/Order_Details}')" class="btn">10121211341
-                                    </button>
-                                </td>
-                                <td>asd1234</td>
-                                <td>김유신</td>
-                                <td>000000000</td>
-                                <td>2</td>
-                                <td>102,900</td>
-                                <td>신용카드</td>
-                                <td class="light-green">결제대기</td>
-                                <td>0000-00-00<br>00:00:00</td>
-                                <td>결제대기</td>
                             </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <div class="modal-overlay" id="modalOverlay">
-                        <div class="modal">
-                            <iframe id="modalFrame"></iframe>
-                        </div>
                     </div>
                     <div class="page">
                         <button class="page-move">이전</button>
@@ -173,6 +132,193 @@
         </div>
     </div>
 </main>
+<!-- 주문상세 모달 -->
+<div class="modal-overlay detail-modal">
+    <div class="container modal">
+        <div class="title">
+            <div class="order-num">
+                <h2>주문상세</h2>
+                <p>123456789</p>
+            </div>
+            <button class="X close-btn" onclick="closeModal()">
+                X
+            </button>
+        </div>
+        <div class="content">
+            <div class="order-detaile">
+                <h3>상품정보</h3>
+                <div class="order-table">
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>상품번호</th>
+                            <th>상품명</th>
+                            <th>판매자</th>
+                            <th>가격</th>
+                            <th>할인</th>
+                            <th>수량</th>
+                            <th>배송비</th>
+                            <th>결제금액</th>
+                        </tr>
+                        <tr>
+                            <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
+                            <td>121212121</td>
+                            <td>000000</td>
+                            <td>(주)상호명</td>
+                            <td>24,000</td>
+                            <td>-1,200</td>
+                            <td>3</td>
+                            <td>0</td>
+                            <td>68,400</td>
+                        </tr>
+                        <tr>
+                            <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
+                            <td>121212121</td>
+                            <td>000000</td>
+                            <td>(주)상호명</td>
+                            <td>35,000</td>
+                            <td>-3,200</td>
+                            <td>1</td>
+                            <td>3,000</td>
+                            <td>34,500</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="detail">
+                    <table>
+                        <tr>
+                            <td>총 상품금액</td>
+                            <td>107,000원</td>
+                        </tr>
+                        <tr>
+                            <td>총 할인금액</td>
+                            <td>-7,100원</td>
+                        </tr>
+                        <tr>
+                            <td>배송비</td>
+                            <td>3,000원</td>
+                        </tr>
+                        <tr>
+                            <td>총 결제금액</td>
+                            <td td class="red">102,900원</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="pay-detaile">
+                <h3>결제정보</h3>
+                <div class="pay-table">
+                    <table>
+                        <tr>
+                            <td>주문번호</td>
+                            <td>1234567894</td>
+                        </tr>
+                        <tr>
+                            <td>결제방법</td>
+                            <td>신용카드 / 1234 **** **** 4432</td>
+                        </tr>
+                        <tr>
+                            <td>주문자/연락처</td>
+                            <td>김유신 / 010-1234-1234</td>
+                        </tr>
+                        <tr>
+                            <td>결제상태</td>
+                            <td class="green">결제완료</td>
+                            <td>총 결제금액</td>
+                            <td class="red">102,900원</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="delivery-detaile">
+                <h3>배송정보</h3>
+                <div class="delivery-table">
+                    <table>
+                        <tr>
+                            <td>수취인</td>
+                            <td>김유신</td>
+                        </tr>
+                        <tr>
+                            <td>연락처</td>
+                            <td>010-1234-1234</td>
+                        </tr>
+                        <tr>
+                            <td>배송지 주소</td>
+                            <td>부산시 진구 123-11 10층</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 배송입력 모달 -->
+<div class="modal-overlay delivery-modal">
+    <div class="container modal">
+        <div class="title">
+            <div class="order-num">
+                <h2>배송입력</h2>
+                <p>123456789</p>
+            </div>
+            <button class="X close-btn" onclick="closeModal()">
+                X
+            </button>
+        </div>
+        <div class="content">
+            <div class="form">
+                <form action="#">
+                    <table>
+                        <tr>
+                            <td>주문번호</td>
+                            <td><input type="text" class="num" value="000000000" readonly></td>
+                        </tr>
+                        <tr>
+                            <td>수령인</td>
+                            <td><input type="text" value="홍길동"></td>
+                        </tr>
+                        <tr>
+                            <td>우편번호</td>
+                            <td><input type="text" value="12345"></td>
+                        </tr>
+                        <tr>
+                            <td>기본주소</td>
+                            <td><input type="text" class="addr1" value="부산광역시 진구 부전동 123"></td>
+                        </tr>
+                        <tr>
+                            <td>상세주소</td>
+                            <td><input type="text" class="addr2" value="00아파트 1층 101호"></td>
+                        </tr>
+                        <tr>
+                            <td>택배사</td>
+                            <td>
+                                <select name="" id="">
+                                    <option value="">로젠택배</option>
+                                    <option value="">한진택배</option>
+                                    <option value="">우체국</option>
+                                    <option value="">CJ대한통운</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>운송장 번호</td>
+                            <td><input type="text" class="dlivery-num" placeholder="발급받은 택배사 송장 번호 입력"></td>
+                        </tr>
+                        <tr>
+                            <td>기타</td>
+                            <td><input type="text" class="others" placeholder="기타 정보 입력"></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="button">
+            <button class="register">등록하기</button>
+        </div>
+    </div>
+</div>
 <th:block th:include="/common/_admin_footer"/>
 </body>
 </html>
