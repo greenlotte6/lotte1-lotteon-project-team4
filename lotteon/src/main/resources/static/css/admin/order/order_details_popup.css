@@ -204,8 +204,9 @@
 .modal-overlay ul, .modal-overlay li {
     list-style: none;
 }
-.modal-overlay body {
+.modal-overlay {
     overflow-x: scroll;
+    overflow-y: scroll;
     min-width: 1200px;
 }
 
@@ -220,7 +221,7 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 50vh;
     background: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
@@ -234,7 +235,6 @@
 .modal-overlay .modal {
     background: white;
     border-radius: 3px;
-    overflow: hidden;
     margin: 0 auto; /* 중앙 정렬을 위해 추가 */
     max-width: 100%; /* 화면 크기에 맞춰 모달 크기 조절 */
     box-sizing: border-box; /* 여백을 포함하여 크기 계산 */
