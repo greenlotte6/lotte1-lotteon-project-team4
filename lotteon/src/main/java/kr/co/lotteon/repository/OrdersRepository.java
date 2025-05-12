@@ -11,4 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Repository
 public interface OrdersRepository extends JpaRepository<Orders, Integer>, OrdersRepositoryCustom {
 
+    Page<Orders> findByOidContaining(String keyword, Pageable pageable);
+    Page<Orders> findByUsers_UidContaining(String keyword, Pageable pageable);
+    Page<Orders> findByUsers_UnameContaining(String keyword, Pageable pageable);
+
 }

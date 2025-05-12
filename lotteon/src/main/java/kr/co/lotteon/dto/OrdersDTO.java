@@ -21,4 +21,9 @@ public class OrdersDTO {
     private LocalDateTime order_date;
     private String shipping_status;
 
+    // 추가 필드
+    private String uname;
+    private String pname;
+    private int quantity;
+
 }

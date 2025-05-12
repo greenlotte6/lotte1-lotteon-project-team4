@@ -1,8 +1,10 @@
 package kr.co.lotteon.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,7 +20,7 @@ import java.util.List;
 public class Orders {
 
     @Id
-    private int oid;
+    private String oid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Users_uid")
@@ -29,7 +31,9 @@ public class Orders {
     private String order_status;
 
     @CreationTimestamp
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime order_date;
+
     private String shipping_status;
 
     @OneToMany(mappedBy = "orders")

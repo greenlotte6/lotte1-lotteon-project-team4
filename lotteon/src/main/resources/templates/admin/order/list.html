@@ -70,15 +70,17 @@
             </div>
             <div class="line"></div>
             <div class="container">
-                <div class="search">
-                    <select name="" id="">
-                        <option value="">주문번호</option>
-                        <option value="">주문자</option>
-                        <option value="">주문자명</option>
-                    </select>
-                    <input type="text" placeholder="검색어입력">
-                    <button>검색</button>
-                </div>
+                <form th:action="@{/admin/order/search}">
+                    <div class="search">
+                        <select name="searchType" id="">
+                            <option value="oid">주문번호</option>
+                            <option value="uid">주문자</option>
+                            <option value="uname">주문자명</option>
+                        </select>
+                        <input type="text" name="keyword" placeholder="검색어입력">
+                        <button type="submit">검색</button>
+                    </div>
+                </form>
                 <div class="table-wrapper">
                     <div class="table">
                         <table>
@@ -97,35 +99,42 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr th:each="order, i:${pageResponseDTO.dtoList}">
                                 <td>
-                                    <button onclick="openModal()" class="btn detail-btn">10121211341
-                                    </button>
+                                    <button th:value="${order.oid}" onclick="openModal()" class="btn detail-btn">[[${order.oid}]]</button>
                                 </td>
-                                <td>asd1234</td>
-                                <td>김유신</td>
-                                <td>000000000</td>
-                                <td>2</td>
-                                <td>102,900</td>
-                                <td>신용카드</td>
-                                <td class="green">결제완료</td>
-                                <td>0000-00-00<br>00:00:00</td>
+                                <td>[[${order.Users_uid}]]</td>
+                                <td>[[${order.uname}]]</td>
+                                <td>[[${order.pname}]]</td>
+                                <td>[[${order.quantity}]]</td>
+                                <td>[[${order.order_total}]]</td>
+                                <td>[[${order.payment}]]</td>
+                                <td class="green">[[${order.order_status}]]</td>
+                                <td>[[${order.order_date}]]</td>
                                 <td>
-                                    <button type="button" onclick="openModal()" class="btn delivery-btn">배송정보입력
-                                    </button>
+                                    <button type="button" onclick="openModal()" class="btn delivery-btn">배송정보입력</button>
                                 </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(pageResponseDTO.dtoList)}">
+                                <td colspan="12" class="no-results">검색 결과가 없습니다.</td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="page">
-                        <button class="page-move">이전</button>
-                        <button>[1]</button>
-                        <button>[2]</button>
-                        <button>[3]</button>
-                        <button>[4]</button>
-                        <button>[5]</button>
-                        <button class="page-move">다음</button>
+                    <div class="page" th:if="${pageResponseDTO.total > 0}">
+                        <th:block th:if="${pageResponseDTO.prev}">
+                            <a th:href="@{/admin/order/list(pg=${pageResponseDTO.start - 1})}" class="page-move">이전</a>
+                        </th:block>
+
+                        <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
+                            <a th:href="@{/admin/order/list(pg=${num})}"
+                                th:class="${num == pageResponseDTO.pg} ? 'currnt':'num'">[[${num}]]</a>
+                        </th:block>
+
+                        <th:block th:if="${pageResponseDTO.next}">
+                            <a th:href="@{/admin/order/list(pg=${pageResponseDTO.end+1})}"
+                               class="page-move">다음</a>
+                        </th:block>
                     </div>
                 </div>
             </div>
