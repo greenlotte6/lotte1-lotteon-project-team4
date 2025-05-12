@@ -1,9 +1,6 @@
 package kr.co.lotteon.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -23,7 +20,10 @@ public class Orders {
     @Id
     private int oid;
 
-    private String Users_uid;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Users_uid")
+    private Users users;
+
     private int order_total;
     private String payment;
     private String order_status;
