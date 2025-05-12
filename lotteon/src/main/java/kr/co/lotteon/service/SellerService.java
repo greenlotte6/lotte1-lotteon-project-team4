@@ -1,5 +1,6 @@
 package kr.co.lotteon.service;
 
+import jakarta.transaction.Transactional;
 import kr.co.lotteon.dto.SellerDTO;
 import kr.co.lotteon.entity.Seller;
 import kr.co.lotteon.entity.Shop;
@@ -36,6 +37,7 @@ public class SellerService {
                 .addr1(dto.getAddr1())
                 .addr2(dto.getAddr2())
                 .role("SELLER")
+                .status(SystemStatus.READY)
                 .build();
 
         sellerRepository.save(seller);
@@ -49,6 +51,13 @@ public class SellerService {
 
     public long countByAid(String aid) {
         return sellerRepository.countByAid(aid);
+    }
+
+    @Transactional
+    public void updateStatus(String aid, SystemStatus status) {
+        Seller seller = sellerRepository.findById(aid)
+                .orElseThrow(() -> new RuntimeException("판매자 없음"));
+        seller.setStatus(status);
     }
 
 

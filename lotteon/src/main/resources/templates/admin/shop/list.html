@@ -15,21 +15,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
     <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
-    <style>
-        .btn-blue {
-            background-color: #4a90e2;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
+    <script>
+        function handleToggleMgmt(btn) {
+            const aid = btn.getAttribute("data-aid");
+            const currentStatus = btn.getAttribute("data-status");
+
+            let newStatus = "";
+            if (currentStatus === "OPERATING") {
+                newStatus = "STOPPED";
+            } else {
+                newStatus = "OPERATING";
+            }
+
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = "/admin/shop/toggleMgmt";
+
+            const aidInput = document.createElement("input");
+            aidInput.type = "hidden";
+            aidInput.name = "aid";
+            aidInput.value = aid;
+
+            const statusInput = document.createElement("input");
+            statusInput.type = "hidden";
+            statusInput.name = "newStatus";
+            statusInput.value = newStatus;
+
+            form.appendChild(aidInput);
+            form.appendChild(statusInput);
+            document.body.appendChild(form);
+            form.submit();
         }
 
-        .btn-red {
-            background-color: #e94e4e;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-    </style>
+
+    </script>
 </head>
 
 <body>
@@ -93,14 +112,18 @@
                                     <td th:text="${shop.osn}"></td>
                                     <td th:text="${shop.number}"></td>
                                     <td>
-                                        <button type="button" onclick="toggleStatus([[${shop.aid}]])"
-                                                th:classappend="${shop.statusClass}"> ● </button>
+                                        <span th:if="${shop.status.name() == 'OPERATING'}" style="color:green;">●</span>
+                                        <span th:if="${shop.status.name() == 'STOPPED'}" style="color:red;">●</span>
+                                        <span th:if="${shop.status.name() == 'READY'}" style="color:blue;">●</span>
                                     </td>
                                     <td>
                                         <button type="button"
-                                                th:onclick="|toggleMgmt('${shop.aid}')|"
-                                                th:text="${shop.mgmt == '중단' ? '승인' : '중단'}"
-                                                th:classappend="${shop.mgmt == '중단' ? 'btn-blue' : 'btn-red'}"></button>
+                                                th:if="${shop.status != null}"
+                                                th:attr="data-aid=${shop.aid}, data-status=${shop.status.name()}"
+                                                th:text="${shop.status.name() == 'OPERATING' ? '중단' : (shop.status.name() == 'STOPPED' ? '재개' : '승인')}"
+                                                th:classappend="${shop.status.name() == 'OPERATING' ? 'btn-red' : (shop.status.name() == 'STOPPED' ? 'btn-blue' : 'btn-green')}"
+                                                onclick="handleToggleMgmt(this)">
+                                        </button>
                                     </td>
                                 </tr>
 
