@@ -476,3 +476,22 @@ li {
     margin: 30px auto 0 auto;
     text-align: center;
 }
+
+.btn-red {
+    background-color: #e94e4e;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.btn-blue {
+    background-color: #4a90e2;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.btn-green {
+    background-color: #3cb371;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}

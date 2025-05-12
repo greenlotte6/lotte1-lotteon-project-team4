@@ -1,6 +1,10 @@
 package kr.co.lotteon.controller.admin;
 
 import kr.co.lotteon.dto.*;
+import kr.co.lotteon.entity.Seller;
+import kr.co.lotteon.entity.SystemStatus;
+import kr.co.lotteon.repository.SellerRepository;
+import kr.co.lotteon.service.SellerService;
 import kr.co.lotteon.service.admin.ShopService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +23,8 @@ import java.util.List;
 public class ShopController {
 
     private final ShopService shopService;
+    private final SellerService sellerService;
+    private final SellerRepository sellerRepository;
 
     @GetMapping("/admin/shop/list")
     public String list(Model model, PageRequestDTO pageRequestDTO) {
@@ -69,25 +75,19 @@ public class ShopController {
         return "redirect:/admin/shop/list";
     }
 
-    @PostMapping("/admin/shop/changeMgmt")
-    public String changeMgmt(@RequestParam("aid") String aid) {
-        shopService.toggleMgmtStatus(aid);
-        return "redirect:/admin/shop/list";
-    }
-
-    @PostMapping("/admin/shop/toggleStatus")
-    public String toggleStatus(@RequestParam("aid") String aid) {
-        shopService.toggleStatus(aid);
-        return "redirect:/admin/shop/list";
-    }
 
     @PostMapping("/admin/shop/toggleMgmt")
-    public String toggleMgmt(@RequestParam("aid") String aid) {
-        shopService.toggleMgmtStatus(aid);
+    public String toggleMgmt(@RequestParam String aid,
+                             @RequestParam String newStatus) {
+        System.out.println("aid = " + aid);
+        System.out.println("newStatus = " + newStatus);
+
+        // 문자열을 Enum으로 변환 (대소문자 안전하게 처리)
+        SystemStatus statusEnum = SystemStatus.valueOf(newStatus.toUpperCase());
+        sellerService.updateStatus(aid, statusEnum);
+
         return "redirect:/admin/shop/list";
     }
-
-
 
 
 }

@@ -52,10 +52,19 @@ public class ShopDTO {
         this.osn = seller.getOsn();
         this.number = seller.getNumber();
 
-        // 가상 값 or 설정된 상태
-        this.operation = "운영중"; // or seller.getOperation() 등
-        this.operationText = "운영 중";
-        this.statusClass = "green";
+        this.status = seller.getStatus();
+
+        if (this.status == SystemStatus.OPERATING) {
+            this.operationText = "[운영중]";
+            this.statusClass = "green";
+        } else if (this.status == SystemStatus.STOPPED) {
+            this.operationText = "[운영중지]";
+            this.statusClass = "red";
+        } else {
+            this.operationText = "[운영준비]";
+            this.statusClass = "blue";
+        }
     }
+
 
 }
