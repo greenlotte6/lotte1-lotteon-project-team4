@@ -23,6 +23,7 @@ public class ShopDTO {
     private String seller_aid;
 
     // 추가필드
+    private String zip;
     private String aid;
     private String company;
     private String ceo;
@@ -45,12 +46,14 @@ public class ShopDTO {
 
 
     public ShopDTO(Seller seller) {
+        this.aid = seller.getAid();
         this.seller_aid = seller.getAid();
         this.company = seller.getCompany();
         this.ceo = seller.getCeo();
         this.biz_num = seller.getBiz_num();
         this.osn = seller.getOsn();
         this.number = seller.getNumber();
+        this.zip = seller.getZip();
 
         this.status = seller.getStatus();
 

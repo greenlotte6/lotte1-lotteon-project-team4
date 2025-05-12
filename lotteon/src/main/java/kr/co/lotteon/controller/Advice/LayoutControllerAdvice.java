@@ -58,14 +58,6 @@ public class LayoutControllerAdvice {
     public Banner getMain1Banner() {
         List<Banner> banners = bannerService.getBannersByPosition("MAIN1").stream()
                 .filter(b -> "활성".equals(b.getActive()))
-                .filter(b -> {
-                    LocalDate today = LocalDate.now();
-                    LocalTime now = LocalTime.now();
-                    return (b.getStartDay() == null || !today.isBefore(b.getStartDay())) &&
-                            (b.getCloseDay() == null || !today.isAfter(b.getCloseDay())) &&
-                            (b.getStartAt() == null || !now.isBefore(b.getStartAt())) &&
-                            (b.getCloseAt() == null || !now.isAfter(b.getCloseAt()));
-                })
                 .toList();
 
         if (!banners.isEmpty()) {
@@ -75,6 +67,7 @@ public class LayoutControllerAdvice {
 
         return null;
     }
+
 
 
 

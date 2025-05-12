@@ -27,6 +27,9 @@
                 newStatus = "OPERATING";
             }
 
+            console.log("aid:", aid); // aid 출력
+            console.log("newStatus:", newStatus); // newStatus 출력
+
             const form = document.createElement("form");
             form.method = "POST";
             form.action = "/admin/shop/toggleMgmt";
@@ -46,7 +49,14 @@
             document.body.appendChild(form);
             form.submit();
         }
-
+        function validateDelete() {
+            const selected = document.querySelectorAll('.checkItem:checked');
+            if (selected.length === 0) {
+                alert('삭제할 항목을 선택하세요.');
+                return false;
+            }
+            return confirm('정말 삭제하시겠습니까?');
+        }
 
     </script>
 </head>
@@ -87,7 +97,7 @@
                         <p><span class="blue">● 운영준비</span></p>
                     </div>
                     <form th:action="@{/admin/shop/delete}" method="post" onsubmit="return validateDelete()">
-                        <div class="table">
+                    <div class="table">
                             <table>
                                 <thead>
                                 <tr>
@@ -104,7 +114,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="shop, i : ${pageResponseDTO.dtoList}">
-                                    <td><input type="checkbox" name="seller_aid" th:value="${shop.aid}" class="checkItem"></td>
+                                    <td><input type="checkbox" name="seller_aids" th:value="${shop.aid}" class="checkItem"></td>
                                     <td th:text="${pageResponseDTO.startNo - i.index}"></td>
                                     <td th:text="${shop.company}"></td>
                                     <td th:text="${shop.ceo}"></td>
@@ -118,12 +128,13 @@
                                     </td>
                                     <td>
                                         <button type="button"
-                                                th:if="${shop.status != null}"
+                                                onclick="handleToggleMgmt(this)"
                                                 th:attr="data-aid=${shop.aid}, data-status=${shop.status.name()}"
                                                 th:text="${shop.status.name() == 'OPERATING' ? '중단' : (shop.status.name() == 'STOPPED' ? '재개' : '승인')}"
-                                                th:classappend="${shop.status.name() == 'OPERATING' ? 'btn-red' : (shop.status.name() == 'STOPPED' ? 'btn-blue' : 'btn-green')}"
-                                                onclick="handleToggleMgmt(this)">
+                                                th:classappend="${shop.status.name() == 'OPERATING' ? 'btn-red' : (shop.status.name() == 'STOPPED' ? 'btn-blue' : 'btn-green')}">
                                         </button>
+
+
                                     </td>
                                 </tr>
 
