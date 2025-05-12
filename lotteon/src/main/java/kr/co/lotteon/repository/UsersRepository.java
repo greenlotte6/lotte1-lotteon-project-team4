@@ -37,7 +37,6 @@ public interface UsersRepository extends JpaRepository<Users, String>, UserRepos
     Optional<Users> findByEmailAndProviderId(String email, String providerId);
 
 
-
     //    @Query("SELECT u FROM Users u WHERE u.status = :status")
 //    List<Users> findByStatus(@Param("status") String status);
 

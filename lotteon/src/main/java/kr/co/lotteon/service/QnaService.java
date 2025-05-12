@@ -21,7 +21,7 @@ public class QnaService {
     @Autowired
     private final QnaRepository qnaRepository;
 
-    // 공통 - Qna 생성 (관리자, 사용자 모두 사용)
+    // Qna 생성
     public void createQna(Users user, String qnaType1, String qnaType2,
                           String title, String content, String writer, LocalDateTime date) {
         Qna qna = Qna.builder()
@@ -39,42 +39,23 @@ public class QnaService {
         qnaRepository.save(qna);
     }
 
-    // 공통 - Qna 단일 조회 (관리자, 사용자 모두 사용)
-    public QnaDTO getQnaById(Long qnaId) {
-        Qna qna = qnaRepository.findById(qnaId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 Qna가 존재하지 않습니다."));
-
-        return QnaDTO.builder()
-                .qnaid(qna.getQnaId())
-                .uid(qna.getUser().getUid())
-                .qnaType1(qna.getQnaType1())
-                .qnaType2(qna.getQnaType2())
-                .title(qna.getTitle())
-                .content(qna.getContent())
-                .date(qna.getDate())
-                .status(qna.getStatus())
-                .answer(qna.getAnswer())
-                .writer(qna.getWriter())
-                .build();
-    }
-
-    // 관리자 - 전체 Qna 목록 조회
+    // 전체 Qna 목록
     public List<Qna> getQnaList() {
         return qnaRepository.findAll();
     }
 
-    // 관리자 - 최신순 Qna 제한 조회
+    // 최신순 Qna 제한 조회
     public List<Qna> getRecentQnas(int limit) {
         Pageable pageable = PageRequest.of(0, limit, Sort.by(Sort.Direction.DESC, "date"));
         return qnaRepository.findAll(pageable).getContent();
     }
 
-    // 관리자 - QnaType1 기준 전체 조회
+    // QnaType1 기준 전체 조회
     public List<Qna> getQnaListByTypeRaw(String qnaType1) {
         return qnaRepository.findByQnaType1(qnaType1);
     }
 
-    // 관리자 - QnaType1 기준 페이지 조회 (DTO 반환)
+    // QnaType1 기준 페이지 조회 (DTO 반환)
     public Page<QnaDTO> getQnaListByType(String type, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "date"));
         Page<Qna> qnaPage = qnaRepository.findByQnaType1(type, pageable);
@@ -93,13 +74,13 @@ public class QnaService {
                 .build());
     }
 
-    // 사용자 - QnaType1 + 유저 기준 페이지 조회 (사용자가 본인의 Qna 목록을 조회할 때)
+    // QnaType1 + 유저 기준 페이지 조회
     public Page<Qna> getQnaListByTypeAndUser(String type, Users uid, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "date"));
         return qnaRepository.findByQnaType1AndUserOrderByDateDesc(type, uid, pageable);
     }
 
-    // 관리자 - 전체 Qna 페이지 (DTO 변환)
+    // 전체 Qna 페이지 (DTO 변환)
     public Page<QnaDTO> getQnaPage(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "date"));
         Page<Qna> qnaPage = qnaRepository.findAll(pageable);
@@ -118,7 +99,26 @@ public class QnaService {
                 .build());
     }
 
-    // 관리자 - Qna 답변 등록 + 상태 변경
+    // Qna 단일 조회 (DTO 반환용)
+    public QnaDTO getQnaById(Long qnaId) {
+        Qna qna = qnaRepository.findById(qnaId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 Qna가 존재하지 않습니다."));
+
+        return QnaDTO.builder()
+                .qnaid(qna.getQnaId())
+                .uid(qna.getUser().getUid())
+                .qnaType1(qna.getQnaType1())
+                .qnaType2(qna.getQnaType2())
+                .title(qna.getTitle())
+                .content(qna.getContent())
+                .date(qna.getDate())
+                .status(qna.getStatus())
+                .answer(qna.getAnswer())
+                .writer(qna.getWriter())
+                .build();
+    }
+
+    // Qna 답변 등록 + 상태 변경
     public void answerQna(Long qnaId, String answerContent) {
         Qna qna = qnaRepository.findById(qnaId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 Qna가 존재하지 않습니다."));
@@ -129,7 +129,7 @@ public class QnaService {
         qnaRepository.save(qna);
     }
 
-    // 관리자 - 선택삭제 기능
+    // 선택삭제 기능
     public void deleteQnaById(Long qnaId) {
         Qna qna = qnaRepository.findById(qnaId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 Qna가 존재하지 않습니다."));
@@ -137,13 +137,13 @@ public class QnaService {
         log.info("Qna 삭제 완료 - ID: {}", qnaId);
     }
 
-    // 관리자 - 전체 삭제 기능
+    // 전체 삭제 기능
     public void deleteAllQnas() {
         qnaRepository.deleteAll();
         log.info("전체 Qna 삭제 완료");
     }
 
-    // 관리자 - 여러 Qna 삭제 기능
+    // 여러 Qna 삭제 기능
     public void deleteQnasByIds(List<Long> qnaIds) {
         List<Qna> qnas = qnaRepository.findAllById(qnaIds);
         if (qnas.size() != qnaIds.size()) {

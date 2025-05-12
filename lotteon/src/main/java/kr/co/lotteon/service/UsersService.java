@@ -38,12 +38,6 @@ public class UsersService {
     private final HttpSession session;
     private final SellerRepository sellerRepository;
 
-    private final JavaMailSender mailSender;
-
-    @Value("${spring.mail.username}")
-    private String sender;
-
-    // 회원 저장
     public void saveUser(UsersDTO dto) {
         Users user = Users.builder()
                 .uid(dto.getUid())
@@ -65,34 +59,34 @@ public class UsersService {
         usersRepository.save(user);
     }
 
-    // 로그인
     public Users login(String uid, String password) {
         return usersRepository.findByUid(uid)
                 .filter(user -> passwordEncoder.matches(password, user.getPassword())) //
                 .orElse(null);
     }
 
-    // ID로 회원 조회
     public Optional<Users> findById(String uid) {
         return usersRepository.findById(uid);
     }
 
-    // 아이디 중복 체크
     public int countByUid(String uid) {
         return usersRepository.countByUid(uid);
     }
 
-    // 전화번호 중복 체크
+
     public int countByHp(String hp) {
         return usersRepository.countByHp(hp);
     }
 
-    // 이메일 중복 체크
+    private final JavaMailSender mailSender;
+
+    @Value("${spring.mail.username}")
+    private String sender;
+
     public int countByEmail(String email) {
         return usersRepository.countByEmail(email);
     }
 
-    // 이메일 인증 코드 발송
     public String sendEmailCode(String receiver) {
         try {
             MimeMessage message = mailSender.createMimeMessage();
@@ -116,19 +110,6 @@ public class UsersService {
         }
     }
 
-    // 이메일 인증 코드 검증
-    public boolean verifyEmailCode(String inputCode) {
-        String storedCode = (String) session.getAttribute("authCode");
-
-        if (storedCode != null && storedCode.equals(inputCode)) {
-            session.removeAttribute("authCode"); // 인증 성공 후 세션에서 코드 삭제
-            return true;  // 인증 성공
-        }
-
-        return false;  // 인증 실패
-    }
-
-    // 판매자 저장
     public void saveSeller(SellerDTO dto) {
         Seller seller = Seller.builder()
                 .aid(dto.getAid())
@@ -148,27 +129,26 @@ public class UsersService {
         sellerRepository.save(seller);
     }
 
-    // 판매자 ID 중복 체크
+
     public long countByAid(String aid) {
         return sellerRepository.countByAid(aid);
     }
 
-    // 이름과 이메일로 사용자 조회
+    // UsersService
     public Optional<Users> findByNameAndEmail(String uname, String email) {
         return usersRepository.findByUnameAndEmail(uname, email);
     }
 
-    // 사용자 아이디와 이메일로 조회
+
     public Optional<Users> findByUidAndEmail(String uid, String email) {
         return usersRepository.findByUidAndEmail(uid, email);
     }
 
-    // 사용자 정보 저장
     public void save(Users user) {
         usersRepository.save(user);
     }
 
-    // 비밀번호 업데이트
+    // UsersService.java
     public void updatePassword(String uid, String rawPassword) {
         Optional<Users> optUser = usersRepository.findByUid(uid);
 
@@ -181,4 +161,14 @@ public class UsersService {
             throw new RuntimeException("사용자를 찾을 수 없습니다.");
         }
     }
+
+
+
+
+
+
+
 }
+
+
+
