@@ -6,10 +6,11 @@
             <div class="banner">
                 <div class="main-top-banner" th:if="${main1Banner != null}">
                     <a th:href="${main1Banner.link}">
-                        <img th:src="@{${main1Banner.imageUrl}}" th:alt="${main1Banner.bannerName}" />
+                        <img th:src="${main1Banner.imageUrl}" th:alt="${main1Banner.bannerName}" />
                     </a>
                 </div>
             </div>
+
             <div class="user-nav">
                 <ul>
                     <!-- 비로그인 상태 -->

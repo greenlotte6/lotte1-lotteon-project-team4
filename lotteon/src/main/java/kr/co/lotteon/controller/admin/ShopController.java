@@ -55,8 +55,10 @@ public class ShopController {
     }
 
     @PostMapping("/admin/shop/delete")
-    public String delete(@RequestParam("seller_aid") List<String> seller_aid) {
-        shopService.delete(seller_aid);
+    public String deleteShops(@RequestParam(name = "seller_aids", required = false) List<String> aids) {
+        if (aids != null && !aids.isEmpty()) {
+            sellerService.deleteSellersByIds(aids); // 서비스에 삭제 로직 구현
+        }
         return "redirect:/admin/shop/list";
     }
 
@@ -79,13 +81,12 @@ public class ShopController {
     @PostMapping("/admin/shop/toggleMgmt")
     public String toggleMgmt(@RequestParam String aid,
                              @RequestParam String newStatus) {
+        System.out.println("== TOGGLE MGMT ==");
         System.out.println("aid = " + aid);
         System.out.println("newStatus = " + newStatus);
 
-        // 문자열을 Enum으로 변환 (대소문자 안전하게 처리)
-        SystemStatus statusEnum = SystemStatus.valueOf(newStatus.toUpperCase());
-        sellerService.updateStatus(aid, statusEnum);
-
+        SystemStatus status = SystemStatus.valueOf(newStatus);
+        sellerService.updateStatus(aid, status);
         return "redirect:/admin/shop/list";
     }
 

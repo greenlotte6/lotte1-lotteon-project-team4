@@ -55,9 +55,15 @@ public class SellerService {
 
     @Transactional
     public void updateStatus(String aid, SystemStatus status) {
+        System.out.println("updateStatus() called with aid=" + aid + ", status=" + status);
         Seller seller = sellerRepository.findById(aid)
                 .orElseThrow(() -> new RuntimeException("판매자 없음"));
         seller.setStatus(status);
+    }
+
+    @Transactional
+    public void deleteSellersByIds(List<String> aids) {
+        sellerRepository.deleteAllByIdInBatch(aids);
     }
 
 

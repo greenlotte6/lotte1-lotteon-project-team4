@@ -1,6 +1,7 @@
 package kr.co.lotteon.security;
 
 import kr.co.lotteon.entity.Seller;
+import kr.co.lotteon.entity.SystemStatus;
 import kr.co.lotteon.entity.Users;
 import lombok.Builder;
 import lombok.Data;
@@ -69,6 +70,8 @@ public class MyUserDetails implements UserDetails, OAuth2User {  // 인증 객�
     public boolean isEnabled() {
         if (users != null) {
             return "정상".equals(users.getStatus());
+        }else if (seller != null) {
+            return SystemStatus.OPERATING.equals(seller.getStatus());
         }
         return false;
     }
