@@ -10,7 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @RequiredArgsConstructor
 @Controller
@@ -45,10 +47,27 @@ public class OrderController {
     }
 
     // 배송 정보 입력 데이터 불러오기
-    @GetMapping("admin/order/deliveryDetail")
-    public String deliveryDetail(@RequestParam("oid") int oid, Model model) {
+    @GetMapping("/admin/order/deliveryDetail")
+    @ResponseBody
+    public OrdersDTO deliveryDetail(@RequestParam("oid") int oid) {
+        return orderService.deliveryDetail(oid);
+    }
 
-        return "/admin/order/list";
+    // 배송 정보 등록하기
+    @PostMapping("/admin/order/deliveryDetail")
+    public String modifyDelivery(@RequestParam("oid") int oid,
+                                 @RequestParam("delivery_company") String delivery_company,
+                                 @RequestParam("delivery_num") String delivery_num,
+                                 Model model) {
+        OrdersDTO ordersDTO = orderService.modifyDelivery(oid, delivery_company, delivery_num);
+        model.addAttribute("ordersDTO", ordersDTO);
+        return "redirect:/admin/order/list";
+    }
+
+    // 주문상세 보기
+    @GetMapping("/admin/order/orderDetail")
+    public String orderDetail(@RequestParam("oid") int oid) {
+        return null;
     }
 
 }
