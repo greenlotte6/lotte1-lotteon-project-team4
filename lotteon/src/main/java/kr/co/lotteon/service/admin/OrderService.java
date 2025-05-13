@@ -1,6 +1,7 @@
 package kr.co.lotteon.service.admin;
 
 import com.querydsl.core.Tuple;
+import kr.co.lotteon.dao.OrderMapper;
 import kr.co.lotteon.dto.OrdersDTO;
 import kr.co.lotteon.dto.PageRequestDTO;
 import kr.co.lotteon.dto.PageResponseDTO;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -31,7 +33,7 @@ public class OrderService {
 
     private final OrdersRepository ordersRepository;
     private final DeliveryRepository deliveryRepository;
-    private final ProductRepository productRepository;
+    private final OrderMapper orderMapper;
     private final ModelMapper modelMapper;
 
     // 주문현황 조회
@@ -161,21 +163,13 @@ public class OrderService {
     }
 
     // 주문상세 보기
-    public void orderDetail(int oid) {
-        Optional<Orders> optOrders = ordersRepository.findById(oid);
+    public OrdersDTO orderDetail(int oid) {
+        OrdersDTO ordersDTO = orderMapper.orderTotal(oid);
 
-        /// ///////////////////////
-        // 조인해서 주문상세 조회하기
+        log.info("ordersDTO {}", ordersDTO);
+        log.info("ordersDTO {}", ordersDTO);
 
-
-
-        
-        if (optOrders.isPresent()) {
-            Orders orders = optOrders.get();
-            OrdersDTO ordersDTO = modelMapper.map(orders, OrdersDTO.class);
-            ordersDTO.setOid(orders.getOid());
+        return ordersDTO;
 
         }
     }
-
-}

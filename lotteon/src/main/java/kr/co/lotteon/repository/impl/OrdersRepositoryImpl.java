@@ -41,4 +41,12 @@ public class OrdersRepositoryImpl implements OrdersRepositoryCustom {
         // 페이징 처리를 위한 페이지 객체 반환
         return new PageImpl<Tuple>(tupleList, pageable, total);
     }
+
+//    @Override
+//    public List<Tuple> findByOid(int oid) {
+//        List<Tuple> tupleList = queryFactory
+//                .select()
+//
+//        return List.of();
+//    }
 }

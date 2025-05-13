@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 public class OrderController {
@@ -66,8 +68,10 @@ public class OrderController {
 
     // 주문상세 보기
     @GetMapping("/admin/order/orderDetail")
-    public String orderDetail(@RequestParam("oid") int oid) {
-        return null;
+    @ResponseBody
+    public OrdersDTO orderDetail(@RequestParam("oid") int oid) {
+        return orderService.orderDetail(oid);
+
     }
 
 }
