@@ -16,7 +16,7 @@ import java.util.Map;
 @RequestMapping("/seller") // 모든 seller 관련 요청 prefix
 public class SellerController {
 
-    private final SellerService sellerService; // SellerService 주입
+    private final SellerService sellerService;
 
 
     @GetMapping("/aid/{aid}")

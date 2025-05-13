@@ -17,7 +17,7 @@
     <div class="main_container">
         <th:block th:include="/common/_myaccount_sied"/>
           <div class="content">
-            <div class="banner">810 × 86 배너 광고</div>
+              <div class="banner_top">810 × 86 배너 광고</div>
             <h2>쿠폰내역</h2>
             <div class="section">
                 <table class="table">
@@ -31,20 +31,13 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1만원 할인 중복 쿠폰</td>
-                      <td>10,000원</td>
-                      <td>10,000원 이상 구매시</td>
-                      <td>사용가능</td>
-                      <td>~12/31</td>
-                    </tr>
-                    <tr>
-                      <td>회원가입 축하 5천원 할인쿠폰</td>
-                      <td>5,000원</td>
-                      <td>5,000원 이상 구매시</td>
-                      <td>사용가능</td>
-                      <td>~12/31</td>
-                    </tr>
+                  <tr th:each="coupon : ${coupons}">
+                      <td th:text="${coupon.couponName}">쿠폰명</td>
+                      <td th:text="${coupon.benefit}">할인금액</td>
+                      <td th:text="${coupon.couponType}">적용기준</td>
+                      <td th:text="${coupon.status}">상태</td>
+                      <td th:text="${coupon.validTo}">유효기간</td>
+                  </tr>
                   </tbody>
                 </table>
               </div>

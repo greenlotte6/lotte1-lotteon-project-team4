@@ -67,6 +67,10 @@ public class SellerService {
     }
 
 
+    public Optional<Seller> getSellerByUid(String aid) {
+        return sellerRepository.findByAid(aid);
+    }
+
 
 
 

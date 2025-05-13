@@ -71,7 +71,7 @@ body {
  border: none;
 }
 
-.banner {
+.banner_top {
   background: #ccc;
   height: 86px;
   display: flex;
