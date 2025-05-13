@@ -20,7 +20,7 @@ import java.util.List;
 public class Orders {
 
     @Id
-    private String oid;
+    private int oid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Users_uid")
@@ -38,5 +38,7 @@ public class Orders {
 
     @OneToMany(mappedBy = "orders")
     private List<OrderItem> orderItems;
+
+    private String Recipient;
 
 }
