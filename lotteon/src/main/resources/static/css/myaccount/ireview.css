@@ -53,15 +53,15 @@ body {
   .top-info > li:nth-child(4){
    border: none;
   }
-  
-  .banner {
-    background: #ccc;
-    height: 86px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-  }
+
+.banner_top {
+  background: #ccc;
+  height: 86px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
   
   h2 {
     font-size: 18px;

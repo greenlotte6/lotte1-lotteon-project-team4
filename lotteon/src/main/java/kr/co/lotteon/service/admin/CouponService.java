@@ -130,4 +130,6 @@ public class CouponService {
         int randomNum = (int)(Math.random() * 1_000_000_000);
         return Long.parseLong(prefix + String.format("%09d", randomNum));
     }
+
+
 }

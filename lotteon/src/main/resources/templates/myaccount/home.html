@@ -45,30 +45,10 @@
                 </div>
                 <div class="order-status">배송완료</div>
                 <div class="order-actions">
-                    <button class="btn" onclick="openModal('/myaccount/buy-modal')">구매확정</button>
+                  <button class="btn" onclick="openModal('/myaccount/buy-modal')">구매확정</button>
                   <button class="btn" onclick="openModal('/myaccount/review-modal')">상품평쓰기</button>
                   <button class="btn" onclick="openModal('/myaccount/return-modal')">반품신청</button>
                   <button class="btn" onclick="openModal('/myaccount/exchange-modal')">교환신청</button>
-                </div>
-              </div>
-              <div class="order-row">
-                <div class="order-date">2022-12-13</div>
-                <div class="order-info_num">
-                  <div class="order-img"></div>
-                  <div class="order-text">
-                      <a class="click-bar" onclick="openModal('/myaccount/order-details-modal')">주문번호 : 1012211341</a><br />
-                      <a class="click-bar" onclick="openModal('/myaccount/seller-modal')">(주)상호명</a><br />
-                    상품명<br>
-                    수량 : 1개<br />
-                    34,000원
-                  </div>
-                </div>
-                <div class="order-status">배송완료</div>
-                <div class="order-actions">
-                  <button class="btn" onclick="openModal('buy.html')">구매확정</button>
-                  <button class="btn" onclick="openModal('review.html')">상품평쓰기</button>
-                  <button class="btn" onclick="openModal('return.html')">반품신청</button>
-                  <button class="btn" onclick="openModal('exchange.html')">교환신청</button>
                 </div>
               </div>
             </div>
@@ -238,10 +218,10 @@
     </main>
     <th:block th:include="/common/_footer"/>
     <div class="modal-overlay" id="modalOverlay" style="display:none;">
-        <div class="modal" id="modalFrame"></div>
-        <div class="modal-content">
-            <div id="modalBody"></div>
-        </div>
+      <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <div id="modalBody"></div>
+      </div>
     </div>
 
 

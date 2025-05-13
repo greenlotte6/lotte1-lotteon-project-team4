@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface SellerRepository extends JpaRepository<Seller, String> {
     long countByAid(String aid);
+    Optional<Seller> findByAid(String aid);
 }

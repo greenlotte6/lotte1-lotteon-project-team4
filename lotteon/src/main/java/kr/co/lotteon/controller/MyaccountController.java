@@ -1,20 +1,24 @@
 package kr.co.lotteon.controller;
 
-import ch.qos.logback.core.model.Model;
+import kr.co.lotteon.entity.Seller;
+import org.springframework.ui.Model;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpSession;
 import kr.co.lotteon.dto.UsersDTO;
+import kr.co.lotteon.entity.Coupon;
 import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.repository.UsersRepository;
 import kr.co.lotteon.service.SellerService;
 import kr.co.lotteon.service.UsersService;
+import kr.co.lotteon.service.admin.CouponService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -34,6 +38,12 @@ public class MyaccountController {
         return "/myaccount/home";
     }
 
+    @GetMapping("/myaccount/buy")
+    public String buy() {
+        return "/myaccount/buy";
+    }
+
+
     @GetMapping("/myaccount/buy-modal")
     public String buyModal() {
 
@@ -41,11 +51,15 @@ public class MyaccountController {
     }
 
 
-    @GetMapping("/myaccount/coupon")
-    public String coupon() {
+    private final CouponService couponService;
 
+    @GetMapping("/myaccount/coupon")
+    public String coupon(Model model) {
+        List<Coupon> coupons = couponService.getAllCoupons();
+        model.addAttribute("coupons", coupons);
         return "/myaccount/coupon";
     }
+
 
 
     @GetMapping("/myaccount/exchange")
@@ -174,11 +188,22 @@ public class MyaccountController {
         return "/myaccount/exchange :: modalContent";
     }
 
+    private final SellerService sellerService;
+    
     @GetMapping("/myaccount/seller-modal")
-    public String sellerModal () {
+    public String sellerModal(HttpSession session, Model model) {
+        Users loginUser = (Users) session.getAttribute("user");
 
-        return "/myaccount/seller :: modalContent";
+        if (loginUser != null) {
+            String sellerId = loginUser.getUid(); // 또는 getId()
+            Seller seller = sellerService.getSellerByUid(sellerId).orElse(null);
+
+            model.addAttribute("seller", seller);
+        }
+
+        return "/myaccount/seller :: modalContent"; // Thymeleaf Fragment
     }
+
 
     @GetMapping("/myaccount/order-details-modal")
     public String orderDetailsModal () {
@@ -203,10 +228,13 @@ public class MyaccountController {
         return "/myaccount/seller";
     }
 
+
+
     @GetMapping("/myaccount/return-modal")
     public String returnModal(){
         return "/myaccount/return :: modalContent";
     }
+
 
 
 

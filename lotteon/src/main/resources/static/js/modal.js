@@ -1,20 +1,42 @@
-function openModal(url) {
-    fetch(url)
-        .then(res => res.text())
-        .then(html => {
-            document.getElementById("modalBody").innerHTML = html;
-            document.getElementById("modalOverlay").style.display = "flex";
-            document.body.style.overflow = 'hidden'; // 💡 배경 스크롤 잠금
-        });
-}
+document.addEventListener("DOMContentLoaded", () => {
+    window.openModal = function (url) {
+        fetch(url)
+            .then(res => {
+                if (!res.ok) throw new Error("404 Not Found: " + url);
+                return res.text();
+            })
+            .then(html => {
+                const modalBody = document.getElementById("modalBody");
+                const modalOverlay = document.getElementById("modalOverlay");
 
-function closeModal() {
-    document.getElementById("modalBody").innerHTML = "";
-    document.getElementById("modalOverlay").style.display = "none";
-    document.body.style.overflow = ''; // 💡 스크롤 원상복구
-}
+                if (!modalBody || !modalOverlay) {
+                    console.error("모달 요소가 없습니다.");
+                    return;
+                }
 
-function confirmBuy() {
-    alert("구매가 확정되었습니다!");
-    closeModal();
-}
+                modalBody.innerHTML = html;
+                modalOverlay.style.display = "flex";
+                document.body.style.overflow = "hidden";
+            })
+            .catch(err => {
+                alert("모달을 불러오지 못했습니다.\n" + err.message);
+                console.error(err);
+            });
+    };
+
+    window.closeModal = function () {
+        const modalBody = document.getElementById("modalBody");
+        const modalOverlay = document.getElementById("modalOverlay");
+
+        if (modalBody && modalOverlay) {
+            modalBody.innerHTML = "";
+            modalOverlay.style.display = "none";
+            document.body.style.overflow = "";
+        }
+    };
+
+    window.confirmBuy = function () {
+        alert("구매가 확정되었습니다!");
+        closeModal();
+    };
+});
