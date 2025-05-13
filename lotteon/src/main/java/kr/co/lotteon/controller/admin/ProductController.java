@@ -91,22 +91,25 @@ public class ProductController {
     }
 
     // 상품 수정 폼 조회
-//    @GetMapping("/admin/product/modifyView/{pid}")
-//    public String modifyView(@PathVariable int pid, Model model) {
-//        ProductFormDTO productFormDTO = productService.modifyView(pid);
-//        model.addAttribute("productFormDTO", productFormDTO);
-//
-//        log.info("list : {}", productFormDTO);
-//
-//        return "/admin/product/modify";
-//    }
-//
-//    // 상품 수정
-//    @PostMapping("/admin/product/modifyView/{pid}")
-//    public String modifyProduct(@PathVariable int pid, @ModelAttribute ProductFormDTO productFormDTO) {
-//
-//        productService.modifyProduct(pid, productFormDTO);
-//        return "redirect:/admin/product/list";
-//    }
+    @GetMapping("/admin/product/modifyView/{pid}")
+    public String modifyView(@PathVariable int pid, Model model) {
+        ProductFormDTO productFormDTO = productService.modifyView(pid);
+
+        List<CategoryDTO> categories1 = categoryService.getCategories1();
+        model.addAttribute("categories1", categories1);
+
+        model.addAttribute("productFormDTO", productFormDTO);
+        log.info("list : {}", productFormDTO);
+
+        return "/admin/product/modify";
+    }
+
+    // 상품 수정
+    @PostMapping("/admin/product/modifyView/{pid}")
+    public String modifyProduct(@PathVariable int pid, @ModelAttribute ProductFormDTO productFormDTO) {
+
+        productService.modifyProduct(pid, productFormDTO);
+        return "redirect:/admin/product/list";
+    }
 
 }
