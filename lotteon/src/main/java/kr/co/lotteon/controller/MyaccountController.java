@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 import java.util.Optional;
 
 @Controller
@@ -27,6 +28,7 @@ public class MyaccountController {
 
 
     private final JavaMailSenderImpl mailSender;
+    private final UsersService usersService;
 
     @GetMapping("/myaccount/home")
     public String home(HttpSession session) {
@@ -74,26 +76,28 @@ public class MyaccountController {
         return "/myaccount/info";
     }
 
-
-    private final UsersService usersService;
-
     @PostMapping("/myaccount/info-update")
     public String updateUserInfo(@ModelAttribute UsersDTO dto, HttpSession session) {
         Users loginUser = (Users) session.getAttribute("user");
 
         if (loginUser != null) {
+            // 사용자가 입력한 정보로 업데이트
             loginUser.setEmail(dto.getEmail());
             loginUser.setHp(dto.getHp());
             loginUser.setZip(dto.getZip());
             loginUser.setAddr1(dto.getAddr1());
             loginUser.setAddr2(dto.getAddr2());
 
-            Users updateUser = usersService.findById(loginUser.getUid()).orElse(loginUser);
+            // DB에 저장
+            usersService.save(loginUser); // 사용자 정보를 DB에 저장
+
+            // 세션에 저장된 사용자 정보 갱신
             session.setAttribute("user", loginUser);
         }
 
         return "redirect:/myaccount/info";
     }
+
 
     @PostMapping("/auth/sendCode")
     @ResponseBody

@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface ProductOptionItemRepository extends JpaRepository<ProductOptionItem, Integer> {
     List<ProductOptionItem> findByProductOption(ProductOption option);
+    void deleteByProductOption(ProductOption productOption);
 }

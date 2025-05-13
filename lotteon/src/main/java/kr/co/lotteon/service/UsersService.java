@@ -4,8 +4,6 @@ import jakarta.mail.Message;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpSession;
-import kr.co.lotteon.dto.PageRequestDTO;
-import kr.co.lotteon.dto.PageResponseDTO;
 import kr.co.lotteon.dto.SellerDTO;
 import kr.co.lotteon.dto.UsersDTO;
 import kr.co.lotteon.entity.Seller;
@@ -13,22 +11,14 @@ import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.repository.SellerRepository;
 import kr.co.lotteon.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
-//import lombok.Value;
 import org.springframework.beans.factory.annotation.Value;
-import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
 public class UsersService {
@@ -37,7 +27,32 @@ public class UsersService {
     private final BCryptPasswordEncoder passwordEncoder;
     private final HttpSession session;
     private final SellerRepository sellerRepository;
+    private final JavaMailSender mailSender;
 
+    @Value("${spring.mail.username}")
+    private String sender;
+
+    // 회원 정보 수정
+    public void updateUserInfo(String uid, String email, String hp, String addr1, String addr2, String zip) {
+        Optional<Users> optUser = usersRepository.findByUid(uid);
+
+        if (optUser.isPresent()) {
+            Users user = optUser.get();
+            // 기존 정보를 갱신
+            user.setEmail(email);
+            user.setHp(hp);
+            user.setAddr1(addr1);
+            user.setAddr2(addr2);
+            user.setZip(zip);
+
+            // 저장
+            usersRepository.save(user);
+        } else {
+            throw new RuntimeException("사용자를 찾을 수 없습니다.");
+        }
+    }
+
+    // 회원 가입
     public void saveUser(UsersDTO dto) {
         Users user = Users.builder()
                 .uid(dto.getUid())
@@ -51,7 +66,7 @@ public class UsersService {
                 .zip(dto.getZip())
                 .birth(dto.getBirth())
                 .role("USER")              // 기본값 부여
-                .status("정상")          // 기본값 부여
+                .status("정상")            // 기본값 부여
                 .grade("basic")            // 등급도 기본 지정 가능
                 .point(0)
                 .build();
@@ -59,34 +74,43 @@ public class UsersService {
         usersRepository.save(user);
     }
 
+    // 로그인
     public Users login(String uid, String password) {
         return usersRepository.findByUid(uid)
                 .filter(user -> passwordEncoder.matches(password, user.getPassword())) //
                 .orElse(null);
     }
 
-    public Optional<Users> findById(String uid) {
-        return usersRepository.findById(uid);
+    // 비밀번호 변경
+    public void updatePassword(String uid, String rawPassword) {
+        Optional<Users> optUser = usersRepository.findByUid(uid);
+
+        if (optUser.isPresent()) {
+            Users user = optUser.get();
+            String encryptedPassword = passwordEncoder.encode(rawPassword);
+            user.setPassword(encryptedPassword);
+            usersRepository.save(user);
+        } else {
+            throw new RuntimeException("사용자를 찾을 수 없습니다.");
+        }
     }
 
+    // 중복 체크 (아이디)
     public int countByUid(String uid) {
         return usersRepository.countByUid(uid);
     }
 
-
+    // 중복 체크 (전화번호)
     public int countByHp(String hp) {
         return usersRepository.countByHp(hp);
     }
 
-    private final JavaMailSender mailSender;
-
-    @Value("${spring.mail.username}")
-    private String sender;
-
+    // 중복 체크 (이메일)
     public int countByEmail(String email) {
         return usersRepository.countByEmail(email);
     }
 
+    // 이메일 인증 코드 전송
     public String sendEmailCode(String receiver) {
         try {
             MimeMessage message = mailSender.createMimeMessage();
@@ -110,6 +134,7 @@ public class UsersService {
         }
     }
 
+    // 판매자 등록
     public void saveSeller(SellerDTO dto) {
         Seller seller = Seller.builder()
                 .aid(dto.getAid())
@@ -129,46 +154,23 @@ public class UsersService {
         sellerRepository.save(seller);
     }
 
-
+    // 판매자 아이디 중복 체크
     public long countByAid(String aid) {
         return sellerRepository.countByAid(aid);
     }
 
-    // UsersService
+    // 이름과 이메일로 사용자 찾기
     public Optional<Users> findByNameAndEmail(String uname, String email) {
         return usersRepository.findByUnameAndEmail(uname, email);
     }
 
-
+    // 아이디와 이메일로 사용자 찾기
     public Optional<Users> findByUidAndEmail(String uid, String email) {
         return usersRepository.findByUidAndEmail(uid, email);
     }
 
+    // 사용자 저장
     public void save(Users user) {
         usersRepository.save(user);
     }
-
-    // UsersService.java
-    public void updatePassword(String uid, String rawPassword) {
-        Optional<Users> optUser = usersRepository.findByUid(uid);
-
-        if (optUser.isPresent()) {
-            Users user = optUser.get();
-            String encryptedPassword = passwordEncoder.encode(rawPassword);
-            user.setPassword(encryptedPassword);
-            usersRepository.save(user);
-        } else {
-            throw new RuntimeException("사용자를 찾을 수 없습니다.");
-        }
-    }
-
-
-
-
-
-
-
 }
-
-
-
