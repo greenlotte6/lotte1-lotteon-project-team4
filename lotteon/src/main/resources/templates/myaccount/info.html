@@ -22,7 +22,8 @@
             <h2>나의 설정</h2>
 
             <!-- 전체 정보 저장용 form -->
-            <form action="/myaccount/update" method="post">
+            <form action="/myaccount/info-update" method="post">
+
                 <table>
                     <tr>
                         <td class="label">사용자 ID</td>
@@ -34,7 +35,7 @@
                     </tr>
                     <tr>
                         <td class="label">이름</td>
-                        <td>김 *학</td>
+                        <td>김*학</td>
                     </tr>
                     <tr>
                         <td class="label">생년 월일</td>
@@ -44,7 +45,7 @@
                         <td class="label">Email</td>
                         <td>
                             <div>
-                                <input class="text-le" type="text" placeholder="아이디 입력" id="emailId" name="emailId"> @
+                                <input class="text-le" type="text" placeholder="이메일 입력" id="emailId" name="emailId"> @
                                 <input class="text-le" type="text" id="emailaddr" name="emailDomain" placeholder="주소 입력" disabled>
 
                                 <select id="domainSelect" onchange="updateDomain()">
@@ -66,16 +67,19 @@
                         </td>
                     </tr>
 
-                    <td class="label">휴대폰</td>
-                    <td>
-                        <div class="phone-box">
-                            <input type="tel" placeholder="010" name="phone1" id="phone1"> -
-                            <input type="tel" placeholder="1234" name="phone2" id="phone2"> -
-                            <input type="tel" placeholder="5678" name="phone3" id="phone3">
-                            <button type="button" class="btn-black">수정하기</button>
-                        </div>
-                    </td>
+                    <tr>
+                        <td class="label">휴대폰</td>
+                        <td>
+                            <div class="phone-box">
+                                <input type="tel" placeholder="010" name="phone1" id="phone1"> -
+                                <input type="tel" placeholder="1234" name="phone2" id="phone2"> -
+                                <input type="tel" placeholder="5678" name="phone3" id="phone3">
+                                <button type="button" class="btn-black" id="phoneUpdateButton">휴대폰 번호 확인</button>
+                            </div>
+                            <span id="phoneValidationResult" style="color: red;"></span> <!-- 유효성 검사 결과 표시 -->
+                        </td>
                     </tr>
+
                     <tr>
                         <td class="label">주소</td>
                         <td>
@@ -111,6 +115,7 @@
         function updateDomain() {
             const domainSelect = document.getElementById("domainSelect");
             const emailaddr = document.getElementById("emailaddr");
+            const emailId = document.getElementById("emailId");
 
             if (domainSelect.value === "direct") {
                 emailaddr.disabled = false;
@@ -119,6 +124,10 @@
                 emailaddr.disabled = true;
                 emailaddr.value = domainSelect.value;
             }
+
+            // 이메일 조합하여 숨겨진 input에 값 설정
+            const fullEmail = `${emailId.value.trim()}@${emailaddr.value.trim()}`;
+            document.getElementById("fullEmail").value = fullEmail;
         }
 
         // 인증 코드 발송
@@ -170,7 +179,40 @@
                 });
         }
 
-        // 이벤트 리스너 추가
+        // 전화번호 유효성 검사
+        function validatePhone() {
+            const phone1 = document.getElementById("phone1").value.trim();
+            const phone2 = document.getElementById("phone2").value.trim();
+            const phone3 = document.getElementById("phone3").value.trim();
+
+            const phoneValidationResult = document.getElementById("phoneValidationResult");
+            const phonePattern = /^\d{3}-\d{4}-\d{4}$/;
+
+            if (!phone1 || !phone2 || !phone3) {
+                phoneValidationResult.textContent = "모든 전화번호를 입력해주세요.";
+                phoneValidationResult.style.color = "red";
+                return false;
+            }
+
+            const phone = `${phone1}-${phone2}-${phone3}`;
+            if (phonePattern.test(phone)) {
+                phoneValidationResult.textContent = "사용 가능한 번호입니다.";
+                phoneValidationResult.style.color = "green";
+                return true;
+            } else {
+                phoneValidationResult.textContent = "유효하지 않은 번호입니다.";
+                phoneValidationResult.style.color = "red";
+                return false;
+            }
+        }
+
+        // 전화번호 수정 버튼 클릭 시 유효성 검사
+        const phoneUpdateButton = document.getElementById("phoneUpdateButton");
+        if (phoneUpdateButton) {
+            phoneUpdateButton.addEventListener("click", validatePhone);
+        }
+
+        // 이메일 관련 이벤트 설정
         const sendButton = document.getElementById("sendEmailCodeButton");
         if (sendButton) {
             sendButton.addEventListener("click", sendEmailCode);
