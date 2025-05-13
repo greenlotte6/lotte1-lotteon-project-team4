@@ -106,6 +106,19 @@ public class MyaccountController {
 
     private final UsersRepository usersRepository;
 
+    @PostMapping("/auth/verifyCode")
+    @ResponseBody
+    public String verifyEmailCode(@RequestParam String code, HttpSession session) {
+        String authCode = (String) session.getAttribute("authCode");
+
+        if (authCode != null && authCode.equals(code)) {
+            return "success";
+        } else {
+            return "fail";
+        }
+    }
+
+
 
 
     @GetMapping("/myaccount/delete")
