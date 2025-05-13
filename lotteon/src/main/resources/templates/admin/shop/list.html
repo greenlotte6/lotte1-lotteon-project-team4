@@ -16,6 +16,15 @@
     <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
     <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
     <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            $('.hover').click(function (e) {
+                $(this).parent().toggleClass('active');
+            })
+
+
+        });
         function handleToggleMgmt(btn) {
             const aid = btn.getAttribute("data-aid");
             const currentStatus = btn.getAttribute("data-status");

@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import kr.co.lotteon.dto.OrdersDTO;
 import kr.co.lotteon.dto.PageRequestDTO;
 import kr.co.lotteon.dto.PageResponseDTO;
+import kr.co.lotteon.entity.Orders;
 import kr.co.lotteon.service.admin.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    // 주문 현황 조회
     @GetMapping("/admin/order/list")
     public String list(PageRequestDTO pageRequestDTO, Model model) {
         PageResponseDTO<OrdersDTO> pageResponseDTO = orderService.findById(pageRequestDTO);
@@ -24,6 +26,7 @@ public class OrderController {
         return "/admin/order/list";
     }
 
+    // 주문 현황 검색
     @GetMapping("/admin/order/search")
     public String searchList(PageRequestDTO pageRequestDTO, Model model) {
         PageResponseDTO<OrdersDTO> pageResponseDTO = orderService.searchList(pageRequestDTO);
@@ -39,6 +42,13 @@ public class OrderController {
         }
 
         return "/admin/order/delivery";
+    }
+
+    // 배송 정보 입력 데이터 불러오기
+    @GetMapping("admin/order/deliveryDetail")
+    public String deliveryDetail(@RequestParam("oid") int oid, Model model) {
+
+        return "/admin/order/list";
     }
 
 }

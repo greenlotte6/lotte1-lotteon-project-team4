@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -81,18 +82,17 @@ public class OrderService {
             ordersPage = ordersRepository.findAll(pageable);
         }
 
-
         List<OrdersDTO> ordersDTOList = ordersPage.getContent().stream()
                 .map(order -> {
+
                     OrdersDTO ordersDTO = modelMapper.map(order, OrdersDTO.class);
-
-                    if (order.getUsers() == null) {
-                        ordersDTO.setUsers_uid(order.getUsers().getUid());
-                        ordersDTO.setUname(order.getUsers().getUname());
-                    }
-
+                    ordersDTO.setUsers_uid(order.getUsers().getUid());
+                    ordersDTO.setUname(order.getUsers().getUname());
+                    ordersDTO.setPname(order.getOrderItems().stream()
+                            .map(orderItem -> orderItem.getProducts().getPname())
+                            .collect(Collectors.joining(",")));
                     return ordersDTO;
-                }).toList();
+                }).collect(Collectors.toList());
 
         int total = (int) ordersPage.getTotalElements();
 
@@ -103,6 +103,25 @@ public class OrderService {
                 .dtoList(ordersDTOList)
                 .build();
 
+    }
+
+    // 배송 정보 입력 데이터 불러오기
+    public void deliveryDetail(int oid) {
+        Optional<Orders> optOrders = ordersRepository.findById(oid);
+
+        if (optOrders.isPresent()) {
+            Orders orders = optOrders.get();
+            OrdersDTO ordersDTO = modelMapper.map(orders, OrdersDTO.class);
+            ordersDTO.setOid(orders.getOid());
+            ordersDTO.setRecipient(orders.getRecipient());
+            ordersDTO.setZip(orders.getUsers().getZip());
+            ordersDTO.setAddr1(orders.getUsers().getAddr1());
+            ordersDTO.setAddr2(orders.getUsers().getAddr2());
+
+        }
+
+        //ordersDTO.setDelivery_company();
+        // delivery_at
     }
 
 }
