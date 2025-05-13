@@ -62,16 +62,18 @@
             // 옵션 추가 버튼 클릭 시 동적으로 옵션 필드 추가
             $(document).ready(function () {
                 $('.plusOption button').click(function () {
+                    let optionIndex = $('.logo-view table tr').length;
                     let newRow = `
-                <tr>
-                    <td>옵션${$('.logo-view table tr').length + 1}</td>
-                    <td><input type="text" name="option${$('.logo-view table tr').length + 1}"></td>
-                    <td class="option">옵션${$('.logo-view table tr').length + 1} 항목</td>
-                    <td class="detail"><input type="text" name="option${$('.logo-view table tr').length + 1}-detail"></td>
-                </tr>
-            `;
+                        <tr>
+                            <td>옵션${optionIndex + 1}</td>
+                            <td><input type="text" name="options[${optionIndex}].optionName" required></td>
+                            <td class="option">옵션${optionIndex + 1} 항목</td>
+                            <td class="detail"><input type="text" name="options[${optionIndex}].optionItems" required></td>
+                        </tr>
+                        `;
                     $('.logo-view table').append(newRow);
                 });
+
             });
 
             // 폼 유효성 검사
@@ -319,9 +321,10 @@
                                 <tr>
                                     <td>1차 분류</td>
                                     <td>
-                                        <select id="category1" name="category_id" required>
+                                        <select id="category1" name="category1_id" required>
                                             <option value="">1차 분류 선택</option>
-                                            <option th:each="cate1 : ${categories1}" th:value="${cate1.cateId}"
+                                            <option th:each="cate1 : ${categories1}"
+                                                    th:value="${cate1.cateId}"
                                                     th:text="${cate1.name}"></option>
                                         </select>
                                     </td>
@@ -329,7 +332,7 @@
                                 <tr>
                                     <td>2차 분류</td>
                                     <td>
-                                        <select id="category2" name="category_id" required>
+                                        <select id="category2" name="category2_id" required>
                                             <option value="">2차 분류 선택</option>
                                         </select>
                                     </td>
@@ -419,9 +422,9 @@
                             <table>
                                 <tr>
                                     <td>옵션1</td>
-                                    <td><input type="text" name="optionName" required></td>
+                                    <td><input type="text" name="options[0].optionName" required></td>
                                     <td class="option">옵션1 항목</td>
-                                    <td class="detail"><input type="text" name="optionItems" required></td>
+                                    <td class="detail"><input type="text" name="options[0].optionItems" required></td>
                                 </tr>
                             </table>
                         </div>

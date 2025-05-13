@@ -31,7 +31,8 @@ public class ProductFormDTO {
     private int productCompliance_compliance_id;
 
     // 카테고리 정보
-    private int category_id; // 2차 카테고리 ID
+    private int category1_id;
+    private int category2_id;
 
     // 이미지 파일
     private MultipartFile img_file_1; // 상품 목록 이미지
