@@ -20,6 +20,7 @@
     <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
 </head>
 <script>
+
     document.addEventListener('DOMContentLoaded', function () {
 
         $('.hover').click(function (e) {
@@ -44,12 +45,34 @@
         });
 
         //등록 버튼 클릭 시 배송입력 모달 열기
-        document.querySelector(".delivery-btn").addEventListener('click', () => {
-            openModal('delivery-modal');
-        });
+        // document.querySelector(".delivery-btn").addEventListener('click', () => {
+        //     openModal('delivery-modal');
+        // });
 
 
     });
+
+
+    // 배송 입력 모달 AJAX
+    function openDeliveryModal(oid) {
+        fetch(`/admin/order/deliveryDetail?oid=` + oid)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                document.querySelector('div.order-num p').textContent = data.oid;
+                document.querySelector('input[name="oid"]').value = data.oid;
+                document.querySelector('input[name="recipient"]').value = data.recipient;
+                document.querySelector('input[name="zip"]').value = data.zip;
+                document.querySelector('input[name="addr1"]').value = data.addr1;
+                document.querySelector('input[name="addr2"]').value = data.addr2;
+                document.querySelector('select[name="delivery_company"]').value = data.delivery_company;
+                document.querySelector('input[name="delivery_num"]').value = data.delivery_num;
+                document.querySelector('input[name="other"]').value = data.other;
+
+                document.querySelector('.delivery-modal').style.display = 'block';
+
+            });
+    }
 
 
 </script>
@@ -101,7 +124,9 @@
                             <tbody>
                             <tr th:each="order, i:${pageResponseDTO.dtoList}">
                                 <td>
-                                    <button th:value="${order.oid}" onclick="openModal()" class="btn detail-btn">[[${order.oid}]]</button>
+                                    <button th:value="${order.oid}" onclick="openModal()" class="btn detail-btn">
+                                        [[${order.oid}]]
+                                    </button>
                                 </td>
                                 <td>[[${order.Users_uid}]]</td>
                                 <td>[[${order.uname}]]</td>
@@ -112,7 +137,10 @@
                                 <td class="green">[[${order.order_status}]]</td>
                                 <td>[[${order.order_date}]]</td>
                                 <td>
-                                    <button type="button" onclick="openModal()" class="btn delivery-btn">배송정보입력</button>
+                                    <button type="button" th:onclick="'openDeliveryModal(' + ${order.oid} + ')'"
+                                            class="btn delivery-btn">
+                                        배송정보입력
+                                    </button>
                                 </td>
                             </tr>
                             <tr th:if="${#lists.isEmpty(pageResponseDTO.dtoList)}">
@@ -128,7 +156,7 @@
 
                         <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
                             <a th:href="@{/admin/order/list(pg=${num})}"
-                                th:class="${num == pageResponseDTO.pg} ? 'currnt':'num'">[[${num}]]</a>
+                               th:class="${num == pageResponseDTO.pg} ? 'currnt':'num'">[[${num}]]</a>
                         </th:block>
 
                         <th:block th:if="${pageResponseDTO.next}">
@@ -179,17 +207,6 @@
                             <td>3</td>
                             <td>0</td>
                             <td>68,400</td>
-                        </tr>
-                        <tr>
-                            <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
-                            <td>121212121</td>
-                            <td>000000</td>
-                            <td>(주)상호명</td>
-                            <td>35,000</td>
-                            <td>-3,200</td>
-                            <td>1</td>
-                            <td>3,000</td>
-                            <td>34,500</td>
                         </tr>
                     </table>
                 </div>
@@ -266,66 +283,69 @@
 
 <!-- 배송입력 모달 -->
 <div class="modal-overlay delivery-modal">
+
     <div class="container modal">
         <div class="title">
             <div class="order-num">
                 <h2>배송입력</h2>
-                <p>123456789</p>
+                <p></p>
             </div>
             <button class="X close-btn" onclick="closeModal()">
                 X
             </button>
         </div>
-        <div class="content">
-            <div class="form">
-                <form action="#">
+        <form th:action="@{/admin/order/deliveryDetail}" method="post">
+            <div class="content">
+                <div class="form">
                     <table>
                         <tr>
                             <td>주문번호</td>
-                            <td><input type="text" class="num" value="000000000" readonly></td>
+                            <td><input type="text" class="num" name="oid" readonly></td>
                         </tr>
                         <tr>
                             <td>수령인</td>
-                            <td><input type="text" value="홍길동"></td>
+                            <td><input type="text" name="recipient" readonly></td>
                         </tr>
                         <tr>
                             <td>우편번호</td>
-                            <td><input type="text" value="12345"></td>
+                            <td><input type="text" name="zip" readonly></td>
                         </tr>
                         <tr>
                             <td>기본주소</td>
-                            <td><input type="text" class="addr1" value="부산광역시 진구 부전동 123"></td>
+                            <td><input type="text" class="addr1" name="addr1" readonly></td>
                         </tr>
                         <tr>
                             <td>상세주소</td>
-                            <td><input type="text" class="addr2" value="00아파트 1층 101호"></td>
+                            <td><input type="text" class="addr2" name="addr2" readonly></td>
                         </tr>
                         <tr>
                             <td>택배사</td>
                             <td>
-                                <select name="" id="">
-                                    <option value="">로젠택배</option>
-                                    <option value="">한진택배</option>
-                                    <option value="">우체국</option>
-                                    <option value="">CJ대한통운</option>
+                                <select name="delivery_company">
+                                    <option value="로젠택배">로젠택배</option>
+                                    <option value="한진택배">한진택배</option>
+                                    <option value="우체국">우체국</option>
+                                    <option value="CJ대한통운">CJ대한통운</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td>운송장 번호</td>
-                            <td><input type="text" class="dlivery-num" placeholder="발급받은 택배사 송장 번호 입력"></td>
+                            <td><input type="text" name="delivery_num" class="dlivery-num"
+                                       placeholder="발급받은 택배사 송장 번호 입력"></td>
                         </tr>
                         <tr>
                             <td>기타</td>
-                            <td><input type="text" class="others" placeholder="기타 정보 입력"></td>
+                            <td><input type="text" name="other" class="others" placeholder="기타 정보 입력" readonly></td>
                         </tr>
                     </table>
-                </form>
+
+                </div>
             </div>
-        </div>
-        <div class="button">
-            <button class="register">등록하기</button>
-        </div>
+            <div class="button">
+                <button type="submit" class="register">등록하기</button>
+            </div>
+        </form>
     </div>
 </div>
 <th:block th:include="/common/_admin_footer"/>

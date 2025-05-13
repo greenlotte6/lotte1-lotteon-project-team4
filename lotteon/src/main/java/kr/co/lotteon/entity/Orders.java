@@ -39,6 +39,6 @@ public class Orders {
     @OneToMany(mappedBy = "orders")
     private List<OrderItem> orderItems;
 
-    private String Recipient;
+    private String recipient;
 
 }

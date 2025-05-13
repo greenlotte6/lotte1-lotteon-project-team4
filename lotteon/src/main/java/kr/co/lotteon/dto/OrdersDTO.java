@@ -1,5 +1,6 @@
 package kr.co.lotteon.dto;
 
+import kr.co.lotteon.entity.Delivery;
 import kr.co.lotteon.entity.Orders;
 import kr.co.lotteon.entity.Products;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class OrdersDTO {
     private String order_status;
     private LocalDateTime order_date;
     private String shipping_status;
-    private String Recipient;
+    private String recipient;
 
     // 추가 필드
     private String uname;
@@ -33,5 +34,7 @@ public class OrdersDTO {
     private String addr2;
     private String zip;
     private String delivery_company;
+    private String delivery_num;
+    private String other;
 
 }
