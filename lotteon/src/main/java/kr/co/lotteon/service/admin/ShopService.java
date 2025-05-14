@@ -148,6 +148,8 @@ public class ShopService {
             seller.setStatusClass("blue");
         }
 
+
+
         sellerRepository.save(seller);
     }
 
@@ -232,47 +234,4 @@ public class ShopService {
                 .build();
 
     }
-
-    public void toggleMgmtStatus(String aid) {
-        Optional<Seller> optSeller = sellerRepository.findById(aid);
-        optSeller.ifPresent(seller -> {
-            String newStatus = "중단".equals(seller.getMgmt()) ? "승인" : "중단";
-            seller.setMgmt(newStatus);
-            sellerRepository.save(seller);
-        });
-    }
-
-    public void toggleStatus(String aid) {
-        log.info("toggleStatus() 메서드 실행 - aid: {}", aid);
-        Optional<Seller> sellerOpt = sellerRepository.findById(aid);
-        if (sellerOpt.isPresent()) {
-            Seller seller = sellerOpt.get();
-            log.info("조회된 Seller 정보: {}", seller);
-            SystemStatus currentStatus = seller.getStatus();
-            log.info("현재 상태: {}", currentStatus);
-            SystemStatus newStatus;
-            String operationText;
-            String statusClass;
-
-            if (currentStatus == null || currentStatus == SystemStatus.READY || currentStatus == SystemStatus.STOPPED) {
-                newStatus = SystemStatus.OPERATING;
-                operationText = "[운영중]";
-                statusClass = "green";
-            } else {
-                newStatus = SystemStatus.STOPPED;
-                operationText = "[운영중지]";
-                statusClass = "red";
-            }
-            seller.setStatus(newStatus);
-            seller.setOperationText(operationText);
-            seller.setStatusClass(statusClass);
-            sellerRepository.save(seller);
-            log.info("상태 변경 완료 - aid: {}, 새로운 상태: {}, operationText: {}, statusClass: {}", aid, newStatus, operationText, statusClass);
-        } else {
-            log.warn("toggleStatus() - aid에 해당하는 Seller를 찾을 수 없습니다: {}", aid);
-        }
-        log.info("toggleStatus() 메서드 종료 - aid: {}", aid);
-    }
-
-
 }
