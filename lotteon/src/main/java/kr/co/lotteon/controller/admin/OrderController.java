@@ -69,7 +69,7 @@ public class OrderController {
     // 주문상세 보기
     @GetMapping("/admin/order/orderDetail")
     @ResponseBody
-    public OrdersDTO orderDetail(@RequestParam("oid") int oid) {
+    public List<OrdersDTO> orderDetail(@RequestParam("oid") int oid) {
         return orderService.orderDetail(oid);
 
     }
