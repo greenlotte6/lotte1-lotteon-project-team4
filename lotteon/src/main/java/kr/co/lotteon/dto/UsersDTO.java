@@ -39,6 +39,35 @@ public class UsersDTO {
     private String other;
     private String birth;
 
+    public UsersDTO(String uid, String uname, String birth) {
+        this.uid = uid;
+        this.uname = uname;
+        this.birth = birth;
+    }
+    public String getMaskedUname() {
+        if (uname == null || uname.length() < 2) return uname;
+
+        int length = uname.length();
+        if (length == 2) {
+            return uname.charAt(0) + "*";
+        } else {
+            StringBuilder sb = new StringBuilder();
+            sb.append(uname.charAt(0));
+            for (int i = 1; i < length - 1; i++) {
+                sb.append("*");
+            }
+            sb.append(uname.charAt(length - 1));
+            return sb.toString();
+        }
+    }
+
+    public String getMaskedUid() {
+        if (uid == null || uid.length() < 4) return uid;
+
+        int length = uid.length();
+        return uid.substring(0, length - 4) + "****";
+    }
+
     // 추가 필드
     private int point_id;
     private boolean selected;

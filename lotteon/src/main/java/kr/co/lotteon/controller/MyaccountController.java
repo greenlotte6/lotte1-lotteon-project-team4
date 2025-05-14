@@ -1,6 +1,9 @@
 package kr.co.lotteon.controller;
 
 import kr.co.lotteon.entity.Seller;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -22,6 +25,7 @@ import java.util.List;
 
 import java.util.Optional;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class MyaccountController {
@@ -29,6 +33,8 @@ public class MyaccountController {
 
     private final JavaMailSenderImpl mailSender;
     private final UsersService usersService;
+    private final UsersRepository usersRepository;
+
 
     @GetMapping("/myaccount/home")
     public String home(HttpSession session) {
@@ -71,7 +77,15 @@ public class MyaccountController {
     }
 
     @GetMapping("/myaccount/info")
-    public String info() {
+    public String info(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        // 로그인한 사용자 정보에서 아이디 추출
+        String userId = userDetails.getUsername(); // 또는 userDetails.getUserId() 등
+
+        // DB에서 사용자 정보 가져오기 (예시)
+        UsersDTO userDto = usersService.getUserInfoByUserId(userId);
+
+        // 모델에 담기
+        model.addAttribute("user", userDto);
 
         return "/myaccount/info";
     }
@@ -81,23 +95,19 @@ public class MyaccountController {
         Users loginUser = (Users) session.getAttribute("user");
 
         if (loginUser != null) {
-            // 사용자가 입력한 정보로 업데이트
-            loginUser.setEmail(dto.getEmail());
-            loginUser.setHp(dto.getHp());
-            loginUser.setZip(dto.getZip());
-            loginUser.setAddr1(dto.getAddr1());
-            loginUser.setAddr2(dto.getAddr2());
-
-            // DB에 저장
-            usersService.save(loginUser); // 사용자 정보를 DB에 저장
-
-            // 세션에 저장된 사용자 정보 갱신
-            session.setAttribute("user", loginUser);
+            usersService.updateUserInfo(
+                    loginUser.getUid(),
+                    dto.getEmail(),
+                    dto.getHp(),
+                    dto.getAddr1(),
+                    dto.getAddr2(),
+                    dto.getZip(),
+                    session
+            );
         }
 
         return "redirect:/myaccount/info";
     }
-
 
     @PostMapping("/auth/sendCode")
     @ResponseBody
@@ -122,7 +132,6 @@ public class MyaccountController {
         return "sent";
     }
 
-    private final UsersRepository usersRepository;
 
     @PostMapping("/auth/verifyCode")
     @ResponseBody

@@ -1,18 +1,21 @@
 package kr.co.lotteon.service;
 
-import jakarta.mail.Message;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import kr.co.lotteon.dto.SellerDTO;
+import kr.co.lotteon.dto.UsersDTO;
 import kr.co.lotteon.dto.UsersDTO;
 import kr.co.lotteon.entity.Seller;
 import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.repository.SellerRepository;
 import kr.co.lotteon.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
+@Slf4j
 public class UsersService {
 
     private final UsersRepository usersRepository;
@@ -32,23 +37,37 @@ public class UsersService {
     @Value("${spring.mail.username}")
     private String sender;
 
-    // 회원 정보 수정
-    public void updateUserInfo(String uid, String email, String hp, String addr1, String addr2, String zip) {
-        Optional<Users> optUser = usersRepository.findByUid(uid);
+    // ✅ 사용자 정보 조회 by userId(uid)
+    public UsersDTO getUserInfoByUserId(String userId) {
+        Users user = usersRepository.findByUid(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+        return new UsersDTO(user.getUid(), user.getUname(), user.getBirth().toString());
+    }
 
-        if (optUser.isPresent()) {
-            Users user = optUser.get();
-            // 기존 정보를 갱신
+    // 회원 정보 수정
+    public void updateUserInfo(String uid, String email, String hp, String addr1, String addr2, String zip, HttpSession session) {
+        Optional<Users> optionalUser = usersRepository.findByUid(uid);
+        if (optionalUser.isPresent()) {
+            Users user = optionalUser.get();
+
+            log.info("기존값 vs 새값");
+            log.info("email: {} -> {}", user.getEmail(), email);
+            log.info("hp: {} -> {}", user.getHp(), hp);
+            log.info("addr1: {} -> {}", user.getAddr1(), addr1);
+            log.info("addr2: {} -> {}", user.getAddr2(), addr2);
+            log.info("zip: {} -> {}", user.getZip(), zip);
+
             user.setEmail(email);
             user.setHp(hp);
             user.setAddr1(addr1);
             user.setAddr2(addr2);
             user.setZip(zip);
 
-            // 저장
+            session.setAttribute("user", user);
             usersRepository.save(user);
-        } else {
-            throw new RuntimeException("사용자를 찾을 수 없습니다.");
+            usersRepository.flush();
+
+            log.info("DB에 사용자 정보 저장 완료: {}", user);
         }
     }
 
@@ -65,9 +84,9 @@ public class UsersService {
                 .addr2(dto.getAddr2())
                 .zip(dto.getZip())
                 .birth(dto.getBirth())
-                .role("USER")              // 기본값 부여
-                .status("정상")            // 기본값 부여
-                .grade("basic")            // 등급도 기본 지정 가능
+                .role("USER")
+                .status("정상")
+                .grade("basic")
                 .point(0)
                 .build();
 
@@ -77,14 +96,13 @@ public class UsersService {
     // 로그인
     public Users login(String uid, String password) {
         return usersRepository.findByUid(uid)
-                .filter(user -> passwordEncoder.matches(password, user.getPassword())) //
+                .filter(user -> passwordEncoder.matches(password, user.getPassword()))
                 .orElse(null);
     }
 
     // 비밀번호 변경
     public void updatePassword(String uid, String rawPassword) {
         Optional<Users> optUser = usersRepository.findByUid(uid);
-
         if (optUser.isPresent()) {
             Users user = optUser.get();
             String encryptedPassword = passwordEncoder.encode(rawPassword);
@@ -125,8 +143,7 @@ public class UsersService {
 
             mailSender.send(message);
 
-            session.setAttribute("authCode", String.valueOf(code)); // 세션 저장
-
+            session.setAttribute("authCode", String.valueOf(code));
             return String.valueOf(code);
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,7 +165,7 @@ public class UsersService {
                 .zip(dto.getZip())
                 .addr1(dto.getAddr1())
                 .addr2(dto.getAddr2())
-                .role("SELLER") // 판매자 역할 지정
+                .role("SELLER")
                 .build();
 
         sellerRepository.save(seller);
