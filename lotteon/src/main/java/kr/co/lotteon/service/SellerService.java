@@ -71,10 +71,9 @@ public class SellerService {
         return sellerRepository.findByAid(aid);
     }
 
-
-
-
-
+    public Optional<Seller> getSellerByCompany(String company) {
+        return sellerRepository.findByCompany(company);
+    }
 
 
 

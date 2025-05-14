@@ -193,20 +193,14 @@ public class MyaccountController {
     }
 
     private final SellerService sellerService;
-    
+
     @GetMapping("/myaccount/seller-modal")
-    public String sellerModal(HttpSession session, Model model) {
-        Users loginUser = (Users) session.getAttribute("user");
-
-        if (loginUser != null) {
-            String sellerId = loginUser.getUid(); // 또는 getId()
-            Seller seller = sellerService.getSellerByUid(sellerId).orElse(null);
-
-            model.addAttribute("seller", seller);
-        }
-
-        return "/myaccount/seller :: modalContent"; // Thymeleaf Fragment
+    public String sellerModal(@RequestParam String company, Model model) {
+        Seller seller = sellerService.getSellerByCompany(company).orElse(null);
+        model.addAttribute("seller", seller);
+        return "/myaccount/seller :: modalContent"; // Thymeleaf fragment
     }
+
 
 
     @GetMapping("/myaccount/order-details-modal")

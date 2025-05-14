@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import kr.co.lotteon.contant.SellerLevel;
 import kr.co.lotteon.entity.Seller;
 import kr.co.lotteon.entity.SystemStatus;
 import lombok.AllArgsConstructor;
@@ -41,18 +42,9 @@ public class SellerDTO {
     private SystemStatus status = SystemStatus.READY;
 
 
-    public SellerDTO(Seller seller) {
-        this.status = seller.getStatus() != null ? seller.getStatus() : SystemStatus.READY;
-        if (this.status == SystemStatus.OPERATING) {
-            this.operationText = "[운영중]";
-            this.statusClass = "green";
-        } else if (this.status == SystemStatus.STOPPED) {
-            this.operationText = "[운영중지]";
-            this.statusClass = "red";
-        } else {
-            this.operationText = "[운영준비]";
-            this.statusClass = "blue";
-        }
 
-    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "level", nullable = false)
+    private SellerLevel level;
 }
