@@ -40,9 +40,9 @@
         };
 
         //등록 버튼 클릭 시 주문상세 모달 열기
-        document.querySelector(".detail-btn").addEventListener('click', () => {
-            openModal('detail-modal');
-        });
+        // document.querySelector(".detail-btn").addEventListener('click', () => {
+        //     openModal('detail-modal');
+        // });
 
         //등록 버튼 클릭 시 배송입력 모달 열기
         // document.querySelector(".delivery-btn").addEventListener('click', () => {
@@ -70,6 +70,19 @@
                 document.querySelector('input[name="other"]').value = data.other;
 
                 document.querySelector('.delivery-modal').style.display = 'block';
+
+            });
+    }
+
+    // 주문 상세 모달 AJAX
+    function openOrderModal(oid) {
+        fetch(`/admin/order/orderDetail?oid=` + oid)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById('pid').innerText = data.pid;
+
+                document.querySelector('.detail-modal').style.display = 'block';
 
             });
     }
@@ -124,7 +137,7 @@
                             <tbody>
                             <tr th:each="order, i:${pageResponseDTO.dtoList}">
                                 <td>
-                                    <button th:value="${order.oid}" onclick="openModal()" class="btn detail-btn">
+                                    <button th:value="${order.oid}" th:onclick="'openOrderModal(' + ${order.oid} + ')'" class="btn detail-btn">
                                         [[${order.oid}]]
                                     </button>
                                 </td>
@@ -198,15 +211,15 @@
                             <th>결제금액</th>
                         </tr>
                         <tr>
-                            <td><img src="/images/bar.png" alt="이미지 미리보기"></td>
-                            <td>121212121</td>
-                            <td>000000</td>
-                            <td>(주)상호명</td>
-                            <td>24,000</td>
-                            <td>-1,200</td>
-                            <td>3</td>
-                            <td>0</td>
-                            <td>68,400</td>
+                            <td><img id="img_file_1" src="#" alt="이미지 미리보기"></td>
+                            <td id="pid">121212121</td>
+                            <td id="pname">000000</td>
+                            <td id="company">(주)상호명</td>
+                            <td id="price">24,000</td>
+                            <td id="discount">-1,200</td>
+                            <td id="quantity">3</td>
+                            <td id="delivery_free">0</td>
+                            <td id="order_total">68,400</td>
                         </tr>
                     </table>
                 </div>
@@ -214,19 +227,19 @@
                     <table>
                         <tr>
                             <td>총 상품금액</td>
-                            <td>107,000원</td>
+                            <td id="total_price">107,000원</td>
                         </tr>
                         <tr>
                             <td>총 할인금액</td>
-                            <td>-7,100원</td>
+                            <td id="total_discount">-7,100원</td>
                         </tr>
                         <tr>
                             <td>배송비</td>
-                            <td>3,000원</td>
+                            <td id="total_delivery_free">3,000원</td>
                         </tr>
                         <tr>
                             <td>총 결제금액</td>
-                            <td td class="red">102,900원</td>
+                            <td id="total_pay" class="red">102,900원</td>
                         </tr>
                     </table>
                 </div>
@@ -238,19 +251,19 @@
                     <table>
                         <tr>
                             <td>주문번호</td>
-                            <td>1234567894</td>
+                            <td id="oid">1234567894</td>
                         </tr>
                         <tr>
                             <td>결제방법</td>
-                            <td>신용카드 / 1234 **** **** 4432</td>
+                            <td id="payment">신용카드 / 1234 **** **** 4432</td>
                         </tr>
                         <tr>
                             <td>주문자/연락처</td>
-                            <td>김유신 / 010-1234-1234</td>
+                            <td id="uname">김유신 / 010-1234-1234</td>
                         </tr>
                         <tr>
                             <td>결제상태</td>
-                            <td class="green">결제완료</td>
+                            <td id="order_status" class="green">결제완료</td>
                             <td>총 결제금액</td>
                             <td class="red">102,900원</td>
                         </tr>
@@ -264,15 +277,15 @@
                     <table>
                         <tr>
                             <td>수취인</td>
-                            <td>김유신</td>
+                            <td id="recipient">김유신</td>
                         </tr>
                         <tr>
                             <td>연락처</td>
-                            <td>010-1234-1234</td>
+                            <td id="hp">010-1234-1234</td>
                         </tr>
                         <tr>
                             <td>배송지 주소</td>
-                            <td>부산시 진구 123-11 10층</td>
+                            <td id="addr1">부산시 진구 123-11 10층</td>
                         </tr>
                     </table>
                 </div>
