@@ -7,13 +7,16 @@ import kr.co.lotteon.dto.PageRequestDTO;
 import kr.co.lotteon.dto.PageResponseDTO;
 import kr.co.lotteon.dto.PointDTO;
 import kr.co.lotteon.entity.Delivery;
+import kr.co.lotteon.entity.OrderItem;
 import kr.co.lotteon.entity.Orders;
 import kr.co.lotteon.entity.Products;
 import kr.co.lotteon.repository.DeliveryRepository;
+import kr.co.lotteon.repository.OrderItemRepository;
 import kr.co.lotteon.repository.OrdersRepository;
 import kr.co.lotteon.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.hibernate.query.Order;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -33,6 +36,7 @@ public class OrderService {
 
     private final OrdersRepository ordersRepository;
     private final DeliveryRepository deliveryRepository;
+    private final OrderItemRepository orderItemRepository;
     private final ProductRepository productRepository;
     private final OrderMapper orderMapper;
     private final ModelMapper modelMapper;
@@ -46,19 +50,19 @@ public class OrderService {
 
         List<OrdersDTO> ordersDTOS = ordersPage.getContent().stream().map(tuple -> {
 
-                    Orders orders = tuple.get(0, Orders.class);
-                    String uid = tuple.get(1, String.class);
-                    String uname = tuple.get(2, String.class);
-                    String pname = tuple.get(3, String.class);
-                    Integer quantity = tuple.get(4, Integer.class);
+            Orders orders = tuple.get(0, Orders.class);
+            String uid = tuple.get(1, String.class);
+            String uname = tuple.get(2, String.class);
+            String pname = tuple.get(3, String.class);
+            Integer quantity = tuple.get(4, Integer.class);
 
-                    OrdersDTO ordersDTO = modelMapper.map(orders, OrdersDTO.class);
-                    ordersDTO.setUsers_uid(uid);
-                    ordersDTO.setUname(uname);
-                    ordersDTO.setPname(pname);
-                    ordersDTO.setQuantity(quantity);
-                    return ordersDTO;
-                }).collect(Collectors.toList());
+            OrdersDTO ordersDTO = modelMapper.map(orders, OrdersDTO.class);
+            ordersDTO.setUsers_uid(uid);
+            ordersDTO.setUname(uname);
+            ordersDTO.setPname(pname);
+            ordersDTO.setQuantity(quantity);
+            return ordersDTO;
+        }).collect(Collectors.toList());
 
         // 전체 게시물 갯수
         int total = (int) ordersPage.getTotalElements();
@@ -164,22 +168,83 @@ public class OrderService {
     }
 
     // 주문상세 보기
-    public List<OrdersDTO> orderDetail(int oid) {
-        List<OrdersDTO> ordersList = orderMapper.orderTotal(oid);
-        Optional<Products> optProduct = productRepository.findById(oid);
-
-            if (optProduct.isPresent()) {
-                Products products = optProduct.get();
-                OrdersDTO ordersDTO = modelMapper.map(products, OrdersDTO.class);
-                ordersDTO.setImg_file_1(products.getImg_file_1());
-                ordersList.add(ordersDTO);
-
-
-                log.info("img_file_1 from Products: {}", products.getImg_file_1());
-            }
-
-            log.info("ordersList {}", ordersList);
-
-        return ordersList;
-        }
-    }
+//    public OrdersDTO orderDetail(int oid) {
+//        List<OrdersDTO> ordersDTOS = orderMapper.orderTotal(oid);
+//
+//            Optional<OrderItem> optOrderitem = orderItemRepository.findById(order_item_id);
+//
+//            if (optOrderitem.isPresent()) {
+//                OrderItem orderItem = optOrderitem.get();
+//
+//                Optional<Products> optProducts = productRepository.findById(orderItem.getProducts().getPid());
+//                if (optProducts.isPresent()) {
+//                    Products products = optProducts.get();
+//
+//                    OrdersDTO dto = modelMapper.map(products, OrdersDTO.class);
+////                dto.setImg_file_1(products.getImg_file_1());
+////                dto.setDelivery_free(products.getDelivery_free());
+////                dto.setTotal_price(ordersDTO.getTotal_price());
+////                dto.setOrder_total(ordersDTO.getOrder_total());
+////                dto.setTotal_discount(ordersDTO.getTotal_discount());
+////                dto.setTotal_pay(ordersDTO.getTotal_pay());
+//
+////                    if (dto.getPid() != 0) {
+////                        ordersList.add(dto);
+////                    }
+////                    ordersDTO.add(dto);
+//                }
+//            }
+//        }
+//
+////        ordersList.add(
+////                OrdersDTO.builder()
+////                        .delivery_free(ordersDTO.getDelivery_free())
+////                        .build()
+////        );
+//
+//        return dto;
+////        Optional<OrderItem> optOrderItem = orderItemRepository.findById(order_item_id);
+////
+////        if (optOrderItem.isPresent()) {
+////            OrderItem orderItem = optOrderItem.get();
+////
+////            Products products = orderItem.getProducts();
+////            if (products != null) {
+////                OrdersDTO ordersDTO = modelMapper.map(products, OrdersDTO.class);
+////                ordersDTO.setDelivery_free(products.getDelivery_free());
+////
+////                ordersList.add(ordersDTO);
+////            }
+////        }
+//
+////        if (orderItem.getProducts() != null) {
+////
+////            int pid = orderItem.getProducts().getPid();
+////            Optional<Products> optProducts = productRepository.findById(pid);
+////            if (optProducts.isPresent()) {
+////                Products products = optProducts.get();
+////                orderItem.setProducts(products);
+////                OrdersDTO ordersDTO = modelMapper.map(products, OrdersDTO.class);
+////                ordersDTO.setDelivery_free(products.getDelivery_free());
+////
+////                log.info("ordersDTO {}", ordersDTO);
+////
+////                ordersList.add(ordersDTO);
+////
+////            }
+////        }
+//
+//
+////            if (optOrderItem.isPresent()) {
+////                OrderItem orderItem = optOrderItem.get();
+////
+////                Hibernate.initialize(orderItem.getProducts());
+////
+////                OrdersDTO ordersDTO = modelMapper.map(orderItem, OrdersDTO.class);
+////                ordersDTO.setImg_file_1(orderItem.getProducts().getImg_file_1());
+////                ordersList.add(ordersDTO);
+////
+////            }
+//
+//    }
+}
