@@ -163,8 +163,8 @@ public class OrderService {
     }
 
     // 주문상세 보기
-    public OrdersDTO orderDetail(int oid) {
-        OrdersDTO ordersDTO = orderMapper.orderTotal(oid);
+    public List<OrdersDTO> orderDetail(int oid) {
+        List<OrdersDTO> ordersDTO = orderMapper.orderTotal(oid);
 
         log.info("ordersDTO {}", ordersDTO);
         log.info("ordersDTO {}", ordersDTO);

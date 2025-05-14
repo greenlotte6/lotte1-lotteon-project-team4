@@ -27,6 +27,7 @@ public class OrdersDTO {
 
     // 추가 필드
     private String uname;
+    private String hp;
     private String pname;
     private int quantity;
     private Orders orders;
@@ -36,5 +37,22 @@ public class OrdersDTO {
     private String delivery_company;
     private String delivery_num;
     private String other;
+
+    private String img_file_1;
+    private int pid;
+    private String company;
+    private int price;
+    private String discount;
+    private int delivery_free;
+    private String recipientHp;
+
+
+    private int total_price;
+    private int total_discount;
+    private int total_delivery_free;
+    private int total_pay;
+
+
+
 
 }

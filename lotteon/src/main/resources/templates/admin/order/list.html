@@ -80,7 +80,26 @@
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                document.getElementById('pid').innerText = data.pid;
+                const order = data[0];
+                document.querySelectorAll('.pid').forEach(el => el.innerText = order.pid);
+                document.querySelectorAll('.pname').forEach(el => el.innerText = order.pname);
+                document.querySelectorAll('.company').forEach(el => el.innerText = order.company);
+                document.querySelectorAll('.price').forEach(el => el.innerText = order.price);
+                document.querySelectorAll('.discount').forEach(el => el.innerText = order.discount);
+                document.querySelectorAll('.quantity').forEach(el => el.innerText = order.quantity);
+                document.querySelectorAll('.delivery_free').forEach(el => el.innerText = order.delivery_free);
+                document.querySelectorAll('.order_total').forEach(el => el.innerText = order.order_total);
+                document.querySelectorAll('.total_price').forEach(el => el.innerText = order.total_price);
+                document.querySelectorAll('.total_discount').forEach(el => el.innerText = order.total_discount);
+                document.querySelectorAll('.total_delivery_free').forEach(el => el.innerText = order.total_delivery_free);
+                document.querySelectorAll('.total_pay').forEach(el => el.innerText = order.total_pay);
+                document.querySelectorAll('.payment').forEach(el => el.innerText = order.payment);
+                document.querySelectorAll('.uname').forEach(el => el.innerText = order.uname);
+                document.querySelectorAll('.order_status').forEach(el => el.innerText = order.order_status);
+                document.querySelectorAll('.recipient').forEach(el => el.innerText = order.recipient);
+                document.querySelectorAll('.hp').forEach(el => el.innerText = order.hp);
+                document.querySelectorAll('.addr1').forEach(el => el.innerText = order.addr1);
+                document.querySelectorAll('.img_file_1').forEach(img => {img.src = `/uploads/${encodeURIComponent(order.img_file_1)}`;});
 
                 document.querySelector('.detail-modal').style.display = 'block';
 
@@ -211,15 +230,15 @@
                             <th>결제금액</th>
                         </tr>
                         <tr>
-                            <td><img id="img_file_1" src="#" alt="이미지 미리보기"></td>
-                            <td id="pid">121212121</td>
-                            <td id="pname">000000</td>
-                            <td id="company">(주)상호명</td>
-                            <td id="price">24,000</td>
-                            <td id="discount">-1,200</td>
-                            <td id="quantity">3</td>
-                            <td id="delivery_free">0</td>
-                            <td id="order_total">68,400</td>
+                            <td><img id="img_file_1" class="img_file_1" src="#" alt="이미지 미리보기"></td>
+                            <td class="pid">121212121</td>
+                            <td class="pname">000000</td>
+                            <td class="company">(주)상호명</td>
+                            <td class="price">24,000</td>
+                            <td class="discount">-1,200</td>
+                            <td class="quantity">3</td>
+                            <td class="delivery_free">0</td>
+                            <td class="order_total">68,400</td>
                         </tr>
                     </table>
                 </div>
@@ -227,19 +246,19 @@
                     <table>
                         <tr>
                             <td>총 상품금액</td>
-                            <td id="total_price">107,000원</td>
+                            <td class="total_price">107,000원</td>
                         </tr>
                         <tr>
                             <td>총 할인금액</td>
-                            <td id="total_discount">-7,100원</td>
+                            <td class="total_discount">-7,100원</td>
                         </tr>
                         <tr>
                             <td>배송비</td>
-                            <td id="total_delivery_free">3,000원</td>
+                            <td class="total_delivery_free">3,000원</td>
                         </tr>
                         <tr>
                             <td>총 결제금액</td>
-                            <td id="total_pay" class="red">102,900원</td>
+                            <td class="red total_pay">102,900원</td>
                         </tr>
                     </table>
                 </div>
@@ -251,21 +270,21 @@
                     <table>
                         <tr>
                             <td>주문번호</td>
-                            <td id="oid">1234567894</td>
+                            <td class="oid">1234567894</td>
                         </tr>
                         <tr>
                             <td>결제방법</td>
-                            <td id="payment">신용카드 / 1234 **** **** 4432</td>
+                            <td class="payment">신용카드 / 1234 **** **** 4432</td>
                         </tr>
                         <tr>
                             <td>주문자/연락처</td>
-                            <td id="uname">김유신 / 010-1234-1234</td>
+                            <td class="uname">김유신 / 010-1234-1234</td>
                         </tr>
                         <tr>
                             <td>결제상태</td>
-                            <td id="order_status" class="green">결제완료</td>
+                            <td class="green order_status">결제완료</td>
                             <td>총 결제금액</td>
-                            <td class="red">102,900원</td>
+                            <td class="red total_pay">102,900원</td>
                         </tr>
                     </table>
                 </div>
@@ -277,15 +296,15 @@
                     <table>
                         <tr>
                             <td>수취인</td>
-                            <td id="recipient">김유신</td>
+                            <td class="recipient">김유신</td>
                         </tr>
                         <tr>
                             <td>연락처</td>
-                            <td id="hp">010-1234-1234</td>
+                            <td class="hp">010-1234-1234</td>
                         </tr>
                         <tr>
                             <td>배송지 주소</td>
-                            <td id="addr1">부산시 진구 123-11 10층</td>
+                            <td class="addr1">부산시 진구 123-11 10층</td>
                         </tr>
                     </table>
                 </div>

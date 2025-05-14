@@ -30,7 +30,6 @@
         from orders o join Users u on o.Users_uid = u.uid
         join order_item oi on oi.order_oid = o.oid
         join Products p on p.pid = oi.Products_pid
-        where oid = #{oid}
         group by p.pid;
     </select>
 

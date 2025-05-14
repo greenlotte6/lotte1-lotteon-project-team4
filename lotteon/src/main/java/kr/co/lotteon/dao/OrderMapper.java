@@ -9,6 +9,6 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
 
-    OrdersDTO orderTotal(int oid);
+    List<OrdersDTO> orderTotal(int oid);
 
 }

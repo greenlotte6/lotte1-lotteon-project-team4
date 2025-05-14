@@ -40,5 +40,6 @@ public class Orders {
     private List<OrderItem> orderItems;
 
     private String recipient;
+    private String recipientHp;
 
 }
