@@ -27,7 +27,7 @@
                 <table>
                     <tr>
                         <td class="label">사용자 ID</td>
-                        <td>chh****</td>
+                        <td th:text="${user.maskedUid}">chh****</td>
                     </tr>
                     <tr>
                         <td class="label">비밀번호</td>
@@ -35,11 +35,11 @@
                     </tr>
                     <tr>
                         <td class="label">이름</td>
-                        <td>김*학</td>
+                        <td th:text="${user.maskedUname}">김*학</td>
                     </tr>
                     <tr>
                         <td class="label">생년 월일</td>
-                        <td>1999년 01월 01일</td>
+                        <td th:text="${user.birth}">1999년 01월 01일</td>
                     </tr>
                     <tr>
                         <td class="label">Email</td>
@@ -110,8 +110,7 @@
 <script src="/js/email.js"></script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Domain Select 변경 시 이메일 입력 처리
+    document.addEventListener("DOMContentLoaded", function () {
         function updateDomain() {
             const domainSelect = document.getElementById("domainSelect");
             const emailaddr = document.getElementById("emailaddr");
@@ -125,12 +124,10 @@
                 emailaddr.value = domainSelect.value;
             }
 
-            // 이메일 조합하여 숨겨진 input에 값 설정
             const fullEmail = `${emailId.value.trim()}@${emailaddr.value.trim()}`;
             document.getElementById("fullEmail").value = fullEmail;
         }
 
-        // 인증 코드 발송
         function sendEmailCode() {
             const emailId = document.getElementById("emailId").value.trim();
             const emailDomain = document.getElementById("emailaddr").value.trim();
@@ -147,15 +144,13 @@
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: `email=${encodeURIComponent(fullEmail)}`
-            })
-                .then(response => {
-                    if (response.redirected) {
-                        window.location.href = response.url;
-                    }
-                });
+            }).then(response => {
+                if (response.redirected) {
+                    window.location.href = response.url;
+                }
+            });
         }
 
-        // 인증 코드 확인
         function verifyEmailCode() {
             const code = document.getElementById("emailCode").value.trim();
             const resultSpan = document.getElementById("emailVerifyResult");
@@ -179,7 +174,6 @@
                 });
         }
 
-        // 전화번호 유효성 검사
         function validatePhone() {
             const phone1 = document.getElementById("phone1").value.trim();
             const phone2 = document.getElementById("phone2").value.trim();
@@ -206,13 +200,66 @@
             }
         }
 
-        // 전화번호 수정 버튼 클릭 시 유효성 검사
-        const phoneUpdateButton = document.getElementById("phoneUpdateButton");
-        if (phoneUpdateButton) {
-            phoneUpdateButton.addEventListener("click", validatePhone);
+        function updatePhone() {
+            if (!validatePhone()) return;
+
+            const phone = `${document.getElementById("phone1").value.trim()}-${document.getElementById("phone2").value.trim()}-${document.getElementById("phone3").value.trim()}`;
+
+            fetch('/mypage/updatePhone', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `phone=${encodeURIComponent(phone)}`
+            })
+                .then(res => res.text())
+                .then(result => {
+                    if (result === 'success') {
+                        alert("전화번호가 성공적으로 수정되었습니다.");
+                    } else {
+                        alert("전화번호 수정에 실패했습니다.");
+                    }
+                });
         }
 
-        // 이메일 관련 이벤트 설정
+        function updateEmail() {
+            const emailId = document.getElementById("emailId").value.trim();
+            const emailDomain = document.getElementById("emailaddr").value.trim();
+
+            if (!emailId || !emailDomain) {
+                alert("이메일을 정확히 입력해주세요.");
+                return;
+            }
+
+            const fullEmail = `${emailId}@${emailDomain}`;
+
+            fetch('/mypage/updateEmail', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `email=${encodeURIComponent(fullEmail)}`
+            })
+                .then(res => res.text())
+                .then(result => {
+                    if (result === 'success') {
+                        alert("이메일이 성공적으로 수정되었습니다.");
+                    } else {
+                        alert("이메일 수정에 실패했습니다.");
+                    }
+                });
+        }
+
+        const phoneUpdateButton = document.getElementById("phoneUpdateButton");
+        if (phoneUpdateButton) {
+            phoneUpdateButton.addEventListener("click", updatePhone);
+        }
+
+        const emailUpdateButton = document.getElementById("emailUpdateButton");
+        if (emailUpdateButton) {
+            emailUpdateButton.addEventListener("click", updateEmail);
+        }
+
         const sendButton = document.getElementById("sendEmailCodeButton");
         if (sendButton) {
             sendButton.addEventListener("click", sendEmailCode);

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import kr.co.lotteon.dto.UsersDTO;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 import org.modelmapper.internal.bytebuddy.asm.Advice;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @Builder
 @ToString
 @Entity
+@DynamicUpdate
 @Table(name = "Users")
 public class Users {
 
