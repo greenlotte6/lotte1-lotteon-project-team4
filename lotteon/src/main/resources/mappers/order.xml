@@ -6,7 +6,7 @@
 
     <select id="orderTotal" resultType="kr.co.lotteon.dto.OrdersDTO">
         select
-        p.img_file_1,
+        p.img_file_1 as img_file_1,
         p.pid,
         p.pname,
         p.company,
