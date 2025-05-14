@@ -33,6 +33,7 @@ public class OrderService {
 
     private final OrdersRepository ordersRepository;
     private final DeliveryRepository deliveryRepository;
+    private final ProductRepository productRepository;
     private final OrderMapper orderMapper;
     private final ModelMapper modelMapper;
 
@@ -164,12 +165,21 @@ public class OrderService {
 
     // 주문상세 보기
     public List<OrdersDTO> orderDetail(int oid) {
-        List<OrdersDTO> ordersDTO = orderMapper.orderTotal(oid);
+        List<OrdersDTO> ordersList = orderMapper.orderTotal(oid);
+        Optional<Products> optProduct = productRepository.findById(oid);
 
-        log.info("ordersDTO {}", ordersDTO);
-        log.info("ordersDTO {}", ordersDTO);
+            if (optProduct.isPresent()) {
+                Products products = optProduct.get();
+                OrdersDTO ordersDTO = modelMapper.map(products, OrdersDTO.class);
+                ordersDTO.setImg_file_1(products.getImg_file_1());
+                ordersList.add(ordersDTO);
 
-        return ordersDTO;
 
+                log.info("img_file_1 from Products: {}", products.getImg_file_1());
+            }
+
+            log.info("ordersList {}", ordersList);
+
+        return ordersList;
         }
     }
