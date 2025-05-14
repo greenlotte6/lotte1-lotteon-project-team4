@@ -44,4 +44,11 @@ public class Seller {
     @Column(name = "level", nullable = false)
     private SellerLevel level;
 
+    @PrePersist
+    public void prePersist() {
+        if (this.level == null) {
+            this.level = SellerLevel.BASIC;
+        }
+    }
+
 }
