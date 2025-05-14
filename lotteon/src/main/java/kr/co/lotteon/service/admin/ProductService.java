@@ -208,6 +208,11 @@ public class ProductService {
         productFormDTO.setBiz_type(productCompliance.getBiz_type());
         productFormDTO.setOrigin(productCompliance.getOrigin());
         productFormDTO.setOptions(optionForms);
+        productFormDTO.setImg_file_1_name(products.getImg_file_1());
+        productFormDTO.setImg_file_2_name(products.getImg_file_2());
+        productFormDTO.setImg_file_3_name(products.getImg_file_3());
+        productFormDTO.setDetaile_file_1_name(products.getDetaile_file_1());
+
 
         return productFormDTO;
     }
@@ -225,6 +230,7 @@ public class ProductService {
         products.setStock(productFormDTO.getStock());
         products.setDelivery_free(productFormDTO.getDelivery_free());
         products.setBrand(productFormDTO.getBrand());
+
 
         Category newCategory = categoryRepository.findById((long) productFormDTO.getCategory2_id())
                 .orElseThrow(() -> new EntityNotFoundException("카테고리 존재하지 않음"));

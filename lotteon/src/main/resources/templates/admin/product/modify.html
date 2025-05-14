@@ -236,7 +236,7 @@
             $.ajax({
                 url: '/admin/product/categories',
                 type: 'GET',
-                data: { parent: parentId },
+                data: {parent: parentId},
                 dataType: 'json',
                 success: function (data) {
                     data.forEach(function (cate) {
@@ -273,8 +273,8 @@
                 </ul>
             </div>
             <div class="line"></div>
-            <form th:action="@{/admin/product/modifyView(pid=${pid})}" method="post" th:enctype="'multipart/form-data'">
-                <div class="info">
+            <form th:action="@{'/admin/product/modifyView/' + ${productFormDTO.pid}}" method="post" enctype="multipart/form-data">
+            <div class="info">
                     <div class="version">
                         <h2>상품분류</h2>
                         <div class="version-text p-div">
@@ -363,31 +363,35 @@
                                 <tr>
                                     <td>상품 이미지</td>
                                     <td>
-                                        <div><input type="file" id="img_file_1" th:value="${productFormDTO.img_file_1}"
-                                                    name="img_file_1" class="file" accept="image/*"
-                                                    required>크기
-                                            190*190, 상품 목록에 출력 될 이미지입니다.
+                                        <div>
+                                            <input type="file" id="img_file_1" name="img_file_1" class="file"
+                                                   accept="image/*">
+                                            <span th:text="${productFormDTO.img_file_1_name}"></span>
+                                            크기 190*190, 상품 목록에 출력 될 이미지입니다.
                                         </div>
-                                        <div><input type="file" id="img_file_2" th:value="${productFormDTO.img_file_2}"
-                                                    name="img_file_2" class="file" accept="image/*"
-                                                    required>크기
-                                            230*230, 상품 메인에 출력 될 이미지입니다.
+                                        <div>
+                                            <input type="file" id="img_file_2" name="img_file_2" class="file"
+                                                   accept="image/*">
+                                            <span th:text="${productFormDTO.img_file_2_name}"></span>
+                                            크기 230*230, 상품 메인에 출력 될 이미지입니다.
                                         </div>
-                                        <div><input type="file" id="img_file_3" th:value="${productFormDTO.img_file_3}"
-                                                    name="img_file_3" class="file" accept="image/*"
-                                                    required>크기
-                                            456*456, 상품 상세에 출력 될 이미지입니다.
+                                        <div>
+                                            <input type="file" id="img_file_3" name="img_file_3" class="file"
+                                                   accept="image/*">
+                                            <span th:text="${productFormDTO.img_file_3_name}"></span>
+                                            크기 456*456, 상품 상세에 출력 될 이미지입니다.
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>상품 상세정보</td>
-                                    <td><input type="file" th:value="${productFormDTO.detaile_file_1}"
-                                               name="detaile_file_1" class="detail" accept="image/*"
-                                               required>크기 가로
-                                        940px, 높이 제약없음, 크기 최대 1MB
+                                    <td>
+                                        <input type="file" name="detaile_file_1" class="detail" accept="image/*">
+                                        <span th:text="${productFormDTO.detaile_file_1_name}"></span>
+                                        크기 가로 940px, 높이 제약없음, 크기 최대 1MB
                                     </td>
                                 </tr>
+
                             </table>
                         </div>
                     </div>
@@ -401,11 +405,17 @@
                         </div>
                         <div class="logo-view">
                             <table>
-                                <tr>
-                                    <td>옵션1</td>
-                                    <td><input type="text" name="options[0].optionName" required></td>
-                                    <td class="option">옵션1 항목</td>
-                                    <td class="detail"><input type="text" name="options[0].optionItems" required></td>
+                                <tr th:each="opt, stat : ${productFormDTO.options}">
+                                    <td>옵션[[${stat.index + 1}]]</td>
+                                    <td>
+                                        <input type="text" th:name="|options[${stat.index}].optionName|"
+                                               th:value="${opt.optionName}" required/>
+                                    </td>
+                                    <td class="option">옵션[[${stat.index + 1}]] 항목</td>
+                                    <td class="detail">
+                                        <input type="text" th:name="|options[${stat.index}].optionItems|"
+                                               th:value="${#strings.arrayJoin(opt.optionItems, ',')}" required/>
+                                    </td>
                                 </tr>
                             </table>
                         </div>

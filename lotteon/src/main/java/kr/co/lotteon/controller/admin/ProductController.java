@@ -106,10 +106,11 @@ public class ProductController {
 
     // 상품 수정
     @PostMapping("/admin/product/modifyView/{pid}")
-    public String modifyProduct(@PathVariable int pid, @ModelAttribute ProductFormDTO productFormDTO) {
-
+    public String modifyProduct(@PathVariable int pid,
+                                @ModelAttribute ProductFormDTO productFormDTO) {
         productService.modifyProduct(pid, productFormDTO);
         return "redirect:/admin/product/list";
     }
+
 
 }
