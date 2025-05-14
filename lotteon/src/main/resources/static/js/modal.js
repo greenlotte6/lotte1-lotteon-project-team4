@@ -25,11 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     window.closeModal = function () {
-        const modalBody = document.getElementById("modalBody");
         const modalOverlay = document.getElementById("modalOverlay");
-
-        if (modalBody && modalOverlay) {
-            modalBody.innerHTML = "";
+        if (modalOverlay) {
             modalOverlay.style.display = "none";
             document.body.style.overflow = "";
         }

@@ -1,6 +1,7 @@
 package kr.co.lotteon.entity;
 
 import jakarta.persistence.*;
+import kr.co.lotteon.contant.SellerLevel;
 import lombok.*;
 import org.modelmapper.internal.bytebuddy.utility.dispatcher.JavaDispatcher;
 
@@ -39,5 +40,8 @@ public class Seller {
     private SystemStatus status = SystemStatus.READY;
 
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "level", nullable = false)
+    private SellerLevel level;
 
 }
