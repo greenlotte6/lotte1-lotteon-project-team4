@@ -190,4 +190,10 @@ public class UsersService {
     public void save(Users user) {
         usersRepository.save(user);
     }
+
+    public Optional<Users> findById(String uid) {
+        return usersRepository.findById(uid); //
+    }
+
+
 }

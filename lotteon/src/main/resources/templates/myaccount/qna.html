@@ -18,45 +18,33 @@
           <div class="content">
               <div class="banner_top">810 × 86 배너 광고</div>
             <h2>문의하기</h2>
-                <table class="inquiry-table">
-                    <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>문의채널</th>
-                        <th>문의유형</th>
-                        <th>제목</th>
-                        <th>작성일</th>
-                        <th>상태</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>고객센터</td>
-                        <td>주문 / 결제</td>
-                        <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요 ?</td>
-                        <td>2022-12-12</td>
-                        <td class="status-pending">검토중</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>고객센터</td>
-                        <td>주문 / 결제</td>
-                        <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요 ?</td>
-                        <td>2022-12-12</td>
-                        <td class="status-done">답변완료</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>판매자<br>게시판</td>
-                        <td>배송</td>
-                        <td>배송기간이 보통 얼마나 걸리나요 ?</td>
-                        <td>2022-12-12</td>
-                        <td class="status-done">답변완료</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="pagination">
+              <table class="qna-table">
+                  <thead>
+                  <tr>
+                      <th>번호</th>
+                      <th>문의채널</th>
+                      <th>문의유형</th>
+                      <th>제목</th>
+                      <th>작성일</th>
+                      <th>상태</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr th:each="qna, stat : ${qnaList}">
+                      <td th:text="${stat.index + 1}">1</td>
+                      <td th:text="${qna.qnaType1}">고객센터</td>
+                      <td th:text="${qna.qnaType2}">주문/결제</td>
+                      <td th:text="${qna.title}">제목</td>
+                      <td th:text="${#temporals.format(qna.date, 'yyyy-MM-dd')}">날짜</td>
+                      <td th:text="${qna.status}"
+                          th:classappend="${qna.status == '답변완료'} ? 'status-done' : 'status-pending'">
+                          상태
+                      </td>
+                  </tr>
+
+                  </tbody>
+              </table>
+              <div class="pagination">
                     <button>&lt; 이전</button>
                     <button>1</button>
                     <button>2</button>
