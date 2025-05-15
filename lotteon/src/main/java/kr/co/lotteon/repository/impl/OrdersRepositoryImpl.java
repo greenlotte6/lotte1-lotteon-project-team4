@@ -21,16 +21,18 @@ public class OrdersRepositoryImpl implements OrdersRepositoryCustom {
     private QOrderItem qOrderItem = QOrderItem.orderItem;
     private QUsers qUsers = QUsers.users;
     private QProducts qProducts = QProducts.products;
+    private QDelivery qDelivery = QDelivery.delivery;
 
 
     @Override
     public Page<Tuple> findByOid(Pageable pageable) {
         List<Tuple> tupleList = queryFactory
-                .select(qOrders, qOrders.users.uid, qOrders.users.uname, qOrderItem.products.pname, qOrderItem.quantity)
+                .select(qOrders, qOrders.users.uid, qOrders.users.uname, qOrderItem.products.pname, qOrderItem.quantity, qDelivery.delivery_num)
                 .from(qOrders)
                 .join(qOrders.users, qUsers)
                 .join(qOrders.orderItems, qOrderItem)
                 .join(qOrderItem.products, qProducts)
+                .join(qOrders.deliveries, qDelivery)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();

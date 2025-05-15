@@ -42,4 +42,11 @@ public class Orders {
     private String recipient;
     private String recipientHp;
 
+    @ManyToOne
+    @JoinColumn(name = "Products_pid")
+    private Products products;
+
+    @OneToMany(mappedBy = "orders")
+    private List<Delivery> deliveries;
+
 }

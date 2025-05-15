@@ -29,11 +29,9 @@
         sum(oi.quantity * p.price + p.delivery_free - p.discount * oi.quantity) as total_pay
         from orders o join Users u on o.Users_uid = u.uid
         join order_item oi on oi.order_oid = o.oid
-        join Products p on p.pid = oi.Products_pid
+        join Products p on p.pid = o.Products_pid
         where oid = #{oid}
-        group by p.img_file_1, p.pid, p.pname, p.company, p.price, p.discount, p.delivery_free,
-        oi.quantity, o.order_total, o.oid, o.payment, o.order_status, o.recipient,
-        u.uname, u.hp, u.addr1, u.addr2;
+        group by o.oid;
     </select>
 
 </mapper>

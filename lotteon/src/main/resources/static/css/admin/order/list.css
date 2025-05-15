@@ -255,6 +255,12 @@ table button {
     box-sizing: border-box;
 }
 
+table span {
+    color: #333;
+    padding: 100px 30px;
+    font-size: 13px;
+}
+
 table td:first-of-type button {
     border: none;
     background-color: #fff;

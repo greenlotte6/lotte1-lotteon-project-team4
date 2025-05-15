@@ -55,12 +55,14 @@ public class OrderService {
             String uname = tuple.get(2, String.class);
             String pname = tuple.get(3, String.class);
             Integer quantity = tuple.get(4, Integer.class);
+            String delivery_num = tuple.get(5, String.class);
 
             OrdersDTO ordersDTO = modelMapper.map(orders, OrdersDTO.class);
             ordersDTO.setUsers_uid(uid);
             ordersDTO.setUname(uname);
             ordersDTO.setPname(pname);
             ordersDTO.setQuantity(quantity);
+            ordersDTO.setDelivery_num(delivery_num);
             return ordersDTO;
         }).collect(Collectors.toList());
 
@@ -168,19 +170,14 @@ public class OrderService {
     }
 
     // 주문상세 보기
-    public List<OrdersDTO> orderDetail(Long oid, int pid) {
+    public List<OrdersDTO> orderDetail(Long oid) {
         List<OrdersDTO> ordersDTOS = orderMapper.orderTotal(oid);
-        Optional<Products> optProducts = productRepository.findById(pid);
-
-        if (optProducts.isPresent()) {
-            Products products = optProducts.get();
-            OrdersDTO ordersDTO = modelMapper.map(products, OrdersDTO.class);
-            ordersDTO.setDelivery_free(products.getDelivery_free());
-            ordersDTOS.add(ordersDTO);
-        }
 
         log.info("ordersDTOS {}", ordersDTOS);
 
+        if (ordersDTOS == null || ordersDTOS.isEmpty()) {
+            throw new IllegalArgumentException("주문 내역을 찾을 수 없습니다. OID: " + oid);
+        }
         return ordersDTOS;
 //        Optional<OrderItem> optOrderItem = orderItemRepository.findById(order_item_id);
 //
