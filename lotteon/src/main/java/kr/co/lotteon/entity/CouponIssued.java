@@ -3,6 +3,7 @@ package kr.co.lotteon.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,6 +28,7 @@ public class CouponIssued {
     private Coupon coupon;
 
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uid")
     private Users user;
@@ -35,6 +37,7 @@ public class CouponIssued {
 
     @CreationTimestamp
     private LocalDateTime usedDate;
+
 
 
 }

@@ -16,4 +16,7 @@ public interface CouponIssuedRepository extends JpaRepository<CouponIssued, Long
     Page<CouponIssued> findByCoupon_CouponNameContaining(String keyword, Pageable pageable);
 
     Page<CouponIssued> findByUser_UidContaining(String keyword, Pageable pageable);
+
+    List<CouponIssued> findByUser_Uid(String uid);
+
 }
