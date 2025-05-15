@@ -116,10 +116,11 @@ public class MyaccountController {
 
 
     @PostMapping("/myaccount/info-update")
-    public String updateUserInfo(@ModelAttribute UsersDTO dto, HttpSession session) {
-        Users loginUser = (Users) session.getAttribute("user");
+    public String updateUserInfo(@ModelAttribute UsersDTO dto,
+                                 @AuthenticationPrincipal UserDetails userDetails
+                                 ) {
 
-        if (loginUser != null) {
+        if (userDetails != null) {
             log.info("폼으로 전달된 이메일: {}", dto.getEmail());
             log.info("폼으로 전달된 전화번호: {}", dto.getHp());
             log.info("폼으로 전달된 zip: {}", dto.getZip());
@@ -127,13 +128,12 @@ public class MyaccountController {
             log.info("폼으로 전달된 주소2: {}", dto.getAddr2());
 
             usersService.updateUserInfo(
-                    loginUser.getUid(),
+                    userDetails.getUsername(),
                     dto.getEmail(),
                     dto.getHp(),
                     dto.getAddr1(),
                     dto.getAddr2(),
-                    dto.getZip(),
-                    session
+                    dto.getZip()
             );
         }
 

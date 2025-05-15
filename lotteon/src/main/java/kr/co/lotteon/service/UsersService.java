@@ -54,7 +54,7 @@ public class UsersService {
     }
 
     // 회원 정보 수정
-    public void updateUserInfo(String uid, String email, String hp, String addr1, String addr2, String zip, HttpSession session) {
+    public void updateUserInfo(String uid, String email, String hp, String addr1, String addr2, String zip) {
         Optional<Users> optionalUser = usersRepository.findByUid(uid);
         if (optionalUser.isPresent()) {
             Users user = optionalUser.get();
