@@ -57,6 +57,7 @@ body {
   .banner {
     background: #ccc;
     height: 86px;
+    width: 810px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -315,7 +316,7 @@ table {
   td {
     padding: 10px;
     vertical-align: middle;
-    
+    font-size: 16px;
   }
 
   table tr:nth-child(1) td:nth-child(2){

@@ -41,7 +41,16 @@ public class UsersService {
     public UsersDTO getUserInfoByUserId(String userId) {
         Users user = usersRepository.findByUid(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
-        return new UsersDTO(user.getUid(), user.getUname(), user.getBirth().toString());
+        return new UsersDTO(
+                user.getUid(),
+                user.getUname(),
+                user.getBirth(),
+                user.getEmail(),
+                user.getHp(),
+                user.getZip(),
+                user.getAddr1(),
+                user.getAddr2()
+        );
     }
 
     // 회원 정보 수정
@@ -49,13 +58,6 @@ public class UsersService {
         Optional<Users> optionalUser = usersRepository.findByUid(uid);
         if (optionalUser.isPresent()) {
             Users user = optionalUser.get();
-
-            log.info("기존값 vs 새값");
-            log.info("email: {} -> {}", user.getEmail(), email);
-            log.info("hp: {} -> {}", user.getHp(), hp);
-            log.info("addr1: {} -> {}", user.getAddr1(), addr1);
-            log.info("addr2: {} -> {}", user.getAddr2(), addr2);
-            log.info("zip: {} -> {}", user.getZip(), zip);
 
             user.setEmail(email);
             user.setHp(hp);
@@ -66,6 +68,13 @@ public class UsersService {
             session.setAttribute("user", user);
             usersRepository.save(user);
             usersRepository.flush();
+
+            log.info("기존값 vs 새값");
+            log.info("email: {} -> {}", user.getEmail(), email);
+            log.info("hp: {} -> {}", user.getHp(), hp);
+            log.info("addr1: {} -> {}", user.getAddr1(), addr1);
+            log.info("addr2: {} -> {}", user.getAddr2(), addr2);
+            log.info("zip: {} -> {}", user.getZip(), zip);
 
             log.info("DB에 사용자 정보 저장 완료: {}", user);
         }

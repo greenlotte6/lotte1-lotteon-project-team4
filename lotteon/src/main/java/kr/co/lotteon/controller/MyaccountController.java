@@ -78,23 +78,54 @@ public class MyaccountController {
 
     @GetMapping("/myaccount/info")
     public String info(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-        // 로그인한 사용자 정보에서 아이디 추출
-        String userId = userDetails.getUsername(); // 또는 userDetails.getUserId() 등
+        String userId = userDetails.getUsername();
 
-        // DB에서 사용자 정보 가져오기 (예시)
         UsersDTO userDto = usersService.getUserInfoByUserId(userId);
 
-        // 모델에 담기
+        String emailId = "";
+        String emailDomain = "";
+
+        if (userDto.getEmail() != null && userDto.getEmail().contains("@")) {
+            String[] emailParts = userDto.getEmail().split("@");
+            emailId = emailParts[0];
+            emailDomain = emailParts[1];
+        }
+
+        String phone1 = "";
+        String phone2 = "";
+        String phone3 = "";
+
+        if (userDto.getHp() != null && userDto.getHp().contains("-")) {
+            String[] hpParts = userDto.getHp().split("-");
+            if (hpParts.length == 3) {
+                phone1 = hpParts[0];
+                phone2 = hpParts[1];
+                phone3 = hpParts[2];
+            }
+        }
+
         model.addAttribute("user", userDto);
+        model.addAttribute("emailId", emailId);
+        model.addAttribute("emailDomain", emailDomain);
+        model.addAttribute("phone1", phone1);
+        model.addAttribute("phone2", phone2);
+        model.addAttribute("phone3", phone3);
 
         return "/myaccount/info";
     }
+
 
     @PostMapping("/myaccount/info-update")
     public String updateUserInfo(@ModelAttribute UsersDTO dto, HttpSession session) {
         Users loginUser = (Users) session.getAttribute("user");
 
         if (loginUser != null) {
+            log.info("폼으로 전달된 이메일: {}", dto.getEmail());
+            log.info("폼으로 전달된 전화번호: {}", dto.getHp());
+            log.info("폼으로 전달된 zip: {}", dto.getZip());
+            log.info("폼으로 전달된 주소1: {}", dto.getAddr1());
+            log.info("폼으로 전달된 주소2: {}", dto.getAddr2());
+
             usersService.updateUserInfo(
                     loginUser.getUid(),
                     dto.getEmail(),
@@ -108,6 +139,8 @@ public class MyaccountController {
 
         return "redirect:/myaccount/info";
     }
+
+
 
     @PostMapping("/auth/sendCode")
     @ResponseBody

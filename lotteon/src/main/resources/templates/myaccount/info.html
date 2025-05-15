@@ -45,8 +45,10 @@
                         <td class="label">Email</td>
                         <td>
                             <div>
-                                <input class="text-le" type="text" placeholder="이메일 입력" id="emailId" name="emailId"> @
-                                <input class="text-le" type="text" id="emailaddr" name="emailDomain" placeholder="주소 입력" disabled>
+                                <input type="text" id="emailId" name="emailId" th:value="${emailId}" placeholder="이메일 입력">
+                                <input type="text" id="emailaddr" name="emailDomain" th:value="${emailDomain}" placeholder="주소 입력">
+
+
 
                                 <select id="domainSelect" onchange="updateDomain()">
                                     <option value="">-- 메일 입력 --</option>
@@ -63,7 +65,7 @@
                                 <button type="button" class="btn-black" id="verifyEmailCodeButton">인증 확인</button>
                                 <span id="emailVerifyResult" style="margin-left: 10px;"></span>
                             </div>
-                            <input type="hidden" id="fullEmail" name="email">
+                            <input type="hidden" name="email" id="fullEmail" th:value="${user.email}">
                         </td>
                     </tr>
 
@@ -71,9 +73,11 @@
                         <td class="label">휴대폰</td>
                         <td>
                             <div class="phone-box">
-                                <input type="tel" placeholder="010" name="phone1" id="phone1"> -
-                                <input type="tel" placeholder="1234" name="phone2" id="phone2"> -
-                                <input type="tel" placeholder="5678" name="phone3" id="phone3">
+                                <input type="tel" name="phone1" id="phone1" th:value="${phone1}" placeholder="010"> -
+                                <input type="tel" name="phone2" id="phone2" th:value="${phone2}" placeholder="1234"> -
+                                <input type="tel" name="phone3" id="phone3" th:value="${phone3}" placeholder="5678">
+                                <input type="hidden" name="hp" id="hp">
+
                                 <button type="button" class="btn-black" id="phoneUpdateButton">휴대폰 번호 확인</button>
                             </div>
                             <span id="phoneValidationResult" style="color: red;"></span>
@@ -84,13 +88,14 @@
                         <td class="label">주소</td>
                         <td>
                             <div class="address-box">
-                                <input class="text-le" type="text" placeholder="우편번호" name="zipcode">
+                                <input class="text-le" type="text" placeholder="우편번호" name="zip" th:value="${user.zip}">
                                 <button type="button" class="btn-black">주소검색</button>
                             </div>
-                            <input class="text-le" type="text" placeholder="기본주소검색" name="addr1" style="width: 350px;">
-                            <input class="text-le" type="text" placeholder="상세주소입력" name="addr2" style="width: 350px;">
+                            <input class="text-le" type="text" placeholder="기본주소검색" name="addr1" style="width: 350px;" th:value="${user.addr1}">
+                            <input class="text-le" type="text" placeholder="상세주소입력" name="addr2" style="width: 350px;" th:value="${user.addr2}">
                         </td>
                     </tr>
+
                     <tr>
                         <td class="label">회원탈퇴</td>
                         <td><button type="button" class="btn-red">탈퇴하기</button></td>
@@ -108,6 +113,7 @@
 <th:block th:include="/common/_footer"/>
 <script src="/js/head.js"></script>
 <script src="/js/email.js"></script>
+<script src="/js/validation.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -178,9 +184,9 @@
             const phone1 = document.getElementById("phone1").value.trim();
             const phone2 = document.getElementById("phone2").value.trim();
             const phone3 = document.getElementById("phone3").value.trim();
+            const phone = `${phone1}-${phone2}-${phone3}`;
 
             const phoneValidationResult = document.getElementById("phoneValidationResult");
-            const phonePattern = /^\d{3}-\d{4}-\d{4}$/;
 
             if (!phone1 || !phone2 || !phone3) {
                 phoneValidationResult.textContent = "모든 전화번호를 입력해주세요.";
@@ -188,39 +194,37 @@
                 return false;
             }
 
-            const phone = `${phone1}-${phone2}-${phone3}`;
-            if (phonePattern.test(phone)) {
-                phoneValidationResult.textContent = "사용 가능한 번호입니다.";
-                phoneValidationResult.style.color = "green";
-                return true;
-            } else {
+            if (window.validateHpFormat && !window.validateHpFormat(phone)) {
                 phoneValidationResult.textContent = "유효하지 않은 번호입니다.";
                 phoneValidationResult.style.color = "red";
                 return false;
             }
+
+            phoneValidationResult.textContent = "사용 가능한 번호입니다.";
+            phoneValidationResult.style.color = "green";
+            return true;
         }
 
         function updatePhone() {
-            if (!validatePhone()) return;
+            const phone1 = document.getElementById("phone1").value.trim();
+            const phone2 = document.getElementById("phone2").value.trim();
+            const phone3 = document.getElementById("phone3").value.trim();
+            const phone = `${phone1}-${phone2}-${phone3}`;
+            const phoneValidationResult = document.getElementById("phoneValidationResult");
 
-            const phone = `${document.getElementById("phone1").value.trim()}-${document.getElementById("phone2").value.trim()}-${document.getElementById("phone3").value.trim()}`;
+            if (!phone1 || !phone2 || !phone3) {
+                phoneValidationResult.textContent = "모든 전화번호를 입력해주세요.";
+                phoneValidationResult.style.color = "red";
+                return;
+            }
 
-            fetch('/mypage/updatePhone', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `phone=${encodeURIComponent(phone)}`
-            })
-                .then(res => res.text())
-                .then(result => {
-                    if (result === 'success') {
-                        alert("전화번호가 성공적으로 수정되었습니다.");
-                    } else {
-                        alert("전화번호 수정에 실패했습니다.");
-                    }
+            // validation.js에 선언한 전역 함수 호출
+            if (typeof checkHpValidation === "function") {
+                checkHpValidation(phone, phoneValidationResult).then(valid => {
                 });
+            }
         }
+
 
         function updateEmail() {
             const emailId = document.getElementById("emailId").value.trim();
@@ -274,6 +278,17 @@
         if (domainSelect) {
             domainSelect.addEventListener("change", updateDomain);
         }
+
+        document.querySelector("form").addEventListener("submit", function () {
+            const emailId = document.getElementById("emailId").value.trim();
+            const emailDomain = document.getElementById("emailaddr").value.trim();
+            document.getElementById("fullEmail").value = `${emailId}@${emailDomain}`;
+
+            const phone1 = document.getElementById("phone1").value.trim();
+            const phone2 = document.getElementById("phone2").value.trim();
+            const phone3 = document.getElementById("phone3").value.trim();
+            document.getElementById("hp").value = `${phone1}-${phone2}-${phone3}`;
+        });
     });
 </script>
 
