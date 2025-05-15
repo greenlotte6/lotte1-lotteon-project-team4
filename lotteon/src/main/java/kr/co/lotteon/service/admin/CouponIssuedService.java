@@ -46,6 +46,10 @@ public class CouponIssuedService {
         return couponIssuedRepository.findAll(pageable);
     }
 
+    public List<CouponIssued> getIssuedCouponsByUid(String uid) {
+        return couponIssuedRepository.findByUser_Uid(uid);
+    }
+
 
 
 }

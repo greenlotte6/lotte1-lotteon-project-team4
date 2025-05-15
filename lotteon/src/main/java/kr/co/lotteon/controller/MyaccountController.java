@@ -1,6 +1,8 @@
 package kr.co.lotteon.controller;
 
+import kr.co.lotteon.entity.CouponIssued;
 import kr.co.lotteon.entity.Seller;
+import kr.co.lotteon.service.admin.CouponIssuedService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +23,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 import java.util.Optional;
@@ -34,6 +37,7 @@ public class MyaccountController {
     private final JavaMailSenderImpl mailSender;
     private final UsersService usersService;
     private final UsersRepository usersRepository;
+    private final CouponIssuedService couponIssuedService;
 
 
     @GetMapping("/myaccount/home")
@@ -62,10 +66,23 @@ public class MyaccountController {
     private final CouponService couponService;
 
     @GetMapping("/myaccount/coupon")
-    public String coupon(Model model) {
-        List<Coupon> coupons = couponService.getAllCoupons();
-        model.addAttribute("coupons", coupons);
-        return "/myaccount/coupon";
+    public String couponList(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        String uid = userDetails.getUsername(); // UserDetails의 기본 메서드
+
+        String couponName = "쿠폰명";
+        String benefit = "할인금액";
+        String couponType = "적용기준";
+        String status = "상태";
+        String validTo ="유효기간";
+
+        List<CouponIssued> CouponIssued = couponIssuedService.getIssuedCouponsByUid(uid);
+        model.addAttribute("CouponIssued", CouponIssued);
+        model.addAttribute("couponName", couponName);
+        model.addAttribute("benefit", benefit);
+        model.addAttribute("couponType", couponType);
+        model.addAttribute("status", status);
+        model.addAttribute("validTo", validTo);
+        return "myaccount/coupon";
     }
 
 
