@@ -44,6 +44,7 @@ public class QnaService {
         Qna qna = qnaRepository.findById(qnaId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 Qna가 존재하지 않습니다."));
 
+
         return QnaDTO.builder()
                 .qnaid(qna.getQnaId())
                 .uid(qna.getUser().getUid())
@@ -152,4 +153,13 @@ public class QnaService {
         qnaRepository.deleteAll(qnas);
         log.info("선택한 Qna들 삭제 완료 - IDs: {}", qnaIds);
     }
+
+
+    public List<Qna> getQnaByUser(Users user) {
+        return qnaRepository.findByUser(user);
+    }
+
+
+
+
 }
