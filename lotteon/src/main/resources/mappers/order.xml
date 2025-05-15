@@ -30,7 +30,10 @@
         from orders o join Users u on o.Users_uid = u.uid
         join order_item oi on oi.order_oid = o.oid
         join Products p on p.pid = oi.Products_pid
-        group by p.pid;
+        where oid = #{oid}
+        group by p.img_file_1, p.pid, p.pname, p.company, p.price, p.discount, p.delivery_free,
+        oi.quantity, o.order_total, o.oid, o.payment, o.order_status, o.recipient,
+        u.uname, u.hp, u.addr1, u.addr2;
     </select>
 
 </mapper>
