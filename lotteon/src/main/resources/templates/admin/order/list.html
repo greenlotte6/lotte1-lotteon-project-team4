@@ -80,7 +80,7 @@
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                const order = data[0];
+                const order = data;
                 document.querySelectorAll('.pid').forEach(el => el.innerText = order.pid);
                 document.querySelectorAll('.pname').forEach(el => el.innerText = order.pname);
                 document.querySelectorAll('.company').forEach(el => el.innerText = order.company);

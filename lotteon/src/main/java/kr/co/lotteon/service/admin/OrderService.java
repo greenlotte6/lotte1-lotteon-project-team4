@@ -168,83 +168,62 @@ public class OrderService {
     }
 
     // 주문상세 보기
-//    public OrdersDTO orderDetail(int oid) {
-//        List<OrdersDTO> ordersDTOS = orderMapper.orderTotal(oid);
+    public List<OrdersDTO> orderDetail(Long oid, int pid) {
+        List<OrdersDTO> ordersDTOS = orderMapper.orderTotal(oid);
+        Optional<Products> optProducts = productRepository.findById(pid);
+
+        if (optProducts.isPresent()) {
+            Products products = optProducts.get();
+            OrdersDTO ordersDTO = modelMapper.map(products, OrdersDTO.class);
+            ordersDTO.setDelivery_free(products.getDelivery_free());
+            ordersDTOS.add(ordersDTO);
+        }
+
+        log.info("ordersDTOS {}", ordersDTOS);
+
+        return ordersDTOS;
+//        Optional<OrderItem> optOrderItem = orderItemRepository.findById(order_item_id);
 //
-//            Optional<OrderItem> optOrderitem = orderItemRepository.findById(order_item_id);
+//        if (optOrderItem.isPresent()) {
+//            OrderItem orderItem = optOrderItem.get();
 //
-//            if (optOrderitem.isPresent()) {
-//                OrderItem orderItem = optOrderitem.get();
+//            Products products = orderItem.getProducts();
+//            if (products != null) {
+//                OrdersDTO ordersDTO = modelMapper.map(products, OrdersDTO.class);
+//                ordersDTO.setDelivery_free(products.getDelivery_free());
 //
-//                Optional<Products> optProducts = productRepository.findById(orderItem.getProducts().getPid());
-//                if (optProducts.isPresent()) {
-//                    Products products = optProducts.get();
-//
-//                    OrdersDTO dto = modelMapper.map(products, OrdersDTO.class);
-////                dto.setImg_file_1(products.getImg_file_1());
-////                dto.setDelivery_free(products.getDelivery_free());
-////                dto.setTotal_price(ordersDTO.getTotal_price());
-////                dto.setOrder_total(ordersDTO.getOrder_total());
-////                dto.setTotal_discount(ordersDTO.getTotal_discount());
-////                dto.setTotal_pay(ordersDTO.getTotal_pay());
-//
-////                    if (dto.getPid() != 0) {
-////                        ordersList.add(dto);
-////                    }
-////                    ordersDTO.add(dto);
-//                }
+//                ordersList.add(ordersDTO);
 //            }
 //        }
+
+//        if (orderItem.getProducts() != null) {
 //
-////        ordersList.add(
-////                OrdersDTO.builder()
-////                        .delivery_free(ordersDTO.getDelivery_free())
-////                        .build()
-////        );
+//            int pid = orderItem.getProducts().getPid();
+//            Optional<Products> optProducts = productRepository.findById(pid);
+//            if (optProducts.isPresent()) {
+//                Products products = optProducts.get();
+//                orderItem.setProducts(products);
+//                OrdersDTO ordersDTO = modelMapper.map(products, OrdersDTO.class);
+//                ordersDTO.setDelivery_free(products.getDelivery_free());
 //
-//        return dto;
-////        Optional<OrderItem> optOrderItem = orderItemRepository.findById(order_item_id);
-////
-////        if (optOrderItem.isPresent()) {
-////            OrderItem orderItem = optOrderItem.get();
-////
-////            Products products = orderItem.getProducts();
-////            if (products != null) {
-////                OrdersDTO ordersDTO = modelMapper.map(products, OrdersDTO.class);
-////                ordersDTO.setDelivery_free(products.getDelivery_free());
-////
-////                ordersList.add(ordersDTO);
-////            }
-////        }
+//                log.info("ordersDTO {}", ordersDTO);
 //
-////        if (orderItem.getProducts() != null) {
-////
-////            int pid = orderItem.getProducts().getPid();
-////            Optional<Products> optProducts = productRepository.findById(pid);
-////            if (optProducts.isPresent()) {
-////                Products products = optProducts.get();
-////                orderItem.setProducts(products);
-////                OrdersDTO ordersDTO = modelMapper.map(products, OrdersDTO.class);
-////                ordersDTO.setDelivery_free(products.getDelivery_free());
-////
-////                log.info("ordersDTO {}", ordersDTO);
-////
-////                ordersList.add(ordersDTO);
-////
-////            }
-////        }
+//                ordersList.add(ordersDTO);
 //
+//            }
+//        }
+
+
+//            if (optOrderItem.isPresent()) {
+//                OrderItem orderItem = optOrderItem.get();
 //
-////            if (optOrderItem.isPresent()) {
-////                OrderItem orderItem = optOrderItem.get();
-////
-////                Hibernate.initialize(orderItem.getProducts());
-////
-////                OrdersDTO ordersDTO = modelMapper.map(orderItem, OrdersDTO.class);
-////                ordersDTO.setImg_file_1(orderItem.getProducts().getImg_file_1());
-////                ordersList.add(ordersDTO);
-////
-////            }
+//                Hibernate.initialize(orderItem.getProducts());
 //
-//    }
+//                OrdersDTO ordersDTO = modelMapper.map(orderItem, OrdersDTO.class);
+//                ordersDTO.setImg_file_1(orderItem.getProducts().getImg_file_1());
+//                ordersList.add(ordersDTO);
+//
+//            }
+
+    }
 }

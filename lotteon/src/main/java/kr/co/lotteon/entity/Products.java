@@ -55,5 +55,9 @@ public class Products {
     @OneToOne(mappedBy = "products", cascade = CascadeType.ALL)
     private ProductCompliance productCompliance;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Product_oid")
+    private Orders orders;
+
 
 }
