@@ -379,3 +379,30 @@ document.addEventListener('DOMContentLoaded', function(){
         return true;
     };
 });
+
+window.checkHpValidation = async function(hp, resultSpan) {
+    if (!hp.match(reHp)) {
+        resultSpan.innerText = '휴대폰번호가 유효하지 않습니다.(- 포함)';
+        resultSpan.style.color = 'red';
+        return false;
+    }
+
+    try {
+        const response = await fetch(`/user/hp/${hp}`);
+        const data = await response.json();
+
+        if (data.count > 0) {
+            resultSpan.innerText = '이미 사용중인 휴대폰번호 입니다.';
+            resultSpan.style.color = 'red';
+            return false;
+        } else {
+            resultSpan.innerText = '사용 가능한 휴대폰번호 입니다.';
+            resultSpan.style.color = 'green';
+            return true;
+        }
+    } catch (e) {
+        resultSpan.innerText = '서버 오류로 확인할 수 없습니다.';
+        resultSpan.style.color = 'red';
+        return false;
+    }
+}

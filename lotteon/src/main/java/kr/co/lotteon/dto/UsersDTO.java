@@ -39,10 +39,15 @@ public class UsersDTO {
     private String other;
     private String birth;
 
-    public UsersDTO(String uid, String uname, String birth) {
+    public UsersDTO(String uid, String uname, String birth, String email, String hp, String zip, String addr1, String addr2) {
         this.uid = uid;
         this.uname = uname;
         this.birth = birth;
+        this.email = email;
+        this.hp = hp;
+        this.zip = zip;
+        this.addr1 = addr1;
+        this.addr2 = addr2;
     }
     public String getMaskedUname() {
         if (uname == null || uname.length() < 2) return uname;
