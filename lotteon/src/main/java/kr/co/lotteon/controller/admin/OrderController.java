@@ -7,6 +7,8 @@ import kr.co.lotteon.dto.PageResponseDTO;
 import kr.co.lotteon.entity.Orders;
 import kr.co.lotteon.service.admin.OrderService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class OrderController {
@@ -26,6 +29,9 @@ public class OrderController {
     @GetMapping("/admin/order/list")
     public String list(PageRequestDTO pageRequestDTO, Model model) {
         PageResponseDTO<OrdersDTO> pageResponseDTO = orderService.findById(pageRequestDTO);
+
+        log.info("pageResponseDTO : {}", pageResponseDTO);
+
         model.addAttribute(pageResponseDTO);
         return "/admin/order/list";
     }
@@ -69,8 +75,17 @@ public class OrderController {
     // 주문상세 보기
     @GetMapping("/admin/order/orderDetail")
     @ResponseBody
-    public List<OrdersDTO> orderDetail(@RequestParam("oid") Long oid,@RequestParam int pid) {
-        return orderService.orderDetail(oid, pid);
+    public ResponseEntity<List<OrdersDTO>> orderDetail(@RequestParam("oid") Long oid) {
+        try {
+            List<OrdersDTO> orderDetails = orderService.orderDetail(oid);
+            if (orderDetails.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(orderDetails);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
 
     }
 

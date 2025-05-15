@@ -52,6 +52,8 @@ public class OrdersDTO {
     private int total_delivery_free;
     private int total_pay;
 
+    private String deliveryButtonText;
+
 
 
 

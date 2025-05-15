@@ -80,29 +80,51 @@
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                const order = data;
-                document.querySelectorAll('.pid').forEach(el => el.innerText = order.pid);
-                document.querySelectorAll('.pname').forEach(el => el.innerText = order.pname);
-                document.querySelectorAll('.company').forEach(el => el.innerText = order.company);
-                document.querySelectorAll('.price').forEach(el => el.innerText = order.price);
-                document.querySelectorAll('.discount').forEach(el => el.innerText = order.discount);
-                document.querySelectorAll('.quantity').forEach(el => el.innerText = order.quantity);
-                document.querySelectorAll('.delivery_free').forEach(el => el.innerText = order.delivery_free);
-                document.querySelectorAll('.order_total').forEach(el => el.innerText = order.order_total);
-                document.querySelectorAll('.total_price').forEach(el => el.innerText = order.total_price);
-                document.querySelectorAll('.total_discount').forEach(el => el.innerText = order.total_discount);
-                document.querySelectorAll('.total_delivery_free').forEach(el => el.innerText = order.total_delivery_free);
-                document.querySelectorAll('.total_pay').forEach(el => el.innerText = order.total_pay);
-                document.querySelectorAll('.payment').forEach(el => el.innerText = order.payment);
-                document.querySelectorAll('.uname').forEach(el => el.innerText = order.uname);
-                document.querySelectorAll('.order_status').forEach(el => el.innerText = order.order_status);
-                document.querySelectorAll('.recipient').forEach(el => el.innerText = order.recipient);
-                document.querySelectorAll('.hp').forEach(el => el.innerText = order.hp);
-                document.querySelectorAll('.addr1').forEach(el => el.innerText = order.addr1);
-                document.querySelectorAll('.img_file_1').forEach(img => {img.src = `/uploads/${encodeURIComponent(order.img_file_1)}`;});
+
+                // 데이터가 배열인 경우 첫 번째 요소 선택
+                const order = Array.isArray(data) ? data[0] : data;
+
+                if (!order) {
+                    alert("주문 데이터를 불러올 수 없습니다.");
+                    return;
+                }
+
+                document.querySelectorAll('.pid').forEach(el => el.innerText = order.pid || '-');
+                document.querySelectorAll('.oid').forEach(el => el.innerText = order.oid || '-');
+                document.querySelectorAll('.pname').forEach(el => el.innerText = order.pname || '-');
+                document.querySelectorAll('.company').forEach(el => el.innerText = order.company || '-');
+                document.querySelectorAll('.price').forEach(el => el.innerText = order.price || '-');
+                document.querySelectorAll('.discount').forEach(el => el.innerText = order.discount || '-');
+                document.querySelectorAll('.quantity').forEach(el => el.innerText = order.quantity || '-');
+                document.querySelectorAll('.delivery_free').forEach(el => el.innerText = order.delivery_free || '-');
+                document.querySelectorAll('.order_total').forEach(el => el.innerText = order.order_total || '-');
+                document.querySelectorAll('.total_price').forEach(el => el.innerText = order.total_price || '-');
+                document.querySelectorAll('.total_discount').forEach(el => el.innerText = order.total_discount || '-');
+                document.querySelectorAll('.total_delivery_free').forEach(el => el.innerText = order.total_delivery_free || '-');
+                document.querySelectorAll('.total_pay').forEach(el => el.innerText = order.total_pay || '-');
+                document.querySelectorAll('.payment').forEach(el => el.innerText = order.payment || '-');
+                document.querySelectorAll('.order_status').forEach(el => el.innerText = order.order_status || '-');
+                document.querySelectorAll('.recipient').forEach(el => el.innerText = order.recipient || '-');
+
+                // 주문자/연락처 통합 불러오기
+                const unameHp = `${order.uname || '-'} / ${order.hp || '-'}`;
+                document.querySelectorAll('.uname-hp').forEach(el => el.innerText = unameHp);
+
+                // 신용카드/번호 통합 불러오기 (현재 신용카드 번호 없어서 안됨)
+
+                // 기본주소/상세주소 통합 불러오기
+                const allAddr = `${order.addr1 || '-'} ${order.addr2 || '-'}`;
+                document.querySelectorAll('.all-addr').forEach(el => el.innerText = allAddr);
+
+                // // 이미지 설정
+                // const imgSrc = order.img_file_1 ? `/uploads/${order.img_file_1}` : '/uploads/default.png';
+                // document.querySelector('.product-image').src = imgSrc;
 
                 document.querySelector('.detail-modal').style.display = 'block';
-
+            })
+            .catch(err => {
+                console.error(err);
+                alert("주문 데이터를 불러오는 중 오류가 발생했습니다.");
             });
     }
 
@@ -166,13 +188,37 @@
                                 <td>[[${order.quantity}]]</td>
                                 <td>[[${order.order_total}]]</td>
                                 <td>[[${order.payment}]]</td>
-                                <td class="green">[[${order.order_status}]]</td>
+                                <td th:class="
+                                        ${order.order_status == '결제 완료'} ? 'green' :
+                                        (${order.order_status == '결제 대기'} ? 'light-green' :
+                                        (${order.order_status == '주문 취소'} ? 'red' : ''))">[[${order.order_status}]]</td>
                                 <td>[[${order.order_date}]]</td>
-                                <td>
-                                    <button type="button" th:onclick="'openDeliveryModal(' + ${order.oid} + ')'"
+                                <td th:switch="${order.order_status}">
+                                    <button type="button"
+                                            th:case="'결제 완료'"
+                                            th:onclick="'openDeliveryModal(' + ${order.oid} + ')'"
+                                            th:text="${order.delivery_num == null || order.delivery_num.trim().isEmpty() ? '배송정보입력' : '입력완료'}"
                                             class="btn delivery-btn">
                                         배송정보입력
                                     </button>
+
+                                    <button type="button"
+                                            th:case="'결제 대기'"
+                                            th:onclick="'openDeliveryModal(' + ${order.oid} + ')'"
+                                            th:text="'배송정보입력'"
+                                            class="btn delivery-btn">
+                                        배송정보입력
+                                    </button>
+
+<!--                                    <button type="button"-->
+<!--                                            th:case="${order.order_status == '결제 대기'}"-->
+<!--                                            th:onclick="'openDeliveryModal(' + ${order.oid} + ')'"-->
+<!--                                            th:text="${order.delivery_num == null ? '배송정보입력' : '입력완료'}"-->
+<!--                                            class="btn delivery-btn">-->
+<!--                                        배송정보입력-->
+<!--                                    </button>-->
+
+                                    <span th:case="'주문 취소'">주문 취소</span>
                                 </td>
                             </tr>
                             <tr th:if="${#lists.isEmpty(pageResponseDTO.dtoList)}">
@@ -278,7 +324,7 @@
                         </tr>
                         <tr>
                             <td>주문자/연락처</td>
-                            <td class="uname">김유신 / 010-1234-1234</td>
+                            <td class="uname-hp">김유신 / 010-1234-1234</td>
                         </tr>
                         <tr>
                             <td>결제상태</td>
@@ -304,7 +350,7 @@
                         </tr>
                         <tr>
                             <td>배송지 주소</td>
-                            <td class="addr1">부산시 진구 123-11 10층</td>
+                            <td class="all-addr">부산시 진구 123-11 10층</td>
                         </tr>
                     </table>
                 </div>
