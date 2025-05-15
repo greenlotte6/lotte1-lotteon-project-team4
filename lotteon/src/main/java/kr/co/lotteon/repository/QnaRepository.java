@@ -17,5 +17,7 @@ public interface QnaRepository extends JpaRepository<Qna, Long> {
     // 선택삭제 기능을 위한 메서드 (ID로 Qna 삭제)
     void deleteByQnaId(Long qnaId);
     Page<Qna> findByQnaType1AndQnaType2(String qnaType1, String qnaType2, Pageable pageable);
+    List<Qna> findByUser(Users user);
+
 
 }

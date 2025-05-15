@@ -1,6 +1,9 @@
 package kr.co.lotteon.controller;
 
+import kr.co.lotteon.dto.QnaDTO;
+import kr.co.lotteon.entity.Qna;
 import kr.co.lotteon.entity.Seller;
+import kr.co.lotteon.service.QnaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +24,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import java.util.Optional;
@@ -146,8 +150,6 @@ public class MyaccountController {
     }
 
 
-
-
     @GetMapping("/myaccount/delete")
     public String deleteUser(HttpSession session) {
         Users loginUser = (Users) session.getAttribute("user");
@@ -158,12 +160,23 @@ public class MyaccountController {
         return "redirect:/";
     }
 
+    private final QnaService qnaService;
 
     @GetMapping("/myaccount/inquiry")
-    public String inquiry() {
+    public String inquiry(HttpSession session, Model model) {
+        Users loginUser = (Users) session.getAttribute("user");
+
+        if (loginUser == null) {
+            return "redirect:/member/login";
+        }
+
+
+        List<Qna> qnaList = qnaService.getQnaByUser(loginUser);
+        model.addAttribute("qnaList", qnaList);
 
         return "/myaccount/inquiry";
     }
+
 
 
     @GetMapping("/myaccount/ireview")
@@ -183,10 +196,34 @@ public class MyaccountController {
         return "/myaccount/point";
 
     }
-    @GetMapping("/myaccount/qna")
-    public String qna() {
-        return "/myaccount/qna";
 
+    @GetMapping("/myaccount/qna")
+    public String qnaPage(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails,
+                          Model model) {
+        if (userDetails == null) return "redirect:/member/login";
+
+        String uid = userDetails.getUsername();
+        List<Qna> allQna = qnaService.getQnaList(); // 전체 불러옴
+
+        // 로그인된 사용자 UID로 필터링
+        List<Qna> filtered = allQna.stream()
+                .filter(q -> q.getUser() != null && q.getUser().getUid().equals(uid))
+                .toList();
+
+        model.addAttribute("qnaList", filtered);
+        return "/myaccount/qna";
+    }
+
+
+
+    @PostMapping("/qna/submit")
+    public String submitQna(@ModelAttribute QnaDTO dto, HttpSession session) {
+        Users loginUser = (Users) session.getAttribute("user");
+        if (loginUser == null) return "redirect:/member/login";
+
+        qnaService.createQna(loginUser, dto.getQnaType1(), dto.getQnaType2(),
+                dto.getTitle(), dto.getContent(), dto.getWriter(), LocalDateTime.now());
+        return "redirect:/myaccount/inquiry";
     }
 
     @GetMapping("/myaccount/review-modal")
@@ -241,6 +278,7 @@ public class MyaccountController {
     public String returnModal(){
         return "/myaccount/return :: modalContent";
     }
+
 
 
 
