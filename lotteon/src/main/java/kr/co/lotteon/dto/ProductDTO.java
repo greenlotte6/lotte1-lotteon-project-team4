@@ -21,7 +21,7 @@ public class ProductDTO {
     private String pname;
     private String description;
     private int price;
-    private String discount;
+    private int discount;
     private int point;
     private int stock;
     private String company;
@@ -36,5 +36,8 @@ public class ProductDTO {
     private int point_rate;
     private int cart_item_item_id;
     private int productCompliance_compliance_id;
+
+    // 추가 필드
+    private int rating;
 
 }

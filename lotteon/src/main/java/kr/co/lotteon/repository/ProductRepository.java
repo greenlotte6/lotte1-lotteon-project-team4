@@ -1,5 +1,6 @@
 package kr.co.lotteon.repository;
 
+import com.querydsl.core.Tuple;
 import kr.co.lotteon.entity.Products;
 import kr.co.lotteon.repository.custom.ProductRepositoryCustom;
 import org.springframework.data.domain.Page;
@@ -20,4 +21,5 @@ public interface ProductRepository extends JpaRepository<Products, Integer>, Pro
     Page<Products> findByCompanyContaining(String keyword, Pageable pageable);
 
     Optional<Products> findByPid(int pid);
+
 }

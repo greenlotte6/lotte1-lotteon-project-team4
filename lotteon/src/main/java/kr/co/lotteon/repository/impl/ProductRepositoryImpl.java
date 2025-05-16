@@ -1,12 +1,18 @@
 package kr.co.lotteon.repository.impl;
 
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.lotteon.dto.ProductDTO;
 import kr.co.lotteon.entity.*;
 import kr.co.lotteon.repository.ProductRepository;
 import kr.co.lotteon.repository.custom.ProductRepositoryCustom;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Repository
@@ -14,20 +20,24 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
     private QProducts qProducts = QProducts.products;
-    private QCategory qCategory = QCategory.category;
-    private QProductOption qProductOption = QProductOption.productOption;
-    private QProductOptionItem qProductOptionItem = QProductOptionItem.productOptionItem;
-    private QProductCompliance qProductCompliance = QProductCompliance.productCompliance;
+    private QReview qReview = QReview.review;
 
     @Override
-    public void modifyProduct(ProductDTO productDTO) {
+    public Page<Tuple> productList(Pageable pageable) {
+        List<Tuple> tupleList = queryFactory
+                .select(qProducts, qReview.rating)
+                .from(qReview)
+                .join(qReview.products, qProducts)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
 
-//        Products products = queryFactory
-//                .select(qCategory,
-//                        qProducts.pname, qProducts.description, qProducts.company, qProducts.price, qProducts.discount, qProducts.point, qProducts.stock, qProducts.delivery_free, qProducts.brand, qProducts.img_file_1, qProducts.img_file_2, qProducts.img_file_3, qProducts.detaile_file_1,
-//                        qProductOption.option_name, qProductOptionItem.item_name,
-//                        qProductCompliance)
-//                .from(qProducts)
+        // 총 개수 조회
+        long total = queryFactory.select(qProducts.count()).from(qProducts).fetchOne();
 
+        // 페이징 처리를 위한 페이지 객체 반환
+        return new PageImpl<Tuple>(tupleList, pageable, total);
     }
+
+
 }
