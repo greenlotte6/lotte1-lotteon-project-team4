@@ -78,7 +78,7 @@ public class MyaccountController {
         String benefit = "할인금액";
         String couponType = "적용기준";
         String status = "상태";
-        String validTo ="유효기간";
+        String usedDate ="유효기간";
 
         List<CouponIssued> CouponIssued = couponIssuedService.getIssuedCouponsByUid(uid);
         model.addAttribute("CouponIssued", CouponIssued);
@@ -86,8 +86,18 @@ public class MyaccountController {
         model.addAttribute("benefit", benefit);
         model.addAttribute("couponType", couponType);
         model.addAttribute("status", status);
-        model.addAttribute("validTo", validTo);
-        return "myaccount/coupon";
+        model.addAttribute("usedDate", usedDate);
+        return "/myaccount/coupon";
+    }
+
+    @GetMapping("/coupon/issue")
+    public String issue(Model model, @AuthenticationPrincipal UserDetails userDetails,
+                        @RequestParam("cno") String cno){
+
+        // 쿠폰 발급
+        couponIssuedService.issueCoupon(cno , userDetails);
+
+        return "redirect:/";
     }
 
 
