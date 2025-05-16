@@ -42,7 +42,7 @@ public class OrdersDTO {
     private int pid;
     private String company;
     private int price;
-    private String discount;
+    private int discount;
     private int delivery_free;
     private String recipientHp;
 

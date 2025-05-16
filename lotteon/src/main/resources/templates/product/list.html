@@ -90,21 +90,21 @@
 
                     <table class="product-table">
                         <tbody>
-                            <tr>
+                            <tr th:each="product, i:${pageResponseDTO.dtoList}">
                                 <td><img src="/images/product/market_item1.jpg" alt="상품썸네일" class="product-img"></td>
                                 <td>
-                                    <p class="name">무농약 사과</p>
-                                    <p class="desc">맛있는 사과</p>
+                                    <p class="name">[[${product.pname}]]</p>
+                                    <p class="desc">[[${product.description}]]</p>
                                 </td>
                                 <td>
-                                    <p class="price"> 27,000원<br>
+                                    <p class="price">[[${product.price}]]<br>
                                         <span class="original">30,000원</span>
                                         <span class="discount">10% ↓</span>
                                     </p>
-                                    <p class="shipping">무료배송</p>
+                                    <p class="shipping">[[${product.delivery}]]</p>
                                 <td>
                                     <div class="premier">
-                                        <a href="#"><img class="images" src="/images/home.png" alt="판매자">판매자</a>
+                                        <a href="#"><img class="images" src="/images/home.png" alt="판매자">[[${product.company}]]</a>
                                         <div><img class="images" src="/images/achievement.png" alt="등급">고객만족우수</div>
                                     </div>
                                     <p class="review">상품평 <span class="stars">★★★★★</span></p>
@@ -115,13 +115,11 @@
 
 
                     <div class="pagination">
-                        <button>&lt; 이전</button>
-                        <button class="active">1</button>
-                        <button>2</button>
-                        <button>3</button>
-                        <button>4</button>
-                        <button>5</button>
-                        <button>&gt; 다음</button>
+                        <a>&lt; 이전</a>
+
+                        <a class="active">1</a>
+
+                        <a>&gt; 다음</a>
                     </div>
                 </section>
             </article>

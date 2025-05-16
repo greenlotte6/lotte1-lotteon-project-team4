@@ -30,7 +30,7 @@ public class Products {
     private String pname;
     private String description;
     private int price;
-    private String discount;
+    private int discount;
     private int point;
     private int stock;
     private String company;
