@@ -359,7 +359,7 @@ public class MyaccountController {
                                Principal principal) {
 
         // 로그인한 사용자 정보 설정
-        reviewDTO.setUsersUid(principal.getName()); // 또는 session에서 꺼내는 방식
+        reviewDTO.setUsers_uid(principal.getName()); // 또는 session에서 꺼내는 방식
 
         reviewService.saveReview(reviewDTO, files);
 
