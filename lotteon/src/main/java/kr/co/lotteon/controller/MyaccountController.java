@@ -115,6 +115,7 @@ public class MyaccountController {
 
     @GetMapping("/myaccount/info")
     public String info(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+
         String userId = userDetails.getUsername();
 
         UsersDTO userDto = usersService.getUserInfoByUserId(userId);
@@ -302,10 +303,17 @@ public class MyaccountController {
 
     @GetMapping("/myaccount/seller-modal")
     public String sellerModal(@RequestParam String company, Model model) {
-        Seller seller = sellerService.getSellerByCompany(company).orElse(null);
-        model.addAttribute("seller", seller);
-        return "/myaccount/seller :: modalContent"; // Thymeleaf fragment
+        Optional<Seller> optionalSeller = sellerService.getSellerByCompany(company);
+
+        if (optionalSeller.isEmpty()) {
+            model.addAttribute("error", "판매자 정보를 찾을 수 없습니다.");
+            return "error/404"; // 혹은 return ResponseEntity.notFound().build();
+        }
+
+        model.addAttribute("seller", optionalSeller.get());
+        return "/myaccount/seller :: modalContent";
     }
+
 
 
 
@@ -334,8 +342,14 @@ public class MyaccountController {
     }
 
     @GetMapping("/myaccount/seller")
-    public String seller() {
+    public String sellerPage(HttpSession session, Model model) {
+        Seller seller = (Seller) session.getAttribute("seller");
 
+        if (seller == null) {
+            return "redirect:/member/login";
+        }
+
+        model.addAttribute("seller", seller);
         return "/myaccount/seller";
     }
 
