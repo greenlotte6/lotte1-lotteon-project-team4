@@ -1,7 +1,9 @@
 package kr.co.lotteon.controller;
 
+import kr.co.lotteon.dto.ReviewDTO;
 import kr.co.lotteon.entity.CouponIssued;
 import kr.co.lotteon.entity.Seller;
+import kr.co.lotteon.service.ReviewService;
 import kr.co.lotteon.service.admin.CouponIssuedService;
 import kr.co.lotteon.dto.QnaDTO;
 import kr.co.lotteon.entity.Qna;
@@ -26,7 +28,9 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 
 import java.util.List;
@@ -43,6 +47,7 @@ public class MyaccountController {
     private final UsersService usersService;
     private final UsersRepository usersRepository;
     private final CouponIssuedService couponIssuedService;
+    private final ReviewService reviewService;
 
 
     @GetMapping("/myaccount/home")
@@ -110,6 +115,7 @@ public class MyaccountController {
 
     @GetMapping("/myaccount/info")
     public String info(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+
         String userId = userDetails.getUsername();
 
         UsersDTO userDto = usersService.getUserInfoByUserId(userId);
@@ -297,10 +303,17 @@ public class MyaccountController {
 
     @GetMapping("/myaccount/seller-modal")
     public String sellerModal(@RequestParam String company, Model model) {
-        Seller seller = sellerService.getSellerByCompany(company).orElse(null);
-        model.addAttribute("seller", seller);
-        return "/myaccount/seller :: modalContent"; // Thymeleaf fragment
+        Optional<Seller> optionalSeller = sellerService.getSellerByCompany(company);
+
+        if (optionalSeller.isEmpty()) {
+            model.addAttribute("error", "판매자 정보를 찾을 수 없습니다.");
+            return "error/404"; // 혹은 return ResponseEntity.notFound().build();
+        }
+
+        model.addAttribute("seller", optionalSeller.get());
+        return "/myaccount/seller :: modalContent";
     }
+
 
 
 
@@ -318,15 +331,40 @@ public class MyaccountController {
 
     @GetMapping("/myaccount/review")
     public String review() {
+
+
+
+
+
+
+
         return "/myaccount/review";
     }
 
     @GetMapping("/myaccount/seller")
-    public String seller() {
+    public String sellerPage(HttpSession session, Model model) {
+        Seller seller = (Seller) session.getAttribute("seller");
 
+        if (seller == null) {
+            return "redirect:/member/login";
+        }
+
+        model.addAttribute("seller", seller);
         return "/myaccount/seller";
     }
 
+    @PostMapping("/myaccount/ireview")
+    public String submitReview(@ModelAttribute ReviewDTO reviewDTO,
+                               @RequestParam("files") MultipartFile[] files,
+                               Principal principal) {
+
+        // 로그인한 사용자 정보 설정
+        reviewDTO.setUsersUid(principal.getName()); // 또는 session에서 꺼내는 방식
+
+        reviewService.saveReview(reviewDTO, files);
+
+        return "redirect:/myaccount/review-success"; // 저장 후 이동할 페이지
+    }
 
 
     @GetMapping("/myaccount/return-modal")
