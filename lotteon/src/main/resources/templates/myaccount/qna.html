@@ -30,18 +30,17 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr th:each="qna, stat : ${qnaList}">
-                      <td th:text="${stat.index + 1}">1</td>
-                      <td th:text="${qna.qnaType1}">고객센터</td>
-                      <td th:text="${qna.qnaType2}">주문/결제</td>
-                      <td th:text="${qna.title}">제목</td>
-                      <td th:text="${#temporals.format(qna.date, 'yyyy-MM-dd')}">날짜</td>
-                      <td th:text="${qna.status}"
-                          th:classappend="${qna.status == '답변완료'} ? 'status-done' : 'status-pending'">
-                          상태
-                      </td>
-                  </tr>
-
+                      <tr th:each="qna, stat : ${qnaList}">
+                          <td th:text="${stat.index + 1}">1</td>
+                          <td th:text="${qna.qnaType1}">고객센터</td>
+                          <td th:text="${qna.qnaType2}">주문/결제</td>
+                          <td th:text="${qna.title}">제목</td>
+                          <td th:text="${#temporals.format(qna.date, 'yyyy-MM-dd')}">날짜</td>
+                          <td th:text="${qna.status}"
+                              th:classappend="${qna.status == '답변완료'} ? 'status-done' : 'status-pending'">
+                              상태
+                          </td>
+                      </tr>
                   </tbody>
               </table>
               <div class="pagination">
