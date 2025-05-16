@@ -259,19 +259,13 @@ public class MyaccountController {
     }
 
     @GetMapping("/myaccount/qna")
-    public String qnaPage(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails,
-                          Model model) {
+    public String qnaPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         if (userDetails == null) return "redirect:/member/login";
 
         String uid = userDetails.getUsername();
-        List<Qna> allQna = qnaService.getQnaList(); // 전체 불러옴
+        List<Qna> qnaList = qnaService.getQnaByUserUid(uid); // 🔄 변경된 서비스 사용
 
-        // 로그인된 사용자 UID로 필터링
-        List<Qna> filtered = allQna.stream()
-                .filter(q -> q.getUser() != null && q.getUser().getUid().equals(uid))
-                .toList();
-
-        model.addAttribute("qnaList", filtered);
+        model.addAttribute("qnaList", qnaList);
         return "/myaccount/qna";
     }
 
