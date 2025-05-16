@@ -161,7 +161,9 @@ public class QnaService {
         return qnaRepository.findByUser(user);
     }
 
-
+    public List<Qna> getQnaByUserUid(String uid) {
+        return qnaRepository.findByUserUid(uid);
+    }
 
 
 }

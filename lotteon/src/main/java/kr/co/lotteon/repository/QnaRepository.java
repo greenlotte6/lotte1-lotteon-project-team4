@@ -18,6 +18,8 @@ public interface QnaRepository extends JpaRepository<Qna, Long> {
     void deleteByQnaId(Long qnaId);
     Page<Qna> findByQnaType1AndQnaType2(String qnaType1, String qnaType2, Pageable pageable);
     List<Qna> findByUser(Users user);
+    List<Qna> findByUserUid(String uid);
+
 
 
 }
