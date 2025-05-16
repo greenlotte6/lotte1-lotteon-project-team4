@@ -1,10 +1,13 @@
 package kr.co.lotteon.service.admin;
 
+import kr.co.lotteon.entity.Coupon;
 import kr.co.lotteon.entity.CouponIssued;
+import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.repository.CouponIssuedRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,5 +54,25 @@ public class CouponIssuedService {
     }
 
 
+    public void issueCoupon(String cno, UserDetails userDetails) {
 
+        String uid = userDetails.getUsername();
+
+        Users users = Users
+                .builder()
+                .uid(uid)
+                .build();
+
+        Coupon coupon = Coupon.builder()
+                .couponId(cno)
+                .build();
+
+        CouponIssued couponIssued = CouponIssued.builder()
+                .coupon(coupon)
+                .user(users)
+                .status("발급")
+                .build();
+
+        couponIssuedRepository.save(couponIssued);
+    }
 }

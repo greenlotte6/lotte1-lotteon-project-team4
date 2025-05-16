@@ -1,78 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
-    <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
+        <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
 
-    <link rel="stylesheet" href="/css/common/_header.css" />
-    <link rel="stylesheet" href="/css/common/_footer.css" />
-    <link rel="stylesheet" href="/css/myaccount/coupon.css" />       
-</head>
-<body>
-<th:block th:include="/common/_header"/>
-    <main>
-        <th:block th:include="/common/_myaccount_top"/>
-    <div class="main_container">
-        <th:block th:include="/common/_myaccount_sied"/>
-          <div class="content">
-              <div class="banner_top">810 × 86 배너 광고</div>
-            <h2>쿠폰내역</h2>
-            <div class="section">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>쿠폰명</th>
-                      <th>할인금액</th>
-                      <th>적용기준/제한조건</th>
-                      <th>상태</th>
-                      <th>유효기간</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <tr th:each="coupon : ${coupon}">
-                      <td th:text="${CouponIssued.couponName}">쿠폰명</td>
-                      <td th:text="${CouponIssued.benefit}">할인금액</td>
-                      <td th:text="${CouponIssued.couponType}">적용기준</td>
-                      <td th:text="${CouponIssued.status}">상태</td>
-                      <td th:text="${CouponIssued.validTo}">유효기간</td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="bottom-memo">
-                <table>
-                  <tr>
-                    <td class="dot">•</td>
-                    <td>순금 / 골드바 / 돌반지 / 상품권 등 환금성 카테고리 및 중고상품 및 일부 프로모션 상품에는 쿠폰 사용이 제한됩니다.</td>
-                  </tr>
-                  <tr>
-                    <td class="dot">•</td>
-                    <td>쿠폰 적용 가능한 금액 기준은 판매자 상품별 할인과 G마켓 추가할인이 모두 포함된 할인적용가입니다.</td>
-                  </tr>
-                  <tr>
-                    <td class="dot">•</td>
-                    <td>중복쿠폰은 판매자 할인, G마켓 할인과 중복 적용 가능하나 하나의 상품당 한장의 중복쿠폰만 사용 가능합니다.</td>
-                  </tr>
-                  <tr>
-                    <td class="dot">•</td>
-                    <td>항공 할인은 항공권 전용 할인으로 결제시점에 할인 혜택을 받을 수 있습니다.</td>
-                  </tr>
-                  <tr>
-                    <td class="dot">•</td>
-                    <td>항공권 예약취소 또는 환불시 적용했던 항공할인은 ID당 1회 한하여 다시 발급됩니다.</td>
-                  </tr>
-                </table>
-                  
+        <link rel="stylesheet" href="/css/common/_header.css" />
+        <link rel="stylesheet" href="/css/common/_footer.css" />
+        <link rel="stylesheet" href="/css/myaccount/coupon.css" />
+    </head>
+    <body>
+    <th:block th:include="/common/_header"/>
+        <main>
+            <th:block th:include="/common/_myaccount_top"/>
+        <div class="main_container">
+            <th:block th:include="/common/_myaccount_sied"/>
+              <div class="content">
+                  <div class="banner_top">810 × 86 배너 광고</div>
+                <h2>쿠폰내역</h2>
+                <div class="section">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>쿠폰명</th>
+                          <th>할인금액</th>
+                          <th>적용기준/제한조건</th>
+                          <th>상태</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <tr th:each="couponIssued : ${CouponIssued}">
+                          <td th:text="${couponIssued.coupon.couponName}">쿠폰명</td>
+                          <td th:text="${couponIssued.coupon.benefit}">할인금액</td>
+                          <td th:text="${couponIssued.coupon.couponType}">적용기준</td>
+                          <td th:text="${couponIssued.status}">상태</td>
+                      </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="bottom-memo">
+                    <table>
+                      <tr>
+                        <td class="dot">•</td>
+                        <td>순금 / 골드바 / 돌반지 / 상품권 등 환금성 카테고리 및 중고상품 및 일부 프로모션 상품에는 쿠폰 사용이 제한됩니다.</td>
+                      </tr>
+                      <tr>
+                        <td class="dot">•</td>
+                        <td>쿠폰 적용 가능한 금액 기준은 판매자 상품별 할인과 G마켓 추가할인이 모두 포함된 할인적용가입니다.</td>
+                      </tr>
+                      <tr>
+                        <td class="dot">•</td>
+                        <td>중복쿠폰은 판매자 할인, G마켓 할인과 중복 적용 가능하나 하나의 상품당 한장의 중복쿠폰만 사용 가능합니다.</td>
+                      </tr>
+                      <tr>
+                        <td class="dot">•</td>
+                        <td>항공 할인은 항공권 전용 할인으로 결제시점에 할인 혜택을 받을 수 있습니다.</td>
+                      </tr>
+                      <tr>
+                        <td class="dot">•</td>
+                        <td>항공권 예약취소 또는 환불시 적용했던 항공할인은 ID당 1회 한하여 다시 발급됩니다.</td>
+                      </tr>
+                    </table>
+
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    </main>
-    <th:block th:include="/common/_footer"/>
-    <script src="/js/head.js"></script>   
-  </body>
-  </html>
+        </main>
+        <th:block th:include="/common/_footer"/>
+        <script src="/js/head.js"></script>
+      </body>
+      </html>
