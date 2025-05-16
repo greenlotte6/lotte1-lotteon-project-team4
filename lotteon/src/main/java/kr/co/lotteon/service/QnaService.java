@@ -37,6 +37,8 @@ public class QnaService {
 
         log.info(user.getUid());
         qnaRepository.save(qna);
+
+        log.info("QNA 등록하는 유저: {}", user != null ? user.getUid() : "null");
     }
 
     // 공통 - Qna 단일 조회 (관리자, 사용자 모두 사용)
