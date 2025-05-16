@@ -1,7 +1,9 @@
 package kr.co.lotteon.controller;
 
+import kr.co.lotteon.dto.ReviewDTO;
 import kr.co.lotteon.entity.CouponIssued;
 import kr.co.lotteon.entity.Seller;
+import kr.co.lotteon.service.ReviewService;
 import kr.co.lotteon.service.admin.CouponIssuedService;
 import kr.co.lotteon.dto.QnaDTO;
 import kr.co.lotteon.entity.Qna;
@@ -26,7 +28,9 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 
 import java.util.List;
@@ -43,6 +47,7 @@ public class MyaccountController {
     private final UsersService usersService;
     private final UsersRepository usersRepository;
     private final CouponIssuedService couponIssuedService;
+    private final ReviewService reviewService;
 
 
     @GetMapping("/myaccount/home")
@@ -318,6 +323,13 @@ public class MyaccountController {
 
     @GetMapping("/myaccount/review")
     public String review() {
+
+
+
+
+
+
+
         return "/myaccount/review";
     }
 
@@ -327,6 +339,18 @@ public class MyaccountController {
         return "/myaccount/seller";
     }
 
+    @PostMapping("/myaccount/ireview")
+    public String submitReview(@ModelAttribute ReviewDTO reviewDTO,
+                               @RequestParam("files") MultipartFile[] files,
+                               Principal principal) {
+
+        // 로그인한 사용자 정보 설정
+        reviewDTO.setUsersUid(principal.getName()); // 또는 session에서 꺼내는 방식
+
+        reviewService.saveReview(reviewDTO, files);
+
+        return "redirect:/myaccount/review-success"; // 저장 후 이동할 페이지
+    }
 
 
     @GetMapping("/myaccount/return-modal")
