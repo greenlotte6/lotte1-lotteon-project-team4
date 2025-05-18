@@ -18,7 +18,7 @@ public class ReviewDTO {
     private int review_id;
     private int Products_pid;
     private String Users_uid;
-    private int rating;
+    private Double rating;
     private String comment;
     private LocalDateTime write_at;
 
