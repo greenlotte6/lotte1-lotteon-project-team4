@@ -29,8 +29,6 @@ public class Review {
 
     private String Users_uid;
 
-    private Double rating;
-
     private String comment;
 
     @CreationTimestamp
