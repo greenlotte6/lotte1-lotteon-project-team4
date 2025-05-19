@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -22,7 +23,8 @@ public class Review {
     @JoinColumn(name = "Products_pid")
     private Products products;
 
-    private String Users_uid;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Users  users;
     private Double rating;
     private String comment;
 
