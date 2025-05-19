@@ -101,45 +101,47 @@
                     <div class="breadcrumb">HOME > 패션 · 의류 · 뷰티 > 남성의류</div>
                     <h2 class="product-title">상품보기</h2>
 
-                    <div class="product-detail-wrap">
+                    <div class="product-detail-wrap" th:each="product, i:${productDTO}">
                         <div class="product-image">
-                            <img src="/images/product/market_item1.jpg" alt="상품 이미지">
+                            <img th:src="@{/uploads/} + ${product.img_file_1}" alt="상품 이미지">
                         </div>
 
                         <div class="product-info">
                             <div class="first-product">
                                 <div class="company-line">
-                                    <p class="product-code">상품번호 : 10010118412</p>
-                                    <p class="company-name">(주) 상호명</p>
+                                    <p class="product-code">상품번호 : [[${product.pid}]]</p>
+                                    <p class="company-name" th:text="${product.company}">(주) 상호명</p>
                                 </div>
                                 <div class="product-header">
-                                    <h2 class="product-name">상품명</h2>
-                                    <div class="rating">★★★★★
+                                    <h2 class="product-name" th:text="${product.pname}">상품명</h2>
+                                    <div class="rating" th:text="${product.rating}">★★★★★
                                         <span class="link">상품평보기</span>
                                     </div>
                                 </div>
 
                                 <div class="price-box">
                                     <div>
-                                        <span class="original-price">30,000원</span>
-                                        <span class="discount">10%</span>
+                                        <span class="original-price">[[${product.price}]]원</span>
+                                        <span class="discount">[[${product.discount}]]%</span>
                                         <span class="badge">쿠폰받기</span>
                                     </div>
-                                    <div class="final-price">27,000원</div>
+                                    <div class="final-price">[[${product.discountPrice}]]원</div>
                                 </div>
 
                                 <div class="delivery-info">
-                                    <span class="free">무료배송</span>
+                                    <span class="free" th:text="${product.delivery_free == '무료배송' ? '무료배송' : '배송비 ' + product.delivery_free + '원'}"></span>
                                     <span class="delivery-arrive">모레 (금) 7/8 도착예정</span><br>
                                     <p class="only">본 상품은 국내배송만 가능합니다.</p>
                                 </div>
 
                                 <div class="option-box">
                                     <p class="tip">원산지 – 상세설명 참고</p>
-                                    <select class="option">
-                                        <option>선택하세요</option>
-                                        <option>옵션 1</option>
-                                        <option>옵션 2</option>
+                                    <select class="option" name="category">
+                                        <option value="">선택하세요</option>
+                                        <option th:each="category : ${categoryDTO}"
+                                                th:value="${category.cateId}"
+                                                th:text="${category.cateName}">
+                                        </option>
                                     </select>
 
                                     <div class="selected-option">

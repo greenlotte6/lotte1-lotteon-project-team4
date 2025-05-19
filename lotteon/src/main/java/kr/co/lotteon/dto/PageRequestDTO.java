@@ -38,6 +38,7 @@ public class PageRequestDTO {
 
     // 정렬 없이 또는 상품 목록에 사용하는 Pageable
     public Pageable getPageableNotSort() {
+
         Sort sort;
 
         switch (sortType) {
@@ -60,10 +61,11 @@ public class PageRequestDTO {
                 break;
             case "recent":
             default:
-                sort = Sort.by(Sort.Direction.DESC, "p_created_at");
+                sort = Sort.by(Sort.Direction.DESC, "pid");
                 break;
         }
 
         return PageRequest.of(this.pg - 1, this.size, sort);
+
     }
 }
