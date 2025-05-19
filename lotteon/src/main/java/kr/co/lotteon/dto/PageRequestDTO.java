@@ -60,7 +60,7 @@ public class PageRequestDTO {
                 break;
             case "recent":
             default:
-                sort = Sort.by(Sort.Direction.DESC, "p_created_at");
+                sort = Sort.by(Sort.Direction.DESC, "pid");
                 break;
         }
 

@@ -120,9 +120,9 @@
                 <table class="product-table">
                     <tbody>
                     <tr th:each="product, i:${pageResponseDTO.dtoList}">
-                        <td><img src="/images/product/market_item1.jpg" alt="상품썸네일" class="product-img"></td>
+                        <td><a th:href="@{/product/view(pid=${product.pid})}"><img th:src="${product.img_file_1}" alt="상품썸네일" class="product-img"></a></td>
                         <td>
-                            <p class="name">[[${product.pname}]]</p>
+                            <a th:href="@{/product/view(pid=${product.pid})}"><p class="name">[[${product.pname}]]</p></a>
                             <p class="desc">[[${product.description}]]</p>
                         </td>
                         <td>
