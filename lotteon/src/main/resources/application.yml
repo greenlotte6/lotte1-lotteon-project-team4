@@ -116,3 +116,6 @@ spring:
                         user-name-attribute: id
 
 
+    file:
+        upload:
+            path: /uploads

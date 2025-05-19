@@ -14,6 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
+                const form  = modalBody.querySelector("form");
+                if(form) {
+                    form.addEventListener("submit", function (e) {
+                        
+                    });
+                }
+
                 modalBody.innerHTML = html;
                 modalOverlay.style.display = "flex";
                 document.body.style.overflow = "hidden";
