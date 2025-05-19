@@ -3,58 +3,59 @@ body {
     margin: 0;
     padding: 0;
     background: #f5f5f5;
-  }
-  
-  .main_container {
+}
+
+.main_container {
     width: 1200px;
     margin: 0 auto;
     background: white;
     display: flex;
-  }
-  
-  .sidebar {
+}
+
+.sidebar {
     width: 200px;
     background-color: #efefef;
     padding: 20px 60px;
     box-sizing: border-box;
-  }
-  
-  .sidebar ul {
+}
+
+.sidebar ul {
     list-style: none;
     padding: 0;
-  }
-  
-  .sidebar li {
+}
+
+.sidebar li {
     padding: 10px 0;
     cursor: pointer;
-  }
-  
-  .content {
+}
+
+.content {
     width: 1000px;
     padding: 15px;
     box-sizing: border-box;
-  }
-  
-  .top-info {
+}
+
+.top-info {
     display: flex;
     justify-content: space-around;
     padding: 10px;
     font-weight: bold;
     max-width: 400px;
-  }
-  
-  .top-info > li{
-      width: 50px;
-      text-align: center;
-      border-right: 1px solid black;
-      padding: 5px;
-  
-  }
-  .top-info > li:nth-child(4){
-   border: none;
-  }
-  
-  .banner {
+}
+
+.top-info > li {
+    width: 50px;
+    text-align: center;
+    border-right: 1px solid black;
+    padding: 5px;
+
+}
+
+.top-info > li:nth-child(4) {
+    border: none;
+}
+
+.banner {
     background: #ccc;
     height: 86px;
     width: 810px;
@@ -62,323 +63,331 @@ body {
     justify-content: center;
     align-items: center;
     margin: 20px 0;
-  }
-  
-  .order-list {
+}
+
+.order-list {
     border-top: 2px solid #333;
-  }
-  
-  .order-header, .order-row {
+}
+
+.order-header, .order-row {
     display: flex;
     border-bottom: 1px solid #ccc;
     padding: 10px 0;
     align-items: center;
-  }
-  
-  .order-header {
+}
+
+.order-header {
     font-weight: bold;
     background-color: rgb(167, 164, 164);
     color: white;
-  }
-  
-  .order-date {
+}
+
+.order-date {
     width: 150px;
     text-align: center;
-  }
-  
-  .order-info {
+}
+
+.order-info {
     width: 580px;
     text-align: center;
     align-items: center;
-  }
-  .order-info_num{
+}
+
+.order-info_num {
     width: 550px;
     display: flex;
     align-items: center;
     margin-left: 30px;
-  }
-  
-  .order-img {
+}
+
+.order-img {
     width: 140px;
     height: 140px;
     background: #aaa;
     margin-right: 15px;
-  }
-  
-  .order-text {
+}
+
+.order-text {
     font-size: 15px;
     margin-left: 10px;
-  }
-  
-  .order-text a{
+}
+
+.order-text a {
     font-size: 15px;
-  }
-  
-  .order-status {
+}
+
+.order-status {
     width: 100px;
     text-align: center;
     margin-right: 30px;
-  }
-  
-  .order-actions {
+}
+
+.order-actions {
     width: 100px;
     text-align: center;
-  
-  }
-  
-  .btn {
+
+}
+
+.btn {
     display: block;
     margin: 5px 0;
     padding: 5px 10px;
     border: none;
     cursor: pointer;
     font-size: 12px;
-  }
-  
-  .btn:hover {
+}
+
+.btn:hover {
     background: #0056b3;
     color: white;
-  }
-  
-  .more {
+}
+
+.more {
     text-align: right;
     margin-bottom: 10px;
     margin-left: 25px;
-  }
-  
-  
-  .top-title{
-      width: 1200px;
-      background: #ddd;
-      margin:0 auto;
-      display: flex;
-  }
-  #main {
-      width: 1200px;
-      height: auto;
-  }
-  
-  
-  .top-name{
-      width: 950px;
-      margin-top: 18px;
-      margin-left: 60px;
-      font-size: larger;
-      font-weight: 500;
-  }
-  
-  
-  .section {
+}
+
+
+.top-title {
+    width: 1200px;
+    background: #ddd;
+    margin: 0 auto;
+    display: flex;
+}
+
+#main {
+    width: 1200px;
+    height: auto;
+}
+
+
+.top-name {
+    width: 950px;
+    margin-top: 18px;
+    margin-left: 60px;
+    font-size: larger;
+    font-weight: 500;
+}
+
+
+.section {
     margin-bottom: 40px;
-  }
-  
-  .section-header {
+}
+
+.section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-weight: bold;
     margin-bottom: 10px;
-  }
+}
 
-  
-  
-  .see-more {
-  font-size: 13px;
-  color: #333;
-  cursor: pointer;
-  margin-top: 25px;
-  }
-  
-  .left-title {
-  display: flex;
-  align-items: center;
-  }
-  
-    h2 {
-  font-size: 18px;
-  margin-top: 30px;
-  padding-bottom: 15px;
-  }
-  
-  .inquiry-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-  }
-  
-  .inquiry-table th,
-  .inquiry-table td {
-  border-bottom: 1px solid #ddd;
-  text-align: center;
-  padding: 10px;
-  font-size: 14px;
-  }
-  
-  .inquiry-table th {
-  background-color: #f1f1f1;
-  }
-  
-  .status-pending {
-  color: #888;
-  }
-  
-  .status-done {
-  color: #0a8c3a;
-  font-weight: bold;
-  }
-  
-  
-  .setting-container {
-        display: flex;
-        justify-content: space-between;
-        background-color: #eaf0f8;
-        padding: 20px;
-        border-radius: 8px;
-        font-family: Arial, sans-serif;
-        margin-top: 20px;
-  }
-  
-  
-  
-  
-  .container-bar {
+
+.see-more {
+    font-size: 13px;
+    color: #333;
+    cursor: pointer;
+    margin-top: 25px;
+}
+
+.left-title {
+    display: flex;
+    align-items: center;
+}
+
+h2 {
+    font-size: 18px;
+    margin-top: 30px;
+    padding-bottom: 15px;
+}
+
+.inquiry-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.inquiry-table th,
+.inquiry-table td {
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.inquiry-table th {
+    background-color: #f1f1f1;
+}
+
+.status-pending {
+    color: #888;
+}
+
+.status-done {
+    color: #0a8c3a;
+    font-weight: bold;
+}
+
+
+.setting-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #eaf0f8;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+}
+
+
+.container-bar {
     width: auto;
     background-color: #e9f0f8;
     border: 1px solid #c6d3e0;
     padding: 15px;
     margin: 20px auto;
-  }
-      .title {
+}
+
+.title {
     font-weight: bold;
     font-size: 16px;
     margin-bottom: 10px;
-  }
-  
-  .query-row {
+}
+
+.query-row {
     display: flex;
     align-items: center;
     gap: 6px;
     flex-wrap: wrap;
     margin-bottom: 15px;
-  }
-  
-  .query-row select,
-  .query-row input {
+}
+
+.query-row select,
+.query-row input {
     padding: 4px 6px;
     font-size: 14px;
-  }
-  
-  .btn {
+}
+
+.btn {
     padding: 5px 12px;
     background-color: #f0f0f0;
     border: 1px solid #999;
     cursor: pointer;
-  }
-  
-  .bottom-memo{
+}
+
+.bottom-memo {
     width: auto;
     margin-top: 300px;
-  }
+}
 
-  .bottom-memo p{
-    
+.bottom-memo p {
     font-size: 13px;
-  }
+}
 
-  .bottom-memo{
+.bottom-memo {
     width: auto;
     margin-top: 300px;
-  }
+}
 
-  .bottom-memo p{
-    
+.bottom-memo p {
     font-size: 13px;
-  }
+}
 
-  .bottom-memo{
+.bottom-memo {
     width: auto;
     margin-top: 300px;
-  }
+}
 
-  .bottom-memo p{
-    
+.bottom-memo p {
     font-size: 13px;
-  }
+}
 
 
 table {
     width: 90%;
     border-collapse: collapse;
+}
+
+.form-border{
+    width: 90%;
+    border-collapse: collapse;
     border-top: 2px solid gray;
     border-bottom: 2px solid gray;
-  }
+}
 
-  td {
+td {
     padding: 10px;
     vertical-align: middle;
     font-size: 16px;
-  }
+}
 
-  table tr:nth-child(1) td:nth-child(2){
+table tr:nth-child(1) td:nth-child(2) {
     padding-left: 15px;
-  }
-  table tr:nth-child(3) td:nth-child(2){
-      padding-left: 15px;
-  }
-  table tr:nth-child(4) td:nth-child(2){
-      padding-left: 15px;
-  }
-  
+}
+table tr:nth-child(2) td:nth-child(2) {
+    padding-left: 15px;
+}
 
-  .top-name a {
-    color: inherit;     
-    text-decoration: none; 
-  }
-  
-  .top-name a:visited {
-    color: inherit;     
-  }
+table tr:nth-child(3) td:nth-child(2) {
+    padding-left: 15px;
+}
 
-  .label {
+table tr:nth-child(4) td:nth-child(2) {
+    padding-left: 15px;
+}
+
+
+.top-name a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.top-name a:visited {
+    color: inherit;
+}
+
+.label {
     width: 120px;
     height: 40px;
     white-space: nowrap;
     background-color: #e9e7e7;
-  }
-  .text-le{
+}
+
+.text-le {
     padding: 6px;
     width: 150px;
     box-sizing: border-box;
     border: 2px solid gray;
 
-  }
-  
-  input[type="password"],
-  select {
+}
+
+input[type="password"],
+select {
     padding: 6px;
     width: 150px;
     box-sizing: border-box;
     border: 2px solid gray;
-  }
+}
 
-  .btn-black {
+.btn-black {
     height: 35px;
     padding: 6px 10px;
     margin-left: 5px;
     cursor: pointer;
     background-color: rgb(211, 210, 210);
-  
-  }
 
-  .btn-red {
+}
+
+.btn-red {
     width: 100px;
     height: 35px;
     background-color: #b80000;
     color: white;
     border: none;
-  }
+}
 
-  .btn-blue {
+.btn-blue {
     width: 250px;
     height: 45px;
     background-color: #3b6db3;
@@ -386,49 +395,222 @@ table {
     border: none;
     padding: 10px;
     font-size: 16px;
-    margin : 50px 350px;
-  }
+    margin: 50px 350px;
+}
 
-  .email-box,
-  .phone-box {
+.email-box,
+.phone-box {
     display: flex;
     gap: 5px;
     align-items: center;
-  }
+}
 
-  .email-box input[type="text"] {
+.email-box input[type="text"] {
     width: 100px;
     border: 2px solid gray;
-  }
+}
 
-  .phone-box input[type="tel"] {
+.phone-box input[type="tel"] {
     width: 90px;
     border: 2px solid gray;
-  }
+}
 
 
-  input, select {
+input, select {
     padding: 6px;
     margin: 4px;
     font-size: 14px;
-  }
+}
 
-  .input-full {
+.input-full {
     width: 100%;
-  }
+}
 
-  hr {
+hr {
     margin-top: 30px;
-  }
+}
 
-  .sidebar a {
-    color: inherit;     
-    text-decoration: none; 
-  }
-  
-  .sidebar a:visited {
-    color: inherit;       
-  }
+.sidebar a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.sidebar a:visited {
+    color: inherit;
+}
+
+/* 모달 */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    width: 700px;
+    background: white;
+    border-radius: 3px;
+    overflow: hidden;
+    margin: auto; /* 중앙 정렬을 위해 추가 */
+    max-width: 100%; /* 화면 크기에 맞춰 모달 크기 조절 */
+    box-sizing: border-box; /* 여백을 포함하여 크기 계산 */
+}
+
+.modal-header {
+    background: #d3514a;
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header span {
+    color: red;
+    margin-right: 5px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.modal-header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.info-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
+    vertical-align: top;
+}
+
+.info-table td.label {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    width: 150px;
+    white-space: nowrap;
+}
+
+.info-table td[colspan] {
+    white-space: pre-line;
+}
+
+.modal-footer {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.modal-footer button {
+    background: #d3514a;
+    width: 106px;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.modal-overlay register-modal {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.label {
+    background: #f5f5f5;
+    font-weight: bold;
+    width: 150px;
+    white-space: nowrap;
+}
+
+td.label {
+    text-align: center;
+}
+
+.text, textarea {
+    width: 80%;
+    padding: 5px;
+    font-size: 14px;
+    resize: none;
+}
+
+textarea {
+    height: 100px;
+}
+
+select {
+    padding: 5px;
+    font-size: 14px;
+    width: 50%;
+}
+
+.date-inputs {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.modal-footer {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.modal-footer button {
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 2px;
+    border: none;
+}
+
+.cancel-btn {
+    background: #ccc;
+    color: #333;
+    margin-right: 10px;
+}
+
+.submit-btn {
+    background: #d3514a;
+    color: white;
+}
+
+.modal-table{
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+}
 
   
   

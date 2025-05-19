@@ -99,7 +99,7 @@
     padding: 30px;
 }
 
-.breadcrumb, .breadcrumb span {
+.breadcrumb {
     font-size: 16px;
     margin-bottom: 10px;
     float: right;
@@ -253,37 +253,3 @@
     background-color: red;
     color: white;
 }
-
-/*!* 상품평 별 *!*/
-/*.star-container {*/
-/*    display: inline-block;*/
-/*    position: relative;*/
-/*    font-size: 1em; !* 기본 크기 조절 *!*/
-/*    line-height: 1;*/
-/*}*/
-
-/*.star-full::before {*/
-/*    content: '★';*/
-/*    color: gold; !* 채워진 색상 *!*/
-/*}*/
-
-/*.star-half::before {*/
-/*    content: '★';*/
-/*    color: gold;*/
-/*    position: absolute;*/
-/*    left: 0;*/
-/*    width: 50%;*/
-/*    overflow: hidden;*/
-/*}*/
-
-/*.star-half::after {*/
-/*    content: '☆'; !* 또는 빈 별 문자 *!*/
-/*    position: absolute;*/
-/*    left: 50%;*/
-/*    color: lightgray; !* 빈 부분 색상 *!*/
-/*}*/
-
-/*.star-empty::before {*/
-/*    content: '☆';*/
-/*    color: lightgray;*/
-/*}*/

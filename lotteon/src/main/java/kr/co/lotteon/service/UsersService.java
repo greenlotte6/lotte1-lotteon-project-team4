@@ -160,6 +160,33 @@ public class UsersService {
         }
     }
 
+    @Transactional
+    public void deactivateUser(String uid) {
+        usersRepository.findByUid(uid).ifPresent(user -> {
+            user.setStatus("탈퇴");
+            log.info("변경된 상태: {}", user.getStatus()); // 확인용
+            usersRepository.save(user);
+            usersRepository.flush();
+            log.info("✅ 사용자 '{}' 탈퇴 처리 완료", uid);
+        });
+    }
+
+    public boolean updatePasswordIfMatch(String uid, String currentPassword, String newPassword) {
+        Optional<Users> optionalUser = usersRepository.findByUid(uid);
+        if (optionalUser.isPresent()) {
+            Users user = optionalUser.get();
+            if (passwordEncoder.matches(currentPassword, user.getPassword())) {
+                user.setPassword(passwordEncoder.encode(newPassword));
+                usersRepository.save(user);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
     // 판매자 등록
     public void saveSeller(SellerDTO dto) {
         Seller seller = Seller.builder()

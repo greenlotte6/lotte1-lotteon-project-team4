@@ -2,67 +2,69 @@
 <div th:fragment="modalContent">
     <link rel="stylesheet" th:href="@{/css/myaccount/review.css}"/>
 
+    <form th:action="@{/myaccount/review}" method="post" enctype="multipart/form-data">
     <div class="message-log">
         <div class="message-title">상품평작성하기</div>
         <button class="close-btn" onclick="parent.document.getElementById('modalOverlay').style.display='none'">X
         </button>
     </div>
     <div class="main_container">
-        <table class="table-container">
-            <tr>
-                <th>상품명</th>
-                <td>상품명 출력</td>
-            </tr>
-            <tr>
-                <th>만족도</th>
-                <td>
-                    <div class="rating">
-                        <input type="radio" id="star5" name="rating" value="5">
-                        <label for="star5">★</label>
+            <table class="table-container">
+                <tr>
+                    <th>상품명</th>
+                    <td>상품명 출력</td>
+                </tr>
+                <tr>
+                    <th>만족도</th>
+                    <td>
+                        <div class="rating">
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5">★</label>
 
-                        <input type="radio" id="star4" name="rating" value="4">
-                        <label for="star4">★</label>
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4">★</label>
 
-                        <input type="radio" id="star3" name="rating" value="3">
-                        <label for="star3">★</label>
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3">★</label>
 
-                        <input type="radio" id="star2" name="rating" value="2">
-                        <label for="star2">★</label>
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2">★</label>
 
-                        <input type="radio" id="star1" name="rating" value="1">
-                        <label for="star1">★</label>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th>내용</th>
-                <td>
-                    <textarea placeholder="최소 10자 이상 200자내 외로 작성하세요."></textarea>
-                </td>
-            </tr>
-            <tr>
-                <th>사진</th>
-                <td>
-                    <div class="file-upload">
-                        <input type="file">
-                    </div>
-                    <div class="file-upload">
-                        <input type="file">
-                    </div>
-                    <div class="file-upload">
-                        <input type="file">
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <div class="M-button">
-            <button class="moon" onclick="parent.document.getElementById('modalOverlay').style.display='none'">확인
-            </button>
-            <button class="moon" onclick="parent.document.getElementById('modalOverlay').style.display='none'">취소
-            </button>
-        </div>
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1">★</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                    <td>
+                        <textarea placeholder="최소 10자 이상 200자내 외로 작성하세요." name="comment"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th>사진</th>
+                    <td>
+                        <div class="file-upload">
+                            <input type="file" name="file1">
+                        </div>
+                        <div class="file-upload">
+                            <input type="file" name="file2">
+                        </div>
+                        <div class="file-upload">
+                            <input type="file" name="file3">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="M-button">
+                <button type="submit" class="moon" onclick="parent.document.getElementById('modalOverlay').style.display='none'">확인
+                </button>
+                <button class="moon" onclick="parent.document.getElementById('modalOverlay').style.display='none'">취소
+                </button>
+            </div>
     </div>
-
+    </form>
 </div>
 
-    
+
+
