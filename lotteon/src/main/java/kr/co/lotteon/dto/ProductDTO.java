@@ -37,6 +37,7 @@ public class ProductDTO {
     private int cart_item_item_id;
     private int productCompliance_compliance_id;
 
+
     // 추가 필드
     private int rating;
 
