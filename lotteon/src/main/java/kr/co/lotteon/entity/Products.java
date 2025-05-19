@@ -38,9 +38,6 @@ public class Products {
     private String mgmt;
     private String brand;
 
-    @OneToMany(mappedBy = "products")
-    private List<Review> review;
-
     @CreationTimestamp
     private LocalDate p_created_at;
     @UpdateTimestamp
@@ -58,7 +55,6 @@ public class Products {
     @OneToOne(mappedBy = "products", cascade = CascadeType.ALL)
     private ProductCompliance productCompliance;
 
-    private int review_count;
 
 
 }

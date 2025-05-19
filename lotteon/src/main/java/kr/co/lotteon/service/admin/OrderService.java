@@ -2,10 +2,7 @@ package kr.co.lotteon.service.admin;
 
 import com.querydsl.core.Tuple;
 import kr.co.lotteon.dao.OrderMapper;
-import kr.co.lotteon.dto.OrdersDTO;
-import kr.co.lotteon.dto.PageRequestDTO;
-import kr.co.lotteon.dto.PageResponseDTO;
-import kr.co.lotteon.dto.PointDTO;
+import kr.co.lotteon.dto.*;
 import kr.co.lotteon.entity.Delivery;
 import kr.co.lotteon.entity.OrderItem;
 import kr.co.lotteon.entity.Orders;
@@ -16,9 +13,11 @@ import kr.co.lotteon.repository.OrdersRepository;
 import kr.co.lotteon.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Mapper;
 import org.hibernate.Hibernate;
 import org.hibernate.query.Order;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -223,4 +222,37 @@ public class OrderService {
 //            }
 
     }
+
+    public List<OrderViewDTO> getOrderViewListByUser(String uid) {
+        List<Orders> orders = ordersRepository.findByUsers_Uid(uid);
+
+        List<OrderViewDTO> viewDTOList = modelMapper.map(orders, List.class);
+
+        log.info("viewDTOList {}", viewDTOList);
+
+
+
+//        return orders.stream().map(order -> {
+//            Products product = order.getProducts();
+//            String sellerCompany = product != null && product.getCompany() != null
+//                    ? product.getCompany()
+//                    : "정보 없음";
+
+//            return OrderViewDTO.builder()
+//                    .oid(orders.getOid())
+//                    .orderDate(order.getOrder_date().toLocalDate().toString())
+//                    .shippingStatus(order.getShipping_status())
+//                    .productName(product.getPname())
+//                    .productPrice(product.getPrice())
+//                    .quantity(1) // 예시
+//                    .sellerCompany(sellerCompany)
+//                    .build();
+//        }).collect(Collectors.toList());
+
+        return viewDTOList;
+    }
+
+
+
+
 }
