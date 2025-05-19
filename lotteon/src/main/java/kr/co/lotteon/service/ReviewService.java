@@ -4,11 +4,13 @@ package kr.co.lotteon.service;
 import kr.co.lotteon.dto.ReviewDTO;
 import kr.co.lotteon.entity.Products;
 import kr.co.lotteon.entity.Review;
+import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.repository.ProductRepository;
 import kr.co.lotteon.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -18,25 +20,25 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final ProductRepository productRepository;
+    private final ModelMapper modelMapper;
 
-    public void saveReview(ReviewDTO reviewDTO, MultipartFile[] files) {
+    public void saveReview(ReviewDTO reviewDTO, UserDetails files) {
 
-        Optional<Products> optProduct = productRepository.findById(reviewDTO.getProducts_pid());
+        Products products = Products.builder()
+                .pid(reviewDTO.getProducts_pid())
+                .build();
 
-        if(optProduct.isPresent()) {
-            Products products = optProduct.get();
+        Users user = Users.builder()
+                .uid(reviewDTO.getUsers_uid())
+                .build();
 
-            Review review = Review.builder()
-                    .products(products)
-                    .Users_uid(reviewDTO.getUsers_uid())
-                    .rating(reviewDTO.getRating())
-                    .comment(reviewDTO.getComment())
-                    .write_at(reviewDTO.getWrite_at())
-                    .build();
+        Review review = modelMapper.map(reviewDTO, Review.class);
 
-            reviewRepository.save(review);
+        review.setUsers(user);
+        review.setProducts(products);
+        reviewRepository.save(review);
 
-        }
+
 
 
     }

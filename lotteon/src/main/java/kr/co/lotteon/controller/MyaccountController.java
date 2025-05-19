@@ -359,13 +359,22 @@ public class MyaccountController {
     @GetMapping("/myaccount/review")
     public String review() {
 
-
-
-
-
-
-
         return "/myaccount/review";
+    }
+
+    @PostMapping("/myaccount/review")
+    public String reviewRegister(@ModelAttribute ReviewDTO reviewDTO,
+                                 @AuthenticationPrincipal UserDetails userDetails) {
+
+        System.out.println(reviewDTO);
+
+        //pid 고정으로 넣기
+        reviewDTO.setProducts_pid(16);
+
+
+        reviewDTO.setUsers_uid(userDetails.getUsername());
+        reviewService.saveReview(reviewDTO, userDetails);
+        return "/myaccount/ireview";
     }
 
     @GetMapping("/myaccount/seller")
@@ -380,6 +389,11 @@ public class MyaccountController {
         return "/myaccount/seller";
     }
 
+
+
+
+
+/*
     @PostMapping("/myaccount/ireview")
     public String submitReview(@ModelAttribute ReviewDTO reviewDTO,
                                @RequestParam("files") MultipartFile[] files,
@@ -392,7 +406,7 @@ public class MyaccountController {
 
         return "redirect:/myaccount/review-success"; // 저장 후 이동할 페이지
     }
-
+*/
 
 
     @GetMapping("/myaccount/return-modal")
