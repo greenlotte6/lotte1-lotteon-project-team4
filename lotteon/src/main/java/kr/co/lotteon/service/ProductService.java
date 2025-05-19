@@ -91,7 +91,7 @@ public class ProductService {
 
     // 카테고리 조회
 //    public CategoryDTO getAllCategories(int option_id, int item_id) {
-
+//
 //        Optional<ProductOption> optProductOption = productOptionRepository.findById(option_id);
 //        Optional<ProductOptionItem> optProductOptionItem = productOptionItemRepository.findById(item_id);
 //
@@ -101,14 +101,12 @@ public class ProductService {
 //            if (optProductOptionItem.isPresent()) {
 //                ProductOptionItem productOptionItem = optProductOptionItem.get();
 //                ProductOptionItemDTO productOptionItemDTO = modelMapper.map(productOptionItem, ProductOptionItemDTO.class);
-//            } else {
-//                throw new NoSuchElementException("Product option item not found");
 //            }
 //
 //        }else {
 //            throw new NoSuchElementException("Category not found");
 //        }
-
+//
 //    }
 
 }
