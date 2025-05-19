@@ -231,7 +231,6 @@ public class MyaccountController {
         if (userDetails != null) {
             usersService.deactivateUser(userDetails.getUsername());
             session.invalidate();
-
         }
         return "redirect:/";
     }
