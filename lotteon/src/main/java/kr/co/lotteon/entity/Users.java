@@ -43,7 +43,9 @@ public class Users {
     @CreationTimestamp
     private LocalDateTime u_created_at;
 
+    @Column(name = "status", nullable = false)
     private String status;
+
 
     @CreationTimestamp
     private LocalDateTime u_last_login;

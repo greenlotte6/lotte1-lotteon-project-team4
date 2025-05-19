@@ -7,12 +7,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-            href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
-            rel="stylesheet">
+        href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/css/common/_header.css">
     <link rel="stylesheet" href="/css/common/_footer.css">
     <link rel="stylesheet" href="/css/common/_main_aside.css">
-    <link rel="stylesheet" href="/css/product/list.css"/>
+    <link rel="stylesheet" href="/css/product/list.css" />
     <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
     <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
     <script>
@@ -61,109 +61,72 @@
 
             setInterval(showNextItem, 3000);
             */
-
-            // const starContainers = document.querySelectorAll('.stars');
-            //
-            // starContainers.forEach(container => {
-            //     const rating = parseFloat(container.dataset.rating);
-            //     container.innerHTML = '';
-            //
-            //     for (let i = 0; i < 5; i++) {
-            //         const star = document.createElement('span');
-            //         star.classList.add('star-container');
-            //
-            //         if (rating > i + 1) {
-            //             star.textContent = '★';
-            //             star.classList.add('star-full');
-            //         } else if (rating > i + 0.5 && rating <= i + 1) {
-            //             star.textContent = '½';
-            //             star.classList.add('star-half');
-            //         } else {
-            //             star.textContent = '☆';
-            //             star.classList.add('star-empty');
-            //         }
-            //         container.appendChild(star);
-            //     }
-            // });
         });
-
     </script>
 </head>
 
 <body>
-<div id="wrapper">
-    <th:block th:include="/common/_header"/>
+    <div id="wrapper">
+        <th:block th:include="/common/_header"/>
 
-    <main>
-        <article class="content">
-            <th:block th:include="/common/_main_aside"/>
+        <main>
+            <article class="content">
+                <th:block th:include="/common/_main_aside"/>
 
-            <section class="main-content">
-                <div class="breadcrumb">HOME
-                    <span th:each="category, i : ${categoryPath}">
-                    <th:block th:if="${i.index > 0}"> > </th:block>
-                    <span th:text="${category.cateName}"></span>
-                </span>
-                </div>
-                <h2 class="product-title">상품목록</h2>
+                <section class="main-content">
+                    <div class="breadcrumb">HOME > 패션 · 의류 · 뷰티 > 남성의류</div>
+                    <h2 class="product-title">상품목록</h2>
 
-                <div class="sort-options">
-                    <div class="options-item"><a th:href="@{/product/list(sortType='best')}">판매많은순</a></div>
-                    <div class="options-item"><a th:href="@{/product/list(sortType='lowPrice')}">낮은가격순</a></div>
-                    <div class="options-item"><a th:href="@{/product/list(sortType='highPrice')}">높은가격순</a></div>
-                    <div class="options-item"><a th:href="@{/product/list(sortType='rating')}">평점 높은순</a></div>
-                    <div class="options-item"><a th:href="@{/product/list(sortType='review')}">후기많은순</a></div>
-                    <div class="options-item"><a th:href="@{/product/list(sortType='recent')}">최근 등록순</a></div>
-                </div>
+                    <div class="sort-options">
+                        <div class="options-item"><a href="#">판매많은순</a></div>
+                        <div class="options-item"><a href="#">낮은가격순</a></div>
+                        <div class="options-item"><a href="#">높은가격순</a></div>
+                        <div class="options-item"><a href="#">평점 높은순</a></div>
+                        <div class="options-item"><a href="#">후기많은순</a></div>
+                        <div class="options-item"><a href="#">최근 등록순</a></div>
+                    </div>
 
 
-                <table class="product-table">
-                    <tbody>
-                    <tr th:each="product, i:${pageResponseDTO.dtoList}">
-                        <td><img src="/images/product/market_item1.jpg" alt="상품썸네일" class="product-img"></td>
-                        <td>
-                            <p class="name">[[${product.pname}]]</p>
-                            <p class="desc">[[${product.description}]]</p>
-                        </td>
-                        <td>
-                            <p class="price">[[${product.discountPrice}]]원<br>
-                                <span class="original">[[${product.price}]]원</span>
-                                <span class="discount">[[${product.discount}]]%</span>
-                            </p>
-                            <p class="shipping">배송 [[${product.delivery_free}]]</p>
-                        <td>
-                            <div class="premier">
-                                <a href="#"><img class="images" th:src="@{/images/home.png}" alt="판매자">[[${product.company}]]</a>
-                                <div><img class="images" src="/images/achievement.png" alt="등급">고객만족우수</div>
-                            </div>
-                        <p class="review">상품평 <span class="stars" ><th:block th:each="i : ${#numbers.sequence(1, product.rating)}">★</th:block></span></p>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+
+                    <table class="product-table">
+                        <tbody>
+                            <tr th:each="product, i:${pageResponseDTO.dtoList}">
+                                <td><img src="/images/product/market_item1.jpg" alt="상품썸네일" class="product-img"></td>
+                                <td>
+                                    <p class="name">[[${product.pname}]]</p>
+                                    <p class="desc">[[${product.description}]]</p>
+                                </td>
+                                <td>
+                                    <p class="price">[[${product.price}]]<br>
+                                        <span class="original">30,000원</span>
+                                        <span class="discount">10% ↓</span>
+                                    </p>
+                                    <p class="shipping">[[${product.delivery}]]</p>
+                                <td>
+                                    <div class="premier">
+                                        <a href="#"><img class="images" src="/images/home.png" alt="판매자">[[${product.company}]]</a>
+                                        <div><img class="images" src="/images/achievement.png" alt="등급">고객만족우수</div>
+                                    </div>
+                                    <p class="review">상품평 <span class="stars">★★★★★</span></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
 
-                <div class="pagination" th:if="${pageResponseDTO.total > 0}">
-                    <th:block th:if="${pageResponseDTO.prev}">
-                        <a th:href="@{/product/list(pg=${pageResponseDTO.start - 1})}" class="page-move">이전</a>
-                    </th:block>
+                    <div class="pagination">
+                        <a>&lt; 이전</a>
 
-                    <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
-                        <a class="active" th:href="@{/product/list(pg=${num})}"
-                           th:class="${num == pageResponseDTO.pg} ? 'currnt':'num'">[[${num}]]</a>
-                    </th:block>
+                        <a class="active">1</a>
 
-                    <th:block th:if="${pageResponseDTO.next}">
-                        <a th:href="@{/product/list(pg=${pageResponseDTO.end+1})}"
-                           class="page-move">다음</a>
-                    </th:block>
-                </div>
-            </section>
-        </article>
-    </main>
+                        <a>&gt; 다음</a>
+                    </div>
+                </section>
+            </article>
+        </main>
 
-    <th:block th:include="/common/_footer"/>
-</div>
+        <th:block th:include="/common/_footer"/>
+    </div>
 </body>
 
 </html>

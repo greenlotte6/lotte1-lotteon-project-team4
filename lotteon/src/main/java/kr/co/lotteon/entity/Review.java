@@ -26,6 +26,10 @@ public class Review {
     @ManyToOne(fetch = FetchType.LAZY)
     private Users  users;
     private Double rating;
+
+    private String Users_uid;
+    private int rating;
+
     private String comment;
 
     @CreationTimestamp

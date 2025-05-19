@@ -25,6 +25,7 @@
                     </div>
                     <div class="see-more"> 더보기 &gt;</div>
                 </div>
+              
                 <div class="order-list">
                     <div class="order-header">
                         <div class="order-date">날짜</div>
@@ -52,9 +53,35 @@
                             <button class="btn" onclick="openModal('/myaccount/return-modal')">반품신청</button>
                             <button class="btn" onclick="openModal('/myaccount/exchange-modal')">교환신청</button>
                         </div>
+
+                <div class="order-row">
+                    <div th:each="order : ${orderList}" class="order-row">
+                        <div class="order-date" th:text="${order.orderDate}">날짜</div>
+                    <div class="order-info_num">
+                        <div class="order-img"></div>
+                        <div class="order-text">
+                            주문번호 : <span th:text="${order.oid}">주문번호</span><br/>
+                            <a class="click-bar"
+                               th:onclick="'openModal(\'/myaccount/seller-modal?company=' + encodeURIComponent(\'' + [[${order.sellerCompany}]] + '\'))'"
+                               th:text="${order.sellerCompany}">판매자</a>
+                            <span th:text="${order.productName}">상품명</span><br/>
+                            수량 : <span th:text="${order.quantity}">1</span><br/>
+                            <span th:text="|${order.productPrice}원|">가격</span>
+                        </div>
+                    </div>
+                    <div class="order-status" th:text="${order.shippingStatus}">배송상태</div>
+
+
+                    <div class="order-actions">
+                        <button class="btn" onclick="openModal('/myaccount/buy-modal')">구매확정</button>
+                        <button class="btn" onclick="openModal('/myaccount/review-modal')">상품평쓰기</button>
+                        <button class="btn" onclick="openModal('/myaccount/return-modal')">반품신청</button>
+                        <button class="btn" onclick="openModal('/myaccount/exchange-modal')">교환신청</button>
+
                     </div>
                 </div>
                 <div class="banner_top">810 × 86 배너 광고</div>
+
 
 
                 <div class="section">
@@ -63,6 +90,13 @@
                             <h2>포인트적립내역</h2>
                         </div>
                         <div class="see-more"> 더보기 &gt;</div>
+
+
+            <div class="section">
+                <div class="section-header">
+                    <div class="left-title">
+                        <h2>포인트적립내역</h2>
+
                     </div>
                     <table class="table">
                         <thead>
@@ -225,6 +259,10 @@
             <div id="modalBody"></div>
         </div>
     </div>
+
+
+    </div>
+
 
 
 
