@@ -42,6 +42,7 @@ public class ProductDTO {
     // 할인 가격 필드
     private BigDecimal discountPrice;
 
+
     // 추가 필드
     private Double rating;
 
