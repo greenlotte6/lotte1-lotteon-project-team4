@@ -1,12 +1,11 @@
 package kr.co.lotteon.controller;
 
 import kr.co.lotteon.dto.ReviewDTO;
-import kr.co.lotteon.entity.CouponIssued;
-import kr.co.lotteon.entity.Seller;
+import kr.co.lotteon.entity.*;
+import kr.co.lotteon.repository.BannerRepository;
 import kr.co.lotteon.service.ReviewService;
 import kr.co.lotteon.service.admin.CouponIssuedService;
 import kr.co.lotteon.dto.QnaDTO;
-import kr.co.lotteon.entity.Qna;
 import kr.co.lotteon.entity.Seller;
 import kr.co.lotteon.service.QnaService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +16,6 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpSession;
 import kr.co.lotteon.dto.UsersDTO;
-import kr.co.lotteon.entity.Coupon;
-import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.repository.UsersRepository;
 import kr.co.lotteon.service.SellerService;
 import kr.co.lotteon.service.UsersService;
@@ -35,6 +32,7 @@ import java.time.LocalDateTime;
 
 import java.util.List;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -48,6 +46,7 @@ public class MyaccountController {
     private final UsersRepository usersRepository;
     private final CouponIssuedService couponIssuedService;
     private final ReviewService reviewService;
+    private final BannerRepository bannerRepository;
 
 
     @GetMapping("/myaccount/home")
@@ -115,7 +114,7 @@ public class MyaccountController {
 
     @GetMapping("/myaccount/info")
     public String info(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-
+        List<Banner> member1Banners = bannerRepository.findByPositionAndActive("MY1", "활성");
         String userId = userDetails.getUsername();
 
         UsersDTO userDto = usersService.getUserInfoByUserId(userId);
@@ -148,6 +147,7 @@ public class MyaccountController {
         model.addAttribute("phone1", phone1);
         model.addAttribute("phone2", phone2);
         model.addAttribute("phone3", phone3);
+        model.addAttribute("my1Banners", member1Banners);
 
         return "/myaccount/info";
     }
@@ -177,6 +177,8 @@ public class MyaccountController {
 
         return "redirect:/myaccount/info";
     }
+
+
 
 
 
@@ -216,16 +218,32 @@ public class MyaccountController {
         }
     }
 
-
     @GetMapping("/myaccount/delete")
-    public String deleteUser(HttpSession session) {
-        Users loginUser = (Users) session.getAttribute("user");
-        if (loginUser != null) {
-            usersRepository.deleteById(loginUser.getUid());
+    public String deleteUser(@AuthenticationPrincipal UserDetails userDetails,
+                             HttpSession session) {
+
+        if (userDetails != null) {
+            usersService.deactivateUser(userDetails.getUsername());
             session.invalidate();
+
         }
         return "redirect:/";
     }
+
+    @PostMapping("/myaccount/changePassword")
+    @ResponseBody
+    public String changePassword(@RequestBody Map<String, String> request,
+                                 @AuthenticationPrincipal UserDetails userDetails) {
+
+        String uid = userDetails.getUsername();
+        String currentPassword = request.get("currentPassword");
+        String newPassword = request.get("newPassword");
+
+        boolean changed = usersService.updatePasswordIfMatch(uid, currentPassword, newPassword);
+
+        return changed ? "success" : "invalid";
+    }
+
 
     private final QnaService qnaService;
 
