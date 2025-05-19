@@ -23,7 +23,7 @@ public class Review {
     private Products products;
 
     private String Users_uid;
-    private Double rating;
+    private int rating;
     private String comment;
 
     @CreationTimestamp

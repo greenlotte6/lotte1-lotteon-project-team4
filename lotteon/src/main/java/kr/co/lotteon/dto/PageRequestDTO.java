@@ -29,41 +29,13 @@ public class PageRequestDTO {
     private String searchType;
     private String keyword;
 
-    private String sortType = "recent"; // 기본값 설정
-
     // 글 목록 페이징 처리를 위한 Pageable 객체 생성 메서드
     public Pageable getPageable(String sort) { // sort 정렬 문자열, Pageable로 페이징 처리
         return PageRequest.of(this.pg - 1, this.size, Sort.by(sort).descending());
     }
 
-    // 정렬 없이 또는 상품 목록에 사용하는 Pageable
+    // 정렬 없이 사용하는 Pageable
     public Pageable getPageableNotSort() {
-        Sort sort;
-
-        switch (sortType) {
-            case "best":
-                sort = Sort.by(Sort.Direction.DESC, "hits");
-                break;
-            case "lowPrice":
-                sort = Sort.by(Sort.Direction.ASC, "price");
-                break;
-            case "highPrice":
-                sort = Sort.by(Sort.Direction.DESC, "price");
-                break;
-            case "rating":
-                // 평균 평점 정렬
-                sort = Sort.by(Sort.Direction.DESC, "rating");
-                break;
-            case "review":
-                // 리뷰 수 정렬
-                sort = Sort.by(Sort.Direction.DESC, "review_count");
-                break;
-            case "recent":
-            default:
-                sort = Sort.by(Sort.Direction.DESC, "p_created_at");
-                break;
-        }
-
-        return PageRequest.of(this.pg - 1, this.size, sort);
+        return PageRequest.of(this.pg - 1, this.size);
     }
 }
