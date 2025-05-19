@@ -1,5 +1,6 @@
 package kr.co.lotteon.controller;
 
+import kr.co.lotteon.dto.CategoryDTO;
 import kr.co.lotteon.dto.PageRequestDTO;
 import kr.co.lotteon.dto.PageResponseDTO;
 import kr.co.lotteon.dto.ProductDTO;
@@ -47,7 +48,15 @@ public class ProductController {
     }
 
     @GetMapping("/product/view")
-    public String view() {
+    public String view(int pid,
+                       @RequestParam(required = false) Long cateId,
+                       Model model) {
+        ProductDTO productDTO = productService.view(pid);
+        model.addAttribute("productDTO", productDTO);
+
+//        CategoryDTO categoryDTO = productService.getAllCategories(cateId);
+//        model.addAttribute("categoryDTO", categoryDTO);
+
         return "/product/view";
     }
 }
