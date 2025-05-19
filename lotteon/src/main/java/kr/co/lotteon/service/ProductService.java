@@ -11,6 +11,7 @@ import kr.co.lotteon.repository.ProductOptionItemRepository;
 import kr.co.lotteon.repository.ProductOptionRepository;
 import kr.co.lotteon.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service("ProductService")
 public class ProductService {
@@ -37,11 +39,26 @@ public class ProductService {
         Page<Tuple> productsPage = productRepository.productList(pageable);
 
         List<ProductDTO> productDTOS = productsPage.getContent().stream().map(tuple -> {
+//            Products products = tuple.get(0, Products.class);
+//            int rating = tuple.get(1, Integer.class);
+//
+//            ProductDTO productDTO = modelMapper.map(products, ProductDTO.class);
+//            productDTO.setRating(rating);
+//            productDTO.setDiscountPrice(productDTO.getDiscountedPrice());
+
             Products products = tuple.get(0, Products.class);
-            int rating = tuple.get(1, Integer.class);
+            Double avgRating = tuple.get(1, Double.class);
+            Long reviewCount = tuple.get(2, Long.class);
+//            Long cateId = tuple.get(3, Long.class);
 
             ProductDTO productDTO = modelMapper.map(products, ProductDTO.class);
-            productDTO.setRating(rating);
+            productDTO.setRating(avgRating != null ? avgRating.doubleValue() : 0);
+            productDTO.setReview_count(reviewCount != null ? reviewCount.intValue() : 0);
+            productDTO.setDiscountPrice(productDTO.getDiscountedPrice());
+//            productDTO.setCategory_cate_id(Math.toIntExact(products.getCategory().getCateId()));
+
+            log.info("productDTO: {}", productDTO);
+
             return productDTO;
         }).toList();
 

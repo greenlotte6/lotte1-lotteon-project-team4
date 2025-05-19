@@ -1,6 +1,5 @@
 package kr.co.lotteon.controller;
 
-import kr.co.lotteon.dto.OrderViewDTO;
 import kr.co.lotteon.dto.ReviewDTO;
 import kr.co.lotteon.entity.*;
 import kr.co.lotteon.repository.BannerRepository;
@@ -9,7 +8,6 @@ import kr.co.lotteon.service.admin.CouponIssuedService;
 import kr.co.lotteon.dto.QnaDTO;
 import kr.co.lotteon.entity.Seller;
 import kr.co.lotteon.service.QnaService;
-import kr.co.lotteon.service.admin.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -86,8 +84,6 @@ public class MyaccountController {
         String status = "상태";
         String usedDate ="유효기간";
 
-
-
         List<CouponIssued> CouponIssued = couponIssuedService.getIssuedCouponsByUid(uid);
         model.addAttribute("CouponIssued", CouponIssued);
         model.addAttribute("couponName", couponName);
@@ -95,7 +91,6 @@ public class MyaccountController {
         model.addAttribute("couponType", couponType);
         model.addAttribute("status", status);
         model.addAttribute("usedDate", usedDate);
-        model.addAttribute("orderList", orderService.getOrderViewListByUser(uid));
         return "/myaccount/coupon";
     }
 
@@ -109,7 +104,6 @@ public class MyaccountController {
         return "redirect:/";
     }
 
-    private final OrderService orderService;
 
 
     @GetMapping("/myaccount/exchange")
@@ -276,15 +270,10 @@ public class MyaccountController {
     }
 
     @GetMapping("/myaccount/order")
-    public String order(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-        String uid = userDetails.getUsername();
-        List<OrderViewDTO> orderList = orderService.getOrderViewListByUser(uid);
-        model.addAttribute("orderList", orderList);
+    public String order() {
+
         return "/myaccount/order";
     }
-
-
-
 
     @GetMapping("/myaccount/point")
     public String point() {
@@ -330,14 +319,16 @@ public class MyaccountController {
     private final SellerService sellerService;
 
     @GetMapping("/myaccount/seller-modal")
-    public String sellerModal(@RequestParam("company") String company, Model model) {
-        Optional<Seller> sellerOpt = sellerService.getSellerByCompany(company);
-        if (sellerOpt.isPresent()) {
-            model.addAttribute("seller", sellerOpt.get());
-        } else {
-            model.addAttribute("seller", null); // 반드시 처리
+    public String sellerModal(@RequestParam String company, Model model) {
+        Optional<Seller> optionalSeller = sellerService.getSellerByCompany(company);
+
+        if (optionalSeller.isEmpty()) {
+            model.addAttribute("error", "판매자 정보를 찾을 수 없습니다.");
+            return "error/404"; // 혹은 return ResponseEntity.notFound().build();
         }
-        return "/myaccount/seller :: modalContent"; // fragment 경로 주의
+
+        model.addAttribute("seller", optionalSeller.get());
+        return "/myaccount/seller :: modalContent";
     }
 
 
@@ -407,11 +398,11 @@ public class MyaccountController {
     }
 */
 
-
     @GetMapping("/myaccount/return-modal")
     public String returnModal(){
         return "/myaccount/return :: modalContent";
     }
+
 
 
 

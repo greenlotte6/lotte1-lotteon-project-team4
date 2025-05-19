@@ -28,7 +28,8 @@ public class Review {
     private Double rating;
 
     private String Users_uid;
-    private int rating;
+
+    private Double rating;
 
     private String comment;
 

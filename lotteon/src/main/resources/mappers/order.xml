@@ -2,13 +2,11 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="kr.co.lotteon.dao.OrderMapper">
 
-    <!-- 주문 상세 보기 -->
     <select id="orderTotal" resultType="kr.co.lotteon.dto.OrdersDTO">
-        SELECT
-        p.img_file_1 AS img_file_1,
+        select
+        p.img_file_1 as img_file_1,
         p.pid,
         p.pname,
         p.company,
@@ -25,36 +23,15 @@
         u.hp,
         u.addr1,
         u.addr2,
-        SUM(oi.quantity * p.price) AS total_price,
-        SUM(p.discount * oi.quantity) AS total_discount,
-        SUM(p.delivery_free) AS total_delivery_free,
-        SUM(oi.quantity * p.price + p.delivery_free - p.discount * oi.quantity) AS total_pay
-        FROM orders o
-        JOIN Users u ON o.Users_uid = u.uid
-        JOIN order_item oi ON oi.order_oid = o.oid
-        JOIN Products p ON p.pid = o.Products_pid
-        WHERE o.oid = #{oid}
-        GROUP BY o.oid
+        sum(oi.quantity * p.price) as total_price,
+        sum(p.discount * oi.quantity) as total_discount,
+        sum(p.delivery_free) as total_delivery_free,
+        sum(oi.quantity * p.price + p.delivery_free - p.discount * oi.quantity) as total_pay
+        from orders o join Users u on o.Users_uid = u.uid
+        join order_item oi on oi.order_oid = o.oid
+        join Products p on p.pid = o.Products_pid
+        where oid = #{oid}
+        group by o.oid;
     </select>
-
-    <!-- 사용자 주문 목록 조회 -->
-    <select id="selectOrderViewsByUid" resultType="kr.co.lotteon.dto.OrderViewDTO">
-        SELECT
-        o.oid,
-        DATE_FORMAT(o.order_date, '%Y-%m-%d') AS orderDate,
-        o.shipping_status AS shippingStatus,
-        p.pname AS productName,
-        p.price AS productPrice,
-        oi.quantity,
-        IFNULL(s.company, '판매자 없음') AS sellerCompany,
-        IFNULL(s.ceo, '정보 없음') AS sellerCeo
-        FROM orders o
-        JOIN order_item oi ON o.oid = oi.order_oid
-        JOIN Products p ON oi.products_pid = p.pid
-        LEFT JOIN seller s ON p.company = s.company
-        WHERE o.Users_uid = 1
-        ORDER BY o.order_date DESC;
-    </select>
-
 
 </mapper>

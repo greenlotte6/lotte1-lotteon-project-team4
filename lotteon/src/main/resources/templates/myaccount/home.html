@@ -1,238 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
   <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
 
-  <link rel="stylesheet" href="/css/common/_header.css" />
-  <link rel="stylesheet" href="/css/common/_footer.css" />
-  <link rel="stylesheet" href="/css/myaccount/home.css" />
-
+    <link rel="stylesheet" href="/css/common/_header.css" />
+    <link rel="stylesheet" href="/css/common/_footer.css" />
+    <link rel="stylesheet" href="/css/myaccount/home.css" />       
 </head>
 <body>
-<th:block th:include="/common/_header"/>
-<main>
-  <th:block th:include="/common/_myaccount_top"/>
-  <div class="main_containers">
-    <th:block th:include="/common/_myaccount_sied"/>
-    <div class="content">
-      <div class="banner_top">810 × 86 배너 광고</div>
-      <div class="section-header">
-        <div class="left-title">
-          <h2>최근주문내역</h2>
-        </div>
-        <div class="see-more"> 더보기 &gt;</div>
-      </div>
-      <div class="order-list">
-        <div class="order-header">
-          <div class="order-date">날짜</div>
-          <div class="order-info">상품정보</div>
-          <div class="order-status">상태</div>
-          <div class="order-actions">확인 / 신청</div>
-        </div>
-        <div class="order-row">
-          <div th:each="order : ${orderList}" class="order-row">
-            <div class="order-date" th:text="${order.orderDate}">날짜</div>
-            <div class="order-info_num">
-              <div class="order-img"></div>
-              <div class="order-text">
-                주문번호 : <span th:text="${order.oid}">주문번호</span><br/>
-                <a class="click-bar"
-                   th:onclick="'openModal(\'/myaccount/seller-modal?company=' + encodeURIComponent(\'' + [[${order.sellerCompany}]] + '\'))'"
-                   th:text="${order.sellerCompany}">판매자</a>
-                <span th:text="${order.productName}">상품명</span><br/>
-                수량 : <span th:text="${order.quantity}">1</span><br/>
-                <span th:text="|${order.productPrice}원|">가격</span>
+    <th:block th:include="/common/_header"/>
+    <main>
+      <th:block th:include="/common/_myaccount_top"/>
+    <div class="main_containers">
+      <th:block th:include="/common/_myaccount_sied"/>
+          <div class="content">
+            <div class="banner">810 × 86 배너 광고</div>
+            <div class="section-header">
+              <div class="left-title">
+                <h2>최근주문내역</h2>
+              </div>
+              <div class="see-more"> 더보기 &gt;</div>
+            </div>
+            <div class="order-list">
+              <div class="order-header">
+                <div class="order-date">날짜</div>
+                <div class="order-info">상품정보</div>
+                <div class="order-status">상태</div>
+                <div class="order-actions">확인 / 신청</div>
+              </div>
+              <div class="order-row">
+                <div class="order-date">2022-12-13</div>
+                <div class="order-info_num">
+                  <div class="order-img"></div>
+                  <div class="order-text">
+                    <a class="click-bar" onclick="openModal('/myaccount/order-details-modal')">주문번호 : 1012211341</a><br />
+                    <a class="click-bar" onclick="openModal('/myaccount/seller-modal')">(주)상호명</a><br />
+                    상품명<br>
+                    수량 : 1개<br/>
+                    34,000원
+                  </div>
+                </div>
+                <div class="order-status">배송완료</div>
+                <div class="order-actions">
+                  <button class="btn" onclick="openModal('/myaccount/buy-modal')">구매확정</button>
+                  <button class="btn" onclick="openModal('/myaccount/review-modal')">상품평쓰기</button>
+                  <button class="btn" onclick="openModal('/myaccount/return-modal')">반품신청</button>
+                  <button class="btn" onclick="openModal('/myaccount/exchange-modal')">교환신청</button>
+                </div>
               </div>
             </div>
-            <div class="order-status" th:text="${order.shippingStatus}">배송상태</div>
+              <div class="banner">810 × 86 배너 광고</div>
+            
 
-
-            <div class="order-actions">
-              <button class="btn" onclick="openModal('/myaccount/buy-modal')">구매확정</button>
-              <button class="btn" onclick="openModal('/myaccount/review-modal')">상품평쓰기</button>
-              <button class="btn" onclick="openModal('/myaccount/return-modal')">반품신청</button>
-              <button class="btn" onclick="openModal('/myaccount/exchange-modal')">교환신청</button>
-            </div>
-          </div>
-        </div>
-        <div class="banner_top">810 × 86 배너 광고</div>
-
-
-
-        <div class="section">
-          <div class="section-header">
-            <div class="left-title">
-              <h2>포인트적립내역</h2>
-            </div>
-            <div class="see-more"> 더보기 &gt;</div>
-          </div>
-          <table class="table">
-            <thead>
-            <tr>
-              <th>날짜</th>
-              <th>구분</th>
-              <th>주문번호</th>
-              <th>적립금액</th>
-              <th>비고</th>
-              <th>유효기간</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>2022-12-13</td>
-              <td>적립</td>
-              <td>2022121001</td>
-              <td>340</td>
-              <td>상품 구매확정</td>
-              <td>2024-12-10</td>
-            </tr>
-            <tr>
-              <td>2022-12-13</td>
-              <td>적립</td>
-              <td>2022120601</td>
-              <td>120</td>
-              <td>상품 구매확정</td>
-              <td>2024-12-06</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="section">
-          <div class="section-header">
-            <div class="left-title">
-              <h2>상품평</h2>
-            </div>
-            <div class="see-more">더보기 &gt;</div>
-          </div>
-          <table class="table">
-            <thead>
-            <tr>
-              <th>번호</th>
-              <th>상품명</th>
-              <th>내용</th>
-              <th>평점</th>
-              <th>작성일</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>1</td>
-              <td>상품번호 / 상품명</td>
-              <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-              <td class="rating">★★★★☆</td>
-              <td>2022-12-10</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>상품번호 / 상품명</td>
-              <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-              <td class="rating">★★★★☆</td>
-              <td>2022-12-07</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>상품번호 / 상품명</td>
-              <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-              <td class="rating">★★★★☆</td>
-              <td>2022-12-06</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="section-header">
-          <div class="left-title">
-            <h2>문의내역</h2>
-          </div>
-          <div class="see-more"> 더보기 &gt;</div>
-        </div>
-        <table class="inquiry-table">
-          <thead>
-          <tr>
-            <th>번호</th>
-            <th>문의채널</th>
-            <th>문의유형</th>
-            <th>제목</th>
-            <th>작성일</th>
-            <th>상태</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>1</td>
-            <td>고객센터</td>
-            <td>주문 / 결제</td>
-            <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요 ?</td>
-            <td>2022-12-12</td>
-            <td class="status-pending">검토중</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>고객센터</td>
-            <td>주문 / 결제</td>
-            <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요 ?</td>
-            <td>2022-12-12</td>
-            <td class="status-done">답변완료</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>판매자</td>
-            <td>배송</td>
-            <td>배송기간이 보통 얼마나 걸리나요 ?</td>
-            <td>2022-12-12</td>
-            <td class="status-done">답변완료</td>
-          </tr>
-          </tbody>
-        </table>
-        <h2>나의설정</h2>
-        <div class="setting-container">
-          <div class="setting-box">
-            <div class="setting-title">기본배송지설정
-              <a href="#" class="setting-change">변경</a>
-            </div>
-            <div class="setting-detail">
-              부산광역시 부산진구 대연동 120<br>
-              한빛빌딩 10층
-            </div>
-          </div>
-          <div class="setting-box">
-            <div class="setting-title">Email 설정
-              <a href="#" class="setting-change">변경</a>
-            </div>
-            <div class="setting-detail">
-              abc123@naver.com<br>
-              (최종수정일 2021-12-10)
-            </div>
-          </div>
-
-          <div class="setting-box">
-            <div class="setting-title">휴대폰 설정
-              <a href="#" class="setting-change">변경</a>
-            </div>
-            <div class="setting-detail">
-              010 - 1234 - 1001<br>
-              (최종수정일 2021-12-10)
+            <div class="section">
+                <div class="section-header">
+                  <div class="left-title">
+                    <h2>포인트적립내역</h2>
+                  </div>
+                  <div class="see-more"> 더보기 &gt;</div>
+                </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>날짜</th>
+                      <th>구분</th>
+                      <th>주문번호</th>
+                      <th>적립금액</th>
+                      <th>비고</th>
+                      <th>유효기간</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>2022-12-13</td>
+                      <td>적립</td>
+                      <td>2022121001</td>
+                      <td>340</td>
+                      <td>상품 구매확정</td>
+                      <td>2024-12-10</td>
+                    </tr>
+                    <tr>
+                      <td>2022-12-13</td>
+                      <td>적립</td>
+                      <td>2022120601</td>
+                      <td>120</td>
+                      <td>상품 구매확정</td>
+                      <td>2024-12-06</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="section">
+                <div class="section-header">
+                  <div class="left-title">
+                    <h2>상품평</h2>
+                  </div>
+                  <div class="see-more">더보기 &gt;</div>
+                </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>번호</th>
+                      <th>상품명</th>
+                      <th>내용</th>
+                      <th>평점</th>
+                      <th>작성일</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>상품번호 / 상품명</td>
+                      <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                      <td class="rating">★★★★☆</td>
+                      <td>2022-12-10</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>상품번호 / 상품명</td>
+                      <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                      <td class="rating">★★★★☆</td>
+                      <td>2022-12-07</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>상품번호 / 상품명</td>
+                      <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                      <td class="rating">★★★★☆</td>
+                      <td>2022-12-06</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="section-header">
+                <div class="left-title">
+                  <h2>문의내역</h2>
+                </div>
+                <div class="see-more"> 더보기 &gt;</div>
+              </div>
+                  <table class="inquiry-table">
+                    <thead>
+                      <tr>
+                        <th>번호</th>
+                        <th>문의채널</th>
+                        <th>문의유형</th>
+                        <th>제목</th>
+                        <th>작성일</th>
+                        <th>상태</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>고객센터</td>
+                        <td>주문 / 결제</td>
+                        <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요 ?</td>
+                        <td>2022-12-12</td>
+                        <td class="status-pending">검토중</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>고객센터</td>
+                        <td>주문 / 결제</td>
+                        <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요 ?</td>
+                        <td>2022-12-12</td>
+                        <td class="status-done">답변완료</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>판매자</td>
+                        <td>배송</td>
+                        <td>배송기간이 보통 얼마나 걸리나요 ?</td>
+                        <td>2022-12-12</td>
+                        <td class="status-done">답변완료</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              <h2>나의설정</h2>
+                <div class="setting-container">
+                  <div class="setting-box">
+                    <div class="setting-title">기본배송지설정 
+                      <a href="#" class="setting-change">변경</a>
+                    </div>
+                    <div class="setting-detail">
+                        부산광역시 부산진구 대연동 120<br>
+                        한빛빌딩 10층
+                    </div>
+                  </div>
+                  <div class="setting-box">
+                    <div class="setting-title">Email 설정 
+                      <a href="#" class="setting-change">변경</a>
+                    </div>
+                    <div class="setting-detail">
+                        abc123@naver.com<br>
+                        (최종수정일 2021-12-10)
+                    </div>
+                  </div>
+                  
+                  <div class="setting-box">
+                    <div class="setting-title">휴대폰 설정 
+                      <a href="#" class="setting-change">변경</a>
+                    </div>
+                      <div class="setting-detail">
+                        010 - 1234 - 1001<br>
+                        (최종수정일 2021-12-10)
+                      </div>
+                  </div>
+                </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-</main>
-<th:block th:include="/common/_footer"/>
-<div class="modal-overlay" id="modalOverlay" style="display:none;">
-  <div class="modal-content">
-    <button class="modal-close" onclick="closeModal()">×</button>
-    <div id="modalBody"></div>
-  </div>
-</div>
+    </main>
+    <th:block th:include="/common/_footer"/>
+    <div class="modal-overlay" id="modalOverlay" style="display:none;">
+      <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <div id="modalBody"></div>
+      </div>
+    </div>
 
 
-
-<script src="/js/modal.js"></script>
-<script src="/js/head.js"></script>
-</body>
-</html>
+    <script src="/js/modal.js"></script>
+    <script src="/js/head.js"></script>
+  </body>
+  </html>

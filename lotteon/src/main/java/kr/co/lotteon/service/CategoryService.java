@@ -17,7 +17,6 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-
     // 카테고리 경로 가져오기
     public List<Category> getCategoryPath(Long cateId) {
         List<Category> path = new ArrayList<>();
@@ -32,7 +31,6 @@ public class CategoryService {
         }
 
         log.info("path: {}", path);
-
 
         return path;
     }
