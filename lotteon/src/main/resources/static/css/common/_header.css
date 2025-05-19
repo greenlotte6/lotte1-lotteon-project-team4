@@ -31,8 +31,6 @@ header {
 }
 
 .banner {
-    width: 1200px;
-    height: 80px;
     margin: 0 auto;
     background-color: white;
     display: flex;

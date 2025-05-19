@@ -1,14 +1,15 @@
 package kr.co.lotteon.controller;
 
+import kr.co.lotteon.dto.OrderViewDTO;
 import kr.co.lotteon.dto.ReviewDTO;
-import kr.co.lotteon.entity.CouponIssued;
-import kr.co.lotteon.entity.Seller;
+import kr.co.lotteon.entity.*;
+import kr.co.lotteon.repository.BannerRepository;
 import kr.co.lotteon.service.ReviewService;
 import kr.co.lotteon.service.admin.CouponIssuedService;
 import kr.co.lotteon.dto.QnaDTO;
-import kr.co.lotteon.entity.Qna;
 import kr.co.lotteon.entity.Seller;
 import kr.co.lotteon.service.QnaService;
+import kr.co.lotteon.service.admin.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,8 +18,6 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpSession;
 import kr.co.lotteon.dto.UsersDTO;
-import kr.co.lotteon.entity.Coupon;
-import kr.co.lotteon.entity.Users;
 import kr.co.lotteon.repository.UsersRepository;
 import kr.co.lotteon.service.SellerService;
 import kr.co.lotteon.service.UsersService;
@@ -35,6 +34,7 @@ import java.time.LocalDateTime;
 
 import java.util.List;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -48,6 +48,7 @@ public class MyaccountController {
     private final UsersRepository usersRepository;
     private final CouponIssuedService couponIssuedService;
     private final ReviewService reviewService;
+    private final BannerRepository bannerRepository;
 
 
     @GetMapping("/myaccount/home")
@@ -85,6 +86,8 @@ public class MyaccountController {
         String status = "상태";
         String usedDate ="유효기간";
 
+
+
         List<CouponIssued> CouponIssued = couponIssuedService.getIssuedCouponsByUid(uid);
         model.addAttribute("CouponIssued", CouponIssued);
         model.addAttribute("couponName", couponName);
@@ -92,6 +95,7 @@ public class MyaccountController {
         model.addAttribute("couponType", couponType);
         model.addAttribute("status", status);
         model.addAttribute("usedDate", usedDate);
+        model.addAttribute("orderList", orderService.getOrderViewListByUser(uid));
         return "/myaccount/coupon";
     }
 
@@ -105,6 +109,7 @@ public class MyaccountController {
         return "redirect:/";
     }
 
+    private final OrderService orderService;
 
 
     @GetMapping("/myaccount/exchange")
@@ -115,7 +120,7 @@ public class MyaccountController {
 
     @GetMapping("/myaccount/info")
     public String info(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-
+        List<Banner> member1Banners = bannerRepository.findByPositionAndActive("MY1", "활성");
         String userId = userDetails.getUsername();
 
         UsersDTO userDto = usersService.getUserInfoByUserId(userId);
@@ -148,6 +153,7 @@ public class MyaccountController {
         model.addAttribute("phone1", phone1);
         model.addAttribute("phone2", phone2);
         model.addAttribute("phone3", phone3);
+        model.addAttribute("my1Banners", member1Banners);
 
         return "/myaccount/info";
     }
@@ -160,7 +166,7 @@ public class MyaccountController {
 
         if (userDetails != null) {
             log.info("폼으로 전달된 이메일: {}", dto.getEmail());
-            log.info("폼으로 전달된 전화번호: {}", dto.getHp());
+            log.info("폼으로 전달된전화번호: {}", dto.getHp());
             log.info("폼으로 전달된 zip: {}", dto.getZip());
             log.info("폼으로 전달된 주소1: {}", dto.getAddr1());
             log.info("폼으로 전달된 주소2: {}", dto.getAddr2());
@@ -177,6 +183,8 @@ public class MyaccountController {
 
         return "redirect:/myaccount/info";
     }
+
+
 
 
 
@@ -216,17 +224,31 @@ public class MyaccountController {
         }
     }
 
-
     @GetMapping("/myaccount/delete")
-    public String deleteUser(HttpSession session) {
-        Users loginUser = (Users) session.getAttribute("user");
+    public String deleteUser(@AuthenticationPrincipal UserDetails userDetails,
+                             HttpSession session) {
 
-        if (loginUser != null) {
-            usersRepository.deleteById(loginUser.getUid());
+        if (userDetails != null) {
+            usersService.deactivateUser(userDetails.getUsername());
             session.invalidate();
         }
         return "redirect:/";
     }
+
+    @PostMapping("/myaccount/changePassword")
+    @ResponseBody
+    public String changePassword(@RequestBody Map<String, String> request,
+                                 @AuthenticationPrincipal UserDetails userDetails) {
+
+        String uid = userDetails.getUsername();
+        String currentPassword = request.get("currentPassword");
+        String newPassword = request.get("newPassword");
+
+        boolean changed = usersService.updatePasswordIfMatch(uid, currentPassword, newPassword);
+
+        return changed ? "success" : "invalid";
+    }
+
 
     private final QnaService qnaService;
 
@@ -254,10 +276,15 @@ public class MyaccountController {
     }
 
     @GetMapping("/myaccount/order")
-    public String order() {
-
+    public String order(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        String uid = userDetails.getUsername();
+        List<OrderViewDTO> orderList = orderService.getOrderViewListByUser(uid);
+        model.addAttribute("orderList", orderList);
         return "/myaccount/order";
     }
+
+
+
 
     @GetMapping("/myaccount/point")
     public String point() {
@@ -303,16 +330,14 @@ public class MyaccountController {
     private final SellerService sellerService;
 
     @GetMapping("/myaccount/seller-modal")
-    public String sellerModal(@RequestParam String company, Model model) {
-        Optional<Seller> optionalSeller = sellerService.getSellerByCompany(company);
-
-        if (optionalSeller.isEmpty()) {
-            model.addAttribute("error", "판매자 정보를 찾을 수 없습니다.");
-            return "error/404"; // 혹은 return ResponseEntity.notFound().build();
+    public String sellerModal(@RequestParam("company") String company, Model model) {
+        Optional<Seller> sellerOpt = sellerService.getSellerByCompany(company);
+        if (sellerOpt.isPresent()) {
+            model.addAttribute("seller", sellerOpt.get());
+        } else {
+            model.addAttribute("seller", null); // 반드시 처리
         }
-
-        model.addAttribute("seller", optionalSeller.get());
-        return "/myaccount/seller :: modalContent";
+        return "/myaccount/seller :: modalContent"; // fragment 경로 주의
     }
 
 
@@ -333,13 +358,22 @@ public class MyaccountController {
     @GetMapping("/myaccount/review")
     public String review() {
 
-
-
-
-
-
-
         return "/myaccount/review";
+    }
+
+    @PostMapping("/myaccount/review")
+    public String reviewRegister(@ModelAttribute ReviewDTO reviewDTO,
+                                 @AuthenticationPrincipal UserDetails userDetails) {
+
+        System.out.println(reviewDTO);
+
+        //pid 고정으로 넣기
+        reviewDTO.setProducts_pid(16);
+
+
+        reviewDTO.setUsers_uid(userDetails.getUsername());
+        reviewService.saveReview(reviewDTO, userDetails);
+        return "/myaccount/ireview";
     }
 
     @GetMapping("/myaccount/seller")
@@ -354,6 +388,11 @@ public class MyaccountController {
         return "/myaccount/seller";
     }
 
+
+
+
+
+/*
     @PostMapping("/myaccount/ireview")
     public String submitReview(@ModelAttribute ReviewDTO reviewDTO,
                                @RequestParam("files") MultipartFile[] files,
@@ -366,13 +405,13 @@ public class MyaccountController {
 
         return "redirect:/myaccount/review-success"; // 저장 후 이동할 페이지
     }
+*/
 
 
     @GetMapping("/myaccount/return-modal")
     public String returnModal(){
         return "/myaccount/return :: modalContent";
     }
-
 
 
 
