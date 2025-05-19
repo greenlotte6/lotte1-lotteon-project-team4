@@ -192,7 +192,7 @@ public class MyaccountController {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setTo(email);
-            helper.setSubject("롯데온 이메일 인증 코드입니다.");
+            helper.setSubject("롯데온 이메일 인증 코드입니다!.");
             helper.setText("<p>인증 코드: <b>" + code + "</b></p>", true); // HTML 형식
             mailSender.send(message);
         } catch (MessagingException e) {
