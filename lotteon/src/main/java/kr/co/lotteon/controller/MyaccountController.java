@@ -166,7 +166,7 @@ public class MyaccountController {
 
         if (userDetails != null) {
             log.info("폼으로 전달된 이메일: {}", dto.getEmail());
-            log.info("폼으로 전달된 전화번호: {}", dto.getHp());
+            log.info("폼으로 전달된전화번호: {}", dto.getHp());
             log.info("폼으로 전달된 zip: {}", dto.getZip());
             log.info("폼으로 전달된 주소1: {}", dto.getAddr1());
             log.info("폼으로 전달된 주소2: {}", dto.getAddr2());
