@@ -96,13 +96,13 @@
                 $(this).find('input[type="file"]').each(function () {
                     const file = this.files[0];
                     if (file) {
-                        const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+                        const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
                         const extension = file.name.split('.').pop().toLowerCase();
-                        const maxSizeInBytes = 1 * 1024 * 1024;  // 1MB
+                        const maxSizeInBytes = 3 * 1024 * 1024;  // 1MB
 
                         if (allowedExtensions.indexOf(extension) === -1) {
                             $(this).addClass('input-error');
-                            $(this).after('<p class="error-message">허용되지 않는 파일 형식입니다. (jpg, jpeg, png, gif)</p>');
+                            $(this).after('<p class="error-message">허용되지 않는 파일 형식입니다. (jpg, jpeg, png, gif, webp)</p>');
                             hasErrors = true;
                         } else if (file.size > maxSizeInBytes) {
                             $(this).addClass('input-error');

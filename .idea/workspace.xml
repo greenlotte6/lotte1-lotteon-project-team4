@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7791379e-0c19-429e-9939-e9b8b0556abb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/lotteon/src/main/java/kr/co/lotteon/dto/PageRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/lotteon/src/main/java/kr/co/lotteon/dto/PageRequestDTO.java" afterDir="false" />
-    </list>
+    <list default="true" id="7791379e-0c19-429e-9939-e9b8b0556abb" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,9 +54,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.LotteonApplication.executor": "Run",
-    "git-widget-placeholder": "gy",
+    "git-widget-placeholder": "gyeol",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/lotte-06/Desktop/gy",
+    "last_opened_file_path": "/Users/hangyeol/Desktop/workspace/lotte1-lotteon-project-team4 - 스프링 3차 팀 프로젝트",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -97,6 +95,7 @@
       <workItem from="1746149907258" duration="853000" />
       <workItem from="1747223285575" duration="1000" />
       <workItem from="1747636305420" duration="139000" />
+      <workItem from="1747658839571" duration="25000" />
     </task>
     <servers />
   </component>
