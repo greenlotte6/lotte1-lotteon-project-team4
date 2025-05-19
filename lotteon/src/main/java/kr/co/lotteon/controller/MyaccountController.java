@@ -220,6 +220,7 @@ public class MyaccountController {
     @GetMapping("/myaccount/delete")
     public String deleteUser(HttpSession session) {
         Users loginUser = (Users) session.getAttribute("user");
+
         if (loginUser != null) {
             usersRepository.deleteById(loginUser.getUid());
             session.invalidate();
