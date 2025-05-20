@@ -11,10 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.text.NumberFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -84,9 +82,10 @@ public class ProductService {
             Products products = optProducts.get();
 
             ProductDTO productDTO = modelMapper.map(products, ProductDTO.class);
-            Double avgRating = productDTO.getRating();
-            productDTO.setRating(avgRating != null ? avgRating.doubleValue() : 0);
             productDTO.setDiscountPrice(productDTO.getDiscountedPrice());
+
+            Double avgRating = reviewRepository.getAverageRating(pid);
+            productDTO.setRating(avgRating != null ? avgRating : 0.0);
 
             return productDTO;
         }else {
@@ -124,18 +123,29 @@ public class ProductService {
     }
 
     // 상품 리뷰 조회 및 페이징 처리
-    public void Review(PageRequestDTO pageRequestDTO) {
-//        Pageable pageable = pageRequestDTO.getPageableNotSort();
-//
-//        Page<Tuple> tuplePage = reviewRepository.review(pageable);
-//
-//        List<ReviewDTO> reviewDTOS = tuplePage.getContent().stream().map(tuple -> {
-//            String uid = tuple.get(0, String.class);
-//            Review review = tuple.get(1, Review.class);
-//
-//            ReviewDTO reviewDTO = modelMapper.map(review, ReviewDTO.class);
-//            reviewDTO.setUsers_uid(review.getUsers().getUid());
-//        })
+    public PageResponseDTO<ReviewDTO> Review(PageRequestDTO pageRequestDTO, int pid) {
+        Pageable pageable = pageRequestDTO.getPageableNotSort();
+
+        Page<Tuple> tuplePage = reviewRepository.review(pageable, pid);
+
+        List<ReviewDTO> reviewDTOS = tuplePage.getContent().stream().map(tuple -> {
+            String uid = tuple.get(0, String.class);
+            Review review = tuple.get(1, Review.class);
+            String pname = tuple.get(2, String.class);
+
+            ReviewDTO reviewDTO = modelMapper.map(review, ReviewDTO.class);
+            reviewDTO.setUsers_uid(uid);
+            reviewDTO.setPname(pname);
+            return reviewDTO;
+        }).toList();
+
+        int total = (int) tuplePage.getTotalElements();
+
+        return PageResponseDTO.<ReviewDTO>builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(reviewDTOS)
+                .total(total)
+                .build();
 
 
     }
