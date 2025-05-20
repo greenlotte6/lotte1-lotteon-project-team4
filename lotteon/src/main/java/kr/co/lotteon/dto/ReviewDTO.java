@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -22,10 +24,13 @@ public class ReviewDTO {
     private String Users_uid;
     private Double rating;
     private String comment;
-    private LocalDateTime write_at;
+    private LocalDate write_at;
 
     private MultipartFile  file1;
     private MultipartFile  file2;
     private MultipartFile  file3;
+
+    // 추가 필드
+    private String pname;
 
 }

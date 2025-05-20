@@ -7,12 +7,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+            rel="stylesheet">
     <link rel="stylesheet" href="/css/common/_header.css">
     <link rel="stylesheet" href="/css/common/_footer.css">
     <link rel="stylesheet" href="/css/common/_main_aside.css">
-    <link rel="stylesheet" href="/css/product/view.css" />
+    <link rel="stylesheet" href="/css/product/view.css"/>
     <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
     <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
     <script>
@@ -85,247 +85,236 @@
                 },
                 loop: false
             });
+
         });
     </script>
 </head>
 
 <body>
-    <div id="wrapper">
-        <th:block th:include="/common/_header"/>
+<div id="wrapper">
+    <th:block th:include="/common/_header"/>
 
-        <main>
-            <article class="content">
-                <th:block th:include="/common/_main_aside"/>
+    <main>
+        <article class="content">
 
-                <section class="main-content">
-                    <div class="breadcrumb">HOME > 패션 · 의류 · 뷰티 > 남성의류</div>
-                    <h2 class="product-title">상품보기</h2>
+            <section class="main-content">
+                <div class="breadcrumb">HOME > 패션 · 의류 · 뷰티 > 남성의류</div>
+                <h2 class="product-title">상품보기</h2>
 
-                    <div class="product-detail-wrap" th:each="product, i:${productDTO}">
-                        <div class="product-image">
-                            <img th:src="@{'/uploads/' + ${product.img_file_1}}" th:alt="${product.pname}">
-                        </div>
+                <div class="product-detail-wrap" th:each="product, i:${productDTO}">
+                    <div class="product-image">
+                        <img th:src="@{'/uploads/' + ${product.img_file_1}}" th:alt="${product.pname}">
+                    </div>
 
-                        <div class="product-info">
-                            <div class="first-product">
-                                <div class="company-line">
-                                    <p class="product-code">상품번호 : [[${product.pid}]]</p>
-                                    <p class="company-name" th:text="${product.company}">(주) 상호명</p>
+                    <div class="product-info">
+                        <div class="first-product">
+                            <div class="company-line">
+                                <p class="product-code">상품번호 : [[${product.pid}]]</p>
+                                <p class="company-name" th:text="${product.company}">(주) 상호명</p>
+                            </div>
+                            <div class="product-header">
+                                <h2 class="product-name" th:text="${product.pname}">상품명</h2>
+                                <div class="rating" th:if="${product.rating != null}">
+                                    <span class="rating" th:each="i : ${#numbers.sequence(1, 5)}"
+                                          th:text="${i <= T(java.lang.Math).round(product.rating)} ? '★' : '☆'">
+                                    </span>
+                                    <span class="rating" th:text="'(' + ${#numbers.formatDecimal(product.rating, 1, 1)} + ')'"> (4.3) </span>
+                                    <a href="#review-section" class="link">상품평 보기</a>
                                 </div>
-                                <div class="product-header">
-                                    <h2 class="product-name" th:text="${product.pname}">상품명</h2>
-                                    <div class="rating" th:text="${product.rating}">★★★★★
-                                        <span class="link">상품평보기</span>
-                                    </div>
+                            </div>
+
+                            <div class="price-box">
+                                <div>
+                                    <span class="original-price" th:text="${product.price + '원'}"></span>
+                                    <span class="discount">[[${product.discount}]]%</span>
+                                    <span class="badge"><button type="button">쿠폰받기</button></span>
                                 </div>
+                                <div class="final-price">[[${product.discountPrice}]]원</div>
+                            </div>
 
-                                <div class="price-box">
-                                    <div>
-                                        <span class="original-price">[[${product.price}]]원</span>
-                                        <span class="discount">[[${product.discount}]]%</span>
-                                        <span class="badge"><button type="button">쿠폰받기</button></span>
-                                    </div>
-                                    <div class="final-price">[[${product.discountPrice}]]원</div>
-                                </div>
+                            <div class="delivery-info">
+                                <span class="free"
+                                      th:text="${product.delivery_free == 0 ? '무료배송' : '배송비 ' + product.delivery_free + '원'}"></span>
+                                <span class="delivery-arrive">모레 (금) 7/8 도착예정</span><br>
+                                <p class="only">본 상품은 국내배송만 가능합니다.</p>
+                            </div>
 
-                                <div class="delivery-info">
-                                    <span class="free" th:text="${product.delivery_free == 0 ? '무료배송' : '배송비 ' + product.delivery_free + '원'}"></span>
-                                    <span class="delivery-arrive">모레 (금) 7/8 도착예정</span><br>
-                                    <p class="only">본 상품은 국내배송만 가능합니다.</p>
-                                </div>
+                            <div class="option-box">
+                                <p class="tip">원산지 – 상세설명 참고</p>
+                                <select class="option" name="category">
+                                    <option hidden="hidden">옵션 선택</option>
+                                    <option>[[${product.category_cate_id}]]</option>
+                                </select>
 
-                                <div class="option-box">
-                                    <p class="tip">원산지 – 상세설명 참고</p>
-                                    <select class="option" name="category">
-                                        <option hidden="hidden">옵션 선택</option>
-                                        <option>[[${product.category_cate_id}]]</option>
-                                    </select>
-
-                                    <div class="selected-option">
-                                        <span class="sel-top">선택된 상품명</span>
-                                        <div class="sel-bottom">
-                                            <div class="quantity-box">
-                                                <button type="button" class="qty-btn minus">-</button>
-                                                <input type="number" class="qty-input" value="2" min="1">
-                                                <button type="button" class="qty-btn plus">+</button>
-                                            </div>
-                                            <span class="total-price">54,000원</span>
+                                <div class="selected-option">
+                                    <span class="sel-top">선택된 상품명</span>
+                                    <div class="sel-bottom">
+                                        <div class="quantity-box">
+                                            <button type="button" class="qty-btn minus" onclick="changeQty(-1)">-</button>
+                                            <input type="number" class="qty-input" value="1" min="1">
+                                            <button type="button" class="qty-btn plus" onclick="changeQty(1)">+</button>
                                         </div>
+                                        <span class="total-price totalPrice">54,000원</span>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="total-box">
-                                    <span class="total-name">총 상품금액</span>
-                                    <span class="total-price">54,000원</span>
-                                </div>
+                            <div class="total-box">
+                                <span class="total-name">총 상품금액</span>
+                                <span class="total-price totalPrice">54,000원</span>
+                            </div>
 
-                                <div class="button-group">
-                                    <button class="cart">장바구니</button>
-                                    <button class="buy">구매하기</button>
-                                </div>
+                            <div class="button-group">
+                                <button class="cart">장바구니</button>
+                                <button class="buy">구매하기</button>
+                            </div>
 
-                                <div class="banner">
-                                    <img src="https://dummyimage.com/550x64" alt="배너">
-                                </div>
+                            <div class="banner">
+                                <img src="https://dummyimage.com/550x64" alt="배너">
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="product-detail">
-                        <h3 class="detail-title">상세정보</h3>
-                        <div class="detail-content">
-                            <img th:src="@{'/uploads/' + ${productDTO.detaile_file_1}}" th:alt="${productDTO.detaile_file_1}">
+                <div class="product-detail">
+                    <h3 class="detail-title">상세정보</h3>
+                    <div class="detail-content">
+                        <img th:src="@{'/uploads/' + ${productDTO.detaile_file_1}}"
+                             th:alt="${productDTO.detaile_file_1}">
+                    </div>
+                </div>
+
+                <div class="product-info-notice">
+                    <div class="info-head">
+                        <h3 class="info-title">상품정보 제공고시</h3>
+                        <span class="info-subtitle">[전자상거래에 관한 상품정보 제공에 관한 고시] 항목에 의거 등록된 정보입니다.</span>
+                    </div>
+
+                    <table class="info-table">
+                        <tr>
+                            <th>상품번호</th>
+                            <td th:text="${productDTO.pid}">10010118412</td>
+                            <th>상품상태</th>
+                            <td th:text="${productComplianceDTO.status}">새상품</td>
+                        </tr>
+                        <tr>
+                            <th>부가세면세여부</th>
+                            <td th:text="${productComplianceDTO.tax}">과세상품</td>
+                            <th>영수증발행</th>
+                            <td th:text="${productComplianceDTO.receipt}">발행가능 - 신용카드전표, 온라인현금영수증</td>
+                        </tr>
+                        <tr>
+                            <th>사업자구분</th>
+                            <td th:text="${productComplianceDTO.biz_type}">통신판매업자</td>
+                            <th>브랜드</th>
+                            <td th:text="${productDTO.brand}">블루포스</td>
+                        </tr>
+                        <tr>
+                            <th>원산지</th>
+                            <td colspan="3" th:text="${productComplianceDTO.origin}">국내생산</td>
+                        </tr>
+                        <tr>
+                            <th>제조사/수입국</th>
+                            <td>상세정보 직접입력</td>
+                            <th>제조국</th>
+                            <td>상세정보 직접입력</td>
+                        </tr>
+                        <tr>
+                            <th>취급시 주의사항</th>
+                            <td>상세정보 직접입력</td>
+                            <th>제조연월</th>
+                            <td>상세정보 직접입력</td>
+                        </tr>
+                        <tr>
+                            <th>품질보증기준</th>
+                            <td colspan="3">상세정보 직접입력</td>
+                        </tr>
+                        <tr>
+                            <th>A/S 책임자</th>
+                            <td colspan="3">상세정보 직접입력</td>
+                        </tr>
+                        <tr>
+                            <th>전화번호</th>
+                            <td colspan="3">상세정보 직접입력</td>
+                        </tr>
+                    </table>
+                    <div class="info-desc">
+                        <p>
+                            ※ 상품정보고시 내용은 판매자가 직접 등록한 것으로 해당 정보에 대한 책임은 판매자에게 있습니다.
+                        </p>
+                        <br>
+                        <p>
+                            소비자가 전자상거래 등에서 소비자 보호에 관한 <strong>법률 제17조 제1항 또는 제3항</strong>에 따라 청약철회를 하고,
+                            <strong>동 법 제18조 제1항</strong>에 따라 청약철회한 물품을 판매자에게 반환하였음에도 불구하고
+                            결제 대금의 환급이 <strong>3영업일</strong>을 넘게 지연된 경우, 소비자는 전자상거래 등에서 소비자 보호에 관한
+                            <strong>법률 제18조 제2항</strong> 및 <strong>동법 시행령 제21조 제2항</strong>에 따라 지연일수에 대하여
+                            시행령으로 정하는 이율을 곱하여 산정한 <strong>지연이자(“지연배상금”)</strong>를 신청할 수 있습니다.
+                        </p>
+                        <br>
+                        <p>
+                            아울러, <strong>교환·반품 보증</strong> 및 <strong>결제 대금의 환급 신청</strong>은
+                            <strong>[나의 쇼핑정보]</strong>에서 하실 수 있으며, 자세한 문의는
+                            <strong>개별 판매자</strong>에게 연락하여 주시기 바랍니다.
+                        </p>
+                    </div>
+
+                    <div class="product-review" id="review-section">
+                        <h3 class="review-title">상품리뷰</h3>
+
+                        <div class="review-item" th:each="review, i:${pageResponseDTO.dtoList}">
+                            <div class="review-meta">
+                                <div class="star"><span th:each="i : ${#numbers.sequence(1, 5)}"
+                                                        th:text="${i <= review.rating} ? '★' : '☆'"></span></div>
+                                <div class="review-header">
+                                    <div class="review-title-text" th:text="${review.pname}">상품명</div>
+                                    <div class="review-footer">
+                                        <span class="review-writer" th:text="${review.users_uid}"></span>
+                                        <span class="review-date" th:text="${review.write_at}">0000-07-10</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-body">
+                                <div class="review-image">
+                                    <img th:src="@{'/uploads/' + ${review.file1}}" th:alt="${review.pname}"/>
+                                </div>
+                                <div class="review-content-box">
+                                    <p class="review-content" th:text="${review.comment}">
+                                        가격대비 정말 괜찮은 옷이라 생각되네요 핏은 음... 제가 입기엔 어깨선이 맞고 루즈핏이라 하기도 좀 힘드네요.
+                                        아주 약간 루즈한 정도...? 그래도 이만한 옷은 없다고 봅니다. 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는
+                                        제품들을 구매하고 싶네요. 정말 만족하고 후기 남깁니다. 많이 파시길 바래요~
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="pagination" th:if="${pageResponseDTO.total > 0}">
+                            <th:block th:if="${pageResponseDTO.prev}">
+                                <a th:href="@{/product/view(pid=${productDTO.pid}, pg=${pageResponseDTO.start - 1})}"
+                                   class="page-btn">이전</a>
+                            </th:block>
+
+                            <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
+                                <a th:href="@{/product/view(pid=${productDTO.pid}, pg=${num})}"
+                                   th:class="${num == pageResponseDTO.pg} ? 'currnt' : 'num'" class="page-btn">[[${num}]]</a>
+                            </th:block>
+
+                            <th:block th:if="${pageResponseDTO.next}">
+                                <a th:href="@{/product/view(pid=${productDTO.pid}, pg=${pageResponseDTO.end + 1})}"
+                                   class="page-btn">다음</a>
+                            </th:block>
                         </div>
                     </div>
 
-                    <div class="product-info-notice">
-                        <div class="info-head">
-                            <h3 class="info-title">상품정보 제공고시</h3>
-                            <span class="info-subtitle">[전자상거래에 관한 상품정보 제공에 관한 고시] 항목에 의거 등록된 정보입니다.</span>
-                        </div>
-
-                        <table class="info-table">
-                            <tr>
-                                <th>상품번호</th>
-                                <td th:text="${productDTO.pid}">10010118412</td>
-                                <th>상품상태</th>
-                                <td th:text="${productComplianceDTO.status}">새상품</td>
-                            </tr>
-                            <tr>
-                                <th>부가세면세여부</th>
-                                <td th:text="${productComplianceDTO.tax}">과세상품</td>
-                                <th>영수증발행</th>
-                                <td th:text="${productComplianceDTO.receipt}">발행가능 - 신용카드전표, 온라인현금영수증</td>
-                            </tr>
-                            <tr>
-                                <th>사업자구분</th>
-                                <td th:text="${productComplianceDTO.biz_type}">통신판매업자</td>
-                                <th>브랜드</th>
-                                <td th:text="${productDTO.brand}">블루포스</td>
-                            </tr>
-                            <tr>
-                                <th>원산지</th>
-                                <td colspan="3" th:text="${productComplianceDTO.origin}">국내생산</td>
-                            </tr>
-                            <tr>
-                                <th>제조사/수입국</th>
-                                <td>상세정보 직접입력</td>
-                                <th>제조국</th>
-                                <td>상세정보 직접입력</td>
-                            </tr>
-                            <tr>
-                                <th>취급시 주의사항</th>
-                                <td>상세정보 직접입력</td>
-                                <th>제조연월</th>
-                                <td>상세정보 직접입력</td>
-                            </tr>
-                            <tr>
-                                <th>품질보증기준</th>
-                                <td colspan="3">상세정보 직접입력</td>
-                            </tr>
-                            <tr>
-                                <th>A/S 책임자</th>
-                                <td colspan="3">상세정보 직접입력</td>
-                            </tr>
-                            <tr>
-                                <th>전화번호</th>
-                                <td colspan="3">상세정보 직접입력</td>
-                            </tr>
-                        </table>
-                        <div class="info-desc">
-                            <p>
-                                ※ 상품정보고시 내용은 판매자가 직접 등록한 것으로 해당 정보에 대한 책임은 판매자에게 있습니다.
-                            </p>
-                            <br>
-                            <p>
-                                소비자가 전자상거래 등에서 소비자 보호에 관한 <strong>법률 제17조 제1항 또는 제3항</strong>에 따라 청약철회를 하고,
-                                <strong>동 법 제18조 제1항</strong>에 따라 청약철회한 물품을 판매자에게 반환하였음에도 불구하고
-                                결제 대금의 환급이 <strong>3영업일</strong>을 넘게 지연된 경우, 소비자는 전자상거래 등에서 소비자 보호에 관한
-                                <strong>법률 제18조 제2항</strong> 및 <strong>동법 시행령 제21조 제2항</strong>에 따라 지연일수에 대하여
-                                시행령으로 정하는 이율을 곱하여 산정한 <strong>지연이자(“지연배상금”)</strong>를 신청할 수 있습니다.
-                            </p>
-                            <br>
-                            <p>
-                                아울러, <strong>교환·반품 보증</strong> 및 <strong>결제 대금의 환급 신청</strong>은
-                                <strong>[나의 쇼핑정보]</strong>에서 하실 수 있으며, 자세한 문의는
-                                <strong>개별 판매자</strong>에게 연락하여 주시기 바랍니다.
-                            </p>
-                        </div>
-
-                        <div class="product-review">
-                            <h3 class="review-title">상품리뷰</h3>
-
-                            <div class="review-item">
-                                <div class="review-meta">
-                                    <div class="star">★★★★☆</div>
-                                    <div class="review-header">
-                                        <div class="review-title-text">상품명</div>
-                                        <div class="review-footer">
-                                            <span class="review-writer">seo******</span>
-                                            <span class="review-date">0000-07-10</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="review-body">
-                                    <div class="review-image">
-                                        <img src="/images/product/market_item4.jpg" alt="리뷰 이미지" />
-                                    </div>
-                                    <div class="review-content-box">
-                                        <p class="review-content">
-                                            가격대비 정말 괜찮은 옷이라 생각되네요 핏은 음... 제가 입기엔 어깨선이 맞고 루즈핏이라 하기도 좀 힘드네요.
-                                            아주 약간 루즈한 정도...? 그래도 이만한 옷은 없다고 봅니다. 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는
-                                            제품들을 구매하고 싶네요. 정말 만족하고 후기 남깁니다. 많이 파시길 바래요~
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="review-item">
-                                <div class="review-meta">
-                                    <div class="star">★★★★☆</div>
-                                    <div class="review-header">
-                                        <div class="review-title-text">상품명</div>
-                                        <div class="review-footer">
-                                            <span class="review-writer">seo******</span>
-                                            <span class="review-date">0000-07-10</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="review-body">
-                                    <div class="review-image">
-                                        <img src="/images/product/market_item4.jpg" alt="리뷰 이미지" />
-                                    </div>
-                                    <div class="review-content-box">
-                                        <p class="review-content">
-                                            가격대비 정말 괜찮은 옷이라 생각되네요 핏은 음... 제가 입기엔 어깨선이 맞고 루즈핏이라 하기도 좀 힘드네요.
-                                            아주 약간 루즈한 정도...? 그래도 이만한 옷은 없다고 봅니다. 깨끗하고 포장도 괜찮고 다음에도 여기서 판매하는
-                                            제품들을 구매하고 싶네요. 정말 만족하고 후기 남깁니다. 많이 파시길 바래요~
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                </div>
 
 
-                            <div class="pagination">
-                                <a href="#" class="page-btn">&lt;</a>
-                                <a href="#" class="page-btn active">1</a>
-                                <a href="#" class="page-btn">2</a>
-                                <a href="#" class="page-btn">3</a>
-                                <a href="#" class="page-btn">4</a>
-                                <a href="#" class="page-btn">5</a>
-                                <a href="#" class="page-btn">&gt;</a>
-                            </div>
-                        </div>
+            </section>
+        </article>
+    </main>
 
-                    </div>
-
-
-                </section>
-            </article>
-        </main>
-
-        <th:block th:include="/common/_footer"/>
-    </div>
+    <th:block th:include="/common/_footer"/>
+</div>
 </body>
 
 </html>

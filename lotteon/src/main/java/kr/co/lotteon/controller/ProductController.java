@@ -75,14 +75,18 @@ public class ProductController {
     }
 
     @GetMapping("/product/view")
-    public String view(int pid,
+    public String view(@RequestParam("pid") int pid,
                        @RequestParam(required = false) Long cateId,
+                       PageRequestDTO pageRequestDTO,
                        Model model) {
         ProductDTO productDTO = productService.view(pid);
         model.addAttribute("productDTO", productDTO);
 
         ProductComplianceDTO productComplianceDTO = productService.productCompliance(pid);
         model.addAttribute("productComplianceDTO", productComplianceDTO);
+
+        PageResponseDTO<ReviewDTO> pageResponseDTO = productService.Review(pageRequestDTO, pid);
+        model.addAttribute("pageResponseDTO", pageResponseDTO);
 
 //        CategoryDTO categoryDTO = productService.getAllCategories(cateId);
 //        model.addAttribute("categoryDTO", categoryDTO);

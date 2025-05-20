@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -33,7 +34,7 @@ public class Review {
     private String comment;
 
     @CreationTimestamp
-    private LocalDateTime write_at;
+    private LocalDate write_at;
 
 
 
