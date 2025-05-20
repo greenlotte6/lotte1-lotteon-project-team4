@@ -5,61 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
     <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
-    <link rel="stylesheet" href="/css/common/_header.css" />
-    <link rel="stylesheet" href="/css/common/_footer.css" />
-    <link rel="stylesheet" href="/css/myaccount/coupon.css" />       
+    <link rel="stylesheet" href="/css/common/_header.css"/>
+    <link rel="stylesheet" href="/css/common/_footer.css"/>
+    <link rel="stylesheet" href="/css/myaccount/coupon.css"/>
 </head>
 <body>
-    <th:block th:include="/common/_header"/>
-    <main>
-        <th:block th:include="/common/_myaccount_top"/>
+<th:block th:include="/common/_header"/>
+<main>
+    <th:block th:include="/common/_myaccount_top"/>
     <div class="main_container">
         <th:block th:include="/common/_myaccount_sied"/>
-          <div class="content">
-              <div class="banner_top">810 × 86 배너 광고</div>
-            <h2>문의하기</h2>
-              <table class="qna-table">
-                  <thead>
-                  <tr>
-                      <th>번호</th>
-                      <th>문의채널</th>
-                      <th>문의유형</th>
-                      <th>제목</th>
-                      <th>작성일</th>
-                      <th>상태</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                      <tr th:each="qna, stat : ${qnaList}">
-                          <td th:text="${stat.index + 1}">1</td>
-                          <td th:text="${qna.qnaType1}">고객센터</td>
-                          <td th:text="${qna.qnaType2}">주문/결제</td>
-                          <td th:text="${qna.title}">제목</td>
-                          <td th:text="${#temporals.format(qna.date, 'yyyy-MM-dd')}">날짜</td>
-                          <td th:text="${qna.status}"
-                              th:classappend="${qna.status == '답변완료'} ? 'status-done' : 'status-pending'">
-                              상태
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
-              <div class="pagination">
-                    <button>&lt; 이전</button>
-                    <button>1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button>4</button>
-                    <button>5</button>
-                    <button>다음 &gt;</button>
+        <div class="content">
+            <div class="banner_top">
+                <div class="main-top-banner" th:if="${main1Banner != null}">
+                    <a th:href="${main1Banner.link}">
+                        <img th:src="${main1Banner.imageUrl}" th:alt="${main1Banner.bannerName}"/>
+                    </a>
                 </div>
             </div>
-          </div>
+            <h2>문의하기</h2>
+            <table class="qna-table">
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>문의채널</th>
+                    <th>문의유형</th>
+                    <th>제목</th>
+                    <th>작성일</th>
+                    <th>상태</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="qna, stat : ${qnaPage.content}">
+                    <td th:text="${stat.index + 1}">1</td>
+                    <td th:text="${qna.qnaType1}">고객센터</td>
+                    <td th:text="${qna.qnaType2}">주문/결제</td>
+                    <td th:text="${qna.title}">제목</td>
+                    <td th:text="${#temporals.format(qna.date, 'yyyy-MM-dd')}">날짜</td>
+                    <td th:text="${qna.status}"
+                        th:classappend="${qna.status == '답변완료'} ? 'status-done' : 'status-pending'">
+                        상태
+                    </td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(qnaPage.content)}">
+                    <td colspan="6" style="text-align:center; padding: 20px;">내용이 없습니다.</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="pagination" th:if="${qnaPage.totalPages > 1}">
+                <a th:href="@{/myaccount/qna(page=${qnaPage.number - 1})}" th:if="${!qnaPage.first}">&lt; 이전</a>
+
+                <span th:each="i : ${#numbers.sequence(0, qnaPage.totalPages - 1)}">
+                    <a th:href="@{/myaccount/qna(page=${i})}"
+                        th:class="${i == qnaPage.number} ? 'active' : ''">[[${i + 1}]]</a>
+                </span>
+
+                <a th:href="@{/myaccount/qna(page=${qnaPage.number + 1})}" th:if="${!qnaPage.last}">다음 &gt;</a>
+            </div>
+
         </div>
-      </div>
     </div>
-    </main>
-    <th:block th:include="/common/_footer"/>
-    <script src="/js/head.js"></script>
-   
-  </body>
-  </html>
+    </div>
+    </div>
+    </div>
+</main>
+<th:block th:include="/common/_footer"/>
+<script src="/js/head.js"></script>
+
+</body>
+</html>

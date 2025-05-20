@@ -48,21 +48,11 @@ public class ProductService {
             Products products = tuple.get(0, Products.class);
             Double avgRating = tuple.get(1, Double.class);
             Long reviewCount = tuple.get(2, Long.class);
-            Long cateId = tuple.get(3, Long.class);
-
-            if (cateId != null) {
-                Category category = categoryRepository.findById(cateId).orElse(null);
-                products.setCategory(category);
-            }
 
             ProductDTO productDTO = modelMapper.map(products, ProductDTO.class);
             productDTO.setRating(avgRating != null ? avgRating : 0);
             productDTO.setReview_count(reviewCount != null ? reviewCount.intValue() : 0);
             productDTO.setDiscountPrice(productDTO.getDiscountedPrice());
-
-            productDTO.setCategory_cate_id(products.getCategory().getCateId());
-
-            log.info("productDTO: {}", productDTO);
 
             return productDTO;
         }).toList();

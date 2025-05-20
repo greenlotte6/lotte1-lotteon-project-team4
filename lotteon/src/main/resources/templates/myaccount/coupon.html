@@ -17,7 +17,13 @@
         <div class="main_container">
             <th:block th:include="/common/_myaccount_sied"/>
               <div class="content">
-                  <div class="banner_top">810 × 86 배너 광고</div>
+                  <div class="banner_top">
+                      <div class="main-top-banner" th:if="${main1Banner != null}">
+                          <a th:href="${main1Banner.link}">
+                              <img th:src="${main1Banner.imageUrl}" th:alt="${main1Banner.bannerName}"/>
+                          </a>
+                      </div>
+                  </div>
                 <h2>쿠폰내역</h2>
                 <div class="section">
                     <table class="table">

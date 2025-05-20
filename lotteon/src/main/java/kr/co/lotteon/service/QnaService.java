@@ -165,5 +165,10 @@ public class QnaService {
         return qnaRepository.findByUserUid(uid);
     }
 
+    public Page<Qna> getQnaPageByUserUid(String uid, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "date"));
+        return qnaRepository.findByUserUid(uid, pageable);
+    }
+
 
 }

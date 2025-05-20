@@ -9,6 +9,7 @@ import kr.co.lotteon.dto.QnaDTO;
 import kr.co.lotteon.entity.Seller;
 import kr.co.lotteon.service.QnaService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
@@ -282,15 +283,19 @@ public class MyaccountController {
     }
 
     @GetMapping("/myaccount/qna")
-    public String qnaPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String qnaPage(@AuthenticationPrincipal UserDetails userDetails,
+                          @RequestParam(defaultValue = "0") int page,
+                          @RequestParam(defaultValue = "10") int size,
+                          Model model) {
         if (userDetails == null) return "redirect:/member/login";
 
         String uid = userDetails.getUsername();
-        List<Qna> qnaList = qnaService.getQnaByUserUid(uid); // 🔄 변경된 서비스 사용
+        Page<Qna> qnaPage = qnaService.getQnaPageByUserUid(uid, page, size);
 
-        model.addAttribute("qnaList", qnaList);
+        model.addAttribute("qnaPage", qnaPage);
         return "/myaccount/qna";
     }
+
 
 
 
