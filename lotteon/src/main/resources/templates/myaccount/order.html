@@ -1,82 +1,73 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
-        <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
+    <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
 
-        <link rel="stylesheet" href="/css/common/_header.css" />
-        <link rel="stylesheet" href="/css/common/_footer.css" />
-        <link rel="stylesheet" href="/css/myaccount/home.css" />
+    <link rel="stylesheet" href="/css/common/_header.css"/>
+    <link rel="stylesheet" href="/css/common/_footer.css"/>
+    <link rel="stylesheet" href="/css/myaccount/home.css"/>
 
-    </head>
-    <body>
-    <th:block th:include="/common/_header"/>
-    <main>
-        <th:block th:include="/common/_myaccount_top"/>
-        <div class="main_containers">
-            <th:block th:include="/common/_myaccount_sied"/>
-            <div class="content">
-                <div class="banner_top">810 × 86 배너 광고</div>
-                <div class="section-header">
-                    <div class="left-title">
-                        <h2>최근주문내역</h2>
-                    </div>
-                    <div class="see-more"> 더보기 &gt;</div>
+</head>
+<body>
+<th:block th:include="/common/_header"/>
+<main>
+    <th:block th:include="/common/_myaccount_top"/>
+    <div class="main_containers">
+        <th:block th:include="/common/_myaccount_sied"/>
+        <div class="content">
+            <div class="banner_top">
+                <div class="main-top-banner" th:if="${main1Banner != null}">
+                    <a th:href="${main1Banner.link}">
+                        <img th:src="${main1Banner.imageUrl}" th:alt="${main1Banner.bannerName}"/>
+                    </a>
                 </div>
-              
-                <div class="order-list">
-                    <div class="order-header">
-                        <div class="order-date">날짜</div>
-                        <div class="order-info">상품정보</div>
-                        <div class="order-status">상태</div>
-                        <div class="order-actions">확인 / 신청</div>
-                    </div>
-                    <div class="order-row">
-                        <div class="order-date">2022-12-13</div>
+            </div>
+            <div class="section-header">
+                <div class="left-title">
+                    <h2>최근주문내역</h2>
+                </div>
+                <div class="see-more"> 더보기 &gt;</div>
+            </div>
+            <div class="order-list">
+                <div class="order-header">
+                    <div class="order-date">날짜</div>
+                    <div class="order-info">상품정보</div>
+                    <div class="order-status">상태</div>
+                    <div class="order-actions">확인 / 신청</div>
+                </div>
+                <div class="order-row">
+                    <div th:each="order : ${orderList}" class="order-row">
+                        <div class="order-date" th:text="${order.orderDate}">날짜</div>
                         <div class="order-info_num">
                             <div class="order-img"></div>
                             <div class="order-text">
-                                <a class="click-bar" onclick="openModal('/myaccount/order-details-modal')">주문번호 : 1012211341</a><br />
+                                주문번호 : <span th:text="${order.oid}">주문번호</span><br/>
                                 <a class="click-bar"
-                                   onclick="openModal('/myaccount/seller-modal?company=' + encodeURIComponent('(주)그린주식회사'))">(주)그린주식회사</a><br/>
-                                상품명<br>
-                                수량 : 1개<br/>
-                                34,000원
+                                   th:onclick="'openModal(\'/myaccount/seller-modal?company=' + encodeURIComponent(\'' + [[${order.sellerCompany}]] + '\'))'"
+                                   th:text="${order.sellerCompany}">판매자</a>
+                                <span th:text="${order.productName}">상품명</span><br/>
+                                수량 : <span th:text="${order.quantity}">1</span><br/>
+                                <span th:text="|${order.productPrice}원|">가격</span>
                             </div>
                         </div>
-                        <div class="order-status">배송완료</div>
+                        <div class="order-status" th:text="${order.shippingStatus}">배송상태</div>
+
+
                         <div class="order-actions">
                             <button class="btn" onclick="openModal('/myaccount/buy-modal')">구매확정</button>
-                            <button class="btn" onclick="openModal('/myaccount/review-modal?productName=상품명')">상품평쓰기</button>
+                            <button class="btn" onclick="openModal('/myaccount/review-modal')">상품평쓰기</button>
                             <button class="btn" onclick="openModal('/myaccount/return-modal')">반품신청</button>
                             <button class="btn" onclick="openModal('/myaccount/exchange-modal')">교환신청</button>
                         </div>
-
-                <div class="order-row">
-                    <div class="order-date">2022-12-13</div>
-                    <div class="order-info_num">
-                        <div class="order-img"></div>
-                        <div class="order-text">
-                            <a class="click-bar" onclick="openModal('/myaccount/order-details-modal')">주문번호 : 1012211341</a><br />
-                            <a class="click-bar"
-                               onclick="openModal('/myaccount/seller-modal?company=' + encodeURIComponent('(주)그린주식회사'))">(주)그린주식회사</a><br/>
-                            상품명<br>
-                            수량 : 1개<br/>
-                            34,000원
-                        </div>
-                    </div>
-                    <div class="order-status">배송완료</div>
-                    <div class="order-actions">
-                        <button class="btn" onclick="openModal('/myaccount/buy-modal')">구매확정</button>
-                        <button class="btn" onclick="openModal('/myaccount/review-modal')">상품평쓰기</button>
-                        <button class="btn" onclick="openModal('/myaccount/return-modal')">반품신청</button>
-                        <button class="btn" onclick="openModal('/myaccount/exchange-modal')">교환신청</button>
-
                     </div>
                 </div>
+
+
                 <div class="banner_top">810 × 86 배너 광고</div>
+
 
                 <div class="section">
                     <div class="section-header">
@@ -84,10 +75,6 @@
                             <h2>포인트적립내역</h2>
                         </div>
                         <div class="see-more"> 더보기 &gt;</div>
-            <div class="section">
-                <div class="section-header">
-                    <div class="left-title">
-                        <h2>포인트적립내역</h2>
                     </div>
                     <table class="table">
                         <thead>
@@ -239,17 +226,6 @@
                 </div>
             </div>
         </div>
-        </div>
-        </div>
-        </div>
-    </main>
-    <th:block th:include="/common/_footer"/>
-    <div class="modal-overlay" id="modalOverlay" style="display:none;">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">×</button>
-            <div id="modalBody"></div>
-        </div>
-    </div>
     </div>
 
 </main>
@@ -259,11 +235,10 @@
         <button class="modal-close" onclick="closeModal()">×</button>
         <div id="modalBody"></div>
     </div>
+</div>
 
 
-
-
-    <script src="/js/modal.js"></script>
-    <script src="/js/head.js"></script>
-    </body>
-    </html>
+<script src="/js/modal.js"></script>
+<script src="/js/head.js"></script>
+</body>
+</html>
