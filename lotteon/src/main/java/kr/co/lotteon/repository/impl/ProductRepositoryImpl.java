@@ -25,6 +25,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
     private QProducts qProducts = QProducts.products;
+    private QProductCompliance qProductCompliance = QProductCompliance.productCompliance;
     private QReview qReview = QReview.review;
     private QCategory qCategory = QCategory.category;
 
@@ -80,10 +81,10 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
         // QueryDSL 쿼리 생성 (정렬 조건은 아직 적용 안 함)
         JPAQuery<Tuple> query = queryFactory
-                .select(qProducts, qReview.rating.avg(), qReview.count())
+                .select(qProducts, qReview.rating.avg(), qReview.count(), qProducts.category.cateId)
                 .from(qProducts)
                 .leftJoin(qProducts.review, qReview) // 리뷰가 없는 상품도 포함하기 위해 leftJoin 사용
-//                .join(qProducts.category, qCategory)
+                .join(qProducts.category, qCategory)
                 .groupBy(qProducts.pid)
                 .offset(pageable.getOffset()) // 페이징 시작 위치 설정
                 .limit(pageable.getPageSize()); // 한 페이지에 보여줄 개수 설정
@@ -102,6 +103,17 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         // 페이징 처리된 결과와 전체 개수를 담아서 반환
         return new PageImpl<>(tupleList, pageable, total);
     }
+
+//    public List<Tuple> ProductCompliance() {
+//        List<Tuple> tupleList = queryFactory
+//                .select(qProducts, qProductCompliance)
+//                .from(qProductCompliance)
+//                .join(qProductCompliance.products, qProducts)
+//                .fetch();
+//
+//        return tupleList;
+//
+//    }
 
 
 }

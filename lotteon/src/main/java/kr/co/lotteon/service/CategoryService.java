@@ -24,6 +24,8 @@ public class CategoryService {
         // 현재 카테고리 조회
         Category current = categoryRepository.findById(cateId).orElse(null);
 
+        log.info("current: {}", current);
+
         // 최상위 카테고리까지 반복
         while (current != null) {
             path.add(0, current); // 상위 카테고리를 앞에 추가
