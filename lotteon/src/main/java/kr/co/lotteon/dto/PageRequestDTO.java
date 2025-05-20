@@ -33,6 +33,8 @@ public class PageRequestDTO {
 
     private String sortType = "recent"; // 기본값 설정
 
+    private Long cateId;
+
     // 글 목록 페이징 처리를 위한 Pageable 객체 생성 메서드
     public Pageable getPageable(String sort) { // sort 정렬 문자열, Pageable로 페이징 처리
         return PageRequest.of(this.pg - 1, this.size, Sort.by(sort).descending());

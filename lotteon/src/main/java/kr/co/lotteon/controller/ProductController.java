@@ -27,18 +27,32 @@ public class ProductController {
                        @RequestParam(required = false) String sortType,
                        Model model) {
 
-        // 정렬
+        // 정렬 세팅
         if (sortType != null) {
             pageRequestDTO.setSortType(sortType);
         }
 
-        // 상품 목록 조회
+
+        // 카테고리 세팅
+        if (cateId != null) {
+            pageRequestDTO.setCateId(cateId);
+
+            // breadcrumb용 categoryPath 전달
+            List<Category> categoryPath = categoryService.getCategoryPath(cateId);
+            model.addAttribute("categoryPath", categoryPath);
+            model.addAttribute("cateId", cateId);
+            model.addAttribute("sortType", sortType);
+        }
+
+        // 상품 목록 조회 (카테고리, 정렬 포함 처리)
         PageResponseDTO<ProductDTO> productDTOS = productService.list(pageRequestDTO);
-        model.addAttribute(productDTOS);
+        model.addAttribute("pageResponseDTO", productDTOS);
+
 
         log.info("productDTOS: {}", productDTOS);
         return "/product/list";
     }
+
 
     @GetMapping("/product/complete")
     public String complete() {

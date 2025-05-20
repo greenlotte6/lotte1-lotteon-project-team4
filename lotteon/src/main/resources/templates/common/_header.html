@@ -108,7 +108,11 @@
 
                             <ul class="sub-cate" th:if="${cate.children}">
                                 <li th:each="sub : ${cate.children}">
-                                    <a th:text="${sub.name}" href="#"></a>
+                                    <a th:href="@{/product/list(cateId=${sub.id})}"
+                                       th:text="${sub.name}"></a>
+
+                                    <span style="color:red;" th:text="'[cateId: ' + ${sub.cateId} + ']'"></span>
+                                    <span style="color:blue;" th:text="'[Id: ' + ${sub.id} + ']'"></span>
                                 </li>
                             </ul>
                         </li>

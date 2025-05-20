@@ -22,4 +22,6 @@ public interface ProductRepository extends JpaRepository<Products, Integer>, Pro
 
     Optional<Products> findByPid(int pid);
 
+    Page<Products> findByCategoryCateId(Long cateId, Pageable pageable);
+
 }
