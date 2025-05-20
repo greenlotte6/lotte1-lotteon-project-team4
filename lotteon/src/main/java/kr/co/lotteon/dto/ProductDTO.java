@@ -33,7 +33,7 @@ public class ProductDTO {
     private LocalDate p_updates_at;
     private String maker;
     private int delivery_free;
-    private int category_cate_id;
+    private long category_cate_id;
     private int point_rate;
     private int cart_item_item_id;
     private int productCompliance_compliance_id;
@@ -42,9 +42,14 @@ public class ProductDTO {
     // 할인 가격 필드
     private BigDecimal discountPrice;
 
-
     // 추가 필드
     private Double rating;
+//    private String status;
+//    private String tax;
+//    private String receipt;
+//    private String biz_type;
+//    private String origin;
+
 
     public BigDecimal getDiscountedPrice() {
         // 1. 원가를 BigDecimal로 변환 (int → BigDecimal)

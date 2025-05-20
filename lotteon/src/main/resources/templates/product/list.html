@@ -121,9 +121,8 @@
                 <table class="product-table">
                     <tbody>
                     <tr th:each="product, i:${pageResponseDTO.dtoList}">
-                        <td><a th:href="@{/product/view(pid=${product.pid})}"><img th:src="${product.img_file_1}"
-                                                                                   alt="상품썸네일" class="product-img"></a>
-                        </td>
+
+                        <td><a th:href="@{/product/view(pid=${product.pid})}"><img th:src="@{'/uploads/' + ${product.img_file_1}}" th:alt="${product.pname}" class="product-img"></a></td>
                         <td>
                             <a th:href="@{/product/view(pid=${product.pid})}"><p class="name">[[${product.pname}]]</p>
                             </a>
@@ -134,7 +133,7 @@
                                 <span class="original">[[${product.price}]]원</span>
                                 <span class="discount">[[${product.discount}]]%</span>
                             </p>
-                            <p class="shipping">배송 [[${product.delivery_free}]]</p>
+                            <p class="shipping">[[${product.delivery_free == 0 ? '무료배송' : '배송비 ' + product.delivery_free + '원'}]]</p>
                         <td>
                             <div class="premier">
                                 <a href="#"><img class="images" th:src="@{/images/home.png}" alt="판매자">[[${product.company}]]</a>

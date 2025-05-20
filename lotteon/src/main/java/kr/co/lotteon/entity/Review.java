@@ -24,7 +24,8 @@ public class Review {
     private Products products;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Users  users;
+    @JoinColumn(name = "users_uid")
+    private Users users;
     private Double rating;
 
     private String Users_uid;
@@ -33,6 +34,7 @@ public class Review {
 
     @CreationTimestamp
     private LocalDateTime write_at;
+
 
 
 }
