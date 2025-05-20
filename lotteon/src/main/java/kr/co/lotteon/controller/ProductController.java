@@ -1,9 +1,6 @@
 package kr.co.lotteon.controller;
 
-import kr.co.lotteon.dto.CategoryDTO;
-import kr.co.lotteon.dto.PageRequestDTO;
-import kr.co.lotteon.dto.PageResponseDTO;
-import kr.co.lotteon.dto.ProductDTO;
+import kr.co.lotteon.dto.*;
 import kr.co.lotteon.entity.Category;
 import kr.co.lotteon.service.CategoryService;
 import kr.co.lotteon.service.ProductService;
@@ -39,14 +36,6 @@ public class ProductController {
         PageResponseDTO<ProductDTO> productDTOS = productService.list(pageRequestDTO);
         model.addAttribute(productDTOS);
 
-        // 카테고리 경로 (Breadcrumb) 조회
-        if (cateId != null) {
-            List<Category> categoryPath = categoryService.getCategoryPath(cateId);
-            model.addAttribute("categoryPath", categoryPath);
-
-            log.info("categoryPath: {}", categoryPath);
-        }
-
         log.info("productDTOS: {}", productDTOS);
         return "/product/list";
     }
@@ -77,6 +66,9 @@ public class ProductController {
                        Model model) {
         ProductDTO productDTO = productService.view(pid);
         model.addAttribute("productDTO", productDTO);
+
+        ProductComplianceDTO productComplianceDTO = productService.productCompliance(pid);
+        model.addAttribute("productComplianceDTO", productComplianceDTO);
 
 //        CategoryDTO categoryDTO = productService.getAllCategories(cateId);
 //        model.addAttribute("categoryDTO", categoryDTO);

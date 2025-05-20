@@ -2,14 +2,8 @@ package kr.co.lotteon.service;
 
 import com.querydsl.core.Tuple;
 import kr.co.lotteon.dto.*;
-import kr.co.lotteon.entity.Category;
-import kr.co.lotteon.entity.ProductOption;
-import kr.co.lotteon.entity.ProductOptionItem;
-import kr.co.lotteon.entity.Products;
-import kr.co.lotteon.repository.CategoryRepository;
-import kr.co.lotteon.repository.ProductOptionItemRepository;
-import kr.co.lotteon.repository.ProductOptionRepository;
-import kr.co.lotteon.repository.ProductRepository;
+import kr.co.lotteon.entity.*;
+import kr.co.lotteon.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -17,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -29,6 +24,9 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductOptionRepository productOptionRepository;
     private final ProductOptionItemRepository productOptionItemRepository;
+    private final CategoryRepository categoryRepository;
+    private final ProductComplianceRepository productComplianceRepository;
+    private final ReviewRepository reviewRepository;
     private final ModelMapper modelMapper;
 
     // 상품 목록 페이지 조회 및 페이징 처리
@@ -49,13 +47,18 @@ public class ProductService {
             Products products = tuple.get(0, Products.class);
             Double avgRating = tuple.get(1, Double.class);
             Long reviewCount = tuple.get(2, Long.class);
-//            Long cateId = tuple.get(3, Long.class);
+            Long cateId = tuple.get(3, Long.class);
+
+            if (cateId != null) {
+                Category category = categoryRepository.findById(cateId).orElse(null);
+                products.setCategory(category);
+            }
 
             ProductDTO productDTO = modelMapper.map(products, ProductDTO.class);
             productDTO.setRating(avgRating != null ? avgRating.doubleValue() : 0);
             productDTO.setReview_count(reviewCount != null ? reviewCount.intValue() : 0);
             productDTO.setDiscountPrice(productDTO.getDiscountedPrice());
-//            productDTO.setCategory_cate_id(Math.toIntExact(products.getCategory().getCateId()));
+            productDTO.setCategory_cate_id(products.getCategory().getCateId());
 
             log.info("productDTO: {}", productDTO);
 
@@ -81,6 +84,8 @@ public class ProductService {
             Products products = optProducts.get();
 
             ProductDTO productDTO = modelMapper.map(products, ProductDTO.class);
+            Double avgRating = productDTO.getRating();
+            productDTO.setRating(avgRating != null ? avgRating.doubleValue() : 0);
             productDTO.setDiscountPrice(productDTO.getDiscountedPrice());
 
             return productDTO;
@@ -88,6 +93,41 @@ public class ProductService {
             throw new NoSuchElementException("Product not found");
         }
     }
+
+    // 상품 정보 고시
+    public ProductComplianceDTO productCompliance(int pid) {
+        Optional<ProductCompliance> optCompliance = productComplianceRepository.findById(pid);
+
+        if (optCompliance.isPresent()) {
+            ProductCompliance productCompliance = optCompliance.get();
+            ProductComplianceDTO productComplianceDTO = modelMapper.map(productCompliance, ProductComplianceDTO.class);
+
+            return productComplianceDTO;
+        }else {
+            throw new NoSuchElementException("Product compliance not found");
+        }
+    }
+
+    // 상품 리뷰 조회 및 페이징 처리
+    public void Review(PageRequestDTO pageRequestDTO) {
+//        Pageable pageable = pageRequestDTO.getPageableNotSort();
+//
+//        Page<Tuple> tuplePage = reviewRepository.review(pageable);
+//
+//        List<ReviewDTO> reviewDTOS = tuplePage.getContent().stream().map(tuple -> {
+//            String uid = tuple.get(0, String.class);
+//            Review review = tuple.get(1, Review.class);
+//
+//            ReviewDTO reviewDTO = modelMapper.map(review, ReviewDTO.class);
+//            reviewDTO.setUsers_uid(review.getUsers().getUid());
+//        })
+
+
+    }
+
+
+    // 쿠폰 선택
+//    public void coupon()
 
     // 카테고리 조회
 //    public CategoryDTO getAllCategories(int option_id, int item_id) {
