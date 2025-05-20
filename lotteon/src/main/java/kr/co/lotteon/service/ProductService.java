@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -33,40 +34,34 @@ public class ProductService {
 
     // 상품 목록 페이지 조회 및 페이징 처리
     public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO) {
-
         Pageable pageable = pageRequestDTO.getPageableNotSort();
 
-        Page<Tuple> productsPage = productRepository.productList(pageable);
+        Page<Tuple> productsPage;
+
+        if (pageRequestDTO.getCateId() != null) {
+            // 카테고리로 필터된 상품 목록 조회
+            productsPage = productRepository.productListByCategory(pageRequestDTO.getCateId(), pageable);
+        } else {
+            // 전체 상품 목록 조회
+            productsPage = productRepository.productList(pageable);
+        }
 
         List<ProductDTO> productDTOS = productsPage.getContent().stream().map(tuple -> {
-//            Products products = tuple.get(0, Products.class);
-//            int rating = tuple.get(1, Integer.class);
-//
-//            ProductDTO productDTO = modelMapper.map(products, ProductDTO.class);
-//            productDTO.setRating(rating);
-//            productDTO.setDiscountPrice(productDTO.getDiscountedPrice());
-
             Products products = tuple.get(0, Products.class);
             Double avgRating = tuple.get(1, Double.class);
             Long reviewCount = tuple.get(2, Long.class);
-//            Long cateId = tuple.get(3, Long.class);
 
             ProductDTO productDTO = modelMapper.map(products, ProductDTO.class);
-            productDTO.setRating(avgRating != null ? avgRating.doubleValue() : 0);
+            productDTO.setRating(avgRating != null ? avgRating : 0);
             productDTO.setReview_count(reviewCount != null ? reviewCount.intValue() : 0);
             productDTO.setDiscountPrice(productDTO.getDiscountedPrice());
-//            productDTO.setCategory_cate_id(Math.toIntExact(products.getCategory().getCateId()));
-
-            log.info("productDTO: {}", productDTO);
 
             return productDTO;
         }).toList();
 
-        // 전체 게시물 갯수
         int total = (int) productsPage.getTotalElements();
 
-        return PageResponseDTO
-                .<ProductDTO>builder()
+        return PageResponseDTO.<ProductDTO>builder()
                 .pageRequestDTO(pageRequestDTO)
                 .dtoList(productDTOS)
                 .total(total)
@@ -88,6 +83,22 @@ public class ProductService {
             throw new NoSuchElementException("Product not found");
         }
     }
+
+    public PageResponseDTO<ProductDTO> getProductListByCategory(Long cateId, PageRequestDTO pageRequestDTO) {
+        Pageable pageable = pageRequestDTO.getPageableNotSort();
+        Page<Products> productPage = productRepository.findByCategoryCateId(cateId, pageable);
+
+        List<ProductDTO> dtoList = productPage.getContent().stream()
+                .map(product -> modelMapper.map(product, ProductDTO.class))
+                .collect(Collectors.toList());
+
+        return PageResponseDTO.<ProductDTO>builder()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(dtoList)
+                .total((int) productPage.getTotalElements())
+                .build();
+    }
+
 
     // 카테고리 조회
 //    public CategoryDTO getAllCategories(int option_id, int item_id) {

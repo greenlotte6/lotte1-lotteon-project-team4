@@ -99,30 +99,34 @@
             <th:block th:include="/common/_main_aside"/>
 
             <section class="main-content">
-                <div class="breadcrumb">HOME
-                    <span th:each="category, i : ${categoryPath}">
-                    <th:block th:if="${i.index > 0}"> > </th:block>
-                    <span th:text="${category.cateName}"></span>
-                </span>
+                <div class="breadcrumb">
+                    <a href="/">HOME &gt;</a>
+                    <th:block th:each="category, iterStat : ${categoryPath}">
+                        <th:block th:if="${iterStat.index > 0}"> &gt; </th:block>
+                        <a th:href="@{/product/list(cateId=${category.cateId})}" th:text="${category.cateName}"></a>
+                    </th:block>
                 </div>
                 <h2 class="product-title">상품목록</h2>
 
                 <div class="sort-options">
-                    <div class="options-item"><a th:href="@{/product/list(sortType='best')}">판매많은순</a></div>
-                    <div class="options-item"><a th:href="@{/product/list(sortType='lowPrice')}">낮은가격순</a></div>
-                    <div class="options-item"><a th:href="@{/product/list(sortType='highPrice')}">높은가격순</a></div>
-                    <div class="options-item"><a th:href="@{/product/list(sortType='rating')}">평점 높은순</a></div>
-                    <div class="options-item"><a th:href="@{/product/list(sortType='review')}">후기많은순</a></div>
-                    <div class="options-item"><a th:href="@{/product/list(sortType='recent')}">최근 등록순</a></div>
+                    <div class="options-item"><a th:href="@{/product/list(pg=1, sortType='best', cateId=${cateId})}">판매많은순</a></div>
+                    <div class="options-item"><a th:href="@{/product/list(pg=1, sortType='lowPrice', cateId=${cateId})}">낮은가격순</a></div>
+                    <div class="options-item"><a th:href="@{/product/list(pg=1, sortType='highPrice', cateId=${cateId})}">높은가격순</a></div>
+                    <div class="options-item"><a th:href="@{/product/list(pg=1, sortType='rating', cateId=${cateId})}">평점 높은순</a></div>
+                    <div class="options-item"><a th:href="@{/product/list(pg=1, sortType='review', cateId=${cateId})}">후기많은순</a></div>
+                    <div class="options-item"><a th:href="@{/product/list(pg=1, sortType='recent', cateId=${cateId})}">최근 등록순</a></div>
                 </div>
 
 
                 <table class="product-table">
                     <tbody>
                     <tr th:each="product, i:${pageResponseDTO.dtoList}">
-                        <td><a th:href="@{/product/view(pid=${product.pid})}"><img th:src="${product.img_file_1}" alt="상품썸네일" class="product-img"></a></td>
+                        <td><a th:href="@{/product/view(pid=${product.pid})}"><img th:src="${product.img_file_1}"
+                                                                                   alt="상품썸네일" class="product-img"></a>
+                        </td>
                         <td>
-                            <a th:href="@{/product/view(pid=${product.pid})}"><p class="name">[[${product.pname}]]</p></a>
+                            <a th:href="@{/product/view(pid=${product.pid})}"><p class="name">[[${product.pname}]]</p>
+                            </a>
                             <p class="desc">[[${product.description}]]</p>
                         </td>
                         <td>
@@ -136,7 +140,13 @@
                                 <a href="#"><img class="images" th:src="@{/images/home.png}" alt="판매자">[[${product.company}]]</a>
                                 <div><img class="images" src="/images/achievement.png" alt="등급">고객만족우수</div>
                             </div>
-                        <p class="review">상품평 <span class="stars" ><th:block th:each="i : ${#numbers.sequence(1, product.rating)}">★</th:block></span></p>
+                            <p class="review">상품평
+                                <span class="stars">
+                                <th:block th:if="${product.rating != null}"
+                                          th:each="i : ${#numbers.sequence(1, product.rating)}">★</th:block>
+                                <th:block th:if="${product.rating == null}">☆☆☆☆☆</th:block>
+                            </span>
+                            </p>
                         </td>
                     </tr>
                     </tbody>
@@ -145,19 +155,20 @@
 
                 <div class="pagination" th:if="${pageResponseDTO.total > 0}">
                     <th:block th:if="${pageResponseDTO.prev}">
-                        <a th:href="@{/product/list(pg=${pageResponseDTO.start - 1})}" class="page-move">이전</a>
+                        <a th:href="@{/product/list(pg=${pageResponseDTO.start - 1}, cateId=${cateId}, sortType=${sortType})}" class="page-move">이전</a>
                     </th:block>
 
                     <th:block th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}">
-                        <a class="active" th:href="@{/product/list(pg=${num})}"
-                           th:class="${num == pageResponseDTO.pg} ? 'currnt':'num'">[[${num}]]</a>
+                        <a th:href="@{/product/list(pg=${num}, cateId=${cateId}, sortType=${sortType})}"
+                           th:class="${num == pageResponseDTO.pg} ? 'currnt' : 'num'">[[${num}]]</a>
                     </th:block>
 
                     <th:block th:if="${pageResponseDTO.next}">
-                        <a th:href="@{/product/list(pg=${pageResponseDTO.end+1})}"
-                           class="page-move">다음</a>
+                        <a th:href="@{/product/list(pg=${pageResponseDTO.end + 1}, cateId=${cateId}, sortType=${sortType})}" class="page-move">다음</a>
                     </th:block>
                 </div>
+
+
             </section>
         </article>
     </main>

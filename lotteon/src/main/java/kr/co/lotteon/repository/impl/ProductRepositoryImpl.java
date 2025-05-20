@@ -103,5 +103,55 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         return new PageImpl<>(tupleList, pageable, total);
     }
 
+    @Override
+    public Page<Tuple> productListByCategory(Long cateId, Pageable pageable) {
+        List<OrderSpecifier<?>> orderSpecifiers = new ArrayList<>();
 
+        for (Sort.Order order : pageable.getSort()) {
+            Order direction = order.isAscending() ? Order.ASC : Order.DESC;
+            String property = order.getProperty();
+
+            switch (property) {
+                case "hits":
+                    orderSpecifiers.add(new OrderSpecifier(direction, qProducts.hits));
+                    break;
+                case "price":
+                    orderSpecifiers.add(new OrderSpecifier(direction, qProducts.price));
+                    break;
+                case "rating":
+                    orderSpecifiers.add(new OrderSpecifier(direction, qReview.rating.avg()));
+                    break;
+                case "review_count":
+                    orderSpecifiers.add(new OrderSpecifier(direction, qReview.count()));
+                    break;
+                case "p_created_at":
+                default:
+                    orderSpecifiers.add(new OrderSpecifier(direction, qProducts.p_created_at));
+                    break;
+            }
+        }
+
+        JPAQuery<Tuple> query = queryFactory
+                .select(qProducts, qReview.rating.avg(), qReview.count())
+                .from(qProducts)
+                .leftJoin(qProducts.review, qReview)
+                .where(qProducts.category.cateId.eq(cateId))
+                .groupBy(qProducts.pid)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize());
+
+        if (!orderSpecifiers.isEmpty()) {
+            query.orderBy(orderSpecifiers.toArray(new OrderSpecifier[0]));
+        }
+
+        List<Tuple> tupleList = query.fetch();
+
+        long total = queryFactory
+                .select(qProducts.count())
+                .from(qProducts)
+                .where(qProducts.category.cateId.eq(cateId))
+                .fetchOne();
+
+        return new PageImpl<>(tupleList, pageable, total);
+    }
 }

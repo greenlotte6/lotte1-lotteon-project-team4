@@ -12,5 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface ProductRepositoryCustom {
 
     Page<Tuple> productList(Pageable pageable);
+    Page<Tuple> productListByCategory(Long cateId, Pageable pageable);
 
 }
