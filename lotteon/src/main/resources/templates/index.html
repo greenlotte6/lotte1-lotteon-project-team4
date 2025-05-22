@@ -147,7 +147,10 @@
                         <a th:href="@{/?pid=${product.pid}}">
                             <div class="best-main">
                                 <img class="best-image" th:src="@{'/uploads/' + ${product.img_file_1}}" alt="베스트상품1">
-                                <p class="best-title" th:text="${product.pname}">상품명</p>
+                                <p class="product-name"
+                                   th:text="${#strings.length(product.pname) > 12 ? product.pname.substring(0, 12) + '...' : product.pname}">
+                                    상품명
+                                </p>
                                 <div class="price-wrap">
                                     <span class="best-price" th:text="${product.price} + '원'">30,000원</span>
                                     <span class="discount" th:text="${product.discount} + '%'">10% ↓</span>
@@ -175,7 +178,10 @@
                                     <div class="product-card">
                                         <img th:src="@{'/uploads/' + ${product.img_file_1}}" th:alt="${product.pname}">
                                         <div class="product-info">
-                                            <p class="product-name" th:text="${product.pname}">상품명</p>
+                                            <p class="product-name"
+                                               th:text="${#strings.length(product.pname) > 12 ? product.pname.substring(0, 12) + '...' : product.pname}">
+                                                상품명
+                                            </p>
                                             <p class="product-price"><span class="original" th:text="${product.price} + '원'">30,000원</span><span
                                                     class="discount" th:text="${product.discount} + '%'">10%</span></p>
                                             <p class="final-price" th:text="${product.discountPrice} + '원'">27,000원</p>
@@ -203,7 +209,10 @@
                                         <div class="product-card">
                                             <img th:src="@{'/uploads/' + ${product.img_file_1}}" th:alt="${product.pname}">
                                             <div class="product-info">
-                                                <p class="product-name" th:text="${product.pname}">상품명</p>
+                                                <p class="product-name"
+                                                   th:text="${#strings.length(product.pname) > 12 ? product.pname.substring(0, 12) + '...' : product.pname}">
+                                                    상품명
+                                                </p>
                                                 <p class="product-price"><span class="original" th:text="${product.price} + '원'">30,000원</span><span
                                                         class="discount" th:text="${product.discount} + '%'">10%</span></p>
                                                 <p class="final-price" th:text="${product.discountPrice} + '원'">27,000원</p>
@@ -231,7 +240,10 @@
                                         <div class="product-card">
                                             <img th:src="@{'/uploads/' + ${product.img_file_1}}" th:alt="${product.pname}">
                                             <div class="product-info">
-                                                <p class="product-name" th:text="${product.pname}">상품명</p>
+                                                <p class="product-name"
+                                                   th:text="${#strings.length(product.pname) > 12 ? product.pname.substring(0, 12) + '...' : product.pname}">
+                                                    상품명
+                                                </p>
                                                 <p class="product-price"><span class="original" th:text="${product.price} + '원'">30,000원</span><span
                                                         class="discount" th:text="${product.discount} + '%'">10%</span></p>
                                                 <p class="final-price" th:text="${product.discountPrice} + '원'">27,000원</p>
@@ -258,7 +270,10 @@
                                         <div class="product-card">
                                             <img th:src="@{'/uploads/' + ${product.img_file_1}}" th:alt="${product.pname}">
                                             <div class="product-info">
-                                                <p class="product-name" th:text="${product.pname}">상품명</p>
+                                                <p class="product-name"
+                                                   th:text="${#strings.length(product.pname) > 12 ? product.pname.substring(0, 12) + '...' : product.pname}">
+                                                    상품명
+                                                </p>
                                                 <p class="product-price"><span class="original" th:text="${product.price} + '원'">30,000원</span><span
                                                         class="discount" th:text="${product.discount} + '%'">10%</span></p>
                                                 <p class="final-price" th:text="${product.discountPrice} + '원'">27,000원</p>
