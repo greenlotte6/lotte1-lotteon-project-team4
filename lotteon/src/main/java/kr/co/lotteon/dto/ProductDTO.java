@@ -5,14 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProductDTO {
+public class ProductDTO implements Serializable {
 
     private int pid;
     private String img_file_1;
@@ -52,16 +54,17 @@ public class ProductDTO {
 
 
     public BigDecimal getDiscountedPrice() {
-        // 1. 원가를 BigDecimal로 변환 (int → BigDecimal)
+        // 1. 원가를 BigDecimal로 변환
         BigDecimal originalPrice = BigDecimal.valueOf(price);
 
-        // 2. 할인액 계산
-        // - 할인율을 퍼센트로 변환 (예: 10% → 0.10)
-        BigDecimal discountAmount = originalPrice.multiply(BigDecimal.valueOf(discount)) // 원가 * 할인율
-                .divide(BigDecimal.valueOf(100)); // 100으로 나눠서 퍼센트 계산
+        // 2. 할인액 계산 (원가 * 할인율 / 100)
+        BigDecimal discountAmount = originalPrice
+                .multiply(BigDecimal.valueOf(discount))
+                .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP); // 소수점 둘째 자리까지 계산 후 반올림
 
-        // 3. 최종 가격 계산 (원가 - 할인액)
-        return originalPrice.subtract(discountAmount);
+        // 3. 최종 가격 계산 (원가 - 할인액), 결과는 정수로 반올림
+        return originalPrice.subtract(discountAmount)
+                .setScale(0, RoundingMode.HALF_UP); // 소수점 없이 반올림
     }
 
 

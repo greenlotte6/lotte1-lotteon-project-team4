@@ -7,6 +7,7 @@ import kr.co.lotteon.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class ProductService {
     private final ModelMapper modelMapper;
 
     // 상품 목록 페이지 조회 및 페이징 처리
+    @Cacheable(value = "productList")
     public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO) {
         Pageable pageable = pageRequestDTO.getPageableNotSort();
 

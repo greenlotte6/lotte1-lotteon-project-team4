@@ -15,6 +15,8 @@ import java.util.Optional;
 @Repository
 public interface ProductRepositoryCustom {
 
+    List<ProductDTO> main(int pid);
+
     Page<Tuple> productList(Pageable pageable);
     Page<Tuple> productListByCategory(Long cateId, Pageable pageable);
 
