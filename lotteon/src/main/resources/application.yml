@@ -27,6 +27,12 @@ spring:
             location: uploads
             max-file-size: 10MB
 
+    data:
+        redis:
+            host: 43.200.171.152
+            port: 6379
+            timeout: 6000
+
     mail:
         host: smtp.gmail.com
         port: 587

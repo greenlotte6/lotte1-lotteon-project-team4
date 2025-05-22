@@ -7,12 +7,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nanum+Gothic&display=swap"
+            rel="stylesheet">
     <link rel="stylesheet" href="/css/common/_header.css">
     <link rel="stylesheet" href="/css/common/_footer.css">
-    <link rel="stylesheet" href="/css/index.css" />
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/css/index.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <title th:text="${siteConfig.siteTitle} + ' - ' + ${siteConfig.siteSubtitle}">기본 제목</title>
     <link rel="icon" th:href="@{'/uploads/' + ${logo.favicon}}" type="image/x-icon">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -123,520 +123,158 @@
 </head>
 
 <body>
-    <div id="wrapper">
-        <th:block th:include="/common/_header"/>
-        <main>
-            <div class="main-banner-section">
-                <div class="swiper main-banner-swiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide" th:each="banner : ${main2Banners}">
-                            <img th:src="@{${banner.imageUrl}}" th:alt="${banner.bannerName}">
-                        </div>
+<div id="wrapper">
+    <th:block th:include="/common/_header"/>
+    <main>
+        <div class="main-banner-section">
+            <div class="swiper main-banner-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" th:each="banner : ${main2Banners}">
+                        <img th:src="@{${banner.imageUrl}}" th:alt="${banner.bannerName}">
                     </div>
-
-                    <div class="swiper-button-next main-next"></div>
-                    <div class="swiper-button-prev main-prev"></div>
-                    <div class="swiper-pagination"></div>
                 </div>
+
+                <div class="swiper-button-next main-next"></div>
+                <div class="swiper-button-prev main-prev"></div>
+                <div class="swiper-pagination"></div>
             </div>
-            <article class="content">
-                <aside class="sidebar">
-                    <div class="best-items">
-                        <h3 class="best">베스트 상품</h3>
-                        <div class="best-main">
-                            <img class="best-image" src="/images/product/market_item2.jpg" alt="베스트상품1">
-                            <p class="best-title">상품명</p>
-                            <div class="price-wrap">
-                                <span class="best-price">30,000원</span>
-                                <span class="discount">10% ↓</span>
-                            </div>
-                            <p class="now">27,000원</p>
-                        </div>
-                        <div class="best-sub">
-                            <img class="best-image" src="/images/product/market_item3.jpg" alt="상품2">
-                            <div>
-                                <p class="best-title">상품명</p>
+        </div>
+        <article class="content">
+            <aside class="sidebar">
+                <div class="best-items">
+                    <h3 class="best">베스트 상품</h3>
+                    <div th:each="product, i:${productDTO}">
+                        <a th:href="@{/?pid=${product.pid}}">
+                            <div class="best-main">
+                                <img class="best-image" th:src="@{'/uploads/' + ${product.img_file_1}}" alt="베스트상품1">
+                                <p class="best-title" th:text="${product.pname}">상품명</p>
                                 <div class="price-wrap">
-                                    <span class="best-price">30,000원</span>
-                                    <span class="discount">10% ↓</span>
+                                    <span class="best-price" th:text="${product.price} + '원'">30,000원</span>
+                                    <span class="discount" th:text="${product.discount} + '%'">10% ↓</span>
                                 </div>
-                                <p class="now">27,000원</p>
+                                <p class="now" th:text="${product.discountPrice} + '원'">27,000원</p>
                             </div>
-                        </div>
-                        <div class="best-sub">
-                            <img class="best-image" src="/images/product/market_item4.jpg" alt="상품3">
-                            <div>
-                                <p class="best-title">상품명</p>
-                                <div class="price-wrap">
-                                    <span class="best-price">30,000원</span>
-                                    <span class="discount">10% ↓</span>
+                        </a>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="main-content">
+                <div class="product-slide-section">
+                    <div class="slide-header">
+                        <h3 class="product-title">히트상품</h3>
+                        <div class="swiper-button-next hit-next"></div>
+                        <div class="swiper-button-prev hit-prev"></div>
+                    </div>
+
+                    <div class="swiper hit-swiper">
+                        <div class="swiper-wrapper">
+
+                                <div class="swiper-slide" th:each="product, i:${productDTO}">
+                                    <a href="#">
+                                    <div class="product-card">
+                                        <img th:src="@{'/uploads/' + ${product.img_file_1}}" th:alt="${product.pname}">
+                                        <div class="product-info">
+                                            <p class="product-name" th:text="${product.pname}">상품명</p>
+                                            <p class="product-price"><span class="original" th:text="${product.price} + '원'">30,000원</span><span
+                                                    class="discount" th:text="${product.discount} + '%'">10%</span></p>
+                                            <p class="final-price" th:text="${product.discountPrice} + '원'">27,000원</p>
+                                            <p class="delivery" th:text="${product.delivery_free == 0} ? '무료배송' : ${product.delivery_free} + '원'">무료배송</p>
+                                        </div>
+                                    </div>
+                                    </a>
                                 </div>
-                                <p class="now">27,000원</p>
-                            </div>
-                        </div>
-                        <div class="best-sub">
-                            <img class="best-image" src="/images/product/market_item4.jpg" alt="상품3">
-                            <div>
-                                <p class="best-title">상품명</p>
-                                <div class="price-wrap">
-                                    <span class="best-price">30,000원</span>
-                                    <span class="discount">10% ↓</span>
-                                </div>
-                                <p class="now">27,000원</p>
-                            </div>
-                        </div>
-                        <div class="best-sub">
-                            <img class="best-image" src="/images/product/market_item4.jpg" alt="상품3">
-                            <div>
-                                <p class="best-title">상품명</p>
-                                <div class="price-wrap">
-                                    <span class="best-price">30,000원</span>
-                                    <span class="discount">10% ↓</span>
-                                </div>
-                                <p class="now">27,000원</p>
-                            </div>
+
                         </div>
                     </div>
-                </aside>
+                </div>
+                <div class="product-slide-section">
+                    <div class="slide-header">
+                        <h3 class="product-title">추천상품</h3>
+                        <div class="swiper-button-next rec-next"></div>
+                        <div class="swiper-button-prev rec-prev"></div>
+                    </div>
 
-                <section class="main-content">
-                    <div class="product-slide-section">
-                        <div class="slide-header">
-                            <h3 class="product-title">히트상품</h3>
-                            <div class="swiper-button-next hit-next"></div>
-                            <div class="swiper-button-prev hit-prev"></div>
-                        </div>
+                    <div class="swiper rec-swiper">
+                        <div class="swiper-wrapper">
 
-                        <div class="swiper hit-swiper">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item1.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
+                                <div class="swiper-slide" th:each="product, i:${productDTO}">
+                                    <a href="#">
+                                        <div class="product-card">
+                                            <img th:src="@{'/uploads/' + ${product.img_file_1}}" th:alt="${product.pname}">
+                                            <div class="product-info">
+                                                <p class="product-name" th:text="${product.pname}">상품명</p>
+                                                <p class="product-price"><span class="original" th:text="${product.price} + '원'">30,000원</span><span
+                                                        class="discount" th:text="${product.discount} + '%'">10%</span></p>
+                                                <p class="final-price" th:text="${product.discountPrice} + '원'">27,000원</p>
+                                                <p class="delivery" th:text="${product.delivery_free == 0} ? '무료배송' : ${product.delivery_free} + '원'">무료배송</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item2.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item3.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item4.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item5.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item1.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item2.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item3.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
-                    <div class="product-slide-section">
-                        <div class="slide-header">
-                            <h3 class="product-title">추천상품</h3>
-                            <div class="swiper-button-next rec-next"></div>
-                            <div class="swiper-button-prev rec-prev"></div>
-                        </div>
+                </div>
+                <div class="product-slide-section">
+                    <div class="slide-header">
+                        <h3 class="product-title">최신상품</h3>
+                        <div class="swiper-button-next new-next"></div>
+                        <div class="swiper-button-prev new-prev"></div>
+                    </div>
 
-                        <div class="swiper rec-swiper">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item1.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
+                    <div class="swiper new-swiper">
+                        <div class="swiper-wrapper">
+
+                                <div class="swiper-slide" th:each="product, i:${productDTO}">
+                                    <a href="#">
+                                        <div class="product-card">
+                                            <img th:src="@{'/uploads/' + ${product.img_file_1}}" th:alt="${product.pname}">
+                                            <div class="product-info">
+                                                <p class="product-name" th:text="${product.pname}">상품명</p>
+                                                <p class="product-price"><span class="original" th:text="${product.price} + '원'">30,000원</span><span
+                                                        class="discount" th:text="${product.discount} + '%'">10%</span></p>
+                                                <p class="final-price" th:text="${product.discountPrice} + '원'">27,000원</p>
+                                                <p class="delivery" th:text="${product.delivery_free == 0} ? '무료배송' : ${product.delivery_free} + '원'">무료배송</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item2.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item3.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item4.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item5.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item1.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item2.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item3.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
-                    <div class="product-slide-section">
-                        <div class="slide-header">
-                            <h3 class="product-title">최신상품</h3>
-                            <div class="swiper-button-next new-next"></div>
-                            <div class="swiper-button-prev new-prev"></div>
-                        </div>
+                </div>
+                <div class="product-slide-section">
+                    <div class="slide-header">
+                        <h3 class="product-title">할인상품</h3>
+                        <div class="swiper-button-next sale-next"></div>
+                        <div class="swiper-button-prev sale-prev"></div>
+                    </div>
 
-                        <div class="swiper new-swiper">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item1.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
+                    <div class="swiper sale-swiper">
+                        <div class="swiper-wrapper">
+                                <div class="swiper-slide" th:each="product, i:${productDTO}">
+                                    <a href="#">
+                                        <div class="product-card">
+                                            <img th:src="@{'/uploads/' + ${product.img_file_1}}" th:alt="${product.pname}">
+                                            <div class="product-info">
+                                                <p class="product-name" th:text="${product.pname}">상품명</p>
+                                                <p class="product-price"><span class="original" th:text="${product.price} + '원'">30,000원</span><span
+                                                        class="discount" th:text="${product.discount} + '%'">10%</span></p>
+                                                <p class="final-price" th:text="${product.discountPrice} + '원'">27,000원</p>
+                                                <p class="delivery" th:text="${product.delivery_free == 0} ? '무료배송' : ${product.delivery_free} + '원'">무료배송</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item2.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item3.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item4.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item5.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item1.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item2.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item3.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
-                    <div class="product-slide-section">
-                        <div class="slide-header">
-                            <h3 class="product-title">할인상품</h3>
-                            <div class="swiper-button-next sale-next"></div>
-                            <div class="swiper-button-prev sale-prev"></div>
-                        </div>
-
-                        <div class="swiper sale-swiper">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item1.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item2.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item3.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item4.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item5.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item1.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item2.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="/images/product/market_item3.jpg" alt="상품">
-                                        <div class="product-info">
-                                            <p class="product-name">상품명</p>
-                                            <p class="product-price"><span class="original">30,000원</span><span
-                                                    class="discount">10%</span></p>
-                                            <p class="final-price">27,000원</p>
-                                            <p class="delivery">무료배송</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </article>
-        </main>
-        <th:block th:include="/common/_footer"/>
-    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+    <th:block th:include="/common/_footer"/>
+</div>
 </body>
 
 </html>

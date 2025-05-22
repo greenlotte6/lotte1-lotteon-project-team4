@@ -7,6 +7,7 @@ import kr.co.lotteon.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -85,6 +86,7 @@ public class ProductService {
         productRepository.deleteAllByIdInBatch(pid);
     }
 
+    @CacheEvict(value = "productList", allEntries = true)
     @Transactional
     public void registerProduct(ProductFormDTO form) throws IOException {
         Category category = categoryRepository.findById((long) form.getCategory2_id())

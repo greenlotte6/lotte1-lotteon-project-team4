@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 public class Coupon {
 
     @Id
-
     @Column(name = "coupon_id")
     private String couponId;
 

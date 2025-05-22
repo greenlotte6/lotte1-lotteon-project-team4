@@ -7,7 +7,6 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.lotteon.dto.ProductDTO;
 import kr.co.lotteon.entity.*;
-import kr.co.lotteon.repository.ProductRepository;
 import kr.co.lotteon.repository.custom.ProductRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -30,23 +29,14 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     private QCategory qCategory = QCategory.category;
 
     @Override
-    public Page<Tuple> productList(Pageable pageable) {
+    public List<ProductDTO> main(int pid) {
 
-//        List<Tuple> tupleList = queryFactory
-//                .select(qProducts, qReview.rating.avg(), qReview.count())
-//                .from(qProducts)
-//                .join(qProducts.review, qReview)
-//                .groupBy(qProducts.pid)
-//                .offset(pageable.getOffset())
-//                .limit(pageable.getPageSize())
-//                .fetch();
-//
-//        // 총 개수 조회
-//        long total = queryFactory.select(qProducts.count()).from(qProducts).fetchOne();
-//
-//        // 페이징 처리를 위한 페이지 객체 반환
-//        return new PageImpl<Tuple>(tupleList, pageable, total);
-//    }
+
+        return List.of();
+    }
+
+    @Override
+    public Page<Tuple> productList(Pageable pageable) {
 
         // 동적으로 정렬 조건을 담을 리스트 생성
         List<OrderSpecifier<?>> orderSpecifiers = new ArrayList<>();
@@ -156,4 +146,5 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
         return new PageImpl<>(tupleList, pageable, total);
     }
+
 }
