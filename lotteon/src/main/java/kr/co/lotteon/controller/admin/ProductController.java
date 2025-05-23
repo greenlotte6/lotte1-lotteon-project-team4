@@ -31,7 +31,7 @@ public class ProductController {
     @GetMapping("/admin/product/list")
     public String list(PageRequestDTO pageRequestDTO, Model model) {
         PageResponseDTO<ProductDTO> pageResponseDTO = productService.productList(pageRequestDTO);
-        model.addAttribute(pageResponseDTO);
+        model.addAttribute("pageResponseDTO", pageResponseDTO);
 
         return "/admin/product/list";
     }
@@ -40,7 +40,7 @@ public class ProductController {
     @GetMapping("/admin/product/searchList")
     private String searchList(PageRequestDTO pageRequestDTO, Model model) {
         PageResponseDTO<ProductDTO> pageResponseDTO = productService.searchList(pageRequestDTO);
-        model.addAttribute(pageResponseDTO);
+        model.addAttribute("pageResponseDTO", pageResponseDTO);
 
         log.info("page : {}", pageResponseDTO);
 

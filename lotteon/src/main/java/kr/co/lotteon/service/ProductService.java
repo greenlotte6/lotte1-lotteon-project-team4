@@ -30,7 +30,7 @@ public class ProductService {
     private final ModelMapper modelMapper;
 
     // 상품 목록 페이지 조회 및 페이징 처리
-    @Cacheable(value = "productList")
+    //@Cacheable(value = "productList")
     public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO) {
         Pageable pageable = pageRequestDTO.getPageableNotSort();
 
