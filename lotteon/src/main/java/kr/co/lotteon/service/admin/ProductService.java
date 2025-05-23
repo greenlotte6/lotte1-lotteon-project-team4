@@ -86,7 +86,7 @@ public class ProductService {
         productRepository.deleteAllByIdInBatch(pid);
     }
 
-    @CacheEvict(value = "productList", allEntries = true)
+    //@CacheEvict(value = "productList", allEntries = true)
     @Transactional
     public void registerProduct(ProductFormDTO form) throws IOException {
         Category category = categoryRepository.findById((long) form.getCategory2_id())
